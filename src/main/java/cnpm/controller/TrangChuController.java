@@ -12,9 +12,9 @@ public class TrangChuController {
 		return "index";
 	}
 	
-	@RequestMapping(value="/product")
+	@RequestMapping(value="/san-pham")
 	public String getViewProduct() {
 		
-		return "product/list";
+		return "khachhang/sanpham";
 	}
 }
