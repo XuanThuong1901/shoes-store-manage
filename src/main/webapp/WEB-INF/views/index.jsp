@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>Đây là dự án SPring MVC</h1>
+	<h2>${message }</h2>
 </body>
 </html>
