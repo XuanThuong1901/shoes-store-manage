@@ -26,8 +26,39 @@
 	<bean id="viewResolver" 
 		p:prefix="/WEB-INF/views/" p:suffix=".jsp"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
-   	
-   	<!-- Cấu hình package chứa các controller -->
+   	<tx:annotation-driven proxy-target-class="true"
+        transaction-manager="transactionManager" />
+   	<!-- Cấu hình các package -->
 	<context:component-scan base-package="cnpm.controller"/>
+	<context:component-scan base-package="cnpm.service"/>
+	<context:component-scan base-package="cnpm.dao"/>
+	
+	<!-- Kết nối CSDL -->
+	<bean id="dataSource" 
+	    	class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+			p:driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+			p:url="jdbc:sqlserver://localhost:1433; Database=QuanLyCuaHangGiayDep"
+			p:username="sa"
+			p:password="123">
+	</bean> 
+	
+	<!-- Cấu hình Hibernate -->
+	<bean id="sessionFactory" 
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	    <property name="dataSource" ref="dataSource"/>
+	    <property name="hibernateProperties">
+	      <props>        
+	            <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>          
+	            <prop key="hibernate.show_sql">false</prop>
+	       </props>
+	    </property>
+		<property name="packagesToScan" value="cnpm.entity"/>
+	</bean> 
+	
+	<!-- Transaction Manager -->
+     <bean id="transactionManager" 
+    		class="org.springframework.orm.hibernate4.HibernateTransactionManager" 
+       		p:sessionFactory-ref="sessionFactory" />
+    <tx:annotation-driven transaction-manager="transactionManager" /> 
 
 </beans>

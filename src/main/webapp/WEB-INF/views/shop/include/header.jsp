@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+  <%@include file="/WEB-INF/views/taglib/tag.jsp" %>  
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +29,7 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="resources/user/css/style.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="resources/user/css/custom-d.css">
+    <link rel="stylesheet" href="<c:url value='resources/user/css/custom-d.css' />">
     <link href="resources/user/css/custom-t.css" rel="stylesheet">
     <link href="resources/user/css/custom-n.css" rel="stylesheet">
 
