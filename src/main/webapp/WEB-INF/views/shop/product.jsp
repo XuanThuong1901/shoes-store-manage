@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <!-- Header -->
-<%@include file="/WEB-INF/views/user/include/header.jsp"%>
+<%@include file="/WEB-INF/views/shop/include/header.jsp"%>
 <!-- Header End -->
 <main>
 	<!-- Breadcrumb Start -->
@@ -689,10 +689,10 @@
 </main>
 
 <!-- Footer -->
-<%@include file="/WEB-INF/views/user/include/footer.jsp"%>
+<%@include file="/WEB-INF/views/shop/include/footer.jsp"%>
 <!-- Footer End -->
 
 
 <!-- JS Lib -->
-<%@include file="/WEB-INF/views/user/include/jsLib.jsp"%>
+<%@include file="/WEB-INF/views/shop/include/jsLib.jsp"%>
 <!-- JS Lib End -->
