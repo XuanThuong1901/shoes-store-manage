@@ -24,7 +24,7 @@ public class TrangChuController {
 	@Autowired
 	NhanVienService nvService;
 	
-	@RequestMapping(value="/")
+	@RequestMapping(value={"/", "trangchu", "index"})
 	public String index(ModelMap model) {
 		model.addAttribute("message", "ok");
 		List<VaiTro> list = this.getVaiTro();
@@ -32,14 +32,27 @@ public class TrangChuController {
 		
 		nvService.check();
 		
-		return "index";
+		return "shop/trangchu";
 	}
 	
-	@RequestMapping(value="/san-pham")
+	@RequestMapping(value="/sanpham")
 	public String getViewProduct() {
 		
-		return "user/product";
+		return "shop/sanpham";
 	}
+	
+	@RequestMapping(value="/chitietsanpham")
+	public String getViewChitietSanpham() {
+		
+		return "shop/chitietsanpham";
+	}
+	
+	@RequestMapping(value="/lienhe")
+	public String getViewLienHe() {
+		
+		return "shop/lienhe";
+	}
+	
 	
 	
 	

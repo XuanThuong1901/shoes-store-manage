@@ -34,4 +34,18 @@ public class TaiKhoanDAO implements TaiKhoanDAOImp{
 		return true;
 	}
 
+	public TaiKhoan getByEmail(String email) {
+		Session session = factory.getCurrentSession();
+		String hql = "from TaiKhoan where email = :email";
+		Query query = session.createQuery(hql);
+		query.setParameter("email", email);
+		
+		List<TaiKhoan> list= query.list();
+		if(list.size() == 0) {
+			return null;
+		}
+		
+		return list.get(0);
+	}
+
 }
