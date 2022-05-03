@@ -50,7 +50,6 @@
 							<div class="form-floating mb-3">
 								<form:input path="email" id="email-login" placeholder="EMAIL"
 									class="form-control border-top-0 border-left-0 border-right-0 border-size-2" />
-
 								<p class="text-danger" id="error-email-login"></p>
 
 							</div>
