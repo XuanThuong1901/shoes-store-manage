@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,7 +23,7 @@ public class TaiKhoan {
 	@Column(name="MatKhau")
 	private String matKhau;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="MaVaiTro")
 	private VaiTro vaitro;
 	

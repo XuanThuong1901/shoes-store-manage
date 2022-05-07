@@ -5,10 +5,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import cnpm.entity.NhanVien;
 import cnpm.entity.TaiKhoan;
 import cnpm.service.KhachHangService;
 import cnpm.service.NhanVienService;
@@ -32,26 +34,54 @@ public class TaiKhoanController {
 	}
 
 	@RequestMapping(value = "dang-nhap", method = RequestMethod.POST)
-	public String postDangNhap(ModelMap model, HttpSession ss, @ModelAttribute("taikhoan") TaiKhoan taikhoan) {
+	public String postDangNhap(ModelMap model, HttpSession ss, @ModelAttribute("taikhoan") TaiKhoan taikhoan,BindingResult errors) {
 
+		if (taikhoan.getEmail().trim().isEmpty()) {
+			errors.rejectValue("email", "taikhoan", "Email không được để trống");
+		}
+
+		if (taikhoan.getMatKhau().trim().isEmpty()) {
+			errors.rejectValue("matKhau", "taikhoan", "Mật khẩu không được để trống");
+		}
+		if (errors.hasErrors()) {
+			return "taikhoan/dangnhap";
+		}
+		
 		if (taiKhoanService.kiemTraDangNhap(taikhoan.getEmail(), taikhoan.getMatKhau())) {
 			TaiKhoan thongtinTk = taiKhoanService.getByEmail(taikhoan.getEmail());
-
-			System.out.println("tk " + thongtinTk.getVaitro().getMaVT());
-
-			if (thongtinTk.getVaitro().getMaVT().equals("KH")) {
-
-			} else if (thongtinTk.getVaitro().getMaVT().equals("NV")) {
-
-			} else if (thongtinTk.getVaitro().getMaVT().equals("QL")) {
-
+			
+			if(!thongtinTk.getTrangThai()) {
+				model.addAttribute("message", "Tài khoản chưa được kích hoạt hoặc đã bị khóa, vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi!");
+				return "taikhoan/dangnhap";
 			}
 
-//			ss.setAttribute("user", );
+			if (thongtinTk.getVaitro().getMaVT().equals("KH")) {
+				if(thongtinTk.getKhachHang() == null) {
+					return "taikhoan/dangnhap";
+				}
+				ss.setAttribute("user", thongtinTk);
+				return "redirect:/trangchu";
+			} else if (thongtinTk.getVaitro().getMaVT().equals("NV")) {
+				
+				if(thongtinTk.getNhanVien() == null) {
+					return "taikhoan/dangnhap";
+				}
+				
+				ss.setAttribute("user", thongtinTk);
+				
+				return "redirect:/nhanvien/tongquan";
+			} else if (thongtinTk.getVaitro().getMaVT().equals("QL")) {
+				if(thongtinTk.getNhanVien() == null) {
+					return "taikhoan/dangnhap";
+				}
+				ss.setAttribute("user", thongtinTk);
+				return "redirect:/quanly/tongquan";
+			}
+
 
 			return "redirect:/quanly/tongquan";
 		}
-		model.addAttribute("message", "dang nhap that bai");
+		model.addAttribute("message", "Sai thông tin tài khoản hoặc mật khẩu");
 
 		return "taikhoan/dangnhap";
 	}

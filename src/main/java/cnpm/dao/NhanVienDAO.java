@@ -26,11 +26,11 @@ public class NhanVienDAO implements NhanVienDAOImp {
 		
 	}
 
-	public NhanVien getById(String id) {
+	public NhanVien getByMaTK(String maTK) {
 		Session session = factory.getCurrentSession();
-		String hql = "from NhanVien where maNV = :id";
+		String hql = "from NhanVien where maTK = :maTK";
 		Query query = session.createQuery(hql);
-		query.setParameter("id", id);
+		query.setParameter("maTK", maTK);
 		List<NhanVien> res = query.list();
 		
 		if(res.size() == 0) {
