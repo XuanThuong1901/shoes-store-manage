@@ -20,9 +20,9 @@ public class NhanVienService implements NhanVienDAOImp {
 	}
 
 
-	public NhanVien getById(String id) {
+	public NhanVien getByMaTK(String maTK) {
 		// TODO Auto-generated method stub
-		return nhanVienDAO.getById(id);
+		return nhanVienDAO.getByMaTK(maTK);
 	}
 
 

@@ -24,7 +24,7 @@
 
 	<!-- Shop Start -->
 	<div class="container">
-	
+
 		<div class="row px-xl-5 d-flex justify-content-center">
 			<div class="col-lg-12 form-sign-in ">
 				<ul class="nav nav-pills mb-3 justify-content-center mb-5"
@@ -39,31 +39,33 @@
 							KÝ</a></li>
 
 				</ul>
-				${message }
+
 				<div class="tab-content" id="pills-tabContent">
 					<div class="tab-pane fade show active" id="login-form"
 						role="tabpanel" aria-labelledby="pills-home-tab">
-						
-						
+
+
 						<form:form action="dang-nhap" method="post" id="form-login"
 							modelAttribute="taikhoan">
 							<div class="form-floating mb-3">
 								<form:input path="email" id="email-login" placeholder="EMAIL"
 									class="form-control border-top-0 border-left-0 border-right-0 border-size-2" />
+								
+								<form:errors path="email" cssClass="text-danger" />
 								<p class="text-danger" id="error-email-login"></p>
-
 							</div>
 							<div class="form-floating mb-3">
 								<form:password path="matKhau"
 									class="  form-control border-top-0 border-left-0 border-right-0 border-size-2"
 									id="password-login" placeholder="MẬT KHẨU" />
-
+								<form:errors path="matKhau" cssClass="text-danger" />
 								<p class="text-danger" id="error-password-login"></p>
 
 							</div>
+							<p class="text-danger">${message }</p>
 							<button id="btn-login" class="w-100 btn btn-primary h5 mt-4"
 								type="submit">ĐĂNG NHẬP</button>
-						</form:form> 
+						</form:form>
 
 						<%-- <form action="auth/dang-nhap" method="post">
 

@@ -24,6 +24,21 @@ public class TrangChuController {
 	@Autowired
 	NhanVienService nvService;
 	
+	@RequestMapping()
+	public String reView404() {
+		return "redirect:/404";
+	}
+	
+	@RequestMapping("404")
+	public String getView404() {
+		return "loi/404";
+	}
+	
+	@RequestMapping("/403")
+	public String getView403() {
+		return "loi/403";
+	}
+	
 	@RequestMapping(value={"/", "trangchu", "index"})
 	public String index(ModelMap model) {
 		model.addAttribute("message", "ok");
