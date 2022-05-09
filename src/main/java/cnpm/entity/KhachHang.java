@@ -44,7 +44,11 @@ public class KhachHang {
 	@JoinColumn(name="MaTK")
 	private TaiKhoan taiKhoan;
 	
-
+	@OneToMany(mappedBy = "khachHang", fetch = FetchType.EAGER)
+	private Collection<DonHang> donHangs;
+	
+	@OneToMany(mappedBy = "khachHang", fetch = FetchType.LAZY)
+	private Collection<GioHang> gioHangs;
 
 	public String getMaKH() {
 		return maKH;
@@ -101,8 +105,21 @@ public class KhachHang {
 	public void setTaiKhoan(TaiKhoan taiKhoan) {
 		this.taiKhoan = taiKhoan;
 	}
-	
-	
-	
+
+	public Collection<DonHang> getDonHangs() {
+		return donHangs;
+	}
+
+	public void setDonHangs(Collection<DonHang> donHangs) {
+		this.donHangs = donHangs;
+	}
+
+	public Collection<GioHang> getGioHangs() {
+		return gioHangs;
+	}
+
+	public void setGioHangs(Collection<GioHang> gioHangs) {
+		this.gioHangs = gioHangs;
+	}
 	
 }

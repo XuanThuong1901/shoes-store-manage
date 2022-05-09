@@ -1,11 +1,14 @@
 package cnpm.entity;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -44,6 +47,12 @@ public class NhanVien {
 	@OneToOne
 	@JoinColumn(name="MaTK")
 	private TaiKhoan taiKhoan;
+	
+	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.EAGER)
+	private Collection<DonHang> donHangs;
+	
+	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY)
+	private Collection<PhieuNhap> phieuNhaps;
 
 	public String getMaNV() {
 		return maNV;
@@ -107,6 +116,22 @@ public class NhanVien {
 
 	public void setTaiKhoan(TaiKhoan taiKhoan) {
 		this.taiKhoan = taiKhoan;
+	}
+
+	public Collection<DonHang> getDonHangs() {
+		return donHangs;
+	}
+
+	public void setDonHangs(Collection<DonHang> donHangs) {
+		this.donHangs = donHangs;
+	}
+
+	public Collection<PhieuNhap> getPhieuNhaps() {
+		return phieuNhaps;
+	}
+
+	public void setPhieuNhaps(Collection<PhieuNhap> phieuNhaps) {
+		this.phieuNhaps = phieuNhaps;
 	}
 	
 	

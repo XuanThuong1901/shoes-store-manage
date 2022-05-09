@@ -24,7 +24,7 @@ public class TrangChuController {
 	@Autowired
 	NhanVienService nvService;
 	
-	@RequestMapping()
+	@RequestMapping("")
 	public String reView404() {
 		return "redirect:/404";
 	}

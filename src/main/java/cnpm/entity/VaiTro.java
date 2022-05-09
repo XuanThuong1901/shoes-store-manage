@@ -1,8 +1,11 @@
 package cnpm.entity;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +18,18 @@ public class VaiTro {
 	
 	@Column(name="TenVT")
 	private String TenVT;
+	
+	@OneToMany(mappedBy = "vaitro")
+	private Collection<TaiKhoan> taikhoans;
+	
+
+	public Collection<TaiKhoan> getTaikhoans() {
+		return taikhoans;
+	}
+
+	public void setTaikhoans(Collection<TaiKhoan> taikhoans) {
+		this.taikhoans = taikhoans;
+	}
 
 	public String getMaVT() {
 		return MaVT;
