@@ -34,6 +34,34 @@ public class ChiTietDonHangPK implements Serializable {
 	public void setMaKH(String maKH) {
 		this.maKH = maKH;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + maCTSP;
+		result = prime * result + ((maKH == null) ? 0 : maKH.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChiTietDonHangPK other = (ChiTietDonHangPK) obj;
+		if (maCTSP != other.maCTSP)
+			return false;
+		if (maKH == null) {
+			if (other.maKH != null)
+				return false;
+		} else if (!maKH.equals(other.maKH))
+			return false;
+		return true;
+	}
 	
 	
 }

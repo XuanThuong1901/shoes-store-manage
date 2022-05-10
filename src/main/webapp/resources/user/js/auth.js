@@ -32,7 +32,8 @@ function checkInputLogin(){
 
 $(document).ready(function () {
 	
-	alert('okko')
+	//alert('okko')
+	console.log('auth')
 	checkInputLogin();
 	
 	$("#btn-login").click(function (e) {

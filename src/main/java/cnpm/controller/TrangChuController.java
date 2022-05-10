@@ -22,7 +22,7 @@ public class TrangChuController {
 	SessionFactory factory;
 	
 	@Autowired
-	NhanVienService nvService;
+	NhanVienService nhanVienService;
 	
 	@RequestMapping("")
 	public String reView404() {
@@ -45,8 +45,6 @@ public class TrangChuController {
 		List<VaiTro> list = this.getVaiTro();
 		model.addAttribute("list", list);
 		
-		nvService.check();
-		
 		return "shop/trangchu";
 	}
 	
@@ -68,8 +66,7 @@ public class TrangChuController {
 		return "shop/lienhe";
 	}
 	
-	
-	
+
 	
 	public List<VaiTro> getVaiTro(){
 		Session session = factory.getCurrentSession();
