@@ -2,6 +2,7 @@ package cnpm.controller;
 
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,7 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import cnpm.entity.KhachHang;
 import cnpm.entity.NhanVien;
 import cnpm.entity.TaiKhoan;
 import cnpm.service.KhachHangService;
@@ -21,19 +24,25 @@ public class TaiKhoanController {
 	@Autowired
 	TaiKhoanService taiKhoanService;
 
-//	@Autowired
-//	KhachHangService khachHangService;
+	@Autowired
+	KhachHangService khachHangService;
 
 	@Autowired
 	NhanVienService nhanVienService;
-
-	@RequestMapping(value = { "dang-nhap", "dangnhap" }, method = RequestMethod.GET)
+	
+	@RequestMapping(value = {"dangnhap" }, method = RequestMethod.GET)
 	public String getDangNhap(ModelMap model) {
 		model.addAttribute("taikhoan", new TaiKhoan());
 		return "taikhoan/dangnhap";
 	}
+	
+	@RequestMapping(value = {"dangky" }, method = RequestMethod.GET)
+	public String getDangKy(ModelMap model) {
+		model.addAttribute("tkdangky", new KhachHang());
+		return "taikhoan/dangky";
+	}
 
-	@RequestMapping(value = "dang-nhap", method = RequestMethod.POST)
+	@RequestMapping(value = "dangnhap", method = RequestMethod.POST)
 	public String postDangNhap(ModelMap model, HttpSession ss, @ModelAttribute("taikhoan") TaiKhoan taikhoan,BindingResult errors) {
 
 		if (taikhoan.getEmail().trim().isEmpty()) {
@@ -46,6 +55,7 @@ public class TaiKhoanController {
 		if (errors.hasErrors()) {
 			return "taikhoan/dangnhap";
 		}
+		
 		
 		if (taiKhoanService.kiemTraDangNhap(taikhoan.getEmail(), taikhoan.getMatKhau())) {
 			TaiKhoan thongtinTk = taiKhoanService.getByEmail(taikhoan.getEmail());
@@ -84,6 +94,27 @@ public class TaiKhoanController {
 		model.addAttribute("message", "Sai thông tin tài khoản hoặc mật khẩu");
 
 		return "taikhoan/dangnhap";
+	}
+	
+	@RequestMapping(value="dangky", method=RequestMethod.POST)
+	public String postDangKy(ModelMap model, @ModelAttribute("tkdangky") KhachHang khachhang,
+			@RequestParam("email-register") String email, 
+			@RequestParam("password-register") String matKhau, 
+			@RequestParam("confirm-password-register") String xnMatKhau ){
+		
+		System.out.println("khahchang " + khachhang.getHo());
+		
+		System.out.println("email " + email);
+		
+		// tao ma kh, tao ma tk
+		
+		// tao tk hash pw, setrangthai true, setvaitro, -> tai khoan
+		
+		// luu tai khoan
+		
+		// set matk -> matk da tao, luu khachhang, 
+		
+		return "taikhoan/dangky";
 	}
 
 }

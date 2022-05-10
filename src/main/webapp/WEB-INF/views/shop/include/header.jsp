@@ -73,7 +73,7 @@
 					</div> -->
 					<a class="btn btn-primary" href="dangnhap" role="button">Đăng
 						nhập</a>
-					<!-- <a class="btn  bg-danger ml-2 text-white" href="dangky" role="button">Đăng ký</a> -->
+					<a class="btn  bg-danger ml-2 text-white" href="dangky" role="button">Đăng ký</a>
 				</div>
 				<div class="d-inline-flex align-items-center d-block d-lg-none">
 					<a href="" class="btn px-0 ml-2"> <i class="fa fa-search"></i>

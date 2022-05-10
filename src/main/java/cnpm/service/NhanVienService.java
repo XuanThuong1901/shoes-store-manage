@@ -8,16 +8,11 @@ import cnpm.daoimp.NhanVienDAOImp;
 import cnpm.entity.NhanVien;
 
 @Service
-public class NhanVienService implements NhanVienDAOImp {
+public class NhanVienService{
 	
 	@Autowired
 	NhanVienDAO nhanVienDAO;
 	
-
-	public void check() {
-		
-		nhanVienDAO.check();
-	}
 
 
 	public NhanVien getByMaTK(String maTK) {

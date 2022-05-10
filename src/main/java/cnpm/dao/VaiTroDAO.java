@@ -7,33 +7,30 @@ import javax.transaction.Transactional;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import cnpm.daoimp.NhanVienDAOImp;
-import cnpm.entity.NhanVien;
+import cnpm.daoimp.VaiTroDAOImp;
+import cnpm.entity.VaiTro;
 
 @Transactional
 @Repository
-public class NhanVienDAO implements NhanVienDAOImp {
-	
+public class VaiTroDAO implements VaiTroDAOImp{
 	@Autowired
 	SessionFactory factory;
-
-
-	public NhanVien getByMaTK(String maTK) {
+	
+	public VaiTro getByMaVT(String maVT) {
 		Session session = factory.getCurrentSession();
-		String hql = "from NhanVien where maTK = :maTK";
+		String hql = "from VaiTro where MaVT = :maVT";
 		Query query = session.createQuery(hql);
-		query.setParameter("maTK", maTK);
-		List<NhanVien> res = query.list();
+		query.setParameter("maVT", maVT);
 		
-		if(res.size() == 0) {
+		List<VaiTro> list = query.list();
+		if(list.size() == 0) {
 			return null;
 		}
 		
-		NhanVien nv = res.get(0);
-		return nv;
+		return list.get(0);
 	}
+
 }

@@ -330,3 +330,8 @@ h6 {
 .form-sign-in {
   max-width: 450px;
 }
+
+.form-auth-title {
+	background-color:  #ffd333;
+	color: #fff;
+}

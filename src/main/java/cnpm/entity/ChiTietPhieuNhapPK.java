@@ -35,6 +35,31 @@ public class ChiTietPhieuNhapPK implements Serializable {
 	public void setMaCTSP(int maCTSP) {
 		this.maCTSP = maCTSP;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + maCTSP;
+		result = prime * result + maPhieuNhap;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChiTietPhieuNhapPK other = (ChiTietPhieuNhapPK) obj;
+		if (maCTSP != other.maCTSP)
+			return false;
+		if (maPhieuNhap != other.maPhieuNhap)
+			return false;
+		return true;
+	}
 	
 	
 }
