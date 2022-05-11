@@ -1,13 +1,24 @@
  function activeSidebarItem(){
-	 $(".nav-item").on("click", function(){
-		 
-		 $(".nav-item").find(".nav-link.active").removeClass("active");
-		 $(this).find(".nav-link").addClass("active");
+	 $(".nav-item").each(function() {
+		 if($(location).attr("pathname").includes($(this).attr("id"))){
+			 $(this).find(".nav-link").addClass("active");
+		 }
 	 })
  }
 
+function isShowModal(){
+	
+	let modalShow = $(".modal.fade[isShow=true]");
+	
+	
+	if(modalShow){
+		modalShow.modal('show')
+	}
+	
+}
 
 $(document).ready(function(){
 	activeSidebarItem();
-	console.log($(location).attr("pathname"))
+	
+	isShowModal()
  });

@@ -30,6 +30,14 @@ public class TaiKhoanController {
 	@Autowired
 	NhanVienService nhanVienService;
 	
+	@RequestMapping(value="dangxuat")
+	public String dangXuat(HttpSession ss) {
+		if(ss.getAttribute("user") != null) {
+			ss.removeAttribute("user");
+		}
+		return "redirect:/";
+	}
+	
 	@RequestMapping(value = {"dangnhap" }, method = RequestMethod.GET)
 	public String getDangNhap(ModelMap model) {
 		model.addAttribute("taikhoan", new TaiKhoan());

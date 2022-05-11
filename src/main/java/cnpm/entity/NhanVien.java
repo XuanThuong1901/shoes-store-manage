@@ -44,6 +44,12 @@ public class NhanVien {
 	@Column(name="SDT")
 	private String sdt;
 	
+	@Column(name="Phai")
+	private Boolean phai;
+	
+	@Column(name="Anh")
+	private String anh;
+	
 	@OneToOne
 	@JoinColumn(name="MaTK")
 	private TaiKhoan taiKhoan;
@@ -60,6 +66,24 @@ public class NhanVien {
 
 	public void setMaNV(String maNV) {
 		this.maNV = maNV;
+	}
+	
+	
+
+	public String getAnh() {
+		return anh;
+	}
+
+	public void setAnh(String anh) {
+		this.anh = anh;
+	}
+
+	public Boolean getPhai() {
+		return phai;
+	}
+
+	public void setPhai(Boolean phai) {
+		this.phai = phai;
 	}
 
 	public String getHo() {

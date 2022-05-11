@@ -14,7 +14,10 @@ public class NhanVienService{
 	
 	@Autowired
 	NhanVienDAO nhanVienDAO;
-
+	
+	public NhanVien getByMaNV(String maNV) {
+		return nhanVienDAO.getByMaNV(maNV);
+	}
 
 	public NhanVien getByMaTK(String maTK) {
 		// TODO Auto-generated method stub

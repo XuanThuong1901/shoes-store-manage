@@ -21,6 +21,20 @@ public class NhanVienDAO implements NhanVienDAOImp {
 	@Autowired
 	SessionFactory factory;
 
+	public NhanVien getByMaNV(String maNV) {
+		Session session = factory.getCurrentSession();
+		String hql = "from NhanVien where maNV = :maNV";
+		Query query = session.createQuery(hql);
+		query.setParameter("maNV", maNV);
+		List<NhanVien> res = query.list();
+		
+		if(res.size() == 0) {
+			return null;
+		}
+		
+		NhanVien nv = res.get(0);
+		return nv;
+	}
 
 	public NhanVien getByMaTK(String maTK) {
 		Session session = factory.getCurrentSession();

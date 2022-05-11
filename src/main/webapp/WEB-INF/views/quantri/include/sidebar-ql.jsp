@@ -14,10 +14,10 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <ul id="sidebar" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-            <li class="nav-item">
-              <a href="quanly/tongquan" class="nav-link active">
+            <li class="nav-item" id="tongquan">
+              <a href="quanly/tongquan" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
 
@@ -26,7 +26,7 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="khachhang">
               <a  class="nav-link ">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
@@ -34,7 +34,7 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nhanvien">
               <a href="quanly/nhanvien" class="nav-link ">
                 <i class="nav-icon fas fa-user-tie"></i>
                 <p>
@@ -42,7 +42,7 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="danhmuc">
               <a href="#" class="nav-link ">
                 <i class="nav-icon fas fa-grip-vertical"></i>
                 <p>
@@ -51,7 +51,7 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="sanpham">
               <a href="#" class="nav-link ">
                 <i class="nav-icon fas fa-box-open"></i>
                 <p>
@@ -60,7 +60,7 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="donhang">
               <a href="#" class="nav-link ">
                 <i class="nav-icon fas fa-file-invoice"></i>
                 <p>
@@ -69,7 +69,7 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nhaphang">
               <a href="#" class="nav-link ">
                 <i class="nav-icon fas fa-clipboard-list"></i>
                 <p>
@@ -78,7 +78,7 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nhacungcap">
               <a href="#" class="nav-link ">
                 <i class="nav-icon fas fa-truck"></i>
                 <p>
@@ -87,7 +87,7 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="thongke">
               <a href="#" class="nav-link ">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
 
