@@ -2,6 +2,7 @@ package cnpm.service;
 
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +20,21 @@ public class TaiKhoanService {
 	
 	public boolean kiemTraDangNhap(String email, String matkhau) {
 		// TODO Auto-generated method stub
-		return taiKhoanDAO.kiemTraDangNhap(email, matkhau);
+		String pwHash = hashPass(matkhau);
+		return taiKhoanDAO.kiemTraDangNhap(email, pwHash);
 	}
 
 	public TaiKhoan getByEmail(String email) {
 		// TODO Auto-generated method stub
 		return taiKhoanDAO.getByEmail(email);
+	}
+	
+	public Boolean emailDaCo(String email) {
+		if(this.getByEmail(email) != null) {
+			return true;
+		}
+		return false;
+			
 	}
 
 	public String taoMaTKMoi() {
@@ -48,11 +58,25 @@ public class TaiKhoanService {
 		return taiKhoanDAO.getByMaTK(maTK);
 	}
 	
+	public TaiKhoan setTK(String email, String matKhau) {
+		TaiKhoan taiKhoan = new TaiKhoan();
+		taiKhoan.setEmail(email);
+		taiKhoan.setMatKhau(hashPass(matKhau));
+		taiKhoan.setMaTK(taoMaTKMoi());
+		
+		return taiKhoan;
+	}
+	
 	public Boolean maTKDaCo(String maTK) {
 		if(this.getByMaTK(maTK) != null) {
 			return true;
 		}
 		return false;
+	}
+	
+	public String hashPass(String matKhau) {
+		String hashpw = DigestUtils.md5Hex(matKhau).toUpperCase();
+		return hashpw;
 	}
 
 	public Boolean themKH(TaiKhoan taikhoan) {
@@ -68,5 +92,7 @@ public class TaiKhoanService {
 		
 		return taiKhoanDAO.them(taikhoan);
 	}
+
+
 	
 }

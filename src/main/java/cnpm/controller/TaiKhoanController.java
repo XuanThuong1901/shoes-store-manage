@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -97,22 +98,70 @@ public class TaiKhoanController {
 	}
 	
 	@RequestMapping(value="dangky", method=RequestMethod.POST)
-	public String postDangKy(ModelMap model, @ModelAttribute("tkdangky") KhachHang khachhang,
+	public String postDangKy(ModelMap model, @ModelAttribute("tkdangky") KhachHang khachHang, BindingResult errors,
 			@RequestParam("email-register") String email, 
 			@RequestParam("password-register") String matKhau, 
-			@RequestParam("confirm-password-register") String xnMatKhau ){
+			@RequestParam("confirm-password-register") String xnMatKhau) {
+
 		
-		System.out.println("khahchang " + khachhang.getHo());
+		if(khachHang.getHo().trim().isEmpty()) {
+			errors.rejectValue("ho", "tkdangky", "Họ không được để trống");
+		}
 		
-		System.out.println("email " + email);
+		if(khachHang.getTen().trim().isEmpty()) {
+			errors.rejectValue("ten", "tkdangky", "Tên không được để trống");
+		}
 		
-		// tao ma kh, tao ma tk
+		if(email == "") {
+			model.addAttribute("email", "Email không thể để trống");
+			return "taikhoan/dangky";
+		}
 		
-		// tao tk hash pw, setrangthai true, setvaitro, -> tai khoan
+		if(matKhau == "") {
+			model.addAttribute("password", "Mật khẩu không thể để trống");
+			return "taikhoan/dangky";
+		}
 		
-		// luu tai khoan
+		if(xnMatKhau == "") {
+			model.addAttribute("confirmPassword", "Mật khẩu xác nhận không thể để trống");
+			return "taikhoan/dangky";
+		}
 		
-		// set matk -> matk da tao, luu khachhang, 
+		if(matKhau!="" && xnMatKhau!="" && !xnMatKhau.equals(matKhau)) {
+			model.addAttribute("confirmPassword", "Mật khẩu và mật khẩu xác nhận không trùng nhau");
+			return "taikhoan/dangky";
+		}
+		
+
+		if(khachHang.getSdt().trim().isEmpty()) {
+			errors.rejectValue("sdt", "tkdangky", "Số điện thoại không được để trống");
+		}
+		
+		if(khachHang.getDiaChi().trim().isEmpty()) {
+			errors.rejectValue("diaChi", "tkdangky", "Địa chỉ không được để trống");
+		}
+		if (errors.hasErrors()) {
+			return "taikhoan/dangky";
+		}
+		
+//		System.out.println("khahchang " + khachhang.getHo());
+//		
+//		System.out.println("email " + email);
+		
+		if(taiKhoanService.emailDaCo(email) ) {
+			model.addAttribute("email", "Email đã được sử dụng");
+		}
+		else
+		{
+			TaiKhoan taiKhoan = taiKhoanService.setTK(email, matKhau);			
+			taiKhoanService.themKH(taiKhoan);
+			
+			khachHang.setMaKH(khachHangService.taoMaTKMoi());
+			khachHang.setTaiKhoan(taiKhoan);
+			khachHangService.themKH(khachHang);
+			
+			model.addAttribute("message", "Tạo tài khoản thành công");
+		}
 		
 		return "taikhoan/dangky";
 	}
