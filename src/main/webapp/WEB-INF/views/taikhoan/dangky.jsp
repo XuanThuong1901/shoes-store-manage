@@ -61,19 +61,19 @@
 								<input type="email" name="email-register"
 									class=" mb-3 form-control border-top-0 border-left-0 border-right-0 border-size-2"
 									id="email-register" placeholder="EMAIL"/>
-								
+									<p class="text-danger">${email }</p>
 							</div>
 							<div class="form-floating">
 								<input type="password" name="password-register"
 									class=" mb-3 form-control border-top-0 border-left-0 border-right-0 border-size-2"
 									id="password-register" placeholder="MẬT KHẨU"/>
-								
+									<p class="text-danger">${password }</p>
 							</div>
 							<div class="form-floating">
 								<input type="password" name="confirm-password-register"
 									class=" mb-3 form-control border-top-0 border-left-0 border-right-0 border-size-2"
 									id="confirmPassword-register" placeholder="NHẬP LẠI MẬT KHẨU">
-								
+									<p class="text-danger">${confirmPassword }</p>
 							</div>
 							<div class="form-floating">
 								<form:input path="sdt"
@@ -87,6 +87,8 @@
 									id="address-register" placeholder="ĐỊA CHỈ"/>
 								<form:errors path="diaChi" cssClass="text-danger" />
 							</div>
+							
+							<p class="text-danger">${message }</p>
 							<button class="btn btn-primary h5 mt-4 w-100" type="submit">ĐĂNG
 								KÝ</button>
 						</form:form> 
