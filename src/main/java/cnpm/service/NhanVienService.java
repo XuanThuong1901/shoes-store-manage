@@ -1,5 +1,7 @@
 package cnpm.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,6 @@ public class NhanVienService{
 	
 	@Autowired
 	NhanVienDAO nhanVienDAO;
-	
 
 
 	public NhanVien getByMaTK(String maTK) {
@@ -20,5 +21,8 @@ public class NhanVienService{
 		return nhanVienDAO.getByMaTK(maTK);
 	}
 
+	public List<NhanVien> getDSNhanVien(){
+		return nhanVienDAO.getDSNhanVien();
+	}
 
 }
