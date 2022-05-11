@@ -36,4 +36,12 @@ public class NhanVienDAO implements NhanVienDAOImp {
 		NhanVien nv = res.get(0);
 		return nv;
 	}
+	
+	public List<NhanVien> getDSNhanVien(){
+		Session session = factory.getCurrentSession();
+		String hql ="from NhanVien";
+		Query query = session.createQuery(hql);
+		List<NhanVien> list = query.list();
+		return list;
+	}
 }

@@ -10,6 +10,6 @@ public class NhanVienController {
 	
 	@RequestMapping("tongquan")
 	public String getViewTongQuan(ModelMap model) {
-		return "nhanvien/tongquan";
+		return "quantri/nhanvien/tongquan";
 	}
 }
