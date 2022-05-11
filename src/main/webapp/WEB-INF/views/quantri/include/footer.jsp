@@ -1,106 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <div class="modal fade" id="modal-info-detail">
-      <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Thong tin nhân viên</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <!-- /.col -->
-              <div class="col-md-12">
-                <form class="form-horizontal">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <!-- Profile Image -->
-                      <div class="card card-primary card-outline">
-                        <div class="card-body box-profile">
-                          <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="resources/employee/dist/img/user4-128x128.jpg"
-                              alt="User profile picture" style="width: 120px;">
-                          </div>
-
-                          <h3 class="profile-username text-center text-primary">Nina Mcintire</h3>
-
-                          <p class="text-muted text-center">Nhân viênnnn</p>
-
-                        </div>
-                        <!-- /.card-body -->
-                      </div>
-                      <!-- /.card -->
-                    </div>
-
-                    <div class="col-md-8">
-                      <div class="card">
-                        <div class="card-body text-primary">
-
-                          <div class="form-group row">
-                            <label for="inputName" class="col-sm-2 col-form-label">Mã NV</label>
-                            <div class="col-sm-10">
-                              <input type="email" class="form-control" id="inputName" placeholder="NV1">
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Tên NV</label>
-                            <div class="col-sm-10">
-                              <input type="email" class="form-control" id="inputEmail" placeholder="Võ Thị Thanh Ngân">
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputName2" class="col-sm-2 col-form-label">Giới tính</label>
-                            <div class="col-sm-10">
-                              <input type="text" class="form-control" id="inputName2" placeholder="Nữ">
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputExperience" class="col-sm-2 col-form-label ">Ngày sinh</label>
-                            <div class="col-sm-10">
-                              <input class="form-control" id="inputExperience" placeholder="13/11/2001"></input>
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputSkills" class="col-sm-2 col-form-label text-primary">CCCD</label>
-                            <div class="col-sm-10">
-                              <input type="text" class="form-control" id="inputSkills" placeholder="01234567890">
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputSkills" class="col-sm-2 col-form-label ">SĐT</label>
-                            <div class="col-sm-10">
-                              <input type="text" class="form-control" id="inputSkills" placeholder="0123456789">
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputSkills" class="col-sm-2 col-form-label">Dia chi</label>
-                            <div class="col-sm-10">
-                              <input type="text" class="form-control" id="inputSkills"
-                                placeholder="97 Man Thien, Q9 TP. HCM">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </form>
-              </div>
-              <!-- /.col -->
-            </div>
-          </div>
-          <!-- <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            <button type="button" class="btn bg-dark">Lưu</button>
-          </div> -->
-        </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
+ 
 
     <div class="modal fade" id="modal-add-new">
       <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -453,13 +353,13 @@
         "ordering": true,
         "autoWidth": false,
         "language": {
-          "lengthMenu": "Hien _MENU_ dong moi trang",
+          "lengthMenu": "Hiện _MENU_ dòng mỗi trang",
           "zeroRecords": "Nothing found - sorry",
           "info": "Trang _PAGE_ / _PAGES_",
           "infoEmpty": "No records available",
           "infoFiltered": "(filtered from _MAX_ total records)",
           "loadingRecords": "Loading...",
-          "search": "tim kiem:",
+          "search": "Tìm kiếm:",
           paginate: {
             previous: '‹',
             next: '›'
