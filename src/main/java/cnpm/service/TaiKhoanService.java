@@ -36,6 +36,20 @@ public class TaiKhoanService {
 		return false;
 			
 	}
+	
+	public Boolean emailSua(String emailCu, String emailMoi) {
+//		return taiKhoanDAO.checkEmailExcept(email);
+		return true;
+	}
+	
+	public Boolean resetMK(TaiKhoan taikhoan) {
+		taikhoan.setMatKhau(hashPass("123456"));
+		return taiKhoanDAO.sua(taikhoan);
+	}
+	
+	public Boolean xoaTK(TaiKhoan taikhoan) {
+		return taiKhoanDAO.xoa(taikhoan);
+	}
 
 	public String taoMaTKMoi() {
 		int index = this.getDSTaiKhoan().size() + 1;

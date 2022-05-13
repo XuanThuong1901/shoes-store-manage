@@ -45,6 +45,11 @@ public class QuanLyController {
 		ThongTinCaNhan nhanVienMoi = new ThongTinCaNhan();
 		return nhanVienMoi;
 	}
+	
+	@ModelAttribute("thongTinNV")
+	public NhanVien thongtinNv() {
+		return new NhanVien();
+	}
 
 	@RequestMapping(value = "tongquan", method = RequestMethod.GET)
 	public String getViewTongQuan() {
@@ -59,7 +64,7 @@ public class QuanLyController {
 		return "quantri/quanly/nhanvien";
 	}
 
-	@RequestMapping(value = "nhanvien", params = "themMoiNV", method = RequestMethod.POST)
+	@RequestMapping(value = "nhanvien", params = "themNV", method = RequestMethod.POST)
 	public String themMoiNhanVien(ModelMap model, @ModelAttribute("nhanVienMoi") ThongTinCaNhan thongtin,
 			@RequestParam("anh") MultipartFile anh, BindingResult errors) {
 		if (thongtin.getHo().trim().isEmpty()) {
@@ -122,10 +127,6 @@ public class QuanLyController {
 			hinh = utilService.luuFile(anh);
 		}
 
-		System.out.println("hinh " + hinh);
-		model.addAttribute("isShowModalAddNew", true);
-		model.addAttribute("hinh", hinh);
-
 		TaiKhoan taiKhoan = taiKhoanService.setTK(thongtin.getEmail(), thongtin.getMatKhau());
 		taiKhoanService.themNV(taiKhoan);
 
@@ -144,12 +145,13 @@ public class QuanLyController {
 		if (nhanVienService.themNV(nhanvien)) {
 			model.addAttribute("nhanVienMoi", new ThongTinCaNhan());
 			model.addAttribute("isSuccess", true);
-			model.addAttribute("alertMessage", "Tạo tài khoản thành công");
+			model.addAttribute("alertMessage", "Thêm tài khoản thành công");
 			model.addAttribute("hinh", "");
 			model.addAttribute("danhSachNhanVien", nhanVienService.getDSNhanVien());
 		} else {
+			taiKhoanService.xoaTK(nhanvien.getTaiKhoan());
 			model.addAttribute("isSuccess", false);
-			model.addAttribute("alertMessage", "Tạo tài khoản thất bại");
+			model.addAttribute("alertMessage", "Thêm tài khoản thất bại");
 		}
 
 		return "quantri/quanly/nhanvien";
@@ -167,85 +169,169 @@ public class QuanLyController {
 
 		return "quantri/quanly/nhanvien";
 	}
-
-	@RequestMapping(value = "nhanvien/{maNV}", params = "tatHD", method = RequestMethod.GET)
-	public String getTatHDNhanVien(ModelMap model, @PathVariable("maNV") String maNV) {
-
+	
+	@RequestMapping(value="nhanvien/{maNV}", params="suaThongtin", method=RequestMethod.GET)
+	public String getSuaNhanVien(ModelMap model, @PathVariable("maNV") String maNV) {
+		
 		NhanVien nhanvien = nhanVienService.getByMaNV(maNV);
+		
 		if (nhanvien != null) {
-			model.addAttribute("maNV", maNV);
-			model.addAttribute("isOpenModalDisabled", true);
+			model.addAttribute("thongTinNV", nhanvien);
+			model.addAttribute("isOpenModalEdit", true);
 
 		}
 
 		return "quantri/quanly/nhanvien";
 	}
+	
+	@RequestMapping(value="nhanvien/{maNV}", params="suaNV", method=RequestMethod.POST)
+	public String postSuaNhanVien(ModelMap model, @ModelAttribute("thongTinNV") NhanVien nhanvien, 
+			@RequestParam("anhMoi")  MultipartFile anh,
+					@PathVariable("maNV") String maNV,
+			BindingResult errors) {
+		
+		
+		
+		if (nhanvien.getHo().trim().isEmpty()) {
+			errors.rejectValue("ho", "thongTinNV", "Họ không được để trống");
+		}
 
-	@RequestMapping(value = "nhanvien", params = "tatHD", method = RequestMethod.POST)
-	public String postTatHDNhanVien(ModelMap model, @RequestParam("maNVTatHD") String maNV) {
-		if (maNV.isEmpty()) {
-			model.addAttribute("isSuccess", false);
-			model.addAttribute("alertMessage", "Tắt hoạt động của nhân viên " + maNV + " thất bại");
+		if (nhanvien.getTen().trim().isEmpty()) {
+			errors.rejectValue("ten", "thongTinNV", "Tên không được để trống");
+		}
+
+		if (nhanvien.getTaiKhoan().getEmail().trim().isEmpty() || !nhanvien.getTaiKhoan().getEmail().trim().matches(
+				"^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")) {
+			errors.rejectValue("taiKhoan.email", "thongTinNV", "Email không hợp lệ hoặc bị trống");
+		}
+
+		
+		if (nhanvien.getPhai() != true && nhanvien.getPhai() != false) {
+			errors.rejectValue("phai", "thongTinNV", "???");
+		}
+
+		if (nhanvien.getNgaySinh() == null) {
+			errors.rejectValue("ngaySinh", "thongTinNV", "Ngày sinh không được để trống");
+		}
+
+		if (nhanvien.getCccd().trim().isEmpty()) {
+			errors.rejectValue("cccd", "thongTinNV", "Cccd không được để trống");
+		} else if (!nhanvien.getCccd().trim().matches("^[0-9]*$")) {
+			errors.rejectValue("cccd", "thongTinNV", "Cccd không hợp lệ");
+		}
+
+		if (nhanvien.getSdt().trim().isEmpty()) {
+			errors.rejectValue("sdt", "thongTinNV", "Số điện thoại không được để trống");
+		} else if (!nhanvien.getSdt().trim().matches("^[0-9]*$")) {
+			errors.rejectValue("sdt", "thongTinNV", "Số điện thoại không hợp lệ");
+		}
+
+		if (errors.hasErrors()) {
+			model.addAttribute("isOpenModalEdit", true);
 			return "quantri/quanly/nhanvien";
 		}
-		NhanVien nhanvien = nhanVienService.getByMaNV(maNV);
-		if (nhanvien != null) {
-			if (nhanvien.getTaiKhoan().getTrangThai()) {
-				if (taiKhoanService.setTrangThaiTK(nhanvien.getTaiKhoan(), false)) {
-					model.addAttribute("isSuccess", true);
-					model.addAttribute("alertMessage", "Tắt hoạt động của nhân viên " + maNV + " thành công");
-					List<NhanVien> list = nhanVienService.getDSNhanVien();
-					model.addAttribute("danhSachNhanVien", list);
-				}
+		
 
-			} else {
-				model.addAttribute("isSuccess", false);
-				model.addAttribute("alertMessage", "Tắt hoạt động của nhân viên " + maNV + " thất bại");
+		
+		NhanVien nhanviencu = nhanVienService.getByMaNV(maNV);
+		if(nhanviencu != null) {
+			if(!nhanviencu.getHo().equals(nhanvien.getHo()))
+				nhanviencu.setHo(nhanvien.getHo());
+			if(!nhanviencu.getTen().equals(nhanvien.getTen())) {
+				nhanviencu.setTen(nhanvien.getTen());
 			}
+			if(!nhanviencu.getNgaySinh().equals(nhanvien.getNgaySinh())) {
+				nhanviencu.setNgaySinh(nhanvien.getNgaySinh());
+			}
+			if(!nhanviencu.getCccd().equals(nhanvien.getCccd())) {
+				nhanviencu.setCccd(nhanvien.getCccd());
+			}
+			if(!nhanviencu.getDiaChi().equals(nhanvien.getDiaChi())) {
+				nhanviencu.setDiaChi(nhanvien.getDiaChi());
+			}
+			
+			if(!nhanviencu.getSdt().equals(nhanvien.getSdt())) {
+				if(nhanVienService.getBySdt(nhanvien.getSdt()) != null) {
+					errors.rejectValue("sdt", "thongTinNV", "Số điện thoại đã được sử dụng");
+					model.addAttribute("isOpenModalEdit", true);
+					return "quantri/quanly/nhanvien";
+				}else {
+					nhanviencu.setSdt(nhanvien.getSdt());
+				}
+			}
+			
+			if(nhanviencu.getPhai()!=nhanvien.getPhai()) {
+				nhanviencu.setPhai(nhanvien.getPhai());
+			}
+			if(!nhanviencu.getTaiKhoan().getEmail().equals(nhanvien.getTaiKhoan().getEmail())) {
+				if(taiKhoanService.emailDaCo(nhanvien.getTaiKhoan().getEmail()) ) {
+					errors.rejectValue("taiKhoan.email", "thongTinNV", "Email đã được sử dụng");
+					model.addAttribute("isOpenModalEdit", true);
+					return "quantri/quanly/nhanvien";
+				}else {
+					nhanviencu.getTaiKhoan().setEmail(nhanvien.getTaiKhoan().getEmail());
+				}
+				
+			}
+			
+			
+			if(nhanviencu.getTaiKhoan().getTrangThai()!=nhanvien.getTaiKhoan().getTrangThai()) {
+				nhanviencu.getTaiKhoan().setTrangThai(nhanvien.getTaiKhoan().getTrangThai());
+			}
+			
 
+			if (!anh.isEmpty()) {
+				String hinh = "";
+				hinh = utilService.luuFile(anh);
+				if(!hinh.isEmpty()) {
+					nhanviencu.setAnh(hinh);
+				}
+			}
+			
+			
+				
+			
+			if(nhanVienService.suaNV(nhanviencu)) {
+				model.addAttribute("thongTinNV", new NhanVien());
+				model.addAttribute("isSuccess", true);
+				model.addAttribute("alertMessage", "Sửa nhân viên thành công");
+				model.addAttribute("hinh", "");
+				model.addAttribute("danhSachNhanVien", nhanVienService.getDSNhanVien());
+			}
 		}
-
-		return "quantri/quanly/nhanvien";
-	}
-
-	@RequestMapping(value = "nhanvien/{maNV}", params = "moHD", method = RequestMethod.GET)
-	public String getMoHDNhanVien(ModelMap model, @PathVariable("maNV") String maNV) {
-
-		NhanVien nhanvien = nhanVienService.getByMaNV(maNV);
-		if (nhanvien != null) {
-			model.addAttribute("maNV", maNV);
-			model.addAttribute("isOpenModalEnable", true);
-
-		}
-
-		return "quantri/quanly/nhanvien";
-	}
-
-	@RequestMapping(value = "nhanvien", params = "moHD", method = RequestMethod.POST)
-	public String postMoHDNhanVien(ModelMap model, @RequestParam("maNVMoHD") String maNV) {
-		if (maNV.isEmpty()) {
+		
+		else {
 			model.addAttribute("isSuccess", false);
-			model.addAttribute("alertMessage", "Mở hoạt động của nhân viên " + maNV + " thất bại");
-			return "quantri/quanly/nhanvien";
+			model.addAttribute("alertMessage", "Sửa nhân viên thất bại");
 		}
-		NhanVien nhanvien = nhanVienService.getByMaNV(maNV);
-		if (nhanvien != null) {
-			if (!nhanvien.getTaiKhoan().getTrangThai()) {
-				if (taiKhoanService.setTrangThaiTK(nhanvien.getTaiKhoan(), true)) {
-					model.addAttribute("isSuccess", true);
-					model.addAttribute("alertMessage", "Mở hoạt động của nhân viên " + maNV + " thành công");
-					List<NhanVien> list = nhanVienService.getDSNhanVien();
-					model.addAttribute("danhSachNhanVien", list);
-				}
-
-			} else {
-				model.addAttribute("isSuccess", false);
-				model.addAttribute("alertMessage", "Mở hoạt động của nhân viên " + maNV + " thất bại");
-			}
-
-		}
-
+		
+		
 		return "quantri/quanly/nhanvien";
 	}
+
+	
+	@RequestMapping(value="nhanvien/{maNV}", params="resetmatkhau", method=RequestMethod.POST)
+	public String resetMatKhau(ModelMap model, @PathVariable("maNV") String maNV) {
+		if(maNV.trim().isEmpty()) {
+			model.addAttribute("isSuccess", false);
+			model.addAttribute("alertMessage", "Reset mật khẩu thất bại");
+		}else {
+			NhanVien nhanvien = nhanVienService.getByMaNV(maNV);
+			if(nhanvien != null) {
+				taiKhoanService.resetMK(nhanvien.getTaiKhoan());
+				model.addAttribute("isSuccess", false);
+				model.addAttribute("alertMessage", "Reset mật khẩu thành công");
+			}else {
+				model.addAttribute("isSuccess", false);
+				model.addAttribute("alertMessage", "Reset mật khẩu thất bại");
+			}
+		}
+		
+		return "quantri/quanly/nhanvien";
+	}
+	
+	
+	
+
 
 }

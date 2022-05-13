@@ -20,8 +20,16 @@ public class ThongTinCaNhan {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date ngaySinh;
 	private String diaChi;
+	private Boolean trangThai;
 	
 	
+	
+	public Boolean getTrangThai() {
+		return trangThai;
+	}
+	public void setTrangThai(Boolean trangThai) {
+		this.trangThai = trangThai;
+	}
 	public String getEmail() {
 		return email;
 	}

@@ -20,6 +20,20 @@ public class TaiKhoanDAO implements TaiKhoanDAOImp{
 	@Autowired
 	SessionFactory factory;
 
+	public boolean checkEmailExcept(String email) {
+		Session session = factory.getCurrentSession();
+		String hql = "from TaiKhoan where email = :email and matkhau = :matkhau";
+		Query query = session.createQuery(hql);
+		query.setParameter("email", email);
+		
+		List<TaiKhoan> list= query.list();
+		if(list.size() == 0) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public boolean kiemTraDangNhap(String email, String matkhau) {
 		Session session = factory.getCurrentSession();
 		String hql = "from TaiKhoan where email = :email and matkhau = :matkhau";
