@@ -52,5 +52,8 @@ public class NhanVienService{
 	public Boolean themNV(NhanVien nhanvien) {
 		return nhanVienDAO.them(nhanvien);
 	}
-
+	
+	public Boolean suaNV(NhanVien nhanvien) {
+		return nhanVienDAO.sua(nhanvien);
+	}
 }

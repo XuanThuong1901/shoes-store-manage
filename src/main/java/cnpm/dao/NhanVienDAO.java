@@ -95,4 +95,26 @@ public class NhanVienDAO implements NhanVienDAOImp {
 		}
 		return isSuccess;
 	}
+	
+	public Boolean sua(NhanVien nhanvien) {
+		Boolean isSuccess = true;
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		
+		try {
+			session.update(nhanvien);
+			t.commit();
+			
+		} catch (Exception e) {
+			System.out.println(e);
+			System.out.println(e.getCause());
+			t.rollback();
+			isSuccess = false;
+		}
+		finally {
+			session.close();
+		}
+		return isSuccess;
+	}
+
 }

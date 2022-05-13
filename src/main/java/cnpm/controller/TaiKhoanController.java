@@ -76,6 +76,7 @@ public class TaiKhoanController {
 
 			if (thongtinTk.getVaitro().getMaVT().equals("KH")) {
 				if(thongtinTk.getKhachHang() == null) {
+					model.addAttribute("message", "Thông tin đăng nhập không hợp lệ");
 					return "taikhoan/dangnhap";
 				}
 				ss.setAttribute("user", thongtinTk);
@@ -83,6 +84,7 @@ public class TaiKhoanController {
 			} else if (thongtinTk.getVaitro().getMaVT().equals("NV")) {
 				
 				if(thongtinTk.getNhanVien() == null) {
+					model.addAttribute("message", "Thông tin đăng nhập không hợp lệ");
 					return "taikhoan/dangnhap";
 				}
 				
@@ -91,6 +93,7 @@ public class TaiKhoanController {
 				return "redirect:/nhanvien/tongquan";
 			} else if (thongtinTk.getVaitro().getMaVT().equals("QL")) {
 				if(thongtinTk.getNhanVien() == null) {
+					model.addAttribute("message", "Thông tin đăng nhập không hợp lệ");
 					return "taikhoan/dangnhap";
 				}
 				ss.setAttribute("user", thongtinTk);

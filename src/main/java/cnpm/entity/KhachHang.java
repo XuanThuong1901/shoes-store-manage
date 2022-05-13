@@ -30,7 +30,7 @@ public class KhachHang {
 	private String ten;
 	
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/mm/yyyy")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Column(name="NgaySinh")
 	private Date ngaySinh;
 	

@@ -3,6 +3,7 @@ package cnpm.entity;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +32,7 @@ public class NhanVien {
 	private String ten;
 	
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/mm/yyyy")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Column(name="NgaySinh")
 	private Date ngaySinh;
 	
@@ -50,7 +51,7 @@ public class NhanVien {
 	@Column(name="Anh")
 	private String anh;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="MaTK")
 	private TaiKhoan taiKhoan;
 	
