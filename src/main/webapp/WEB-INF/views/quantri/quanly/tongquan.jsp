@@ -136,21 +136,7 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box border border-info">
-              <div class="inner">
-                <h3>65</h3>
-
-                <p>Thong ke</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph text-info"></i>
-              </div>
-              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
+          
         </div>
         <!-- /.row -->
 
