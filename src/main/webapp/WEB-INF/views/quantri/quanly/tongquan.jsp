@@ -41,7 +41,7 @@
               <div class="icon">
                 <i class="ion ion-bag text-info"></i>
               </div>
-              <a href="admin-user-manage.html" class="small-box-footer bg-info">More info <i
+              <a href="admin-user-manage.html" class="small-box-footer bg-info">Chi tiết <i
                   class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
@@ -57,7 +57,7 @@
               <div class="icon">
                 <i class="fas fa-user-tie text-info"></i>
               </div>
-              <a href="quanly/nhanvien" class="small-box-footer bg-info">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="quanly/nhanvien" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -72,7 +72,7 @@
               <div class="icon">
                 <i class="ion ion-person-add text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -87,7 +87,7 @@
               <div class="icon">
                 <i class="ion ion-pie-graph text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -102,7 +102,7 @@
               <div class="icon">
                 <i class="ion ion-bag text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -117,7 +117,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -132,7 +132,7 @@
               <div class="icon">
                 <i class="ion ion-person-add text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -147,7 +147,7 @@
               <div class="icon">
                 <i class="ion ion-pie-graph text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

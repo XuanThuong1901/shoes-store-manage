@@ -158,18 +158,28 @@ public class TaiKhoanController {
 		
 		if(taiKhoanService.emailDaCo(email) ) {
 			model.addAttribute("email", "Email đã được sử dụng");
+			return "taikhoan/dangky";
 		}
-		else
-		{
+		
+		if(khachHangService.getBySdt(khachHang.getSdt()) != null) {
+			errors.rejectValue("sdt", "tkdangky", "Số điện thoại đã được sử dụng");
+			return "taikhoan/dangky";
+		}
+		
+		
 			TaiKhoan taiKhoan = taiKhoanService.setTK(email, matKhau);			
 			taiKhoanService.themKH(taiKhoan);
 			
-			khachHang.setMaKH(khachHangService.taoMaTKMoi());
+			khachHang.setMaKH(khachHangService.taoMaKHMoi());
 			khachHang.setTaiKhoan(taiKhoan);
-			khachHangService.themKH(khachHang);
+			if(khachHangService.themKH(khachHang)) {
+				model.addAttribute("tkdangky", new KhachHang());
+				model.addAttribute("message", "Tạo tài khoản thành công");
+			}else {
+				model.addAttribute("message", "Tạo tài khoản thất bại");
+			}
 			
-			model.addAttribute("message", "Tạo tài khoản thành công");
-		}
+		
 		
 		return "taikhoan/dangky";
 	}

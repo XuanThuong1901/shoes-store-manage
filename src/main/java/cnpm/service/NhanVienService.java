@@ -15,6 +15,24 @@ public class NhanVienService{
 	@Autowired
 	NhanVienDAO nhanVienDAO;
 	
+	public String taoMaNVMoi() {
+		int index = this.getDSNhanVien().size() + 1;
+		while(this.maNVDaCo("NV"+Integer.toString(index))) {
+			index++;
+		}
+		
+		String maNV = "NV" + Integer.toString(index);
+		
+		return maNV;
+	}
+	
+	public Boolean maNVDaCo(String maNV) {
+		if(this.getByMaNV(maNV) != null) {
+			return true;
+		}
+		return false;
+	}
+	
 	public NhanVien getByMaNV(String maNV) {
 		return nhanVienDAO.getByMaNV(maNV);
 	}
@@ -26,6 +44,13 @@ public class NhanVienService{
 
 	public List<NhanVien> getDSNhanVien(){
 		return nhanVienDAO.getDSNhanVien();
+	}
+	
+	public NhanVien getBySdt(String sdt) {
+		return nhanVienDAO.getBySdt(sdt);
+	}
+	public Boolean themNV(NhanVien nhanvien) {
+		return nhanVienDAO.them(nhanvien);
 	}
 
 }

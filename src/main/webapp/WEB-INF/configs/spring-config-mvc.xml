@@ -33,6 +33,13 @@
 	<context:component-scan
 		base-package="cnpm.service" />
 	<context:component-scan base-package="cnpm.dao" />
+	
+	 <!-- upload photo -->
+	 <bean id="multipartResolver" 
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	 	<!-- maxUploadSize=20MB -->
+	 	<property name="maxUploadSize" value="20971520"/>
+	</bean>
 
 	<!-- Kết nối CSDL -->
 	<bean id="dataSource"

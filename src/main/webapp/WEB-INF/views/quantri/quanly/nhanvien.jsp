@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!-- Header -->
 <%@include file="/WEB-INF/views/quantri/include/header.jsp"%>
@@ -28,6 +29,7 @@
 		<!-- /.container-fluid -->
 	</section>
 
+
 	<!-- Main content -->
 	<section class="content">
 		<div class="container-fluid">
@@ -35,16 +37,45 @@
 				<div class="col-12">
 
 					<div class="card">
-						<div class="card-header d-flex flex-column">
-							<div>
+						<div class="card-header d-flex flex-column ">
+							<div class="d-flex align-items-center justify-content-between">
 								<h3 class="card-title">Danh sách nhân viên</h3>
-							</div>
-							<div>
 								<button type="submit" class="btn bg-primary  mt-2"
 									data-toggle="modal" data-target="#modal-add-new">
 									<i class="fas fa-plus mr-2"></i>Thêm mới
 								</button>
 							</div>
+							<div>
+
+								<div>
+									<c:choose>
+										<c:when test="${isSuccess }">
+											<div
+												class="mt-2 alert alert-success alert-dismissible fade show"
+												role="alert">
+												${alertMessage }
+												<button type="button" class="close" data-dismiss="alert"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+										</c:when>
+										<c:when test="${isSuccess == false }">
+											<div
+												class="mt-2 alert alert-danger alert-dismissible fade show"
+												role="alert">
+												${alertMessage }
+												<button type="button" class="close" data-dismiss="alert"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+										</c:when>
+									</c:choose>
+
+								</div>
+							</div>
+
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
@@ -67,9 +98,9 @@
 											<td class="text-center"><c:choose>
 													<c:when test="${nv.getAnh() != null }">
 
-														<a href="${ nv.getAnh()}" data-toggle="lightbox"
+														<a href="resources/file/${ nv.getAnh()}" data-toggle="lightbox"
 															data-title="Đẹp trai vô cùng"><img
-															src="${ nv.getAnh()}" alt="Product Image"
+															src="resources/file/${ nv.getAnh()}" alt="Product Image"
 															class="img-size-50" /></a>
 													</c:when>
 													<c:otherwise>
@@ -95,7 +126,7 @@
 														<span class="badge badge-success">Hoạt động</span>
 													</c:when>
 													<c:when test="${nv.getTaiKhoan().getTrangThai() == false }">
-														<span class="badge badge-danger">Bị khóa</span>
+														<span class="badge badge-danger">Khóa</span>
 													</c:when>
 												</c:choose></td>
 
@@ -108,15 +139,16 @@
 														data-toggle="modal" data-target="#modal-edit"><i
 														class="fas fa-edit"></i> </a>
 													<c:choose>
-														<c:when test="${nv.getTaiKhoan().getTrangThai() }">
-															<a class="" href="#" data-toggle="modal"
-																data-target="#exampleModalConfirm"><i
-																class="fas fa-lock-open"></i> </a>
-														</c:when>
 														<c:when
 															test="${nv.getTaiKhoan().getTrangThai() == false }">
-															<a class="" href="#" data-toggle="modal"
-																data-target="#exampleModalDisable"><i
+															<a class="" href="quanly/nhanvien/${nv.getMaNV() }?moHD"><i
+																class="fas fa-lock-open"></i> </a>
+														</c:when>
+														<c:when test="${nv.getTaiKhoan().getTrangThai()  }">
+															<!-- <a class="" href="#" data-toggle="modal"
+																data-target="#modal-disable-active"><i
+																class="fas fa-lock"></i> </a> -->
+															<a class="" href="quanly/nhanvien/${nv.getMaNV() }?tatHD"><i
 																class="fas fa-lock"></i> </a>
 														</c:when>
 													</c:choose>
@@ -156,12 +188,167 @@
 </div>
 <!-- /.content-wrapper -->
 
+<!-- Modal them moi nhan vien -->
+<div class="modal fade" id="modal-add-new"
+	isShow="${isShowModalAddNew }">
+	<div class="modal-dialog modal-lg modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title text-primary" style="font-weight: 600;">Thêm nhân viên</h4>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<!-- /.col -->
+					<div class="col-md-12">
+						<form:form class="form-horizontal" method="post"
+							modelAttribute="nhanVienMoi" enctype="multipart/form-data">
+							<div class="row">
+
+
+								<div class="col-md-12">
+
+									<div class="form-group row">
+										<label for="" class="col-sm-2 col-form-label text-primary">Họ
+										</label>
+										<div class="col-sm-10">
+											<form:input path="ho" class="form-control" />
+											<form:errors path="ho" cssClass="text-danger" />
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label for="" class="col-sm-2 col-form-label text-primary">Tên
+										</label>
+										<div class="col-sm-10">
+											<form:input path="ten" class="form-control" />
+											<form:errors path="ten" cssClass="text-danger" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="" class="col-sm-2 col-form-label text-primary">Email</label>
+										<div class="col-sm-10">
+											<form:input path="email" class="form-control" id="inputName" />
+											<form:errors path="email" cssClass="text-danger" />
+											<!--  <input type="email" class="form-control" id="inputName" placeholder=""> -->
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="" class="col-sm-2 col-form-label text-primary">Mật
+											khẩu</label>
+										<div class="col-sm-10">
+											<form:input path="matKhau" value="123456"
+												class="form-control" id="inputName" />
+											<form:errors path="matKhau" cssClass="text-danger" />
+											<!--  <input type="email" class="form-control" id="inputName" placeholder=""> -->
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="" class="col-sm-2 col-form-label text-primary">Giới
+											tính</label>
+										<div class="col-sm-10">
+											<div class="form-check form-check-inline">
+												<form:radiobutton path="phai" value="True" label="Nam"
+													class="form-check-input" checked="checked" />
+
+											</div>
+											<div class="form-check form-check-inline">
+												<form:radiobutton path="phai" value="False" label="Nữ"
+													class="form-check-input" />
+											</div>
+											<form:errors path="phai" cssClass="text-danger" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="inputExperience"
+											class="col-sm-2 col-form-label text-primary">Ngày
+											sinh</label>
+										<div class="col-sm-10">
+											<div class="form-group">
+												<form:input path="ngaySinh" type="date" class="form-control" />
+												<form:errors path="ngaySinh" cssClass="text-danger" />
+											</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="inputSkills"
+											class="col-sm-2 col-form-label text-primary">CCCD</label>
+										<div class="col-sm-10">
+											<form:input path="cccd" class="form-control" />
+											<form:errors path="cccd" cssClass="text-danger" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="inputSkills"
+											class="col-sm-2 col-form-label text-primary">SĐT</label>
+										<div class="col-sm-10">
+											<form:input path="sdt" class="form-control" />
+											<form:errors path="sdt" cssClass="text-danger" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="inputSkills"
+											class="col-sm-2 col-form-label text-primary">Địa chỉ</label>
+										<div class="col-sm-10">
+											<form:input path="diaChi" class="form-control" />
+											<form:errors path="diaChi" cssClass="text-danger" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="inputSkills"
+											class="col-sm-2 col-form-label text-primary">Ảnh</label>
+										<div class="col-sm-10">
+											<!-- Profile Image -->
+											<div class="card card-primary card-outline">
+												<div class="card-body box-profile">
+													<div class="text-center">
+														<img id="user-modal-avatar"
+															class="profile-user-img img-fluid img-circle"
+															src="resources/file/${hinh }"
+															alt="User profile picture" style="width: 120px;">
+													</div>
+													<input name="anh" type="file" id="input-change-avatar"
+														class="mt-3 form-control" />
+
+
+												</div>
+												<!-- /.card-body -->
+											</div>
+											<!-- /.card -->
+
+										</div>
+									</div>
+
+									<div class="form-group row d-flex justify-content-end">
+										<button type="submit" name="themMoiNV" class="btn btn-primary">Thêm</button>
+										<a href="quanly/nhanvien" id="cancel-save-modal" class="mx-2 btn btn-secondary">Hủy</a>
+									</div>
+								</div>
+							</div>
+
+						</form:form>
+					</div>
+					<!-- /.col -->
+				</div>
+			</div>
+
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal thong tin chi tiet -->
 <div class="modal fade" id="modal-info-detail"
 	isShow="${isOpenModalInfo }">
 	<div class="modal-dialog modal-lg modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Thông tin nhân viên</h4>
+				<h4 class="modal-title text-primary">Thông tin nhân viên</h4>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -224,7 +411,9 @@
 													NV</label>
 												<div class="col-sm-10">
 													<input type="email" class="form-control" id="inputEmail"
-														placeholder="" value="${thongTinNV.getHo() } ${thongTinNV.getTen() }" disabled>
+														placeholder=""
+														value="${thongTinNV.getHo() } ${thongTinNV.getTen() }"
+														disabled>
 												</div>
 											</div>
 											<div class="form-group row">
@@ -232,7 +421,8 @@
 													tính</label>
 												<div class="col-sm-10">
 													<input type="text" class="form-control" id="inputName2"
-														placeholder="" value="${thongTinNV.getPhai() ? "Nam" : "Nữ" }" disabled>
+														placeholder="" value="${thongTinNV.getPhai() ? "
+														Nam" : "Nữ" }" disabled>
 												</div>
 											</div>
 											<div class="form-group row">
@@ -240,7 +430,8 @@
 													class="col-sm-2 col-form-label ">Ngày sinh</label>
 												<div class="col-sm-10">
 													<input class="form-control" id="inputExperience"
-														placeholder="" value="${thongTinNV.getNgaySinh() }" disabled></input>
+														placeholder="" value="${thongTinNV.getNgaySinh() }"
+														disabled></input>
 												</div>
 											</div>
 											<div class="form-group row">
@@ -286,6 +477,74 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+
+<!--Modal tắt hđ-->
+<div class="modal fade " id="modal-disable-active"
+	isShow="${isOpenModalDisabled }" aria-hidden="true">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header bg-secondary">
+				<h5 class="modal-title" id="exampleModalLabel">
+					<i class="fas fa-lock"></i>&nbsp; Bạn muốn tắt hoạt động tài khoản
+					này?
+				</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<!-- <div class="modal-body">
+            <p class="text-center">Bạn muốn tắt hoạt động tài khoản này?</p>
+          </div> -->
+			<div class="modal-footer d-flex justify-content-end">
+				<form action="quanly/nhanvien" method="post">
+					<input type="text" name="maNVTatHD" value="${maNV }" hidden />
+					<button type="submit" name="tatHD" class="btn btn-primary">Tiếp
+						tục</button>
+					<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+					<a class="btn btn-secondary" href="quanly/nhanvien">Hủy</a>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!--Modal tắt hđ-->
+
+<!-- Modal mở -->
+<div class="modal fade " id="modal-enable-active"
+	isShow="${isOpenModalEnable }" aria-hidden="true">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<h5 class="modal-title" id="exampleModalLabel">
+					<i class="fas fa-lock-open"></i>&nbsp; Bạn muốn mở hoạt động tài
+					khoản này?
+				</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<!-- <div class="modal-body">
+            <p class="text-center">Bạn muốn mở hoạt động tài khoản này?</p>
+          </div> -->
+			<div class="modal-footer d-flex justify-content-end">
+				<form action="quanly/nhanvien" method="post">
+					<input type="text" name="maNVMoHD" value="${maNV }" hidden />
+					<button type="submit" name="moHD" class="btn btn-primary">Tiếp
+						tục</button>
+					<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+					<a class="btn btn-secondary" href="quanly/nhanvien">Hủy</a>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /.modal  confirm mở-->
+
 
 <!-- Footer -->
 <%@include file="/WEB-INF/views/quantri/include/footer.jsp"%>
