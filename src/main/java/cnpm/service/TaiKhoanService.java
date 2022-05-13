@@ -67,6 +67,11 @@ public class TaiKhoanService {
 		return taiKhoan;
 	}
 	
+	public Boolean setTrangThaiTK(TaiKhoan taiKhoan, Boolean trangThai) {
+		taiKhoan.setTrangThai(trangThai);
+		return taiKhoanDAO.sua(taiKhoan);
+	}
+	
 	public Boolean maTKDaCo(String maTK) {
 		if(this.getByMaTK(maTK) != null) {
 			return true;
@@ -85,6 +90,7 @@ public class TaiKhoanService {
 		
 		return taiKhoanDAO.them(taikhoan);
 	}
+	
 	
 	public Boolean themNV(TaiKhoan taikhoan) {
 		taikhoan.setTrangThai(true);

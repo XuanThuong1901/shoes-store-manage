@@ -44,7 +44,8 @@
             </li>
             <li class="nav-item" id="danhmuc">
               <a href="#" class="nav-link ">
-                <i class="nav-icon fas fa-grip-vertical"></i>
+              <!--   <i class="nav-icon fas fa-grip-vertical"></i> -->
+                <i class="nav-icon fab fa-elementor"></i>
                 <p>
                   Danh mục
 
@@ -62,7 +63,7 @@
             </li>
             <li class="nav-item" id="donhang">
               <a href="#" class="nav-link ">
-                <i class="nav-icon fas fa-file-invoice"></i>
+                 <i class="nav-icon  ion ion-bag "></i>
                 <p>
                   Đơn hàng
 
@@ -80,7 +81,8 @@
             </li>
             <li class="nav-item" id="nhacungcap">
               <a href="#" class="nav-link ">
-                <i class="nav-icon fas fa-truck"></i>
+       
+                 <i class="nav-icon fas fa-dolly-flatbed"></i>
                 <p>
                   Nhà cung cấp
 

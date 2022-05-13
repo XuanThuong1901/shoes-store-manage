@@ -63,8 +63,8 @@
 
 							</div>
 							<p class="text-danger">${message }</p>
-							<div class="form-floating mb-3">
-								<span>Chua co tai khoan </span> <a href="dangky">Dang ky</a>
+							<div class="form-floating mb-3 float-right">
+								<span>Chưa có tài khoản </span> <a href="dangky">Đăng ký</a>
 							</div>
 							<button id="btn-login" class="w-100 btn btn-primary h5 mt-4"
 								type="submit">ĐĂNG NHẬP</button>

@@ -20,6 +20,23 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+   <!-- daterange picker -->
+  <link rel="stylesheet" href="<c:url value='resources/employee/plugins/daterangepicker/daterangepicker.css' />">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="<c:url value='resources/employee/plugins/icheck-bootstrap/icheck-bootstrap.min.css' />">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="<c:url value='resources/employee/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css' />">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="<c:url value='resources/employee/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' />">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<c:url value='resources/employee/plugins/select2/css/select2.min.css' />">
+  <link rel="stylesheet" href="<c:url value='resources/employee/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' />">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="<c:url value='resources/employee/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css' />">
+  <!-- BS Stepper -->
+  <link rel="stylesheet" href="<c:url value='resources/employee/plugins/bs-stepper/css/bs-stepper.min.css' />">
+  <!-- dropzonejs -->
+  <link rel="stylesheet" href="<c:url value='resources/employee/plugins/dropzone/min/dropzone.min.css' />">
   <!-- DataTables -->
   <link rel="stylesheet" href="<c:url value='resources/employee/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' />">
   <link rel="stylesheet" href="<c:url value='resources/employee/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' />">
@@ -28,6 +45,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css"
     integrity="sha512-Velp0ebMKjcd9RiCoaHhLXkR1sFoCCWXNp6w4zj1hfMifYB5441C+sKeBl/T/Ka6NjBiRfBBQRaQq65ekYz3UQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <!-- Alertify -->
+   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
   <!-- Theme style -->
   <link rel="stylesheet" href="<c:url value='resources/employee/dist/css/style-d.css' />">
   <link rel="stylesheet" href="<c:url value='resources/employee/dist/css/adminlte.min.css' />">

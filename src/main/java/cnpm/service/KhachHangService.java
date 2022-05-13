@@ -19,7 +19,7 @@ public class KhachHangService {
 	@Autowired
 	TaiKhoanService taiKhoanService;
 	
-	public String taoMaTKMoi() {
+	public String taoMaKHMoi() {
 		int index = this.getDSKhachHang().size() + 1;
 		while(this.maKHDaCo("KH"+Integer.toString(index))) {
 			index++;
@@ -40,6 +40,10 @@ public class KhachHangService {
 			return true;
 		}
 		return false;
+	}
+	
+	public KhachHang getBySdt(String sdt) {
+		return khachHangDAO.getBySdt(sdt);
 	}
 
 	private KhachHang getByMaKH(String maKH) {

@@ -84,7 +84,7 @@ public class TaiKhoanDAO implements TaiKhoanDAOImp{
 			
 		}
 		catch(Exception e) {
-			System.out.println(e);
+			System.out.println(e.getCause());
 			t.rollback();
 			isSuccess = false;
 		}
@@ -106,7 +106,7 @@ public class TaiKhoanDAO implements TaiKhoanDAOImp{
 			
 		}
 		catch(Exception e) {
-			System.out.println(e);
+			System.out.println(e.getCause());
 			t.rollback();
 			isSuccess = false;
 		}
@@ -128,7 +128,7 @@ public class TaiKhoanDAO implements TaiKhoanDAOImp{
 			
 		}
 		catch(Exception e) {
-			System.out.println(e);
+			System.out.println(e.getCause());
 			t.rollback();
 			isSuccess = false;
 		}

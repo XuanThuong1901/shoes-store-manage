@@ -45,6 +45,21 @@ public class KhachHangDAO {
 		return kh;
 	}
 	
+	public KhachHang getBySdt(String sdt) {
+		Session session = factory.getCurrentSession();
+		String hql = "from KhachHang where sdt = :sdt";
+		Query query = session.createQuery(hql);
+		query.setParameter("sdt", sdt);
+		List<KhachHang> res = query.list();
+		
+		if(res.size() == 0) {
+			return null;
+		}
+		
+		KhachHang kh = res.get(0);
+		return kh;
+	}
+	
 	public Boolean them(KhachHang khachHang) {
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
@@ -56,6 +71,7 @@ public class KhachHangDAO {
 			
 		} catch (Exception e) {
 			System.out.println(e);
+			System.out.println(e.getCause());
 			t.rollback();
 			isSuccess = false;
 		}
