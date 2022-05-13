@@ -97,7 +97,7 @@
 											<td>${nv.getMaNV() }</td>
 
 											<td class="text-center"><c:choose>
-													<c:when test="${!nv.anh.isEmpty()   }">
+													<c:when test="${nv.anh != null   }">
 
 														<a href="resources/file/${ nv.getAnh()}"
 															data-toggle="lightbox"><img
@@ -187,7 +187,7 @@
 				<div class="row">
 					<!-- /.col -->
 					<div class="col-md-12">
-						<form:form action="quanly/nhanvien" class="form-horizontal"
+						<form:form action="quanly/nhanvien?themNV" class="form-horizontal"
 							method="post" modelAttribute="nhanVienMoi"
 							enctype="multipart/form-data">
 							<div class="row">
@@ -215,8 +215,8 @@
 									<div class="form-group row">
 										<label for="" class="col-sm-2 col-form-label text-primary">Email</label>
 										<div class="col-sm-10">
-											<form:input path="email" class="form-control" id="inputName" />
-											<form:errors path="email" cssClass="text-danger" />
+											<form:input path="taiKhoan.email" class="form-control" id="inputName" />
+											<form:errors path="taiKhoan.email" cssClass="text-danger" />
 											<!--  <input type="email" class="form-control" id="inputName" placeholder=""> -->
 										</div>
 									</div>
@@ -224,9 +224,9 @@
 										<label for="" class="col-sm-2 col-form-label text-primary">Mật
 											khẩu</label>
 										<div class="col-sm-10">
-											<form:input path="matKhau" value="123456"
+											<form:input path="taiKhoan.matKhau" value="123456"
 												class="form-control" id="inputName" />
-											<form:errors path="matKhau" cssClass="text-danger" />
+											<form:errors path="taiKhoan.matKhau" cssClass="text-danger" />
 											<!--  <input type="email" class="form-control" id="inputName" placeholder=""> -->
 										</div>
 									</div>
@@ -294,7 +294,7 @@
 															src="resources/file/${hinh }" alt="User profile picture"
 															style="width: 120px;">
 													</div>
-													<input name="anh" type="file" id="input-add-avatar"
+													<input name="anhMoi" type="file" id="input-add-avatar"
 														class="mt-3 form-control" />
 
 
@@ -307,7 +307,7 @@
 									</div>
 
 									<div class="form-group row d-flex justify-content-end">
-										<button type="submit" name="themNV" class="btn btn-primary">Thêm</button>
+										<button type="submit" class="btn btn-primary">Thêm</button>
 										<a href="quanly/nhanvien" id="cancel-save-modal"
 											class="mx-2 btn btn-secondary">Hủy</a>
 									</div>
@@ -329,7 +329,7 @@
 
 <!-- Modal sua thong tin nhan vien -->
 
-<div class="modal fade" id="modal-edit" isShow="${isOpenModalEdit }">
+<div class="modal fade" id="modal-edit-employee" isShow="${isOpenModalEdit }">
 	<div class="modal-dialog modal-lg modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">

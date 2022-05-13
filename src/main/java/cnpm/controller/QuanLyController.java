@@ -40,14 +40,14 @@ public class QuanLyController {
 		return list;
 	}
 
-	@ModelAttribute("nhanVienMoi")
-	public ThongTinCaNhan nhanVienMoi() {
-		ThongTinCaNhan nhanVienMoi = new ThongTinCaNhan();
-		return nhanVienMoi;
-	}
+	
+	  @ModelAttribute("nhanVienMoi") public NhanVien thongTinNV() { NhanVien
+	  thongTinNV = new NhanVien(); return thongTinNV; }
+	 
 	
 	@ModelAttribute("thongTinNV")
-	public NhanVien thongtinNv() {
+	public NhanVien thongtinNv(ModelMap model) {
+	
 		return new NhanVien();
 	}
 
@@ -65,43 +65,47 @@ public class QuanLyController {
 	}
 
 	@RequestMapping(value = "nhanvien", params = "themNV", method = RequestMethod.POST)
-	public String themMoiNhanVien(ModelMap model, @ModelAttribute("nhanVienMoi") ThongTinCaNhan thongtin,
-			@RequestParam("anh") MultipartFile anh, BindingResult errors) {
-		if (thongtin.getHo().trim().isEmpty()) {
+	public String themMoiNhanVien(ModelMap model, @ModelAttribute("nhanVienMoi") NhanVien nhanvien,
+			@RequestParam("anhMoi") MultipartFile anh, BindingResult errors) {
+		if (nhanvien.getHo().trim().isEmpty()) {
 			errors.rejectValue("ho", "nhanVienMoi", "Họ không được để trống");
 		}
 
-		if (thongtin.getTen().trim().isEmpty()) {
+		if (nhanvien.getTen().trim().isEmpty()) {
 			errors.rejectValue("ten", "nhanVienMoi", "Tên không được để trống");
 		}
 
-		if (thongtin.getEmail().trim().isEmpty() || !thongtin.getEmail().trim().matches(
+		if (nhanvien.getTaiKhoan().getEmail().trim().isEmpty() || !nhanvien.getTaiKhoan().getEmail().trim().matches(
 				"^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")) {
 			errors.rejectValue("email", "nhanVienMoi", "Email không hợp lệ hoặc bị trống");
 		}
 
-		if (thongtin.getMatKhau().trim().isEmpty()) {
+		if (nhanvien.getTaiKhoan().getMatKhau().trim().isEmpty()) {
 			errors.rejectValue("matKhau", "nhanVienMoi", "Mật khẩu không được để trống");
 		}
 
-		if (thongtin.getPhai() != true && thongtin.getPhai() != false) {
+		if (nhanvien.getPhai() != true && nhanvien.getPhai() != false) {
 			errors.rejectValue("phai", "nhanVienMoi", "???");
 		}
 
-		if (thongtin.getNgaySinh() == null) {
+		if (nhanvien.getNgaySinh() == null) {
 			errors.rejectValue("ngaySinh", "nhanVienMoi", "Ngày sinh không được để trống");
 		}
+		
+		if (nhanvien.getDiaChi().trim().isEmpty()) {
+			errors.rejectValue("diaChi", "nhanVienMoi", "Địa chỉ không được để trống");
+		}
 
-		if (thongtin.getCccd().trim().isEmpty()) {
+		if (nhanvien.getCccd().trim().isEmpty()) {
 			errors.rejectValue("cccd", "nhanVienMoi", "Cccd không được để trống");
-		} else if (!thongtin.getCccd().trim().matches("^[0-9]*$")) {
+		} else if (!nhanvien.getCccd().trim().matches("^[0-9]*$")) {
 			errors.rejectValue("cccd", "nhanVienMoi", "Cccd không hợp lệ");
 		}
 
-		if (thongtin.getSdt().trim().isEmpty()) {
+		if (nhanvien.getSdt().trim().isEmpty()) {
 			errors.rejectValue("sdt", "nhanVienMoi", "Số điện thoại không được để trống");
-		} else if (!thongtin.getSdt().trim().matches("^[0-9]*$")) {
-			errors.rejectValue("sdt", "nhanVienMoi", "Số điện thoại không hợp lệ");
+		} else if (!nhanvien.getSdt().trim().matches("^[0-9]*$")) {
+			errors.rejectValue("sdt", "thongTnhanVienMoiinNV", "Số điện thoại không hợp lệ");
 		}
 
 		if (errors.hasErrors()) {
@@ -109,13 +113,13 @@ public class QuanLyController {
 			return "quantri/quanly/nhanvien";
 		}
 
-		if (taiKhoanService.emailDaCo(thongtin.getEmail())) {
+		if (taiKhoanService.emailDaCo(nhanvien.getTaiKhoan().getEmail())) {
 			errors.rejectValue("email", "nhanVienMoi", "Email đã được sử dụng");
 			model.addAttribute("isShowModalAddNew", true);
 			return "quantri/quanly/nhanvien";
 		}
 
-		if (nhanVienService.getBySdt(thongtin.getSdt()) != null) {
+		if (nhanVienService.getBySdt(nhanvien.getSdt()) != null) {
 			errors.rejectValue("sdt", "nhanVienMoi", "Số điện thoại đã được sử dụng");
 			model.addAttribute("isShowModalAddNew", true);
 			return "quantri/quanly/nhanvien";
@@ -125,31 +129,26 @@ public class QuanLyController {
 
 		if (!anh.isEmpty()) {
 			hinh = utilService.luuFile(anh);
+			if(!hinh.isEmpty()) {
+				nhanvien.setAnh(hinh);
+			}
 		}
 
-		TaiKhoan taiKhoan = taiKhoanService.setTK(thongtin.getEmail(), thongtin.getMatKhau());
+		TaiKhoan taiKhoan = taiKhoanService.setTK(nhanvien.getTaiKhoan().getEmail(), nhanvien.getTaiKhoan().getMatKhau());
 		taiKhoanService.themNV(taiKhoan);
 
-		NhanVien nhanvien = new NhanVien();
 		nhanvien.setMaNV(nhanVienService.taoMaNVMoi());
-		nhanvien.setHo(thongtin.getHo());
-		nhanvien.setTen(thongtin.getTen());
-		nhanvien.setPhai(thongtin.getPhai());
-		nhanvien.setNgaySinh(thongtin.getNgaySinh());
-		nhanvien.setCccd(thongtin.getCccd());
-		nhanvien.setSdt(thongtin.getDiaChi());
-		nhanvien.setDiaChi(thongtin.getDiaChi());
 		nhanvien.setTaiKhoan(taiKhoan);
-		nhanvien.setAnh(hinh);
-
+		
 		if (nhanVienService.themNV(nhanvien)) {
-			model.addAttribute("nhanVienMoi", new ThongTinCaNhan());
+//			model.addAttribute("thongTinNV", new ThongTinCaNhan());
+			model.addAttribute("nhanVienMoi", new NhanVien());
 			model.addAttribute("isSuccess", true);
 			model.addAttribute("alertMessage", "Thêm tài khoản thành công");
 			model.addAttribute("hinh", "");
 			model.addAttribute("danhSachNhanVien", nhanVienService.getDSNhanVien());
 		} else {
-			taiKhoanService.xoaTK(nhanvien.getTaiKhoan());
+			taiKhoanService.xoaTK(taiKhoan);
 			model.addAttribute("isSuccess", false);
 			model.addAttribute("alertMessage", "Thêm tài khoản thất bại");
 		}
@@ -319,7 +318,7 @@ public class QuanLyController {
 			NhanVien nhanvien = nhanVienService.getByMaNV(maNV);
 			if(nhanvien != null) {
 				taiKhoanService.resetMK(nhanvien.getTaiKhoan());
-				model.addAttribute("isSuccess", false);
+				model.addAttribute("isSuccess", true);
 				model.addAttribute("alertMessage", "Reset mật khẩu thành công");
 			}else {
 				model.addAttribute("isSuccess", false);

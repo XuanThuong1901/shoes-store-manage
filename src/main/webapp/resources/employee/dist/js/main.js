@@ -16,6 +16,20 @@ function isShowModal(){
 	
 }
 
+function onHideModal(myId, myUrl){
+	let modalHide = $(".modal.fade[isShow=true]");
+	
+	if(modalHide){
+		modalHide.on('hide.bs.modal', function (event) {
+			if(modalHide.attr("id").includes(myId)){
+
+				window.location.href = myUrl;
+			}
+			
+		})
+	}
+}
+
 function updateAvatar(idInput, idModal){
 	 //alertify.notify("Kiểu file ảnh không hợp lệ. Vui lòng chọn ảnh .PNG hoặc .JPG", "success", 7);
 	
@@ -62,4 +76,7 @@ $(document).ready(function(){
 	
 	// button reset mat khua
 	showModalConfirm("btn-reset-mk", "Bạn có chăc chắn muốn reset mật khẩu", "OK");
+	
+	
+	onHideModal("modal-edit-employee", "quanly/nhanvien");
  });
