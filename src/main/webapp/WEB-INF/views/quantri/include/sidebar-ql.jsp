@@ -27,7 +27,7 @@
               </a>
             </li>
             <li class="nav-item" id="khachhang">
-              <a  class="nav-link ">
+              <a href="quanly/khachhang" class="nav-link ">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                   Khách hàng
