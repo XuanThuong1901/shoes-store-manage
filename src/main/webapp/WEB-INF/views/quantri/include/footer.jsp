@@ -186,12 +186,12 @@
         "ordering": true,
         "autoWidth": false,
         "language": {
-          "lengthMenu": "Hiện _MENU_ dòng mỗi trang",
-          "zeroRecords": "Nothing found - sorry",
+          "lengthMenu": "Hiện _MENU_ dòng ",
+          "zeroRecords": "Không có kết quả tương tự",
           "info": "Trang _PAGE_ / _PAGES_",
-          "infoEmpty": "No records available",
+          "infoEmpty": "Không tìm thấy kết quả nào",
           "infoFiltered": "(filtered from _MAX_ total records)",
-          "loadingRecords": "Loading...",
+          "loadingRecords": "Đang tìm kiếm...",
           "search": "Tìm kiếm:",
           paginate: {
             previous: '‹',

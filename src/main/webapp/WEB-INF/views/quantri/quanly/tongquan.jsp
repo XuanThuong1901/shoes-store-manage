@@ -18,7 +18,7 @@
             
             <div class="col-sm-12">
               <ol class="breadcrumb mt-1">
-                <li class="breadcrumb-item"><a href="quanly">Quản lý</a></li>
+                <li class="breadcrumb-item"><a href="quanly/tongquan">Quản lý</a></li>
                 <li class="breadcrumb-item active">Tổng quan</li>
               </ol>
             </div>
@@ -34,14 +34,14 @@
             <!-- small box -->
             <div class="small-box border border-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>${danhSachKhachHang.size() }</h3>
 
-                <p>Khach hang</p>
+                <p>Khách hàng</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag text-info"></i>
+                <i class=" fas fa-users text-info"></i>
               </div>
-              <a href="admin-user-manage.html" class="small-box-footer bg-info">Chi tiết <i
+              <a href="quanly/khachhang" class="small-box-footer bg-info">Chi tiết <i
                   class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
@@ -136,7 +136,21 @@
             </div>
           </div>
           <!-- ./col -->
-          
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box border border-info">
+              <div class="inner">
+                <h3>65</h3>
+
+                <p>Thong ke</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph text-info"></i>
+              </div>
+              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
         </div>
         <!-- /.row -->
 

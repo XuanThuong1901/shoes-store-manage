@@ -15,6 +15,7 @@ public class DangNhapInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") != null) {
 			TaiKhoan taikhoan = (TaiKhoan) session.getAttribute("user");
+			System.out.println("user " + taikhoan.getVaitro().getMaVT());
 			if (taikhoan.getVaitro().getMaVT().equals("KH")) {
 
 				response.sendRedirect(request.getContextPath() + "/");
@@ -27,7 +28,7 @@ public class DangNhapInterceptor extends HandlerInterceptorAdapter {
 				return false;
 			}
 
-			else if (taikhoan.getVaitro().getMaVT().equals("KH")) {
+			else if (taikhoan.getVaitro().getMaVT().equals("QL")) {
 
 				response.sendRedirect(request.getContextPath() + "/quanly/tongquan");
 				return false;

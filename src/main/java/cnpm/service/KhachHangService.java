@@ -46,7 +46,7 @@ public class KhachHangService {
 		return khachHangDAO.getBySdt(sdt);
 	}
 
-	private KhachHang getByMaKH(String maKH) {
+	public KhachHang getByMaKH(String maKH) {
 		// TODO Auto-generated method stub
 		return khachHangDAO.getByMaKH(maKH);
 	}

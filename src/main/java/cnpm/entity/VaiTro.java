@@ -21,15 +21,6 @@ public class VaiTro {
 	
 	@OneToMany(mappedBy = "vaitro")
 	private Collection<TaiKhoan> taikhoans;
-	
-
-	public Collection<TaiKhoan> getTaikhoans() {
-		return taikhoans;
-	}
-
-	public void setTaikhoans(Collection<TaiKhoan> taikhoans) {
-		this.taikhoans = taikhoans;
-	}
 
 	public String getMaVT() {
 		return MaVT;
@@ -46,6 +37,16 @@ public class VaiTro {
 	public void setTenVT(String tenVT) {
 		TenVT = tenVT;
 	}
+
+	public Collection<TaiKhoan> getTaikhoans() {
+		return taikhoans;
+	}
+
+	public void setTaikhoans(Collection<TaiKhoan> taikhoans) {
+		this.taikhoans = taikhoans;
+	}
+
+	
 	
 	
 }

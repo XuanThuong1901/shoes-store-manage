@@ -18,7 +18,7 @@
 			<div class="row mb-2">
 				<div class="col-sm-12">
 					<ol class="breadcrumb ">
-						<li class="breadcrumb-item"><a href="#">Quản lý</a></li>
+						<li class="breadcrumb-item"><a href="quanly/tongquan">Quản lý</a></li>
 						<li class="breadcrumb-item active">Nhân viên</li>
 					</ol>
 				</div>

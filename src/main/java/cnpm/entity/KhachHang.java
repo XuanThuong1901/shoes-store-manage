@@ -40,6 +40,12 @@ public class KhachHang {
 	@Column(name="SDT")
 	private String sdt;
 	
+	@Column(name="Phai")
+	private Boolean phai;
+	
+	@Column(name="Anh")
+	private String anh;
+	
 	@OneToOne
 	@JoinColumn(name="MaTK")
 	private TaiKhoan taiKhoan;
@@ -49,6 +55,22 @@ public class KhachHang {
 	
 	@OneToMany(mappedBy = "khachHang", fetch = FetchType.LAZY)
 	private Collection<GioHang> gioHangs;
+	
+	public Boolean getPhai() {
+		return phai;
+	}
+
+	public void setPhai(Boolean phai) {
+		this.phai = phai;
+	}
+
+	public String getAnh() {
+		return anh;
+	}
+
+	public void setAnh(String anh) {
+		this.anh = anh;
+	}
 
 	public String getMaKH() {
 		return maKH;
