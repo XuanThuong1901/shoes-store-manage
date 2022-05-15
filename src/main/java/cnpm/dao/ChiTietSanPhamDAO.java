@@ -11,50 +11,53 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import cnpm.entity.DanhMucSanPham;
-import cnpm.entity.NhaCungCap;
-
-
-import cnpm.entity.NhaCungCap;
-import cnpm.entity.PhieuNhap;
+import cnpm.entity.ChiTietSanPham;
+import cnpm.entity.NhanVien;
+import cnpm.entity.ChiTietSanPham;
 
 @Transactional
 @Repository
-public class NhaCungCapDAO {
-
+public class ChiTietSanPhamDAO {
 	@Autowired
 	SessionFactory factory;
 	
-	public NhaCungCap getByMaNCC(Integer maNCC) {
+	
+	public ChiTietSanPham getByCacMa(Integer maCTSP, Integer maMau, Integer maSize) {
 		Session session = factory.getCurrentSession();
-		String hql = "from NhaCungCap where maNCC = :maNCC";
+		String hql = "from ChiTietSanPham where maChiTietSP = :maCTSP";
 		Query query = session.createQuery(hql);
-		query.setParameter("maNCC", maNCC);
-		List<NhaCungCap> res = query.list();
+		query.setParameter("maCTSP", maCTSP);
+		List<ChiTietSanPham> res = query.list();
 		
 		if(res.size() == 0) {
 			return null;
 		}
 		
-		NhaCungCap ncc = res.get(0);
-		return ncc;
+		return res.get(0);
 	}
 	
-	public List<NhaCungCap> getDSNhaCungCap(){
+	public ChiTietSanPham getByMaCTSPM(Integer maCTSP){
 		Session session = factory.getCurrentSession();
-		String hql ="from NhaCungCap";
+		String hql = "from ChiTietSanPham where maChiTietSP = :maCTSP";
 		Query query = session.createQuery(hql);
-		List<NhaCungCap> list = query.list();
-		return list;
+		query.setParameter("maCTSP", maCTSP);
+		List<ChiTietSanPham> res = query.list();
+		
+		if(res.size() == 0) {
+			return null;
+		}
+		
+		ChiTietSanPham ctsp = res.get(0);
+		return ctsp;
 	}
 	
-	public Boolean them(NhaCungCap nhaCungCap) {
+	public Boolean them(ChiTietSanPham chiTietSP) {
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
-			session.save(nhaCungCap);
+			session.save(chiTietSP);
 			t.commit();
 			
 		} catch (Exception e) {
@@ -69,45 +72,45 @@ public class NhaCungCapDAO {
 		return isSuccess;
 	}
 	
-	public Boolean sua(NhaCungCap nhaCungCap) {
+	public Boolean sua(ChiTietSanPham chiTietSP) {
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
-			session.update(nhaCungCap);
+			session.update(chiTietSP);
 			t.commit();
 			
 		} catch (Exception e) {
 			System.out.println(e);
-			System.out.println(e.getCause());
 			t.rollback();
 			isSuccess = false;
 		}
 		finally {
 			session.close();
 		}
+		
 		return isSuccess;
 	}
 	
-	public Boolean xoa(NhaCungCap nhaCungCap) {
+	public Boolean xoa(ChiTietSanPham chiTietSP) {
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
-			session.delete(nhaCungCap);
+			session.delete(chiTietSP);
 			t.commit();
 			
 		} catch (Exception e) {
 			System.out.println(e);
-			System.out.println(e.getCause());
 			t.rollback();
 			isSuccess = false;
 		}
 		finally {
 			session.close();
 		}
+		
 		return isSuccess;
 	}
 }

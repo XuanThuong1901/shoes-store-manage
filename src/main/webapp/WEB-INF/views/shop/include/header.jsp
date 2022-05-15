@@ -8,44 +8,48 @@
 <head>
 <base href="${pageContext.servletContext.contextPath}/">
 <meta charset="utf-8">
-<title>Shoeniverse - Shop</title>
+<title>Trang chủ</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="Free HTML Templates" name="keywords">
 <meta content="Free HTML Templates" name="description">
 
 <!-- Favicon -->
-<link href="<c:url value='resources/user/img/favicon.ico' /> "
-	rel="icon">
+<link href="img/favicon.ico" rel="icon">
 
 <!-- Google Web Fonts -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
-	href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+	href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
 	rel="stylesheet">
-
 <!-- Font Awesome -->
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
 	rel="stylesheet">
 
 <!-- Libraries Stylesheet -->
-<link href="<c:url value='resources/user/lib/animate/animate.min.css'/>"
+<link
+	href="<c:url value='resources/user/lib/animate/animate.min.css '/>"
 	rel="stylesheet">
 <link
 	href="<c:url value='resources/user/lib/owlcarousel/assets/owl.carousel.min.css'/>"
 	rel="stylesheet">
 
 <!-- Customized Bootstrap Stylesheet -->
+<!-- <link href="css/style.css" rel="stylesheet"> -->
+<%-- <c:url value='resources/user/'/> --%>
+<link rel="stylesheet"
+	href="<c:url value='resources/user/scss/style.css'/>">
+<link rel="stylesheet"
+	href="<c:url value='resources/user/scss/custom.css'/>">
 <link href="<c:url value='resources/user/css/style.css'/>"
-	rel="stylesheet">
-
-<link href="<c:url value='resources/user/css/custom-d.css' />"
 	rel="stylesheet">
 <link href="<c:url value='resources/user/css/custom-t.css'/>"
 	rel="stylesheet">
 <link href="<c:url value='resources/user/css/custom-n.css'/>"
 	rel="stylesheet">
-
+<link href="<c:url value='resources/user/css/custom-d.css'/>"
+	rel="stylesheet">
 </head>
 
 <body>
@@ -63,23 +67,80 @@
 			</div>
 			<div class="col-lg-6 text-center text-lg-right">
 				<div class="d-inline-flex align-items-center">
-					<!-- <div class="btn-group">
-						<button type="button" class="btn btn-sm btn-light dropdown-toggle"
-							data-toggle="dropdown">Tài khoản</button>
-						<div class="dropdown-menu dropdown-menu-right">
-							<button class="dropdown-item" type="button">Đăng nhập</button>
-							<button class="dropdown-item" type="button">Đăng ký</button>
-						</div>
-					</div> -->
-					<a class="btn btn-primary" href="dangnhap" role="button">Đăng
-						nhập</a>
-					<a class="btn  bg-danger ml-2 text-white" href="dangky" role="button">Đăng ký</a>
+					<c:choose>
+						<c:when test="${user == null }">
+							<div class="btn-group">
+								<!-- <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Tài khoản</button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button">Đăng nhập</button>
+                            <button class="dropdown-item" type="button">Đăng ký</button>
+                            <button class="dropdown-item" type="button">Đăng xuất</button>
+                        </div> -->
+								<a class="btn btn-primary" href="dangnhap" role="button">Đăng
+									nhập</a> <a class="btn  bg-danger ml-2 text-white" href="dangky"
+									role="button">Đăng ký</a>
+							</div>
+						</c:when>
+						<c:when test="${user != null }">
+
+							<c:choose>
+								<c:when test="${user.getKhachHang() != null }">
+									<button type="button"
+										class="btn btn-sm btn-light dropdown-toggle"
+										data-toggle="dropdown">${user.getKhachHang().getHo() }&nbsp;${user.getKhachHang().getTen() }</button>
+									<div class="dropdown-menu dropdown-menu-right">
+										<a href="taikhoan" class="dropdown-item">Tài Khoản </a> <a
+											href="dangxuat" class="dropdown-item">Đăng xuất </a>
+									</div>
+								</c:when>
+								<c:when test="${user.getNhanVien() != null }">
+									<button type="button"
+										class="btn btn-sm btn-light dropdown-toggle"
+										data-toggle="dropdown">
+										<c:choose>
+											<c:when test="${user.getNhanVien().getAnh().trim() != null }">
+											<img src="resources/file/${user.getNhanVien().getAnh() }"  class="avatar">
+											</c:when>
+										</c:choose>
+										
+										${user.getNhanVien().getHo() }&nbsp;${user.getNhanVien().getTen() }</button>
+									<div class="dropdown-menu dropdown-menu-right">
+									
+										<c:choose>
+											<c:when test="${user.getVaitro().getMaVT() == 'NV' }">
+												<a href="nhanvien/tongquan" class="dropdown-item">Tài Khoản </a>
+											</c:when>
+											<c:when test="${user.getVaitro().getMaVT()=='QL' }">
+												<a href="quanly/tongquan" class="dropdown-item">Quản lý </a>
+											</c:when>
+										</c:choose>
+										<a href="dangxuat" class="dropdown-item">Đăng xuất </a>
+									</div>
+								</c:when>
+							</c:choose>
+
+
+						</c:when>
+					</c:choose>
+
 				</div>
 				<div class="d-inline-flex align-items-center d-block d-lg-none">
 					<a href="" class="btn px-0 ml-2"> <i class="fa fa-search"></i>
-					</a> <a href="user.html" class="btn px-0 ml-2"> <i
-						class="fas fa-user text-dark"></i>
-					</a> <a href="" class="btn px-0 ml-2"> <i
+					</a>
+					<div class="btn px-0 ml-2">
+						<button type="button" class="btn btn-sm btn-light dropdown-toggle"
+							data-toggle="dropdown">
+							<i class="fas fa-user text-dark"></i>
+						</button>
+						<div class="dropdown-menu dropdown-menu-right">
+							<a href="" class="dropdown-item">${user.getKhachHang().getHo() }&nbsp;${user.getKhachHang().getTen() }
+							</a> <a href="" class="dropdown-item">Đăng xuất </a>
+						</div>
+					</div>
+					<!-- <a href="user.html" class="btn px-0 ml-2">
+                        <i class="fas fa-user text-dark"></i>
+                    </a> -->
+					<a href="" class="btn px-0 ml-2"> <i
 						class="fas fa-shopping-cart text-dark"></i> <span
 						class="badge text-dark border border-dark rounded-circle"
 						style="padding-bottom: 2px;">0</span>
@@ -90,7 +151,7 @@
 		<div
 			class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
 			<div class="col-lg-3">
-				<a href="" class="text-decoration-none"> <!-- <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span> -->
+				<a href="trangchu" class="text-decoration-none"> <!-- <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span> -->
 					<!-- <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span> -->
 					<span class="h2 text-uppercase text-dark px-2 ml-n1"
 					style="font-weight: 800;">shoeniverse</span>
@@ -141,10 +202,10 @@
 					class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light"
 					id="navbar-vertical"
 					style="width: calc(100% - 30px); z-index: 999;">
-					<div class="navbar-nav w-100">
-						<a href="" class="nav-item nav-link">Giày</a> <a href=""
-							class="nav-item nav-link">Sandal</a> <a href=""
-							class="nav-item nav-link">Dép</a>
+					<div class="navbar-nav w-100 dropdown-menu rounded-0 border-0">
+						<a href="" class="nav-item nav-link">SNEAKER</a> <a href=""
+							class="nav-item nav-link">SANDAL</a> <a href=""
+							class="nav-item nav-link">DÉP</a>
 					</div>
 				</nav>
 			</div>
@@ -161,7 +222,8 @@
 					<div class="collapse navbar-collapse justify-content-between"
 						id="navbarCollapse">
 						<div class="navbar-nav mr-auto py-0">
-							<a href="./" class="nav-item nav-link">TRANG CHỦ</a>
+							<a href="sanpham" class="nav-item nav-link"><span>SẢN
+									PHẨM </span></a>
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle"
 									data-toggle="dropdown">MUA SẮM<i
@@ -171,8 +233,9 @@
 										href="checkout.html" class="dropdown-item">NỮ</a>
 								</div>
 							</div>
-							<a href="chitietsanpham" class="nav-item nav-link">CHI TIẾT
-								SẢN PHẨM</a> <a href="lienhe" class="nav-item nav-link">LIÊN HỆ</a>
+							<a href="detail.html" class="nav-item nav-link">CHI TIẾT SẢN
+								PHẨM</a> <a href="contact.html" class="nav-item nav-link">LIÊN
+								HỆ</a>
 						</div>
 						<div class="navbar-nav ml-auto py-0 d-none d-lg-block">
 							<a href="user.html" class="btn px-0"> <i

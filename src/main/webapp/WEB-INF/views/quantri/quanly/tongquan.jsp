@@ -65,14 +65,15 @@
             <!-- small box -->
             <div class="small-box border border-info">
               <div class="inner">
-                <h3>44</h3>
+                <h3>${danhSachDanhMucSanPham.size() }</h3>
 
-                <p>Danh muc san pham</p>
+                <p>Danh mục sản phẩm</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add text-info"></i>
+               <i class="nav-icon "></i>
+                <i class="fab fa-elementor text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="quanly/danhmucsp" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -87,7 +88,7 @@
               <div class="icon">
                 <i class="ion ion-pie-graph text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="quanly/sanpham" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -95,14 +96,14 @@
             <!-- small box -->
             <div class="small-box border border-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>${danhSachDonHang.size()}</h3>
 
-                <p>Don hang</p>
+                <p>Đơn hàng</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="quanly/donhang" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -110,14 +111,14 @@
             <!-- small box -->
             <div class="small-box border border-info">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>${danhSachPhieuNhap.size() }</h3>
 
-                <p>Don hang nhap</p>
+                <p>Đơn hàng nhập</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars text-info"></i>
+                <i class="nav-icon fas fa-clipboard-list text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="quanly/phieunhap" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -125,14 +126,14 @@
             <!-- small box -->
             <div class="small-box border border-info">
               <div class="inner">
-                <h3>44</h3>
+                <h3>${danhSachNhaCungCap.size() }</h3>
 
-                <p>Nha cung cap</p>
+                <p>Nhà cung cấp</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add text-info"></i>
+                <i class="fas fa-dolly-flatbed text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="quanly/nhacungcap" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

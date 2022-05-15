@@ -94,6 +94,7 @@
 <!-- Page specific script -->
 <!-- Custom js -->
 <script src="<c:url value='resources/employee/dist/js/main.js' />"></script>
+<script src="<c:url value='resources/employee/dist/js/phieunhap.js' />"></script>
 
 <script>
    $(function () {
@@ -181,7 +182,123 @@
 
     // Datatable
     $(function () {
+    
+    
+     
+    
+    $("#bangnhacc").DataTable({"responsive": true,
+        "ordering": true,
+        "autoWidth": false,
+        "language": {
+          "lengthMenu": "Hiện _MENU_ dòng ",
+          "zeroRecords": "Không có kết quả tương tự",
+          "info": "Trang _PAGE_ / _PAGES_",
+          "infoEmpty": "Không tìm thấy kết quả nào",
+          "infoFiltered": "(filtered from _MAX_ total records)",
+          "loadingRecords": "Đang tìm kiếm...",
+          "search": "Tìm kiếm:",
+          paginate: {
+            previous: '‹',
+            next: '›'
+          },
+        },
+        columnDefs: [{
+          orderable: false,
+          targets: 4
+        }, ] })
+    
+    console.log($("#bangdanhmucsp"))
+     $("#bangdanhmucsp").DataTable({"responsive": true,
+        "ordering": true,
+        "autoWidth": false,
+        "language": {
+          "lengthMenu": "Hiện _MENU_ dòng ",
+          "zeroRecords": "Không có kết quả tương tự",
+          "info": "Trang _PAGE_ / _PAGES_",
+          "infoEmpty": "Không tìm thấy kết quả nào",
+          "infoFiltered": "(filtered from _MAX_ total records)",
+          "loadingRecords": "Đang tìm kiếm...",
+          "search": "Tìm kiếm:",
+          paginate: {
+            previous: '‹',
+            next: '›'
+          },
+        },
+        columnDefs: [{
+          orderable: false,
+          targets: 3
+        }, ] })
+    
+    $("#bangdonhang").DataTable({"responsive": true,
+        "ordering": true,
+        "autoWidth": false,
+        "language": {
+          "lengthMenu": "Hiện _MENU_ dòng ",
+          "zeroRecords": "Không có kết quả tương tự",
+          "info": "Trang _PAGE_ / _PAGES_",
+          "infoEmpty": "Không tìm thấy kết quả nào",
+          "infoFiltered": "(filtered from _MAX_ total records)",
+          "loadingRecords": "Đang tìm kiếm...",
+          "search": "Tìm kiếm:",
+          paginate: {
+            previous: '‹',
+            next: '›'
+          },
+        },
+        columnDefs: [{
+          orderable: false,
+          targets: 4
+        }, ] })
+    
+    $("#bangnhaphang").DataTable({"responsive": true,
+        "ordering": true,
+        "autoWidth": false,
+        "language": {
+          "lengthMenu": "Hiện _MENU_ dòng ",
+          "zeroRecords": "Không có kết quả tương tự",
+          "info": "Trang _PAGE_ / _PAGES_",
+          "infoEmpty": "Không tìm thấy kết quả nào",
+          "infoFiltered": "(filtered from _MAX_ total records)",
+          "loadingRecords": "Đang tìm kiếm...",
+          "search": "Tìm kiếm:",
+          paginate: {
+            previous: '‹',
+            next: '›'
+          },
+        },
+        columnDefs: [{
+          orderable: false,
+          targets: 5
+        }, ] })
+    
       $("#example3").DataTable({
+        "responsive": true,
+        "ordering": true,
+        "autoWidth": false,
+        "language": {
+          "lengthMenu": "Hiện _MENU_ dòng ",
+          "zeroRecords": "Không có kết quả tương tự",
+          "info": "Trang _PAGE_ / _PAGES_",
+          "infoEmpty": "Không tìm thấy kết quả nào",
+          "infoFiltered": "(filtered from _MAX_ total records)",
+          "loadingRecords": "Đang tìm kiếm...",
+          "search": "Tìm kiếm:",
+          paginate: {
+            previous: '‹',
+            next: '›'
+          },
+        },
+        columnDefs: [{
+          orderable: false,
+          targets: 1
+        }, {
+          orderable: false,
+          targets: 6
+        }]
+
+      })
+      
+      $("#bangnhanvien").DataTable({
         "responsive": true,
         "ordering": true,
         "autoWidth": false,

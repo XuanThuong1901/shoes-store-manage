@@ -1,5 +1,6 @@
 package cnpm.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import cnpm.entity.DanhMucSanPham;
-import cnpm.entity.KhachHang;
-import cnpm.entity.NhaCungCap;
-import cnpm.entity.NhanVien;
-import cnpm.entity.TaiKhoan;
-import cnpm.model.ThongTinCaNhan;
-import cnpm.service.DanhMucSanPhamService;
-import cnpm.service.KhachHangService;
-import cnpm.service.NhaCungCapService;
-import cnpm.service.NhanVienService;
-import cnpm.service.TaiKhoanService;
-import cnpm.service.UtilsService;
+import cnpm.entity.*;
+
+
+import cnpm.service.*;
 
 @Controller
 @RequestMapping("/quanly/")
@@ -43,11 +36,65 @@ public class QuanLyController {
 	
 	@Autowired
 	NhaCungCapService nhaCungCapService;
+	
+	@Autowired
+	PhieuNhapService phieuNhapService;
+	
+	@Autowired
+	ChiTietSanPhamService chiTietSanPhamService;
+	
+	@Autowired
+	ChiTietDonHangService chiTietDonHangService;
+	
+	@Autowired
+	SizeService sizeService;
+	
+	@Autowired
+	MauService mauService;
+	
+	@Autowired
+	SanPhamService sanPhamService;
+	
+	@Autowired
+	DonHangService donHangService;
 
 	@Autowired
 	UtilsService utilService;
 
 //	============== Model - Attribute ==============
+	@ModelAttribute("thongTinCaNhan")
+	public NhanVien thongTinCaNhan() {
+		return new NhanVien();
+	}
+	
+	@ModelAttribute("danhSachDonHang")
+	public List<DonHang> getDSDH(){
+		return donHangService.getDSDonHang();
+	}
+	
+	@ModelAttribute("danhSachNhaCungCap")
+	public List<NhaCungCap> getDSNCC(){
+		return nhaCungCapService.getDSNhaCungCap();
+	}
+	
+	@ModelAttribute("danhSachMau")
+	public List<MauSanPham> getDSMau() {
+		List<MauSanPham> list = mauService.getDSMau();
+		return list;
+	}
+	
+	@ModelAttribute("danhSachSize")
+	public List<SizeSanPham> getDSSize() {
+		List<SizeSanPham> list = sizeService.getDSSize();
+		return list;
+	}
+	
+	@ModelAttribute("danhSachSanPham")
+	public List<SanPham> getDSSanPham() {
+		List<SanPham> list = sanPhamService.getDSSanPham();
+		return list;
+	}
+	
 	@ModelAttribute("danhSachNhanVien")
 	public List<NhanVien> getDSNhanVien() {
 		List<NhanVien> list = nhanVienService.getDSNhanVien();
@@ -58,6 +105,43 @@ public class QuanLyController {
 	public List<KhachHang> getDSKhachHang() {
 		List<KhachHang> list = khachHangService.getDSKhachHang();
 		return list;
+	}
+	
+	@ModelAttribute("danhSachPhieuNhap")
+	public List<PhieuNhap> getDSPhieuNhap(){
+		List<PhieuNhap> list = phieuNhapService.getDSPhieuNhap();
+		return list;
+	}
+	
+	@ModelAttribute("danhSachNhaCungCap")
+	public List<NhaCungCap> getDSNhaCungCap(){
+		List<NhaCungCap> list = nhaCungCapService.getDSNhaCungCap();
+		return list;
+	}
+	
+	@ModelAttribute("thongTinDH")
+	public DonHang thongTinDH() {
+		return new DonHang();
+	}
+	
+	@ModelAttribute("CTSP")
+	public ChiTietSanPham ctSPMoi(){
+		return new ChiTietSanPham();
+	}
+	
+	@ModelAttribute("CTPhieuNhapMoi")
+	public ChiTietPhieuNhap ctPhieuNhapMoi() {
+		return new ChiTietPhieuNhap();
+	}
+	
+	@ModelAttribute("phieuNhapMoi")
+	public PhieuNhap phieuNhapMoi(ModelMap model) {
+		return new PhieuNhap();
+	} 
+	
+	@ModelAttribute("thongTinPN")
+	public PhieuNhap thongtinPN(ModelMap model) {
+		return new PhieuNhap();
 	}
 
 	@ModelAttribute("nhanVienMoi")
@@ -894,4 +978,142 @@ public class QuanLyController {
 	//// Lỗi không biết sữa
 	
 	
+	@RequestMapping(value = "phieunhap", method = RequestMethod.GET)
+	public String getViewPhieuNhap(ModelMap model) {
+		
+		return "quantri/quanly/phieunhap";
+	}
+	
+	@RequestMapping(value = "phieunhap/{maPN}", params = "thongtin", method = RequestMethod.GET)
+	public String getThongtin1PhieuNhap(ModelMap model, @PathVariable("maPN") Integer maPN) {
+		
+		PhieuNhap phieunhap = phieuNhapService.getByMaPN(maPN);
+		if (phieunhap != null) {
+			model.addAttribute("thongTinPN", phieunhap);
+			model.addAttribute("isOpenModalInfo", true);
+
+		}
+
+		return "quantri/quanly/danhmucsp";
+	}
+	
+	@RequestMapping(value="phieunhap", params="themPN", method=RequestMethod.POST)
+	public String themMoiPhieuNhap(ModelMap model, @ModelAttribute("phieuNhapMoi") PhieuNhap phieunhap, BindingResult errors) {
+		
+		
+		if(phieunhap.getThoiGian() == null) {
+			errors.rejectValue("thoiGian", "phieuNhapMoi", "Ngày nhập không được để trống");
+		}
+		
+		
+		if(errors.hasErrors()) {
+			model.addAttribute("isOpenModalAddNew", true);
+			return "quantri/quanly/phieunhap";
+		}
+		
+		phieunhap.setTongTien(0.0);
+		if(phieuNhapService.them(phieunhap)) {
+			model.addAttribute("isSuccess", true);
+			model.addAttribute("alertMessage", "Thêm phiếu nhập thành công");
+			model.addAttribute("danhSachPhieuNhap", phieuNhapService.getDSPhieuNhap());
+		}else {
+			model.addAttribute("isSuccess", false);
+			model.addAttribute("alertMessage", "Thêm phiếu nhập thất bại");
+		}
+			
+		
+		return "quantri/quanly/phieunhap";
+	}
+	
+	@RequestMapping(value="phieunhap/{maPN}", params="suaphieunhap", method=RequestMethod.GET)
+	public String getSuaPhieuNhap(ModelMap model, @PathVariable("maPN") Integer maPN) {
+		
+		PhieuNhap phieunhap = phieuNhapService.getByMaPN(maPN);
+		if(phieunhap != null) {
+			model.addAttribute("isOpenModalEdit", true);
+			model.addAttribute("thongTinPN", phieunhap);
+		}else {
+			model.addAttribute("isSuccess", false);
+			model.addAttribute("alertMessage", "Đã có lỗi xảy ra");
+		}
+		
+		return "quantri/quanly/phieunhap";
+	}
+	
+	@RequestMapping(value="phieunhap/{maPN}", params="suaPN", method=RequestMethod.POST)
+	public String postSuaPhieuNhap(ModelMap model, @PathVariable("maPN") Integer maPN, @ModelAttribute("thongTinPN") PhieuNhap phieunhap, BindingResult errors) {
+		
+		if(phieunhap.getThoiGian() == null) {
+			errors.rejectValue("thoiGian", "thongTinPN", "Ngày nhập không được để trống");
+		}
+		
+		PhieuNhap phieunhapcu = phieuNhapService.getByMaPN(maPN);
+		if(phieunhapcu != null) {
+			if(phieunhapcu.getMaPN() != phieunhap.getNhaCungCap().getMaNCC()) {
+				phieunhapcu.setNhaCungCap(nhaCungCapService.getByMaNCC(phieunhap.getNhaCungCap().getMaNCC()));
+			}
+			
+			if(!phieunhapcu.getThoiGian().equals(phieunhap.getThoiGian())) {
+				phieunhapcu.setThoiGian(phieunhap.getThoiGian());
+			}
+			
+			if(phieuNhapService.sua(phieunhapcu)) {
+				model.addAttribute("isSuccess", true);
+				model.addAttribute("alertMessage", "Sửa phiếu nhập thành công");
+				model.addAttribute("danhSachPhieuNhap", phieuNhapService.getDSPhieuNhap());
+			}else {
+				model.addAttribute("isSuccess", false);
+				model.addAttribute("alertMessage", "Sửa phiếu nhập thất bại");
+			}
+			
+		}else {
+			model.addAttribute("isSuccess", false);
+			model.addAttribute("alertMessage", "Sửa phiếu nhập thất bại");
+		}
+		
+		return "quantri/quanly/phieunhap";
+	}
+	
+	@RequestMapping(value="phieunhap", params="themctpn", method=RequestMethod.POST)
+	public String themCTPN(ModelMap model, @ModelAttribute("CTSP") ChiTietSanPham CTSP, BindingResult errors) {
+		
+		//ChiTietSanPham chitietSP = chiTietSanPhamService;
+		/*
+		 * if(chitietSP != null) {
+		 * 
+		 * }else {
+		 * 
+		 * }
+		 */
+		
+		return "quantri/quanly/phieunhap";
+	}
+	
+	
+	@RequestMapping(value="donhang", method=RequestMethod.GET)
+	public String getViewDonHang() {
+		return "quantri/quanly/donhang";
+	}
+	
+	@RequestMapping(value="donhang/{maDH}", params="thongtin", method=RequestMethod.GET)
+	public String getThongTinDonHang(ModelMap model, @PathVariable("maDH") Integer maDH) {
+		
+		if(maDH != null) {
+			DonHang donhang = donHangService.getByMaDH(maDH);
+			
+			if(donhang != null) {
+				List<ChiTietDonHang> chitietdonhang = chiTietDonHangService.getDSByMaDH(maDH);
+				if(chitietdonhang.size() >0 ) {
+					model.addAttribute("chitietdonhang", chitietdonhang);
+				}else {
+					model.addAttribute("chitietdonhang", new ArrayList<ChiTietDonHang>());
+				}
+				
+				model.addAttribute("thongTinDH", donhang);
+				model.addAttribute("isOpenModalInfo",true);
+			}
+		}
+		
+		return "quantri/quanly/donhang";
+	}
 }
