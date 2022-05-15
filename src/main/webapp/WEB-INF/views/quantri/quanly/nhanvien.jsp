@@ -18,7 +18,8 @@
 			<div class="row mb-2">
 				<div class="col-sm-12">
 					<ol class="breadcrumb ">
-						<li class="breadcrumb-item"><a href="quanly/tongquan">Quản lý</a></li>
+						<li class="breadcrumb-item"><a href="quanly/tongquan">Quản
+								lý</a></li>
 						<li class="breadcrumb-item active">Nhân viên</li>
 					</ol>
 				</div>
@@ -108,7 +109,7 @@
 
 													</c:otherwise>
 												</c:choose></td>
-											<td>${nv.getHo() } ${nv.getTen() }</td>
+											<td>${nv.getHo() }${nv.getTen() }</td>
 											<td>${nv.getSdt() }</td>
 											<td><c:choose>
 													<c:when test="${nv.getPhai() }">
@@ -135,7 +136,7 @@
 														class="fas fa-info-circle"></i> </a> <a class=""
 														href="quanly/nhanvien/${nv.getMaNV() }?suaThongtin"><i
 														class="fas fa-edit"></i> </a>
-													
+
 												</div>
 
 											</td>
@@ -215,7 +216,8 @@
 									<div class="form-group row">
 										<label for="" class="col-sm-2 col-form-label text-primary">Email</label>
 										<div class="col-sm-10">
-											<form:input path="taiKhoan.email" class="form-control" id="inputName" />
+											<form:input path="taiKhoan.email" class="form-control"
+												id="inputName" />
 											<form:errors path="taiKhoan.email" cssClass="text-danger" />
 											<!--  <input type="email" class="form-control" id="inputName" placeholder=""> -->
 										</div>
@@ -329,7 +331,8 @@
 
 <!-- Modal sua thong tin nhan vien -->
 
-<div class="modal fade" id="modal-edit-employee" isShow="${isOpenModalEdit }">
+<div class="modal fade" id="modal-edit-employee"
+	isShow="${isOpenModalEdit }">
 	<div class="modal-dialog modal-lg modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -358,9 +361,11 @@
 									<div class="active tab-pane" id="activity">
 										<!-- Info profile -->
 
-										<form:form action="quanly/nhanvien/${thongTinNV.getMaNV() }?suaNV" class="form-horizontal" modelAttribute="thongTinNV"
+										<form:form
+											action="quanly/nhanvien/${thongTinNV.getMaNV() }?suaNV"
+											class="form-horizontal" modelAttribute="thongTinNV"
 											enctype="multipart/form-data">
-										
+
 											<div class="row">
 												<div class="col-md-4">
 													<!-- Profile Image -->
@@ -372,9 +377,9 @@
 																	src="resources/file/${thongTinNV.getAnh() }"
 																	alt="User profile picture" style="width: 120px;" />
 															</div>
-													 <input name="anhMoi" type="file" id="input-update-avatar"
-																class="mt-3 form-control" /> 
-															
+															<input name="anhMoi" type="file" id="input-update-avatar"
+																class="mt-3 form-control" />
+
 
 
 														</div>
@@ -455,18 +460,20 @@
 																<label for="inputName2" class="col-sm-2 col-form-label">Giới
 																	tính</label>
 																<div class="col-sm-10">
-																<div class="form-check form-check-inline">
-																<form:radiobutton path="phai" value="true" label="Nam" class="form-check-input"
-																		checked="${thongtinNV.getPhai() == true ? 'checked' : '' }" />
-																
-																</div>
-																<div class="form-check form-check-inline">
-																	<form:radiobutton path="phai" value="false" label="Nữ" class="form-check-input"
-																		checked="${thongtinNV.getPhai() == false ? 'checked' : '' }" />
-																	<form:errors path="phai" cssClass="text-danger" />
-																</div>
-																	
-																	
+																	<div class="form-check form-check-inline">
+																		<form:radiobutton path="phai" value="true" label="Nam"
+																			class="form-check-input"
+																			checked="${thongtinNV.getPhai() == true ? 'checked' : '' }" />
+
+																	</div>
+																	<div class="form-check form-check-inline">
+																		<form:radiobutton path="phai" value="false" label="Nữ"
+																			class="form-check-input"
+																			checked="${thongtinNV.getPhai() == false ? 'checked' : '' }" />
+																		<form:errors path="phai" cssClass="text-danger" />
+																	</div>
+
+
 																</div>
 															</div>
 															<div class="form-group row">
@@ -524,16 +531,19 @@
 
 
 									<div class="tab-pane" id="settings">
-										<form class="form-horizontal" method="post" action="quanly/nhanvien/${thongTinNV.getMaNV() }?resetmatkhau">
+										<form class="form-horizontal" method="post"
+											action="quanly/nhanvien/${thongTinNV.getMaNV() }?resetmatkhau">
 											<div class="form-group row">
 												<div class=" col-sm-10">
-													<input type="text" name="maNV" value="${thongTinNV.getMaNV() }" hidden/>
+													<input type="text" name="maNV"
+														value="${thongTinNV.getMaNV() }" hidden />
 												</div>
 											</div>
 											<div class="form-group row">
 												<div class=" col-sm-10">
-													<button type="submit" name="resetmatkhau" class="btn bg-danger" id="btn-reset-mk">Reset
-														mật khẩu</button>
+													<button type="submit" name="resetmatkhau"
+														class="btn bg-danger" id="btn-reset-mk">Reset mật
+														khẩu</button>
 												</div>
 											</div>
 										</form>

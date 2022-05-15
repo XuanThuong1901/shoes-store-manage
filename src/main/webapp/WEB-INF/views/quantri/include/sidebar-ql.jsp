@@ -43,7 +43,7 @@
               </a>
             </li>
             <li class="nav-item" id="danhmuc">
-              <a href="#" class="nav-link ">
+              <a href="quanly/danhmucsp" class="nav-link ">
               <!--   <i class="nav-icon fas fa-grip-vertical"></i> -->
                 <i class="nav-icon fab fa-elementor"></i>
                 <p>
@@ -80,7 +80,7 @@
               </a>
             </li>
             <li class="nav-item" id="nhacungcap">
-              <a href="#" class="nav-link ">
+              <a href="quanly/nhacungcap" class="nav-link ">
        
                  <i class="nav-icon fas fa-dolly-flatbed"></i>
                 <p>
