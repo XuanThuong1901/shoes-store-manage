@@ -59,6 +59,11 @@ public class QuanLyController {
 	UtilsService utilService;
 
 //	============== Model - Attribute ==============
+	@ModelAttribute("thongTinCaNhan")
+	public NhanVien thongTinCaNhan() {
+		return new NhanVien();
+	}
+	
 	@ModelAttribute("danhSachDonHang")
 	public List<DonHang> getDSDH(){
 		return donHangService.getDSDonHang();
