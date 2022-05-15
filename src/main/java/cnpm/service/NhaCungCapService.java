@@ -1,6 +1,5 @@
 package cnpm.service;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +32,7 @@ public class NhaCungCapService {
 	
 	public Boolean xoaNCC(NhaCungCap nhaCungCap) {
 		return nhaCungCapDAO.xoa(nhaCungCap);
+	public NhaCungCap getByMaNCC(Integer maNCC){
+		return nhaCungCapDAO.getByMaNCC(maNCC);
 	}
 }

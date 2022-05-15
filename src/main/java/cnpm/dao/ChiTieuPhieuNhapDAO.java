@@ -11,50 +11,46 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import cnpm.entity.DanhMucSanPham;
-import cnpm.entity.NhaCungCap;
-
-
-import cnpm.entity.NhaCungCap;
+import cnpm.entity.ChiTietPhieuNhap;
 import cnpm.entity.PhieuNhap;
 
 @Transactional
 @Repository
-public class NhaCungCapDAO {
-
+public class ChiTieuPhieuNhapDAO {
 	@Autowired
 	SessionFactory factory;
 	
-	public NhaCungCap getByMaNCC(Integer maNCC) {
+	public ChiTietPhieuNhap getByMaCTPN(Integer maCTPN) {
 		Session session = factory.getCurrentSession();
-		String hql = "from NhaCungCap where maNCC = :maNCC";
+		String hql = "from ChiTietPhieuNhap where maCTPN = :maCTPN";
 		Query query = session.createQuery(hql);
-		query.setParameter("maNCC", maNCC);
-		List<NhaCungCap> res = query.list();
+		query.setParameter("maCTPN", maCTPN);
+		List<ChiTietPhieuNhap> res = query.list();
 		
 		if(res.size() == 0) {
 			return null;
 		}
 		
-		NhaCungCap ncc = res.get(0);
-		return ncc;
+		ChiTietPhieuNhap pn = res.get(0);
+		return pn;
 	}
 	
-	public List<NhaCungCap> getDSNhaCungCap(){
+	public List<PhieuNhap> getDSPhieuNhap(){
 		Session session = factory.getCurrentSession();
-		String hql ="from NhaCungCap";
+		String hql = "from PhieuNhap";
 		Query query = session.createQuery(hql);
-		List<NhaCungCap> list = query.list();
+		List<PhieuNhap> list = query.list();
+		
 		return list;
 	}
 	
-	public Boolean them(NhaCungCap nhaCungCap) {
+	public Boolean them(PhieuNhap phieuNhap) {
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
-			session.save(nhaCungCap);
+			session.save(phieuNhap);
 			t.commit();
 			
 		} catch (Exception e) {
@@ -69,45 +65,45 @@ public class NhaCungCapDAO {
 		return isSuccess;
 	}
 	
-	public Boolean sua(NhaCungCap nhaCungCap) {
+	public Boolean sua(PhieuNhap phieuNhap) {
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
-			session.update(nhaCungCap);
+			session.update(phieuNhap);
 			t.commit();
 			
 		} catch (Exception e) {
 			System.out.println(e);
-			System.out.println(e.getCause());
 			t.rollback();
 			isSuccess = false;
 		}
 		finally {
 			session.close();
 		}
+		
 		return isSuccess;
 	}
 	
-	public Boolean xoa(NhaCungCap nhaCungCap) {
+	public Boolean xoa(PhieuNhap phieuNhap) {
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
-			session.delete(nhaCungCap);
+			session.delete(phieuNhap);
 			t.commit();
 			
 		} catch (Exception e) {
 			System.out.println(e);
-			System.out.println(e.getCause());
 			t.rollback();
 			isSuccess = false;
 		}
 		finally {
 			session.close();
 		}
+		
 		return isSuccess;
 	}
 }

@@ -145,4 +145,14 @@ small{
 }
 .text-black:hover{
     color:#000;
-}          
+}
+i.fas.fa-check{
+    color: white;
+    width: 70px;
+    height: 70px;
+    border: 2px solid white;
+    text-align: center;
+    font-size: 30px;
+    line-height: 70px;
+    border-radius: 50%;   
+}

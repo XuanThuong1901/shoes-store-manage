@@ -80,6 +80,12 @@ $(document).ready(function(){
 	// button them
 	showModalConfirm("cancel-save-modal", "Bạn có chắc chắn hủy?", "Hủy");
 	
+	// button them
+	showModalConfirm("cancel-save-modal-phieunhap", "Bạn có chắc chắn hủy?", "Hủy");
+	
+	// button them
+	showModalConfirm("cancel-update-modal-phieunhap", "Bạn có chắc chắn hủy?", "Hủy");
+	
 	// button sua
 	showModalConfirm("cancel-update-modal", "Bạn có chắc chăn hủy?", "Hủy");
 	

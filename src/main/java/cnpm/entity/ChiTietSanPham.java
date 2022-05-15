@@ -22,6 +22,9 @@ public class ChiTietSanPham {
 
 	@Column(name = "SoLuong")
 	private int soLuong;
+	
+	@Column(name="HinhAnh")
+	private String hinhAnh;
 
 	@ManyToOne
 	@JoinColumn(name = "MaSP")
@@ -43,6 +46,16 @@ public class ChiTietSanPham {
 
 	@OneToMany(mappedBy = "chiTietSP", fetch = FetchType.LAZY)
 	private Collection<ChiTietDonHang> chiTietDonHangs;
+	
+	
+
+	public String getHinhAnh() {
+		return hinhAnh;
+	}
+
+	public void setHinhAnh(String hinhAnh) {
+		this.hinhAnh = hinhAnh;
+	}
 
 	public int getMaChiTietSP() {
 		return maChiTietSP;
