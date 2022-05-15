@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!-- Header -->
 <%@include file="/WEB-INF/views/quantri/include/header.jsp"%>
@@ -80,7 +79,7 @@
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
-							<table id="example3" class="table table-bordered table-striped">
+							<table id="bangdanhmucsp" class="table table-bordered table-striped">
 								<thead class="bg-primary">
 									<tr>
 										<th>Mã danh mục</th>

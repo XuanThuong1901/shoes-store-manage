@@ -32,7 +32,5 @@ public class NhaCungCapService {
 	
 	public Boolean xoaNCC(NhaCungCap nhaCungCap) {
 		return nhaCungCapDAO.xoa(nhaCungCap);
-	public NhaCungCap getByMaNCC(Integer maNCC){
-		return nhaCungCapDAO.getByMaNCC(maNCC);
 	}
 }

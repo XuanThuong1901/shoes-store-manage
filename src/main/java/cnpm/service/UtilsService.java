@@ -19,10 +19,13 @@ public class UtilsService {
 		}
 		try{
 			System.out.println("sys "+System.currentTimeMillis());
-			String filePath = context.getRealPath("/resources/file/" + file.getOriginalFilename() );
+
+			String path = System.currentTimeMillis() + file.getOriginalFilename();
+			String filePath = context.getRealPath("/resources/file/" + path );
 			file.transferTo(new File(filePath));
 			
-			System.out.println("file " + filePath);
+			
+			System.out.println("file " + path);
 			System.out.println("file new" + file.getOriginalFilename());
 			
 			/*

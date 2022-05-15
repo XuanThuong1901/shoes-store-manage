@@ -41,9 +41,6 @@ public class QuanLyController {
 	PhieuNhapService phieuNhapService;
 	
 	@Autowired
-	NhaCungCapService nhaCungCapService;
-	
-	@Autowired
 	ChiTietSanPhamService chiTietSanPhamService;
 	
 	@Autowired
@@ -757,20 +754,6 @@ public class QuanLyController {
 		DanhMucSanPham danhmuc = danhMucSanPhamService.getByMaDM(maDM);
 		if (danhmuc != null) {
 			model.addAttribute("thongTinDM", danhmuc);
-	
-	
-	@RequestMapping(value = "phieunhap", method = RequestMethod.GET)
-	public String getViewPhieuNhap(ModelMap model) {
-		
-		return "quantri/quanly/phieunhap";
-	}
-	
-	@RequestMapping(value = "phieunhap/{maPN}", params = "thongtin", method = RequestMethod.GET)
-	public String getThongtin1PhieuNhap(ModelMap model, @PathVariable("maPN") Integer maPN) {
-		
-		PhieuNhap phieunhap = phieuNhapService.getByMaPN(maPN);
-		if (phieunhap != null) {
-			model.addAttribute("thongTinPN", phieunhap);
 			model.addAttribute("isOpenModalInfo", true);
 
 		}
@@ -1011,7 +994,7 @@ public class QuanLyController {
 
 		}
 
-		return "quantri/quanly/phieunhap";
+		return "quantri/quanly/danhmucsp";
 	}
 	
 	@RequestMapping(value="phieunhap", params="themPN", method=RequestMethod.POST)

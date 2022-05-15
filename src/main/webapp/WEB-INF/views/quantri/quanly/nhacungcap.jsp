@@ -80,7 +80,7 @@
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
-							<table id="example3" class="table table-bordered table-striped">
+							<table id="bangnhacc" class="table table-bordered table-striped">
 								<thead class="bg-primary">
 									<tr>
 										<th>Mã NCC</th>
