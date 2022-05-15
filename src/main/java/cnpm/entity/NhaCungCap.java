@@ -19,17 +19,17 @@ public class NhaCungCap {
 	private int maNCC;
 	
 	@Column(name="TenNCC")
-	private int tenNCC;
+	private String tenNCC;
 	
 	@Column(name="SDT")
-	private int sdt;
+	private String sdt;
 	
 	@Column(name="DiaChi")
-	private int diaChi;
+	private String diaChi;
 	
 	@OneToMany(mappedBy = "nhaCungCap", fetch = FetchType.EAGER)
 	private Collection<PhieuNhap> phieuNhap;
-	
+
 	public int getMaNCC() {
 		return maNCC;
 	}
@@ -38,27 +38,27 @@ public class NhaCungCap {
 		this.maNCC = maNCC;
 	}
 
-	public int getTenNCC() {
+	public String getTenNCC() {
 		return tenNCC;
 	}
 
-	public void setTenNCC(int tenNCC) {
+	public void setTenNCC(String tenNCC) {
 		this.tenNCC = tenNCC;
 	}
 
-	public int getSdt() {
+	public String getSdt() {
 		return sdt;
 	}
 
-	public void setSdt(int sdt) {
+	public void setSdt(String sdt) {
 		this.sdt = sdt;
 	}
 
-	public int getDiaChi() {
+	public String getDiaChi() {
 		return diaChi;
 	}
 
-	public void setDiaChi(int diaChi) {
+	public void setDiaChi(String diaChi) {
 		this.diaChi = diaChi;
 	}
 
@@ -69,6 +69,6 @@ public class NhaCungCap {
 	public void setPhieuNhap(Collection<PhieuNhap> phieuNhap) {
 		this.phieuNhap = phieuNhap;
 	}
-
+	
 	
 }

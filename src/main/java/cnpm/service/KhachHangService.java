@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import cnpm.dao.KhachHangDAO;
 import cnpm.dao.TaiKhoanDAO;
 import cnpm.entity.KhachHang;
+import cnpm.entity.NhanVien;
 import cnpm.entity.TaiKhoan;
 
 @Service
@@ -53,5 +54,9 @@ public class KhachHangService {
 	
 	public Boolean themKH(KhachHang khachHang) {
 		return khachHangDAO.them(khachHang);
+	}
+	
+	public Boolean suaKH(KhachHang khachHang) {
+		return khachHangDAO.sua(khachHang);
 	}
 }

@@ -351,7 +351,7 @@
 									<div class="active tab-pane" id="activity">
 										<!-- Info profile -->
 
-										<form:form action="quanly/khachhang/${thongTinkh.getMaKH() }?suaKH" class="form-horizontal" modelAttribute="thongTinKH"
+										<form:form action="quanly/khachhang/${thongTinKH.getMaKH() }?suaKH" class="form-horizontal" modelAttribute="thongTinKH"
 											enctype="multipart/form-data">
 										
 											<div class="row">
@@ -496,7 +496,7 @@
 												<div class="col-12">
 													<div class=" d-flex justify-content-end">
 														<button type="submit" class="btn btn-primary">Sửa</button>
-														<a href="quanly/nhakhien" id="cancel-update-modal"
+														<a href="quanly/khachhang" id="cancel-update-modal"
 															class="mx-2 btn btn-secondary">Hủy</a>
 													</div>
 												</div>
