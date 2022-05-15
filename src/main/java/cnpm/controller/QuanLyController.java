@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import cnpm.entity.KhachHang;
+import cnpm.entity.NhaCungCap;
 import cnpm.entity.NhanVien;
+import cnpm.entity.PhieuNhap;
 import cnpm.entity.TaiKhoan;
 import cnpm.model.ThongTinCaNhan;
 import cnpm.service.KhachHangService;
+import cnpm.service.NhaCungCapService;
 import cnpm.service.NhanVienService;
+import cnpm.service.PhieuNhapService;
 import cnpm.service.TaiKhoanService;
 import cnpm.service.UtilsService;
 
@@ -33,6 +37,12 @@ public class QuanLyController {
 
 	@Autowired
 	KhachHangService khachHangService;
+	
+	@Autowired
+	PhieuNhapService phieuNhapService;
+	
+	@Autowired
+	NhaCungCapService nhaCungCapService;
 
 	@Autowired
 	UtilsService utilService;
@@ -48,6 +58,28 @@ public class QuanLyController {
 	public List<KhachHang> getDSKhachHang() {
 		List<KhachHang> list = khachHangService.getDSKhachHang();
 		return list;
+	}
+	
+	@ModelAttribute("danhSachPhieuNhap")
+	public List<PhieuNhap> getDSPhieuNhap(){
+		List<PhieuNhap> list = phieuNhapService.getDSPhieuNhap();
+		return list;
+	}
+	
+	@ModelAttribute("danhSachNhaCungCap")
+	public List<NhaCungCap> getDSNhaCungCap(){
+		List<NhaCungCap> list = nhaCungCapService.getDSNhaCungCap();
+		return list;
+	}
+	
+	@ModelAttribute("phieuNhapMoi")
+	public PhieuNhap phieuNhapMoi(ModelMap model) {
+		return new PhieuNhap();
+	} 
+	
+	@ModelAttribute("thongTinPN")
+	public PhieuNhap thongtinPN(ModelMap model) {
+		return new PhieuNhap();
 	}
 
 	@ModelAttribute("nhanVienMoi")
@@ -444,5 +476,102 @@ public class QuanLyController {
 		}
 
 		return "quantri/quanly/khachhang";
+	}
+	
+	
+	
+	@RequestMapping(value = "phieunhap", method = RequestMethod.GET)
+	public String getViewPhieuNhap(ModelMap model) {
+		
+		return "quantri/quanly/phieunhap";
+	}
+	
+	@RequestMapping(value = "phieunhap/{maPN}", params = "thongtin", method = RequestMethod.GET)
+	public String getThongtin1PhieuNhap(ModelMap model, @PathVariable("maPN") Integer maPN) {
+		
+		PhieuNhap phieunhap = phieuNhapService.getByMaPN(maPN);
+		if (phieunhap != null) {
+			model.addAttribute("thongTinPN", phieunhap);
+			model.addAttribute("isOpenModalInfo", true);
+
+		}
+
+		return "quantri/quanly/phieunhap";
+	}
+	
+	@RequestMapping(value="phieunhap", params="themPN", method=RequestMethod.POST)
+	public String themMoiPhieuNhap(ModelMap model, @ModelAttribute("phieuNhapMoi") PhieuNhap phieunhap, BindingResult errors) {
+		
+		
+		if(phieunhap.getThoiGian() == null) {
+			errors.rejectValue("thoiGian", "phieuNhapMoi", "Ngày nhập không được để trống");
+		}
+		
+		
+		if(errors.hasErrors()) {
+			model.addAttribute("isOpenModalAddNew", true);
+			return "quantri/quanly/phieunhap";
+		}
+		
+		phieunhap.setTongTien(0.0);
+		if(phieuNhapService.them(phieunhap)) {
+			model.addAttribute("isSuccess", true);
+			model.addAttribute("alertMessage", "Thêm phiếu nhập thành công");
+			model.addAttribute("danhSachPhieuNhap", phieuNhapService.getDSPhieuNhap());
+		}else {
+			model.addAttribute("isSuccess", false);
+			model.addAttribute("alertMessage", "Thêm phiếu nhập thất bại");
+		}
+			
+		
+		return "quantri/quanly/phieunhap";
+	}
+	
+	@RequestMapping(value="phieunhap/{maPN}", params="suaphieunhap", method=RequestMethod.GET)
+	public String getSuaPhieuNhap(ModelMap model, @PathVariable("maPN") Integer maPN) {
+		
+		PhieuNhap phieunhap = phieuNhapService.getByMaPN(maPN);
+		if(phieunhap != null) {
+			model.addAttribute("isOpenModalEdit", true);
+			model.addAttribute("thongTinPN", phieunhap);
+		}else {
+			model.addAttribute("isSuccess", false);
+			model.addAttribute("alertMessage", "Đã có lỗi xảy ra");
+		}
+		
+		return "quantri/quanly/phieunhap";
+	}
+	
+	@RequestMapping(value="phieunhap/{maPN}", params="suaPN", method=RequestMethod.POST)
+	public String postSuaPhieuNhap(ModelMap model, @PathVariable("maPN") Integer maPN, @ModelAttribute("thongTinPN") PhieuNhap phieunhap, BindingResult errors) {
+		
+		if(phieunhap.getThoiGian() == null) {
+			errors.rejectValue("thoiGian", "thongTinPN", "Ngày nhập không được để trống");
+		}
+		
+		PhieuNhap phieunhapcu = phieuNhapService.getByMaPN(maPN);
+		if(phieunhapcu != null) {
+			if(phieunhapcu.getMaPN() != phieunhap.getNhaCungCap().getMaNCC()) {
+				phieunhapcu.setNhaCungCap(nhaCungCapService.getByMaNCC(phieunhap.getNhaCungCap().getMaNCC()));
+			}
+			
+			if(!phieunhapcu.getThoiGian().equals(phieunhap.getThoiGian())) {
+				phieunhapcu.setThoiGian(phieunhap.getThoiGian());
+			}
+			
+			if(phieuNhapService.sua(phieunhapcu)) {
+				model.addAttribute("isSuccess", true);
+				model.addAttribute("alertMessage", "Sửa phiếu nhạp thành công");
+			}else {
+				model.addAttribute("isSuccess", false);
+				model.addAttribute("alertMessage", "Sửa phiếu nhạp thất bại");
+			}
+			
+		}else {
+			model.addAttribute("isSuccess", false);
+			model.addAttribute("alertMessage", "Sửa phiếu nhạp thất bại");
+		}
+		
+		return "quantri/quanly/phieunhap";
 	}
 }

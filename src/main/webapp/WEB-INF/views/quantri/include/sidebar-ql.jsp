@@ -70,8 +70,8 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item" id="nhaphang">
-              <a href="#" class="nav-link ">
+            <li class="nav-item" id="phieunhap">
+              <a href="quanly/phieunhap" class="nav-link ">
                 <i class="nav-icon fas fa-clipboard-list"></i>
                 <p>
                   Nhập hàng

@@ -21,14 +21,15 @@ public class SanPham {
 	@Column(name = "MaSP")
 	private int maSP;
 	
+	@Column(name="TenSP")
+	private String tenSP;
+	
 	@Column(name = "MoTa")
 	private String moTa;
 	
 	@Column(name = "Gia")
 	private float gia;
 	
-	@Column(name = "HinhAnh")
-	private String hinhAnh;
 	
 	@Column(name = "GiamGia")
 	private float giamGia;
@@ -55,6 +56,15 @@ public class SanPham {
 	public void setMaSP(int maSP) {
 		this.maSP = maSP;
 	}
+	
+
+	public String getTenSP() {
+		return tenSP;
+	}
+
+	public void setTenSP(String tenSP) {
+		this.tenSP = tenSP;
+	}
 
 	public String getMoTa() {
 		return moTa;
@@ -72,14 +82,7 @@ public class SanPham {
 		this.gia = gia;
 	}
 
-	public String getHinhAnh() {
-		return hinhAnh;
-	}
-
-	public void setHinhAnh(String hinhAnh) {
-		this.hinhAnh = hinhAnh;
-	}
-
+	
 	public float getGiamGia() {
 		return giamGia;
 	}

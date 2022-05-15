@@ -110,14 +110,14 @@
             <!-- small box -->
             <div class="small-box border border-info">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>${danhSachPhieuNhap.size() }</h3>
 
-                <p>Don hang nhap</p>
+                <p>Đơn hàng nhập</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars text-info"></i>
+                <i class="nav-icon fas fa-clipboard-list text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="quanly/phieunhap" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

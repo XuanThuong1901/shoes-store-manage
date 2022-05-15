@@ -23,6 +23,7 @@ public class UtilsService {
 			file.transferTo(new File(filePath));
 			
 			System.out.println("file " + filePath);
+			System.out.println("file new" + file.getOriginalFilename());
 			
 			/*
 			 * model.addAttribute("file_name", file.getOriginalFilename());

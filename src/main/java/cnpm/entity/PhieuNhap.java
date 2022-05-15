@@ -26,7 +26,7 @@ public class PhieuNhap {
 	private int maPN;
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/mm/yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "ThoiGian")
 	private Date thoiGian;
 
@@ -37,6 +37,34 @@ public class PhieuNhap {
 	@ManyToOne
 	@JoinColumn(name = "MaNCC")
 	private NhaCungCap nhaCungCap;
+	
+	@Column(name="TongTien")
+	private Double tongTien;
+	
+	
+	public Double getTongTien() {
+		return tongTien;
+	}
+
+	public void setTongTien(Double tongTien) {
+		this.tongTien = tongTien;
+	}
+
+	public NhaCungCap getNhaCungCap() {
+		return nhaCungCap;
+	}
+
+	public void setNhaCungCap(NhaCungCap nhaCungCap) {
+		this.nhaCungCap = nhaCungCap;
+	}
+
+	public Collection<ChiTietPhieuNhap> getChiTietPN() {
+		return chiTietPN;
+	}
+
+	public void setChiTietPN(Collection<ChiTietPhieuNhap> chiTietPN) {
+		this.chiTietPN = chiTietPN;
+	}
 
 	@OneToMany(mappedBy = "phieuNhap", fetch = FetchType.EAGER)
 	private Collection<ChiTietPhieuNhap> chiTietPN;
@@ -65,13 +93,6 @@ public class PhieuNhap {
 		this.nhanVien = nhanVien;
 	}
 
-	public NhaCungCap getMaNCC() {
-		return nhaCungCap;
-	}
-
-	public void setMaNCC(NhaCungCap nhaCungCap) {
-		this.nhaCungCap = nhaCungCap;
-	}
 
 	/*
 	 * public Collection<ChiTietPhieuNhap> getChiTietPN() { return chiTietPN; }
