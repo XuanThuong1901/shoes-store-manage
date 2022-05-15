@@ -87,7 +87,7 @@
               <div class="icon">
                 <i class="ion ion-pie-graph text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -95,14 +95,14 @@
             <!-- small box -->
             <div class="small-box border border-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>${danhSachDonHang.size()}</h3>
 
-                <p>Don hang</p>
+                <p>Đơn hàng</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag text-info"></i>
               </div>
-              <a href="#" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="quanly/donhang" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

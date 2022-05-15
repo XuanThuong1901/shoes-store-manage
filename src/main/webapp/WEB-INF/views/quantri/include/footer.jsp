@@ -182,6 +182,27 @@
 
     // Datatable
     $(function () {
+    $("#bangdonhang").DataTable({"responsive": true,
+        "ordering": true,
+        "autoWidth": false,
+        "language": {
+          "lengthMenu": "Hiện _MENU_ dòng ",
+          "zeroRecords": "Không có kết quả tương tự",
+          "info": "Trang _PAGE_ / _PAGES_",
+          "infoEmpty": "Không tìm thấy kết quả nào",
+          "infoFiltered": "(filtered from _MAX_ total records)",
+          "loadingRecords": "Đang tìm kiếm...",
+          "search": "Tìm kiếm:",
+          paginate: {
+            previous: '‹',
+            next: '›'
+          },
+        },
+        columnDefs: [{
+          orderable: false,
+          targets: 4
+        }, ] })
+    
     $("#bangnhaphang").DataTable({"responsive": true,
         "ordering": true,
         "autoWidth": false,

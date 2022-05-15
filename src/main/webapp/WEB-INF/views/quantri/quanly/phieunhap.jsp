@@ -47,32 +47,32 @@
 								</button>
 							</div>
 							<div>
-									<c:choose>
-										<c:when test="${isSuccess }">
-											<div
-												class="mt-2 alert alert-success alert-dismissible fade show"
-												role="alert">
-												${alertMessage }
-												<button type="button" class="close" data-dismiss="alert"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-										</c:when>
-										<c:when test="${isSuccess == false }">
-											<div
-												class="mt-2 alert alert-danger alert-dismissible fade show"
-												role="alert">
-												${alertMessage }
-												<button type="button" class="close" data-dismiss="alert"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-										</c:when>
-									</c:choose>
+								<c:choose>
+									<c:when test="${isSuccess }">
+										<div
+											class="mt-2 alert alert-success alert-dismissible fade show"
+											role="alert">
+											${alertMessage }
+											<button type="button" class="close" data-dismiss="alert"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+									</c:when>
+									<c:when test="${isSuccess == false }">
+										<div
+											class="mt-2 alert alert-danger alert-dismissible fade show"
+											role="alert">
+											${alertMessage }
+											<button type="button" class="close" data-dismiss="alert"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+									</c:when>
+								</c:choose>
 
-								</div>
+							</div>
 
 						</div>
 						<!-- /.card-header -->
@@ -107,9 +107,10 @@
 														class="fas fa-info-circle"></i> </a> <a class=""
 														href="quanly/phieunhap/${pn.getMaPN() }?suaphieunhap"><i
 														class="fas fa-edit"></i> </a> <a class="" href="#"
-														data-toggle="modal" data-target="#exampleModalConfirm"> <i
-														class="fas fa-folder-plus"></i></a> <a class="" href="#"
-														data-toggle="modal" data-target="#exampleModal"> <i
+														data-toggle="modal" data-target="#modal-add-newctpn">
+														<i class="fas fa-folder-plus"></i>
+													</a> <a class="" href="#" data-toggle="modal"
+														data-target="#exampleModal"> <i
 														class="fas fa-pen-square"></i>
 													</a>
 											</td>
@@ -228,7 +229,8 @@
 </div>
 <!-- /.modal -->
 
-<div class="modal fade" id="modal-add-new" isShow="${isOpenModalAddNew }">
+<div class="modal fade" id="modal-add-new"
+	isShow="${isOpenModalAddNew }">
 	<div class="modal-lg modal-dialog modal-dialog-scrollable"
 		role="document">
 		<div class="modal-content">
@@ -476,7 +478,8 @@
 			</div>
 			<div class="modal-body">
 				<form:form class="form-horizontal" method="post"
-					action="quanly/phieunhap/${thongTinPN.getMaPN()}?suaPN" modelAttribute="thongTinPN">
+					action="quanly/phieunhap/${thongTinPN.getMaPN()}?suaPN"
+					modelAttribute="thongTinPN">
 					<div class="form-group">
 						<label for="">Nhà cung cấp</label>
 						<form:select path="nhaCungCap.maNCC"
@@ -502,14 +505,14 @@
 
 				</form:form>
 			</div>
-			
+
 		</div>
 	</div>
 	<!-- /.modal-dialog -->
 </div>
 
 <!-- Modal mở -->
-<div class="modal fade " id="exampleModalConfirm" aria-hidden="true">
+<div class="modal fade " id="modal-add-newctpn" aria-hidden="true">
 	<div class="modal-lg modal-dialog modal-dialog-scrollable"
 		role="document">
 		<div class="modal-content">
@@ -522,13 +525,19 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form>
+				<form:form
+					action="quanly/phieunhap/${thongTinPN.getMaPN()}?themctpn"
+					method="post" modelAttribute="CTSP" enctype="multipart/form-data">
 					<div class="form-group">
-						<label for="inputEmail4">Mã sản phẩm</label> <input type="email"
-							class="form-control" id="inputEmail4" placeholder="M38789792">
+						<label for="">Sản phẩm</label>
+						<form:select path="sanPham.maSP" items="${danhSachSanPham }"
+							class="form-control form-select" itemValue="maSP"
+							itemLabel="tenSP"></form:select>
+						<form:errors path="sanPham.maSP" cssClass="text-danger" />
 					</div>
 					<div class="form-group">
-						<label for="inputEmail4">Thêm hình ảnh </label>
+						<label for="">Thêm hình ảnh </label> <img class="img-thumbnail" style="width: 200px; height: 200px;"
+							src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/f094af40-f82f-4fb9-a246-e031bf6fc411/air-force-1-07-shoe-NMmm1B.png" /> 
 						<button type="submit" class="btn bg-dark">
 							<i class="fas fa-upload"></i>
 						</button>
@@ -539,37 +548,35 @@
 							placeholder="ABCDEF">
 					</div>
 					<div class="form-group">
-						<label for="inputPassword4">Màu sản phẩm</label> <input
-							type="password" class="form-control" id="inputPassword4"
-							placeholder="ABCDEF">
+						<label for="">Màu sản phẩm</label>
+						<form:select path="mauSanPham.maMau" items="${danhSachMau }"
+							class="form-control form-select" itemValue="maMau"
+							itemLabel="tenMau"></form:select>
 					</div>
 					<div class="form-group">
-						<label for="inputPassword4">Kích thước sản phẩm</label> <input
-							type="password" class="form-control" id="inputPassword4"
-							placeholder="ABCDEF">
+						<label for="">Size sản phẩm</label>
+						<form:select path="sizeSanPham.maSize" items="${danhSachSize }"
+							class="form-control form-select" itemValue="maSize"
+							itemLabel="tenSize"></form:select>
 					</div>
 					<div class="form-group">
-						<label for="inputAddress">Mã nhà cung cấp</label> <input
-							type="text" class="form-control" id="inputAddress"
-							placeholder="NCC1">
+						<label for="">Nhà cung cấp</label>
+						
 					</div>
 					<div class="form-group">
 						<label for="inputAddress">Số lượng</label> <input type="text"
 							class="form-control" id="inputAddress" placeholder="300">
 					</div>
-					<div class="form-group">
-						<label for="inputAddress2">Giá</label> <input type="text"
-							class="form-control" id="inputAddress2" placeholder="3 000 000 đ">
-					</div>
 
-				</form>
+
+				</form:form>
 			</div>
-			<div class="modal-footer d-flex justify-content-between">
+			<!-- <div class="modal-footer d-flex justify-content-between">
 				<button type="button" class="btn"
 					style="background-color: none; border-color: rgb(0, 109, 199);"
 					data-dismiss="modal">Đóng</button>
 				<button type="button" class="btn btn-primary">Lưu</button>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	<!-- /.modal  confirm mở-->
