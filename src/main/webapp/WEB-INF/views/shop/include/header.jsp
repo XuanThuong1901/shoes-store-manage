@@ -87,7 +87,23 @@
 								<c:when test="${user.getKhachHang() != null }">
 									<button type="button"
 										class="btn btn-sm btn-light dropdown-toggle"
-										data-toggle="dropdown">${user.getKhachHang().getHo() }&nbsp;${user.getKhachHang().getTen() }</button>
+										data-toggle="dropdown">
+
+										<c:choose>
+											<c:when
+												test="${user.getKhachHang().getAnh().trim() == null }">
+												<img class="avatar" alt=""
+													src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg" />
+											</c:when>
+											<c:otherwise>
+												<img class="avatar" alt=""
+													src="resources/file/${user.getKhachHang().getAnh() }" />
+											</c:otherwise>
+										</c:choose>
+
+
+										${user.getKhachHang().getHo() }&nbsp;${user.getKhachHang().getTen() }
+									</button>
 									<div class="dropdown-menu dropdown-menu-right">
 										<a href="taikhoan" class="dropdown-item">Tài Khoản </a> <a
 											href="dangxuat" class="dropdown-item">Đăng xuất </a>
@@ -99,19 +115,27 @@
 										data-toggle="dropdown">
 										<c:choose>
 											<c:when test="${user.getNhanVien().getAnh().trim() != null }">
-											<img src="resources/file/${user.getNhanVien().getAnh() }"  class="avatar">
+												<img src="resources/file/${user.getNhanVien().getAnh() }"
+													class="avatar">
 											</c:when>
+											<c:otherwise>
+												<img class="avatar" alt=""
+													src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg" />
+											</c:otherwise>
 										</c:choose>
-										
-										${user.getNhanVien().getHo() }&nbsp;${user.getNhanVien().getTen() }</button>
+
+										${user.getNhanVien().getHo() }&nbsp;${user.getNhanVien().getTen() }
+									</button>
 									<div class="dropdown-menu dropdown-menu-right">
-									
+
 										<c:choose>
 											<c:when test="${user.getVaitro().getMaVT() == 'NV' }">
-												<a href="nhanvien/tongquan" class="dropdown-item">Tài Khoản </a>
+												<a href="nhanvien/tongquan" class="dropdown-item">Tài
+													Khoản </a>
 											</c:when>
 											<c:when test="${user.getVaitro().getMaVT()=='QL' }">
-												<a href="quanly/tongquan" class="dropdown-item">Quản lý </a>
+												<a href="quanly/tongquan" class="dropdown-item">Quản lý
+												</a>
 											</c:when>
 										</c:choose>
 										<a href="dangxuat" class="dropdown-item">Đăng xuất </a>

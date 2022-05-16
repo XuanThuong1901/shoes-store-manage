@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <!-- Header -->
 <%@include file="/WEB-INF/views/shop/include/header.jsp"%>
 <!-- Header End -->
@@ -12,6 +12,7 @@
 				<nav class="breadcrumb bg-light mb-30">
 					<a class="breadcrumb-item text-dark" href="#">Trang chủ</a> <span
 						class="breadcrumb-item active">Mua sắm</span>
+					${danhSachSanPham.size() }
 				</nav>
 			</div>
 		</div>
@@ -55,20 +56,29 @@
 				<h5 class="section-title position-relative text-uppercase mb-3"
 					data-toggle="collapse" href="#collapseCategories" role="button"
 					aria-expanded="true" aria-controls="collapseCategories">
-					<span class="bg-secondary pr-3">Categories <i
+					<span class="bg-secondary pr-3">Danh mục <i
 						class="fas fa-chevron-down"></i></span>
 				</h5>
 				<div class="collapse show" id="collapseCategories">
 					<div class="bg-light p-4 mb-30">
 						<form>
-							<div
+						<div
 								class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
 								<input type="checkbox" class="custom-control-input"
 									id="category-all" checked> <label
-									class="custom-control-label" for="category-all">All</label> <span
+									class="custom-control-label" for="category-all">Tất cả</label> <span
 									class="badge border font-weight-normal">145</span>
 							</div>
+						<c:forEach var="dm" items="${danhSachDanhMucSanPham }">
 							<div
+								class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+								<input type="checkbox" class="custom-control-input"
+									id="category-nike"> <label class="custom-control-label"
+									for="category-nike">${dm.getTenDM() }</label> <span
+									class="badge border font-weight-normal">168</span>
+							</div>
+						</c:forEach>
+							<!-- <div
 								class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
 								<input type="checkbox" class="custom-control-input"
 									id="category-nike"> <label class="custom-control-label"
@@ -102,7 +112,7 @@
 									id="category-ananas"> <label
 									class="custom-control-label" for="category-ananas">Ananas</label>
 								<span class="badge border font-weight-normal">145</span>
-							</div>
+							</div> -->
 						</form>
 					</div>
 				</div>
@@ -333,51 +343,67 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-						<div class="product-item bg-light mb-4">
-							<div class="product-img position-relative overflow-hidden">
-								<span class="badge bg-warning">NEW</span> <img
-									class="img-fluid w-100" src="resources/user/img/product-1.jpg"
-									alt="">
-								<div class="product-action d-flex">
-									<div class="d-flex flex-row">
-										<a class="btn btn-outline-dark btn-square" href=""><i
-											class="fa fa-shopping-cart"></i></a> <a
+					<jsp:useBean id="pagedListHolder" scope="request"
+						type="org.springframework.beans.support.PagedListHolder" />
+					<c:url value="/sanpham" var="pagedLink">
+						<c:param name="p" value="~" />
+					</c:url>
+					<%-- <c:forEach var="sp" items="${danhSachSanPham }"> --%>
+					<c:forEach var="sp" items="${pagedListHolder.pageList}">
+						<div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+							<div class="product-item bg-light mb-4">
+								<div class="product-img position-relative overflow-hidden" style="height: 320px;">
+									<!-- <span class="badge bg-warning">NEW</span>  -->
+									<img
+										class="img-fluid w-100" 
+										src="resources/file/${sp.getHinhAnh() }"
+										alt="">
+										<!-- src="resources/user/img/product-1.jpg" src="resources/file/${sp.getHinhAnh() }" -->
+									<div class="product-action d-flex">
+										<div class="d-flex flex-row">
+											<a class="btn btn-outline-dark btn-square" href=""><i
+												class="fa fa-shopping-cart"></i></a>
+											<!-- <a
 											class="btn btn-outline-dark btn-square" href=""><i
 											class="fa fa-sync-alt"></i></a> <a
 											class="btn btn-outline-dark btn-square" href=""><i
-											class="fa fa-search"></i></a>
+											class="fa fa-search"></i></a> -->
+										</div>
+
+										<button href="#" class="btn text-uppercase btn-product-buynow">mua
+											ngay</button>
 									</div>
 
-									<button href="#" class="btn text-uppercase btn-product-buynow">mua
-										ngay</button>
+
+
 								</div>
-
-
-
-							</div>
-							<div class="text-center py-4">
-								<a class="h6 text-decoration-none text-truncate" href="">Product
-									Name Goes Here</a>
-								<div
-									class="d-flex align-items-center justify-content-center mt-2">
-									<h5>$123.00</h5>
-									<h6 class="text-muted ml-2">
-										<del>$123.00</del>
-									</h6>
-								</div>
-								<div
+								<div class="text-center py-4 text-pd" style="overflow-wrap: break-word;">
+									<a class="h6 text-decoration-none text-truncate"
+										style="word-wrap: break-word" href="">${sp.getTenSP() }</a>
+									<div
+										class="d-flex align-items-center justify-content-center mt-2">
+										<h5>$123.00</h5>
+										<h6 class="text-muted ml-2">
+											<del>$123.00</del>
+										</h6>
+									</div>
+									<!-- <div
 									class="d-flex align-items-center justify-content-center mb-1">
 									<small class="fa fa-star text-primary mr-1"></small> <small
 										class="fa fa-star text-primary mr-1"></small> <small
 										class="fa fa-star text-primary mr-1"></small> <small
 										class="fa fa-star text-primary mr-1"></small> <small
 										class="fa fa-star text-primary mr-1"></small> <small>(99)</small>
+								</div> -->
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+					</c:forEach>
+
+
+
+
+					<!-- <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
 						<div class="product-item bg-light mb-4">
 							<div class="product-img position-relative overflow-hidden">
 								<span class="badge bg-warning">NEW</span> <img
@@ -665,30 +691,34 @@
 										class="far fa-star text-primary mr-1"></small> <small
 										class="far fa-star text-primary mr-1"></small> <small>(99)</small>
 								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-12">
-						<nav>
-							<ul class="pagination justify-content-center">
-								<li class="page-item disabled"><a class="page-link"
-									href="#">Previous</span></a></li>
-								<li class="page-item active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">Next</a></li>
-							</ul>
-						</nav>
-					</div>
+							</div> -->
 				</div>
 			</div>
-			<!-- Shop Product End -->
+			<div class="col-12">
+				<div>
+					<tg:paging pagedListHolder="${pagedListHolder}"
+						pagedLink="${pagedLink}" />
+				</div>
+				<!-- <nav>
+					<ul class="pagination justify-content-center">
+						<li class="page-item disabled"><a class="page-link" href="#">Previous</span></a></li>
+						<li class="page-item active"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#">Next</a></li>
+					</ul>
+				</nav> -->
+			</div>
 		</div>
+	</div>
+	<!-- Shop Product End -->
+	</div>
 	</div>
 	<!-- Shop End -->
 </main>
- <!-- Back to Top -->
-    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary back-to-top"><i
+	class="fa fa-angle-double-up"></i></a>
 
 <!-- Footer -->
 <%@include file="/WEB-INF/views/shop/include/footer.jsp"%>
