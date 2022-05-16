@@ -191,7 +191,7 @@
 												SUPERSTAR PARLEY</span></td>
 										<td>${ctdh.getSoLuong() }</td>
 										<td>${ctdh.getChiTietSP().getSizeSanPham().getTenSize() }</td>
-										<td>${ctdh.getChiTietSP().getMauSanPham().getTenMau() }</td>
+										<td></td>
 										<td><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
 												value=" ${ctdh.getChiTietSP().getSanPham().getGia() }"
 												type="currency" currencySymbol="vnđ" /></td>

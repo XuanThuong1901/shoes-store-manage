@@ -11,6 +11,10 @@
   transition: 0.3s 0.15s;
 }
 
+.product-item {
+	box-shadow: 0 0 30px #dddddd;
+}
+
 .product-item .btn-product-buynow:hover {
   color: #fff !important;
 }
@@ -34,4 +38,8 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
+}
+
+.text-pd a {
+	overflow-wrap: break-word;
 }

@@ -34,7 +34,10 @@ public class SanPham {
 	private boolean phai;
 	
 	@Column(name = "GiamGia")
-	private float giamGia;
+	private Double giamGia;
+	
+	@Column(name="HinhAnh")
+	private String hinhAnh;
 	
 	@ManyToOne
 	@JoinColumn(name="MaDanhMuc")
@@ -44,6 +47,16 @@ public class SanPham {
 	@JoinColumn(name = "MaMau")
 	private MauSanPham mauSanPham;
 	
+	
+	
+	public String getHinhAnh() {
+		return hinhAnh;
+	}
+
+	public void setHinhAnh(String hinhAnh) {
+		this.hinhAnh = hinhAnh;
+	}
+
 	public MauSanPham getMauSanPham() {
 		return mauSanPham;
 	}
@@ -96,12 +109,12 @@ public class SanPham {
 		this.gia = gia;
 	}
 
-	
-	public float getGiamGia() {
+
+	public Double getGiamGia() {
 		return giamGia;
 	}
 
-	public void setGiamGia(float giamGia) {
+	public void setGiamGia(Double giamGia) {
 		this.giamGia = giamGia;
 	}
 
