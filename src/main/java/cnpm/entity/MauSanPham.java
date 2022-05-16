@@ -22,7 +22,7 @@ public class MauSanPham {
 	private String tenMau;
 	
 	@OneToMany(mappedBy = "mauSanPham", fetch = FetchType.LAZY)
-	private Collection<ChiTietSanPham> chiTietSanPhams;
+	private Collection<SanPham> sanPhams;
 	
 	public int getMaMau() {
 		return maMau;

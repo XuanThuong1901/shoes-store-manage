@@ -30,6 +30,8 @@ public class SanPham {
 	@Column(name = "Gia")
 	private float gia;
 	
+	@Column(name = "Phai")
+	private boolean phai;
 	
 	@Column(name = "GiamGia")
 	private float giamGia;
@@ -38,6 +40,18 @@ public class SanPham {
 	@JoinColumn(name="MaDanhMuc")
 	private DanhMucSanPham danhMuc;
 	
+	@ManyToOne
+	@JoinColumn(name = "MaMau")
+	private MauSanPham mauSanPham;
+	
+	public MauSanPham getMauSanPham() {
+		return mauSanPham;
+	}
+
+	public void setMauSanPham(MauSanPham mauSanPham) {
+		this.mauSanPham = mauSanPham;
+	}
+
 	@OneToMany(mappedBy = "sanPham", fetch = FetchType.EAGER)
 	private Collection<ChiTietSanPham> chiTietSanPhams;
 
@@ -97,6 +111,14 @@ public class SanPham {
 
 	public void setChiTietSanPhams(Collection<ChiTietSanPham> chiTietSanPhams) {
 		this.chiTietSanPhams = chiTietSanPhams;
+	}
+
+	public boolean isPhai() {
+		return phai;
+	}
+
+	public void setPhai(boolean phai) {
+		this.phai = phai;
 	}
 	
 	
