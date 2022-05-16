@@ -30,10 +30,7 @@ public class ChiTietSanPham {
 	@JoinColumn(name = "MaSP")
 	private SanPham sanPham;
 
-	@ManyToOne
-	@JoinColumn(name = "MaMau")
-	private MauSanPham mauSanPham;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "MaSize")
 	private SizeSanPham sizeSanPham;
@@ -79,14 +76,6 @@ public class ChiTietSanPham {
 
 	public void setSanPham(SanPham sanPham) {
 		this.sanPham = sanPham;
-	}
-
-	public MauSanPham getMauSanPham() {
-		return mauSanPham;
-	}
-
-	public void setMauSanPham(MauSanPham mauSanPham) {
-		this.mauSanPham = mauSanPham;
 	}
 
 	public SizeSanPham getSizeSanPham() {
