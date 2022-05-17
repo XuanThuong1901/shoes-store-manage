@@ -81,12 +81,12 @@
             <!-- small box -->
             <div class="small-box border border-info">
               <div class="inner">
-                <h3>65</h3>
+                <h3>${danhSachSanPham.size() }</h3>
 
-                <p>San pham</p>
+                <p>Sản phẩm</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph text-info"></i>
+                <i class="fas fa-box-open text-info"></i>
               </div>
               <a href="quanly/sanpham" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>

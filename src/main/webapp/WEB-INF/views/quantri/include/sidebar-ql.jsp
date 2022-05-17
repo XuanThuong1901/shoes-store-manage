@@ -53,7 +53,7 @@
               </a>
             </li>
             <li class="nav-item" id="sanpham">
-              <a href="#" class="nav-link ">
+              <a href="quanly/sanpham" class="nav-link ">
                 <i class="nav-icon fas fa-box-open"></i>
                 <p>
                   Sản phẩm
@@ -62,7 +62,7 @@
               </a>
             </li>
             <li class="nav-item" id="donhang">
-              <a href="#" class="nav-link ">
+              <a href="quanly/donhang" class="nav-link ">
                  <i class="nav-icon  ion ion-bag "></i>
                 <p>
                   Đơn hàng

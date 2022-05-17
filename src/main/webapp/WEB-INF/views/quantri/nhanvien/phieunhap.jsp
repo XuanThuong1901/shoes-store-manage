@@ -6,7 +6,7 @@
 <!-- Header end -->
 
 <!-- Sidebar -->
-<%@include file="/WEB-INF/views/quantri/include/sidebar-ql.jsp"%>
+<%@include file="/WEB-INF/views/quantri/include/sidebar-nv.jsp"%>
 <!-- Sidebar end -->
 
 
@@ -18,7 +18,7 @@
 			<div class="row mb-2">
 				<div class="col-sm-12">
 					<ol class="breadcrumb ">
-						<li class="breadcrumb-item"><a href="quanly/tongquan">Quản
+						<li class="breadcrumb-item"><a href="nhanvien/tongquan">Quản
 								lý</a></li>
 						<li class="breadcrumb-item active">Nhập hàng</li>
 					</ol>
@@ -103,9 +103,9 @@
 											<td>
 												<div class="d-flex justify-content-between px-4">
 													<a class=""
-														href="quanly/phieunhap/${pn.getMaPN() }?thongtin"><i
+														href="nhanvien/phieunhap/${pn.getMaPN() }?thongtin"><i
 														class="fas fa-info-circle"></i> </a> <a class=""
-														href="quanly/phieunhap/${pn.getMaPN() }?suaphieunhap"><i
+														href="nhanvien/phieunhap/${pn.getMaPN() }?suaphieunhap"><i
 														class="fas fa-edit"></i> </a> <a class="" href="#"
 														data-toggle="modal" data-target="#modal-add-newctpn">
 														<i class="fas fa-folder-plus"></i>
@@ -186,6 +186,7 @@
 							<th class="bg-primary">Sản phẩm</th>
 							<th class="bg-primary">Số lượng</th>
 							<th class="bg-primary">Size</th>
+							<th class="bg-primary">Màu</th>
 							<th class="bg-primary">Giá</th>
 						</tr>
 					</thead>
@@ -199,6 +200,7 @@
 								</td>
 								<td>${ctpn.getChiTietSP().getSoLuong()}</td>
 								<td>${ctpn.getChiTietSP().getSizeSanPham().getTenSize()}</td>
+								<td>${ctpn.getChiTietSP().getMauSanPham().getTenMau()}</td>
 								<td><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
 										value="${ctpn.getChiTietSP().getSanPham().getGia() * ctpn.getChiTietSP().getSoLuong()}"
 										type="currency" currencySymbol="vnđ" /></td>
@@ -242,7 +244,7 @@
 			</div>
 			<div class="modal-body">
 				<form:form class="form-horizontal" method="post"
-					action="quanly/phieunhap?themPN" modelAttribute="phieuNhapMoi">
+					action="nhanvien/phieunhap?themPN" modelAttribute="phieuNhapMoi">
 					<div class="form-group">
 						<label for="">Nhà cung cấp</label>
 						<form:select path="nhaCungCap.maNCC"
@@ -262,7 +264,7 @@
 					<div class="form-group d-flex justify-content-end">
 
 						<button type="submit" name="themPN" class="btn btn-primary">Lưu</button>
-						<a href="quanly/phieunhap" id="cancel-save-modal-phieunhap"
+						<a href="nhanvien/phieunhap" id="cancel-save-modal-phieunhap"
 							class="mx-2 btn btn-secondary">Hủy</a>
 					</div>
 
@@ -476,7 +478,7 @@
 			</div>
 			<div class="modal-body">
 				<form:form class="form-horizontal" method="post"
-					action="quanly/phieunhap/${thongTinPN.getMaPN()}?suaPN"
+					action="nhanvien/phieunhap/${thongTinPN.getMaPN()}?suaPN"
 					modelAttribute="thongTinPN">
 					<div class="form-group">
 						<label for="">Nhà cung cấp</label>
@@ -497,7 +499,7 @@
 					<div class="form-group d-flex justify-content-end">
 
 						<button type="submit" name="suaPN" class="btn btn-primary">Lưu</button>
-						<a href="quanly/phieunhap" id="cancel-update-modal-phieunhap"
+						<a href="nhanvien/phieunhap" id="cancel-update-modal-phieunhap"
 							class="mx-2 btn btn-secondary">Hủy</a>
 					</div>
 
@@ -524,7 +526,7 @@
 			</div>
 			<div class="modal-body">
 				<form:form
-					action="quanly/phieunhap/${thongTinPN.getMaPN()}?themctpn"
+					action="nhanvien/phieunhap/${thongTinPN.getMaPN()}?themctpn"
 					method="post" modelAttribute="CTSP" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="">Sản phẩm</label>

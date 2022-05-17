@@ -40,13 +40,5 @@ public class MauSanPham {
 		this.tenMau = tenMau;
 	}
 
-	public Collection<ChiTietSanPham> getChiTietSanPhams() {
-		return chiTietSanPhams;
-	}
-
-	public void setChiTietSanPhams(Collection<ChiTietSanPham> chiTietSanPhams) {
-		this.chiTietSanPhams = chiTietSanPhams;
-	}
-
 	
 }

@@ -31,6 +31,11 @@
                                     role="tab" aria-controls="pills-home" aria-selected="true">TÀI KHOẢN CỦA TÔI</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-change-password"
+                                    role="tab" aria-controls="pills-profile" aria-selected="false">ĐỔI MẬT KHẨU</a>
+                            </li>
+                            
+                            <li class="nav-item">
                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-status"
                                     role="tab" aria-controls="pills-profile" aria-selected="false">TÌNH TRẠNG ĐƠN HÀNG</a>
                             </li>
@@ -74,6 +79,19 @@
                                     </div>
                                 </div>
                             </div>
+                             <div class="tab-pane fade" id="pills-change-password" role="tabpanel"
+                                aria-labelledby="pills-logout-tab">
+                                <div class="card text-center w-50 offset-lg-3">
+                                    <div class="card-header h5 bg-warning text-white">
+                                        Bạn muốn đăng xuất tài khoản?
+                                    </div>
+                                    <div class="card-body d-flex justify-content-around">
+                                        <a class="btn btn-success w-25" href="">Có</a>
+                                        <a class="btn bg-danger w-25 text-white" href="">Không</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="tab-pane fade" id="pills-status" role="tabpanel"
                                 aria-labelledby="pills-status-tab">
                                 <div class="container">

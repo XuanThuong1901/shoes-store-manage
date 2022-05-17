@@ -18,7 +18,7 @@
 			<div class="row mb-2">
 				<div class="col-sm-12">
 					<ol class="breadcrumb ">
-						<li class="breadcrumb-item"><a href="quanly/tongquan">Nhân viên</a></li>
+						<li class="breadcrumb-item"><a href="nhanvien/tongquan">Nhân viên</a></li>
 						<li class="breadcrumb-item active">Khách hàng</li>
 					</ol>
 				</div>
@@ -40,12 +40,37 @@
 						<div class="card-header d-flex flex-column ">
 							<div class="d-flex align-items-center justify-content-between">
 								<h3 class="card-title">Danh sách khách hàng</h3>
-
-							</div>
+															</div>
 							<div>
 
-								
-							
+								<div>
+									<c:choose>
+										<c:when test="${isSuccess }">
+											<div
+												class="mt-2 alert alert-success alert-dismissible fade show"
+												role="alert">
+												${alertMessage }
+												<button type="button" class="close" data-dismiss="alert"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+										</c:when>
+										<c:when test="${isSuccess == false }">
+											<div
+												class="mt-2 alert alert-danger alert-dismissible fade show"
+												role="alert">
+												${alertMessage }
+												<button type="button" class="close" data-dismiss="alert"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+										</c:when>
+									</c:choose>
+
+								</div>
+							</div>
 
 						</div>
 						<!-- /.card-header -->
@@ -139,8 +164,12 @@
 </div>
 <!-- /.content-wrapper -->
 
+
+
+
 <!-- Modal thong tin chi tiet -->
-<div class="modal fade" id="modal-info-detail" isShow="${isOpenModalInfo }">
+<div class="modal fade" id="modal-info-detail"
+	isShow="${isOpenModalInfo }">
 	<div class="modal-dialog modal-lg modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -149,7 +178,7 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<!-- <a href="quanly/nhakhien" class="close">&times;</a> -->
+				<!-- <a href="nhanvien/nhakhien" class="close">&times;</a> -->
 			</div>
 			<div class="modal-body">
 				<div class="row">
