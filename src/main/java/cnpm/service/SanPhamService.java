@@ -16,4 +16,8 @@ public class SanPhamService {
 	public List<SanPham> getDSSanPham(){
 		return sanPhamDAO.getDSSanPham();
 	}
+	
+	public SanPham getByMaSP(Integer maSP) {
+		return sanPhamDAO.getByMaSP(maSP);
+	}
 }

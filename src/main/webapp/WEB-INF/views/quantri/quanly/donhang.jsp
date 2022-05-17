@@ -176,7 +176,6 @@
 									<th class="bg-primary">Sản phẩm</th>
 									<th class="bg-primary">Số lượng</th>
 									<th class="bg-primary">Size</th>
-									<th class="bg-primary">Màu</th>
 									<th class="bg-primary">Giá</th>
 								</tr>
 							</thead>
@@ -190,7 +189,7 @@
 												SUPERSTAR PARLEY</span></td>
 										<td>${ctdh.getSoLuong() }</td>
 										<td>${ctdh.getChiTietSP().getSizeSanPham().getTenSize() }</td>
-										<td></td>
+										
 										<td><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
 												value=" ${ctdh.getChiTietSP().getSanPham().getGia() }"
 												type="currency" currencySymbol="vnđ" /></td>

@@ -30,8 +30,6 @@
 	<!-- Cấu hình các package -->
 	<context:component-scan
 		base-package="cnpm.controller" />
-		<context:component-scan
-		base-package="cnpm.controller.admin" />
 	<context:component-scan
 		base-package="cnpm.service" />
 	<context:component-scan base-package="cnpm.dao" />
