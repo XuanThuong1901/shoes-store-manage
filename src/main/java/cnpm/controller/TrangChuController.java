@@ -49,29 +49,22 @@ public class TrangChuController {
 	@Autowired
 	DanhMucSanPhamService danhMucSanPhamService;
 	
-	@ModelAttribute("danhSachDanhMucSanPham")
-	public List<DanhMucSanPham> dsDanhMucSanPham(){
-		List<DanhMucSanPham> list = danhMucSanPhamService.getDSDanhMuc();
-		return list;
-	}
 	
-	@ModelAttribute("danhSachMau")
-	public List<MauSanPham> getDSMau() {
-		List<MauSanPham> list = mauService.getDSMau();
-		return list;
-	}
-	
-	@ModelAttribute("danhSachSize")
-	public List<SizeSanPham> getDSSize() {
-		List<SizeSanPham> list = sizeService.getDSSize();
-		return list;
-	}
-	
-	@ModelAttribute("thongTinDM")
-	public DanhMucSanPham thongtinDm(ModelMap model) {
-		
-		return new DanhMucSanPham();
-	}
+	  @ModelAttribute("danhSachDanhMucSanPham") public List<DanhMucSanPham>
+	  dsDanhMucSanPham(){ List<DanhMucSanPham> list =
+	  danhMucSanPhamService.getDSDanhMuc(); return list; }
+	  
+	  @ModelAttribute("danhSachMau") public List<MauSanPham> getDSMau() {
+	  List<MauSanPham> list = mauService.getDSMau(); return list; }
+	  
+	  @ModelAttribute("danhSachSize") public List<SizeSanPham> getDSSize() {
+	  List<SizeSanPham> list = sizeService.getDSSize(); return list; }
+	  
+	  @ModelAttribute("thongTinDM") public DanhMucSanPham thongtinDm(ModelMap
+	  model) {
+	  
+	  return new DanhMucSanPham(); }
+	 
 	
 	/*
 	 * @ModelAttribute("danhSachSanPham") public List<SanPham> getDsSP(){
@@ -96,10 +89,6 @@ public class TrangChuController {
 	
 	@RequestMapping(value={"/", "trangchu", "index"})
 	public String index(ModelMap model) {
-		model.addAttribute("message", "ok");
-		List<VaiTro> list = this.getVaiTro();
-		model.addAttribute("list", list);
-		
 		
 		
 		return "shop/trangchu";
@@ -131,12 +120,5 @@ public class TrangChuController {
 	}
 	
 
-	
-	public List<VaiTro> getVaiTro(){
-		Session session = factory.getCurrentSession();
-		String hql ="From VaiTro";
-		Query query = session.createQuery(hql);
-		List<VaiTro> list = query.list();
-		return list;
-	}
+
 }

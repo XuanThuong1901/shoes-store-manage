@@ -118,7 +118,16 @@ public class QuanLyController {
 		List<NhaCungCap> list = nhaCungCapService.getDSNhaCungCap();
 		return list;
 	}
+	@ModelAttribute("thongTinSP")
+	public SanPham thongTinSP() {
+		return new SanPham();
+	}
 	
+	@ModelAttribute("sanPhamMoi")
+	public SanPham sanPhamMoi() {
+		return new SanPham();
+	}
+
 	@ModelAttribute("thongTinDH")
 	public DonHang thongTinDH() {
 		return new DonHang();
@@ -1115,5 +1124,21 @@ public class QuanLyController {
 		}
 		
 		return "quantri/quanly/donhang";
+	}
+	
+	// san pham
+	@RequestMapping(value="sanpham", method=RequestMethod.GET)
+	public String getViewSanpham() {
+		return "quantri/quanly/sanpham";
+	}
+	
+	@RequestMapping(value="sanpham/{maSP}", params="thongtin", method=RequestMethod.GET)
+	public String thongTin1SanPham(ModelMap model, @PathVariable("maSP") Integer maSP) {
+		SanPham sanpham = sanPhamService.getByMaSP(maSP);
+		if(sanpham != null) {
+			model.addAttribute("thongTinSP", sanpham);
+			model.addAttribute("isOpenModalInfo", true);
+		}
+		return "quantri/quanly/sanpham";
 	}
 }

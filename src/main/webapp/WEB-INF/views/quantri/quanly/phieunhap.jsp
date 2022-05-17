@@ -186,7 +186,6 @@
 							<th class="bg-primary">Sản phẩm</th>
 							<th class="bg-primary">Số lượng</th>
 							<th class="bg-primary">Size</th>
-							<th class="bg-primary">Màu</th>
 							<th class="bg-primary">Giá</th>
 						</tr>
 					</thead>
@@ -200,7 +199,6 @@
 								</td>
 								<td>${ctpn.getChiTietSP().getSoLuong()}</td>
 								<td>${ctpn.getChiTietSP().getSizeSanPham().getTenSize()}</td>
-								<td>${ctpn.getChiTietSP().getMauSanPham().getTenMau()}</td>
 								<td><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
 										value="${ctpn.getChiTietSP().getSanPham().getGia() * ctpn.getChiTietSP().getSoLuong()}"
 										type="currency" currencySymbol="vnđ" /></td>
@@ -547,12 +545,7 @@
 							type="password" class="form-control" id="inputPassword4"
 							placeholder="ABCDEF">
 					</div>
-					<div class="form-group">
-						<label for="">Màu sản phẩm</label>
-						<form:select path="mauSanPham.maMau" items="${danhSachMau }"
-							class="form-control form-select" itemValue="maMau"
-							itemLabel="tenMau"></form:select>
-					</div>
+					
 					<div class="form-group">
 						<label for="">Size sản phẩm</label>
 						<form:select path="sizeSanPham.maSize" items="${danhSachSize }"
