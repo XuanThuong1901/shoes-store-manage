@@ -18,7 +18,7 @@
 			<div class="row mb-2">
 				<div class="col-sm-12">
 					<ol class="breadcrumb ">
-						<li class="breadcrumb-item"><a href="nhanvien/tongquan">Quản lý</a></li>
+						<li class="breadcrumb-item"><a href="nhanvien/tongquan">Nhân viên</a></li>
 						<li class="breadcrumb-item active">Khách hàng</li>
 					</ol>
 				</div>

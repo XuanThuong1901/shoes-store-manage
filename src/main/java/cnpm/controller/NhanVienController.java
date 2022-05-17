@@ -45,12 +45,14 @@ import cnpm.service.UtilsService;
 @RequestMapping("/nhanvien/")
 public class NhanVienController {
 	
+	@Autowired
+	NhanVienService nhanVienService;
 
 	@Autowired
 	TaiKhoanService taiKhoanService;
 
 	@Autowired
-	KhachHangService khachHangService;
+	KhachHangService khachHangService;	
 
 	@Autowired
 	DanhMucSanPhamService danhMucSanPhamService;
@@ -161,6 +163,30 @@ public class NhanVienController {
 
 		return new KhachHang();
 	}
+
+	// khach hang
+
+		@RequestMapping("tongquan")
+	public String getViewTongQuan(ModelMap model) {
+		return "quantri/nhanvien/tongquan";
+	}
+	
+	
+	@RequestMapping(value = "khachhang",  method = RequestMethod.GET)
+	public String showList (ModelMap model) {
+		
+		List<KhachHang> danhSachKhachHang = this.getDSKhachHang();
+		model.addAttribute("danhSachKhachHang", danhSachKhachHang);
+		model.addAttribute("isOpenModalInfo", false);
+		
+		return "quantri/nhanvien/khachhang";
+	}
+	
+	@ModelAttribute("danhSachKhachHang")
+	public List<KhachHang> getDSKhachHang() {
+		List<KhachHang> list = khachHangService.getDSKhachHang();
+		return list;	
+	} 
 
 	// danh muc
 
