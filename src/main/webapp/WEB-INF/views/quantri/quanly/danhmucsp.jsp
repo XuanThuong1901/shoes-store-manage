@@ -359,17 +359,6 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<!-- <div class="modal-body">
-            <p class="text-center">Bạn muốn tắt hoạt động tài khoản này?</p>
-          </div> -->
-			<%-- <form:form action="quanly/danhmucsp" modelAttribute="thongTinDM">
-				<div class="modal-footer d-flex justify-content-between">
-					<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Đóng</button>
-						<button type="submit" class="btn btn-danger" name="xoaThongtin">Xóa</button>
-				</div>
-			</form:form> --%>
-			
 			<form:form action="quanly/danhmucsp?xoadm" method="post" >
 				<div class="modal-footer d-flex justify-content-between">
 					<input type="text" name="maDM" id="input-delete-dm" value="" hidden />

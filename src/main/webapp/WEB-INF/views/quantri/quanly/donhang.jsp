@@ -89,10 +89,9 @@
 													<a class="" href="quanly/donhang/${dh.getMaDH() }?thongtin"><i
 														class="fas fa-info-circle"></i> </a> <a class="" href="#"
 														data-toggle="modal" data-target="#modal-edit"><i
-														class="fas fa-edit"></i> </a> <a class="" href="#"
-														data-toggle="modal" data-target="#exampleModalDisable">
-														<i class="fas fa-check-square"></i>
-													</a>
+														class="fas fa-edit"></i> </a> <a class=""
+														href="quanly/donhang/${dh.getMaDH() }?suaTrangthai"> <i
+														class="fas fa-check-square"></i></a>
 													<!-- <a class="" href="#" data-toggle="modal" data-target="#exampleModalDisable"><i class="fas fa-lock"></i> </a> -->
 												</div>
 
@@ -166,10 +165,10 @@
 					</p>
 
 				</div>
-				
+
 				<c:choose>
 					<c:when test="${chitietdonhang != null}">
-					<h4>${chitietdonhang.size() }sản phẩm</h4>
+						<h4>${chitietdonhang.size() }sảnphẩm</h4>
 						<table class="table table-hover table-striped text-center">
 							<thead>
 								<tr>
@@ -347,63 +346,112 @@
 	<!-- /.modal-dialog -->
 </div>
 
-<!-- Modal mở -->
-<div class="modal fade " id="exampleModalConfirm" tabindex="-1"
-	aria-labelledby="exampleModalConfirm" aria-hidden="true">
-	<div class="modal-dialog ">
+
+<div class="modal fade" id="modal-edit-donhang"
+	isShow="${isOpenModalEdit }">
+	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header bg-danger">
-				<h5 class="modal-title" id="exampleModalLabel">
-					<i class="fas fa-times"></i>&nbsp; Bạn muốn hủy đơn hàng này?
-				</h5>
+			<div class="modal-header">
+				<h4 class="modal-title">Thay đổi trạng thái</h4>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<!-- <div class="modal-body">
-            <p class="text-center">Bạn muốn mở hoạt động tài khoản này?</p>
-          </div> -->
-			<div class="modal-footer d-flex justify-content-between">
+			<div class="modal-body">
+				<div class="row">
+					<!-- /.col -->
+					<div class="col-md-12">
+						<div class="">
+							<!-- /.card-header -->
+							<div class="card-body">
+								<div class="tab-content">
+									<div class="active tab-pane" id="activity">
+										<!-- Info profile -->
 
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Tiếp
-					tục</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- /.modal  confirm mở-->
-<!--Modal tắt hđ-->
-<div class="modal fade " id="exampleModalDisable" tabindex="-1"
-	aria-labelledby="exampleModalConfirm" aria-hidden="true">
-	<div class="modal-dialog ">
-		<div class="modal-content">
-			<div class="modal-header bg-success">
-				<h5 class="modal-title" id="exampleModalLabel">
-					<i class="far fa-check-square"></i>&nbsp; Bạn muốn xác nhận đơn
-					hàng này?
-				</h5>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<!-- <div class="modal-body">
-            <p class="text-center">Bạn muốn tắt hoạt động tài khoản này?</p>
-          </div> -->
-			<div class="modal-footer d-flex justify-content-between">
-				<button type="button" class="btn btn-danger" data-toggle="modal"
-					data-target="#exampleModalConfirm" data-dismiss="modal">Hủy
-					đơn</button>
-				<button type="button" class="btn btn-success" data-dismiss="modal">Tiếp
-					tục</button>
+										<form:form
+											action="quanly/donhang/${thongTinDH.getMaDH() }?suaDH"
+											class="form-horizontal" modelAttribute="thongTinDH"
+											enctype="multipart/form-data">
 
+											<div class="row">
+												<div class="">
+													
+													<!-- /.card -->
+													<div class="form-group row d-flex  ">
+														<div class="mr-5">
+															<label for="" class=" col-form-label">Trạng thái</label>
+														</div>
+														<div>
+															<div class="form-check">
+
+																<form:radiobutton path="trangThaiDH.maTTDH" value="1"
+																	class="form-check-input" label="Đơn mới"
+																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 1 ? 'checked' : '' }" />
+
+															</div>
+															<div class="form-check">
+
+																<form:radiobutton path="trangThaiDH.maTTDH"
+																	value="2" class="form-check-input" label="Xác nhận"
+																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 2 ? 'checked' : '' }" />
+																<!-- <label class="form-check-label" for="exampleRadios1">
+																	Default radio </label> -->
+															</div>
+															<div class="form-check">
+
+																<form:radiobutton path="trangThaiDH.maTTDH"
+																	value="3" class="form-check-input" label="Hủy"
+																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 3 ? 'checked' : '' }" />
+																<!-- <label class="form-check-label" for="exampleRadios1">
+																	Default radio </label> -->
+															</div>
+															<div class="form-check">
+
+																<form:radiobutton path="trangThaiDH.maTTDH"
+																	value="4" class="form-check-input" label="Đã giao"
+																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 4 ? 'checked' : '' }" />
+																<!-- <label class="form-check-label" for="exampleRadios1">
+																	Default radio </label> -->
+															</div>
+															<form:errors path="trangThaiDH" cssClass="text-danger" />
+															
+														</div>
+													</div>
+
+												</div>
+
+												
+												<div class="col-12">
+													<div class=" d-flex justify-content-end">
+														<button type="submit" class="btn btn-primary">Sửa</button>
+														<a href="quanly/donhang" id="cancel-update-modal"
+															class="mx-2 btn btn-secondary">Hủy</a>
+													</div>
+												</div>
+
+											</div>
+
+										</form:form>
+										<!-- /.Info profile -->
+									</div>
+									<!-- /.tab-pane -->
+								</div>
+								<!-- /.tab-content -->
+							</div>
+							<!-- /.card-body -->
+						</div>
+						<!-- /.card -->
+					</div>
+					<!-- /.col -->
+				</div>
 			</div>
+
 		</div>
+		<!-- /.modal-content -->
 	</div>
+	<!-- /.modal-dialog -->
 </div>
-<!--Modal tắt hđ-->
 
 
 <!-- Footer -->

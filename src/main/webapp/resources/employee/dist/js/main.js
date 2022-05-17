@@ -6,6 +6,14 @@
 	})
 }
 
+function getIdUpdateIntoForm(idInput){
+	$("a[data-delete]").on("click", function(){
+		console.log($(this))
+		let id = $(this).data("update")
+		$(`#${idInput}`).attr("value", id)
+	})
+}
+
  
  function activeSidebarItem(){
 	 $(".nav-item").each(function() {
@@ -98,4 +106,6 @@ $(document).ready(function(){
 	getIdDeleteIntoForm("input-delete-dm");
 	
 	getIdDeleteIntoForm("input-delete-ncc");
+	
+	getIdUpdateIntoForm("input-update-hd");
  });
