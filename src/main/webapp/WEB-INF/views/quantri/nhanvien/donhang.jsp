@@ -6,7 +6,7 @@
 <!-- Header end -->
 
 <!-- Sidebar -->
-<%@include file="/WEB-INF/views/quantri/include/sidebar-ql.jsp"%>
+<%@include file="/WEB-INF/views/quantri/include/sidebar-nv.jsp"%>
 <!-- Sidebar end -->
 
 <!-- Content Wrapper. Contains page content -->
@@ -86,11 +86,11 @@
 
 											<td>
 												<div class="d-flex justify-content-between px-4">
-													<a class="" href="quanly/donhang/${dh.getMaDH() }?thongtin"><i
+													<a class="" href="nhanvien/donhang/${dh.getMaDH() }?thongtin"><i
 														class="fas fa-info-circle"></i> </a> <a class="" href="#"
 														data-toggle="modal" data-target="#modal-edit"><i
 														class="fas fa-edit"></i> </a> <a class=""
-														href="quanly/donhang/${dh.getMaDH() }?suaTrangthai"> <i
+														href="nhanvien/donhang/${dh.getMaDH() }?suaTrangthai"> <i
 														class="fas fa-check-square"></i></a>
 													<!-- <a class="" href="#" data-toggle="modal" data-target="#exampleModalDisable"><i class="fas fa-lock"></i> </a> -->
 												</div>
@@ -176,6 +176,7 @@
 									<th class="bg-primary">Sản phẩm</th>
 									<th class="bg-primary">Số lượng</th>
 									<th class="bg-primary">Size</th>
+									<th class="bg-primary">Màu</th>
 									<th class="bg-primary">Giá</th>
 								</tr>
 							</thead>
@@ -189,7 +190,7 @@
 												SUPERSTAR PARLEY</span></td>
 										<td>${ctdh.getSoLuong() }</td>
 										<td>${ctdh.getChiTietSP().getSizeSanPham().getTenSize() }</td>
-										
+										<td></td>
 										<td><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
 												value=" ${ctdh.getChiTietSP().getSanPham().getGia() }"
 												type="currency" currencySymbol="vnđ" /></td>
@@ -369,7 +370,7 @@
 										<!-- Info profile -->
 
 										<form:form
-											action="quanly/donhang/${thongTinDH.getMaDH() }?suaDH"
+											action="nhanvien/donhang/${thongTinDH.getMaDH() }?suaDH"
 											class="form-horizontal" modelAttribute="thongTinDH"
 											enctype="multipart/form-data">
 
@@ -424,7 +425,7 @@
 												<div class="col-12">
 													<div class=" d-flex justify-content-end">
 														<button type="submit" class="btn btn-primary">Sửa</button>
-														<a href="quanly/donhang" id="cancel-update-modal"
+														<a href="nhanvien/donhang" id="cancel-update-modal"
 															class="mx-2 btn btn-secondary">Hủy</a>
 													</div>
 												</div>

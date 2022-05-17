@@ -5,8 +5,8 @@
       <!-- Brand Logo -->
       <a href="./index3.html" class="brand-link">
         <img src="resources/employee/dist/img/shoeniverse-logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+          style="opacity: .8"> 
+        <span class="brand-text font-weight-light">Shoeniverse</span>
       </a>
 
       <!-- Sidebar -->
@@ -14,10 +14,10 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <ul id="sidebar" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-            <li class="nav-item">
-              <a href="custom-user-menu.html" class="nav-link">
+            <li class="nav-item" id="tongquan">
+              <a href="nhanvien/tongquan" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
 
@@ -26,25 +26,26 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="custom-employee-manage.html" class="nav-link active">
+            <li class="nav-item" id="khachhang">
+              <a href="nhanvien/khachhang" class="nav-link ">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                   Khách hàng
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="custom-employee-manage.html" class="nav-link ">
-                <i class="nav-icon fas fa-grip-vertical"></i>
+            <li class="nav-item" id="danhmuc">
+              <a href="nhanvien/danhmucsp" class="nav-link ">
+              <!--   <i class="nav-icon fas fa-grip-vertical"></i> -->
+                <i class="nav-icon fab fa-elementor"></i>
                 <p>
                   Danh mục
 
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="custom-employee-manage.html" class="nav-link ">
+            <li class="nav-item" id="sanpham">
+              <a href="nhanvien/sanpham" class="nav-link ">
                 <i class="nav-icon fas fa-box-open"></i>
                 <p>
                   Sản phẩm
@@ -52,17 +53,17 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="custom-employee-manage.html" class="nav-link ">
-                <i class="nav-icon fas fa-file-invoice"></i>
+            <li class="nav-item" id="donhang">
+              <a href="nhanvien/donhang" class="nav-link ">
+                 <i class="nav-icon  ion ion-bag "></i>
                 <p>
                   Đơn hàng
 
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="custom-employee-manage.html" class="nav-link ">
+            <li class="nav-item" id="phieunhap">
+              <a href="nhanvien/phieunhap" class="nav-link ">
                 <i class="nav-icon fas fa-clipboard-list"></i>
                 <p>
                   Nhập hàng
@@ -70,17 +71,18 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="custom-employee-manage.html" class="nav-link ">
-                <i class="nav-icon fas fa-truck"></i>
+            <li class="nav-item" id="nhacungcap">
+              <a href="nhanvien/nhacungcap" class="nav-link ">
+       
+                 <i class="nav-icon fas fa-dolly-flatbed"></i>
                 <p>
                   Nhà cung cấp
 
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="custom-employee-manage.html" class="nav-link ">
+             <li class="nav-item" id="thongke">
+              <a href="#" class="nav-link ">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
 
                 <p>
@@ -88,7 +90,7 @@
 
                 </p>
               </a>
-            </li>
+            </li> 
           </ul>
         </nav>
         <!-- /.sidebar-menu -->

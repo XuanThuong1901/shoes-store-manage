@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import cnpm.dao.DonHangDAO;
 import cnpm.entity.DonHang;
+import cnpm.entity.NhanVien;
 
 @Service
 public class DonHangService {
@@ -19,5 +20,13 @@ public class DonHangService {
 	
 	public DonHang getByMaDH(Integer maDH) {
 		return donHangDAO.getByMaDH(maDH);
+	}
+	
+	public Boolean themDH(DonHang donhang) {
+		return donHangDAO.them(donhang);
+	}
+	
+	public Boolean suaDH(DonHang donhang) {
+		return donHangDAO.sua(donhang);
 	}
 }
