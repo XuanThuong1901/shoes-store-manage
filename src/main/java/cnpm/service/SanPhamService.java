@@ -13,11 +13,25 @@ public class SanPhamService {
 	@Autowired
 	SanPhamDAO sanPhamDAO;
 	
+	public Integer maSPCuoiCung() {
+		List<SanPham> sanpham = this.getDSSanPham();
+		Integer index = sanpham.get(sanpham.size()-1).getMaSP();
+		return index;
+	}
+	
 	public List<SanPham> getDSSanPham(){
 		return sanPhamDAO.getDSSanPham();
 	}
 	
 	public SanPham getByMaSP(Integer maSP) {
 		return sanPhamDAO.getByMaSP(maSP);
+	}
+	
+	public Boolean themSP(SanPham sanpham) {
+		return sanPhamDAO.them(sanpham);
+	}
+	
+	public Boolean suaSP(SanPham sanpham) {
+		return sanPhamDAO.sua(sanpham);
 	}
 }

@@ -322,7 +322,7 @@
 
 <!-- Modal sua thong tin nhan vien -->
 
-<div class="modal fade" id="modal-edit-employee" isShow="${isOpenModalEdit }">
+<div class="modal fade" id="modal-edit-cus" isShow="${isOpenModalEdit }">
 	<div class="modal-dialog modal-lg modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -373,7 +373,6 @@
 														</div>
 														<!-- /.card-body -->
 													</div>
-													<!-- /.card -->
 													<div class="form-group row d-flex  ">
 														<div class="mr-3">
 															<label for="" class=" col-form-label">Trạng thái</label>
@@ -383,14 +382,14 @@
 
 																<form:radiobutton path="taiKhoan.trangThai" value="true"
 																	class="form-check-input" label="Hoạt động"
-																	checked="${thongTinKH.getTaiKhoan().getTrangThai() == true ? 'checked' : '' }" />
+																	checked="${thongtinKH.getTaiKhoan.getTrangThai() == true ? 'checked' : '' }" />
 
 															</div>
 															<div class="form-check">
 
 																<form:radiobutton path="taiKhoan.trangThai"
 																	value="false" class="form-check-input" label="Khóa"
-																	checked="${thongTinKH.getTaiKhoan().getTrangThai() == false ? 'checked' : '' }" />
+																	checked="${thongtinKH.getTaiKhoan.getTrangThai() == false ? 'checked' : '' }" />
 																<form:errors path="phai" cssClass="text-danger" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
@@ -400,11 +399,11 @@
 														<%-- <div class="col-sm-10">
 															<form:radiobutton path="taiKhoan.trangThai" value="true"
 																label="Hoạt động"
-																checked="${thongtinkh.getTaiKhoan.getTrangThai() == true ? 'checked' : '' }" />
+																checked="${thongtinNV.getTaiKhoan.getTrangThai() == true ? 'checked' : '' }" />
 
 															<form:radiobutton path="taiKhoan.trangThai" value="false"
 																label="Khóa"
-																checked="${thongtinkh.getTaiKhoan.getTrangThai() == false ? 'checked' : '' }" />
+																checked="${thongtinNV.getTaiKhoan.getTrangThai() == false ? 'checked' : '' }" />
 															<form:errors path="phai" cssClass="text-danger" />
 														</div> --%>
 													</div>

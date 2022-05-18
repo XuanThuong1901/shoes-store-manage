@@ -126,7 +126,7 @@ public class SanPham {
 		this.chiTietSanPhams = chiTietSanPhams;
 	}
 
-	public boolean isPhai() {
+	public boolean getPhai() {
 		return phai;
 	}
 

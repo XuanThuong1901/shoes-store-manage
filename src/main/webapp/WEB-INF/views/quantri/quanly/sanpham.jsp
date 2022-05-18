@@ -45,7 +45,36 @@
 									<i class="fas fa-plus mr-2"></i>Thêm sản phẩm mới
 								</button>
 							</div>
+							<div>
 
+								<div>
+									<c:choose>
+										<c:when test="${isSuccess }">
+											<div
+												class="mt-2 alert alert-success alert-dismissible fade show"
+												role="alert">
+												${alertMessage }
+												<button type="button" class="close" data-dismiss="alert"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+										</c:when>
+										<c:when test="${isSuccess == false }">
+											<div
+												class="mt-2 alert alert-danger alert-dismissible fade show"
+												role="alert">
+												${alertMessage }
+												<button type="button" class="close" data-dismiss="alert"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+										</c:when>
+									</c:choose>
+
+								</div>
+							</div>
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
@@ -81,10 +110,10 @@
 
 											<td>
 												<div class="d-flex justify-content-between px-2">
-													<a class="" href="quanly/sanpham/${sp.getMaSP()}?thongtin" ><i
-														class="fas fa-info-circle"></i> </a> <a class="" href="#"
-														data-toggle="modal" data-target="#modal-edit"><i
-														class="fas fa-edit"></i> </a> <a class="" href="#"
+													<a class="" href="quanly/sanpham/${sp.getMaSP()}?thongtin"><i
+														class="fas fa-info-circle"></i> </a> <a class="" 
+														href="quanly/sanpham/${sp.getMaSP()}?suaThongtin"
+														><i class="fas fa-edit"></i> </a> <a class="" href="#"
 														data-toggle="modal" data-target="#exampleModalConfirm">
 														<i class="fas fa-folder-plus"></i>
 													</a> <a class="" href="#" data-toggle="modal"
@@ -296,7 +325,8 @@
 	</div>
 </div>
 
-<div class="modal fade" id="modal-info-detail-sanpham" isShow="${isOpenModalInfo }">
+<div class="modal fade" id="modal-info-detail-sanpham"
+	isShow="${isOpenModalInfo }">
 	<div class="modal-dialog modal-dialog-scrollable modal-lg"
 		role="document">
 		<div class="modal-content">
@@ -318,33 +348,37 @@
 							width="250px">
 					</p>
 					<p>Tên sản phẩm&nbsp;${thongTinSP.getTenSP() }</p>
-					<p>Giá&nbsp;<fmt:setLocale value="vi_VN" /> <fmt:formatNumber
-													value="${thongTinSP.getGia()}" type="currency" currencySymbol="vnđ" /></p>
+					<p>
+						Giá&nbsp;
+						<fmt:setLocale value="vi_VN" />
+						<fmt:formatNumber value="${thongTinSP.getGia()}" type="currency"
+							currencySymbol="vnđ" />
+					</p>
 
 					<p>Mô tả sản phẩm&nbsp;${thongTinSP.getMoTa() }</p>
 					<p>Danh mục&nbsp;${thongTinSP.getDanhMuc().getTenDM() }</p>
 					<p>Màu&nbsp;${thongTinSP.getMauSanPham().getTenMau() }</p>
 
 				</div>
-				<div> 
+				<div>
 					<table class="table table-hover table-striped text-center">
-							<thead>
+						<thead>
+							<tr>
+								<th class="bg-primary">Size</th>
+								<th class="bg-primary">Số lượng</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="ctsp" items="${ thongTinSP.getChiTietSanPhams()}">
 								<tr>
-									<th class="bg-primary">Size</th>
-									<th class="bg-primary">Số lượng</th>
+									<td>${ctsp.getSizeSanPham().getTenSize() }</td>
+									<td>${ctsp.getSoLuong() }</td>
 								</tr>
-							</thead>
-							<tbody>
-								 <c:forEach var="ctsp" items="${ thongTinSP.getChiTietSanPhams()}"> 
-									<tr>
-										<td>${ctsp.getSizeSanPham().getTenSize() }</td>
-										<td>${ctsp.getSoLuong() }</td>
-									</tr>
-								</c:forEach> 
+							</c:forEach>
 
 
-							</tbody>
-						</table>
+						</tbody>
+					</table>
 				</div>
 
 			</div>
@@ -358,7 +392,8 @@
 </div>
 <!-- /.modal -->
 
-<div class="modal fade" id="modal-add-new">
+<div class="modal fade" id="modal-add-new"
+	isShow="${isShowModalAddNew }">
 	<div class="modal-dialog modal-dialog-scrollable modal-lg"
 		role="document">
 		<div class="modal-content">
@@ -371,106 +406,317 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form:form action="" method="post" modelAttribute="sanPhamMoi">
-					<div class="form-group">
-						<label for="">Mã sản phẩm</label> 
-						<input type="email"
-							class="form-control" id="inputEmail4" placeholder="M38789792">
-					</div>
-					<div class="form-group">
-						<label for="inputEmail4">Thêm hình ảnh </label>
-						<button type="submit" class="btn bg-dark">
-							<i class="fas fa-upload"></i>
-						</button>
-					</div>
-					<div class="form-group">
-						<label for="inputPassword4">Tên sản phẩm</label> <input
-							type="password" class="form-control" id="inputPassword4"
-							placeholder="ABCDEF">
-					</div>
-					<div class="form-group">
-						<label for="inputAddress">Mô tả</label> <input
-							type="text" class="form-control" id="inputAddress"
-							placeholder="NCC1">
-					</div>
-					<div class="form-group">
-						<label for="inputAddress">Màu</label> <input type="text"
-							class="form-control" id="inputAddress" placeholder="300">
-					</div>
-					<div class="form-group">
-						<label for="inputAddress2">Giá</label> <input type="text"
-							class="form-control" id="inputAddress2" placeholder="3 000 000 đ">
-					</div>
-					<div class="form-group">
-						<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-<label for="vehicle1"> I have a bike</label>
+				<form:form action="quanly/sanpham?themSP" class="form-horizontal"
+					method="post" modelAttribute="sanPhamMoi"
+					enctype="multipart/form-data">
+					<div class="row">
+
+
+						<div class="col-md-12">
+							<div class="form-group row">
+								<label for="" class="col-sm-2 col-form-label text-primary">Tên
+									sản phẩm </label>
+								<div class="col-sm-10">
+									<form:input path="tenSP" class="form-control" />
+									<form:errors path="tenSP" cssClass="text-danger" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="" class="col-sm-2 col-form-label text-primary">Danh
+									mục</label>
+								<form:select path="danhMuc.maDM"
+									items="${danhSachDanhMucSanPham }"
+									class="form-control form-select" itemValue="maDM"
+									itemLabel="tenDM"></form:select>
+								<form:errors path="danhMuc.maDM" cssClass="text-danger" />
+							</div>
+							<div class="form-group row">
+								<label for="" class="col-sm-2 col-form-label text-primary">Phái</label>
+								<div class="col-sm-10">
+									<div class="form-check form-check-inline">
+										<form:radiobutton path="phai" value="True" label="Nam"
+											class="form-check-input" checked="checked" />
+
+									</div>
+									<div class="form-check form-check-inline">
+										<form:radiobutton path="phai" value="False" label="Nữ"
+											class="form-check-input" />
+									</div>
+									<form:errors path="phai" cssClass="text-danger" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="" class="col-sm-2 col-form-label text-primary">Mô
+									tả </label>
+								<div class="col-sm-10">
+									<form:input path="moTa" class="form-control" />
+									<form:errors path="moTa" cssClass="text-danger" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="inputSkills"
+									class="col-sm-2 col-form-label text-primary">Giá </label>
+								<div class="col-sm-10">
+									<form:input path="gia" class="form-control" />
+									<form:errors path="gia" cssClass="text-danger" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="inputSkills"
+									class="col-sm-2 col-form-label text-primary">Giảm giá </label>
+								<div class="col-sm-10">
+									<form:input path="giamGia" class="form-control" />
+									<form:errors path="giamGia" cssClass="text-danger" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="" class="col-sm-2 col-form-label text-primary">Màu</label>
+								<form:select path="mauSanPham.maMau" items="${danhSachMau }"
+									class="form-control form-select" itemValue="maMau"
+									itemLabel="tenMau"></form:select>
+
+							</div>
+
+							<div class="form-group">
+								<label for="" class="col-sm-2 col-form-label text-primary">Size</label>
+								<c:forEach var="size" items="${danhSachSize}" varStatus="status">
+									<input type="checkbox" name="size" alt="Checkbox"
+										value="${size.getMaSize() }">
+
+
+									<label for="vehicle1">"${size.getTenSize()}" </label>
+								</c:forEach>
+								<p class="text-danger">${size }</p>
+
+							</div>
+
+							<!--  <div class="form-group">
+								<label for="" class="col-sm-2 col-form-label text-primary">Size</label>
+								<c:forEach var="size" items="${danhSachSize}" varStatus="status">
+									<input type="checkbox" id="vehicle1" name="size" value="maSize">
+									<label for="vehicle1">"${size.getTenSize()}" </label>
+								</c:forEach>
+								<p class="text-danger">${size }</p>
+
+							</div>-->
+
+							<div class="card card-primary card-outline">
+								<div class="card-body box-profile">
+									<div class="text-center">
+										<img id="modal-update-avatar"
+											class="profile-user-img img-fluid img-circle"
+											src="resources/file/${hinh }" alt="User profile picture"
+											style="width: 120px;" />
+									</div>
+									<input name="anhMoi" type="file" id="input-update-avatar"
+										class="mt-3 form-control" />
+
+
+
+								</div>
+								<!-- /.card-body -->
+							</div>
+
+							<div class="form-group row d-flex justify-content-end">
+								<button type="submit" class="btn btn-primary">Thêm</button>
+								<a href="quanly/sanpham" id="cancel-save-modal"
+									class="mx-2 btn btn-secondary">Hủy</a>
+							</div>
+
+						</div>
 					</div>
 
 				</form:form>
+
 			</div>
-			<div class="modal-footer d-flex justify-content-between">
-				<button type="button" class="btn"
-					style="background-color: none; border-color: rgb(0, 123, 206);"
-					data-dismiss="modal">Đóng</button>
-				<button type="button" class="btn btn-primary">Lưu</button>
-			</div>
+
 		</div>
 	</div>
 	<!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" id="modal-edit">
-	<div class="modal-dialog modal-dialog-scrollable modal-lg"
-		role="document">
+<div class="modal fade" id="modal-edit-sanpham"
+	isShow="${isOpenModalEdit }">
+	<div class="modal-dialog modal-lg modal-dialog-scrollable">
 		<div class="modal-content">
-			<div class="modal-header bg-secondary">
-				<h5 class="modal-title" id="exampleModalScrollableTitle">Chỉnh
-					sửa sản phẩm</h5>
+			<div class="modal-header">
+				<h4 class="modal-title">Sửa thông tin sản phẩm</h4>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
-					<span aria-hidden="true" style="color: white;">&times;</span>
+					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<form>
-					<div class="form-group">
-						<label for="inputEmail4">Mã sản phẩm</label> <input type="email"
-							class="form-control" id="inputEmail4" placeholder="M38789792">
-					</div>
-					<div class="form-group">
-						<label for="inputEmail4">Thêm hình ảnh </label>
-						<button type="submit" class="btn bg-dark">
-							<i class="fas fa-upload"></i>
-						</button>
-					</div>
-					<div class="form-group">
-						<label for="inputPassword4">Tên sản phẩm</label> <input
-							type="password" class="form-control" id="inputPassword4"
-							placeholder="ABCDEF">
-					</div>
-					<div class="form-group">
-						<label for="inputAddress">Mã nhà cung cấp</label> <input
-							type="text" class="form-control" id="inputAddress"
-							placeholder="NCC1">
-					</div>
-					<div class="form-group">
-						<label for="inputAddress">Số lượng</label> <input type="text"
-							class="form-control" id="inputAddress" placeholder="300">
-					</div>
-					<div class="form-group">
-						<label for="inputAddress2">Giá</label> <input type="text"
-							class="form-control" id="inputAddress2" placeholder="3 000 000 đ">
-					</div>
+				<div class="row">
+					<!-- /.col -->
+					<div class="col-md-12">
+						<div class="">
+							<div class="card-header p-2">
+								<ul class="nav nav-pills">
+									<li class="nav-item"><a class="nav-link active"
+										href="#activity" data-toggle="tab">Thông tin sản phẩm</a></li>
 
-				</form>
+								</ul>
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body">
+								<div class="tab-content">
+									<div class="active tab-pane" id="activity">
+										<!-- Info profile -->
+
+										<form:form
+											action="quanly/sanpham/${thongTinSP.getMaSP() }?suaSP"
+											class="form-horizontal" modelAttribute="thongTinSP"
+											enctype="multipart/form-data">
+
+											<div class="row">
+												<div class="col-md-4">
+													<!-- Profile Image -->
+													<div class="card card-primary card-outline">
+														<div class="card-body box-profile">
+															<div class="text-center">
+																<img id="modal-update-avatar"
+																	class="profile-user-img img-fluid img-circle"
+																	src="resources/file/${thongTinSP.getHinhAnh() }"
+																	alt="User profile picture" style="width: 120px;" />
+															</div>
+															<input name="anhMoi" type="file" id="input-update-avatar"
+																class="mt-3 form-control" />
+
+
+
+														</div>
+														<!-- /.card-body -->
+													</div>
+													<!-- /.card -->
+												</div>
+
+												<div class="col-md-8">
+													<div class="card">
+														<div class="card-body text-primary">
+
+															<div class="form-group row">
+																<label for="" class="col-sm-2 col-form-label">Tên
+																	sản phẩm </label>
+																<div class="col-sm-10">
+																	<form:input path="tenSP" class="form-control" id=""
+																		placeholder="" />
+																	<form:errors path="tenSP" cssClass="text-danger" />
+																</div>
+															</div>
+															<div class="form-group row">
+																<label for=""
+																	class="col-sm-2 col-form-label">Danh
+																	mục</label>
+																<form:select path="danhMuc.maDM"
+																	items="${danhSachDanhMucSanPham }"
+																	class="form-control form-select" itemValue="maDM"
+																	itemLabel="tenDM" id="" placeholder=""></form:select>
+																<form:errors path="danhMuc.maDM" cssClass="text-danger" />
+															</div>
+															<div class="form-group row">
+																<label for=""
+																	class="col-sm-2 col-form-label">Phái</label>
+																<div class="col-sm-10">
+																	<div class="form-check form-check-inline">
+																		<form:radiobutton path="phai" value="True" label="Nam"
+																			class="form-check-input" checked="checked" />
+
+																	</div>
+																	<div class="form-check form-check-inline">
+																		<form:radiobutton path="phai" value="False" label="Nữ"
+																			class="form-check-input" />
+																	</div>
+																	<form:errors path="phai" cssClass="text-danger" />
+																</div>
+															</div>
+															<div class="form-group row">
+																<label for=""
+																	class="col-sm-2 col-form-label">Mô
+																	tả </label>
+																<div class="col-sm-10">
+																	<form:input path="moTa" class="form-control" id="" placeholder=""/>
+																	<form:errors path="moTa" cssClass="text-danger" />
+																</div>
+															</div>
+															<div class="form-group row">
+																<label for="inputSkills"
+																	class="col-sm-2 col-form-label">Giá
+																</label>
+																<div class="col-sm-10">
+																	<form:input path="gia" class="form-control" id="" placeholder=""/>
+																	<form:errors path="gia" cssClass="text-danger" />
+																</div>
+															</div>
+															<div class="form-group row">
+																<label for="inputSkills"
+																	class="col-sm-2 col-form-label">Giảm
+																	giá </label>
+																<div class="col-sm-10">
+																	<form:input path="giamGia" class="form-control" id="" placeholder=""/>
+																	<form:errors path="giamGia" cssClass="text-danger" />
+																</div>
+															</div>
+															<div class="form-group row">
+																<label for=""
+																	class="col-sm-2 col-form-label">Màu</label>
+																<form:select path="mauSanPham.maMau"
+																	items="${danhSachMau }"
+																	class="form-control form-select" itemValue="maMau"
+																	itemLabel="tenMau"></form:select>
+
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-12">
+													<div class=" d-flex justify-content-end">
+														<button type="submit" class="btn btn-primary">Sửa</button>
+														<a href="quanly/sanpham" id="cancel-update-modal"
+															class="mx-2 btn btn-secondary">Hủy</a>
+													</div>
+												</div>
+
+											</div>
+
+										</form:form>
+										<!-- /.Info profile -->
+									</div>
+									<!-- /.tab-pane -->
+
+
+									<div class="tab-pane" id="settings">
+										<form class="form-horizontal" method="post"
+											action="quanly/nhanvien/${thongTinNV.getMaNV() }?resetmatkhau">
+											<div class="form-group row">
+												<div class=" col-sm-10">
+													<input type="text" name="maNV"
+														value="${thongTinNV.getMaNV() }" hidden />
+												</div>
+											</div>
+											<div class="form-group row">
+												<div class=" col-sm-10">
+													<button type="submit" name="resetmatkhau"
+														class="btn bg-danger" id="btn-reset-mk">Reset mật
+														khẩu</button>
+												</div>
+											</div>
+										</form>
+									</div>
+									<!-- /.tab-pane -->
+								</div>
+								<!-- /.tab-content -->
+							</div>
+							<!-- /.card-body -->
+						</div>
+						<!-- /.card -->
+					</div>
+					<!-- /.col -->
+				</div>
 			</div>
-			<div class="modal-footer d-flex justify-content-between">
-				<button type="button" class="btn"
-					style="background-color: none; border-color: rgb(0, 123, 206);"
-					data-dismiss="modal">Đóng</button>
-				<button type="button" class="btn btn-primary">Lưu</button>
-			</div>
+
 		</div>
+		<!-- /.modal-content -->
 	</div>
 	<!-- /.modal-dialog -->
 </div>
