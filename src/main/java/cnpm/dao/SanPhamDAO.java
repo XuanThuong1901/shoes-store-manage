@@ -7,10 +7,12 @@ import javax.transaction.Transactional;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import cnpm.entity.DanhMucSanPham;
+import cnpm.entity.KhachHang;
 import cnpm.entity.SanPham;
 
 @Transactional
@@ -42,5 +44,47 @@ public class SanPhamDAO {
 		}
 	
 		return res.get(0);
+	}
+	
+	public Boolean them(SanPham sanPham) {
+		Boolean isSuccess = true;
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		
+		try {
+			session.save(sanPham);
+			t.commit();
+			
+		} catch (Exception e) {
+			System.out.println(e);
+			System.out.println(e.getCause());
+			t.rollback();
+			isSuccess = false;
+		}
+		finally {
+			session.close();
+		}
+		return isSuccess;
+	}
+	
+	public Boolean sua(SanPham sanPham) {
+		Boolean isSuccess = true;
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		
+		try {
+			session.update(sanPham);
+			t.commit();
+			
+		} catch (Exception e) {
+			System.out.println(e);
+			System.out.println(e.getCause());
+			t.rollback();
+			isSuccess = false;
+		}
+		finally {
+			session.close();
+		}
+		return isSuccess;
 	}
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import cnpm.dao.ChiTietSanPhamDAO;
 import cnpm.entity.ChiTietSanPham;
+import cnpm.entity.KhachHang;
 
 
 @Service
@@ -16,6 +17,14 @@ public class ChiTietSanPhamService {
 
 	public ChiTietSanPham getByCacMa(Integer maCTSP, Integer maMau, Integer maSize) {
 		return chiTietSanPhamDAO.getByCacMa(maCTSP, maMau, maSize);
+	}
+	
+	public Boolean themCTSP(ChiTietSanPham chiTietSanPham) {
+		return chiTietSanPhamDAO.them(chiTietSanPham);
+	}
+	
+	public Boolean suaCTSP(ChiTietSanPham chiTietSanPham) {
+		return chiTietSanPhamDAO.sua(chiTietSanPham);
 	}
 	
 }

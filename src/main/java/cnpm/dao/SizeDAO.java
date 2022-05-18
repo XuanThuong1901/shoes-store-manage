@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import cnpm.entity.KhachHang;
 import cnpm.entity.SizeSanPham;
 
 @Transactional
@@ -25,5 +26,20 @@ public class SizeDAO {
 		List<SizeSanPham> list = query.list();
 		
 		return list;
+	}
+	
+	public SizeSanPham getByMaSize(Integer maSize) {
+		Session session = factory.getCurrentSession();
+		String hql = "from SizeSanPham where maSize = :maSize";
+		Query query = session.createQuery(hql);
+		query.setParameter("maSize", maSize);
+		List<SizeSanPham> res = query.list();
+		
+		if(res.size() == 0) {
+			return null;
+		}
+		
+		SizeSanPham size = res.get(0);
+		return size;
 	}
 }

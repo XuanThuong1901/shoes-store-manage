@@ -132,6 +132,16 @@ public class NhanVienController {
 		List<NhaCungCap> list = nhaCungCapService.getDSNhaCungCap();
 		return list;
 	}
+	
+	@ModelAttribute("thongTinSP")
+	public SanPham thongTinSP() {
+		return new SanPham();
+	}
+
+	@ModelAttribute("sanPhamMoi")
+	public SanPham sanPhamMoi() {
+		return new SanPham();
+	}
 
 	@ModelAttribute("thongTinDH")
 	public DonHang thongTinDH() {
@@ -732,4 +742,168 @@ public class NhanVienController {
 
 		return "quantri/nhanvien/donhang";
 	}
+	
+	// san pham
+		@RequestMapping(value = "sanpham", method = RequestMethod.GET)
+		public String getViewSanpham() {
+			return "quantri/nhanvien/sanpham";
+		}
+
+		@RequestMapping(value = "sanpham/{maSP}", params = "thongtin", method = RequestMethod.GET)
+		public String thongTin1SanPham(ModelMap model, @PathVariable("maSP") Integer maSP) {
+			SanPham sanpham = sanPhamService.getByMaSP(maSP);
+			if (sanpham != null) {
+				model.addAttribute("thongTinSP", sanpham);
+				model.addAttribute("isOpenModalInfo", true);
+			}
+			return "quantri/nhanvien/sanpham";
+		}
+
+//		@RequestParam("anhMoi") MultipartFile anh,
+		@RequestMapping(value = "sanpham", params = "themSP", method = RequestMethod.POST)
+		public String themMoiSanPham(ModelMap model, @ModelAttribute("sanPhamMoi") SanPham sanpham,
+				@RequestParam("anhMoi") MultipartFile anh,
+				@RequestParam(name = "size", required = false) List<Integer> listsize, BindingResult errors) {
+
+			if (sanpham.getTenSP().trim().isEmpty()) {
+				errors.rejectValue("tenSP", "sanPhamMoi", "Tên sản phẩm không được để trống");
+			}
+
+			if (sanpham.getGia() == 0) {
+				errors.rejectValue("gia", "sanPhamMoi", "Giá không được để trống");
+			}
+
+			if (listsize == null) {
+				model.addAttribute("size", "Phải chọn ít nhất 1 size sản phẩm");
+				model.addAttribute("isShowModalAddNew", true);
+				return "quantri/nhanvien/sanpham";
+			}
+
+			if (errors.hasErrors()) {
+				model.addAttribute("isShowModalAddNew", true);
+				return "quantri/nhanvien/sanpham";
+			}
+
+			if (anh == null) {
+				model.addAttribute("anhMoi", "Hình ảnh không thể để trống");
+				return "quantri/nhanvien/sanpham";
+			}
+
+			String hinh = "";
+			System.out.println("anh " + anh);
+			if (!anh.isEmpty()) {
+				hinh = utilService.luuFile(anh);
+				if (!hinh.isEmpty()) {
+					sanpham.setHinhAnh(hinh);
+				}
+			}
+
+			if (sanPhamService.themSP(sanpham)) {
+
+				int masp = sanPhamService.maSPCuoiCung();
+				ChiTietSanPham chiTietSanPham = new ChiTietSanPham();
+				System.out.println(1);
+
+				for (int i = 0; i < listsize.size(); i++) {
+					System.out.println(2);
+					SizeSanPham sizesanpham = sizeService.getByMaSize(listsize.get(i));
+					chiTietSanPham.setSanPham(sanPhamService.getByMaSP(masp));
+					chiTietSanPham.setSizeSanPham(sizesanpham);
+					chiTietSanPham.setSoLuong(0);
+
+					chiTietSanPhamService.themCTSP(chiTietSanPham);
+					System.out.println(3);
+				}
+				model.addAttribute("sanPhamMoi", new SanPham());
+				model.addAttribute("isSuccess", true);
+				model.addAttribute("alertMessage", "Thêm sản phẩm thành công");
+				model.addAttribute("hinh", "");
+				model.addAttribute("danhSachSanPham", sanPhamService.getDSSanPham());
+			} else {
+
+				model.addAttribute("isSuccess", false);
+				model.addAttribute("alertMessage", "Thêm tài khoản thất bại");
+			}
+
+			return "quantri/nhanvien/sanpham";
+		}
+
+		@RequestMapping(value = "sanpham/{maSP}", params = "suaThongtin", method = RequestMethod.GET)
+		public String getSuaSanPham(ModelMap model, @PathVariable("maSP") Integer maSP) {
+
+			SanPham sanpham = sanPhamService.getByMaSP(maSP);
+
+			if (sanpham != null) {
+				model.addAttribute("thongTinSP", sanpham);
+				model.addAttribute("isOpenModalEdit", true);
+
+			}
+
+			return "quantri/nhanvien/sanpham";
+		}
+
+		@RequestMapping(value = "sanpham/{maSP}", params = "suaSP", method = RequestMethod.POST)
+		public String postSuaSanPham(ModelMap model, @ModelAttribute("thongTinSP") SanPham sanpham,
+				@RequestParam("anhMoi") MultipartFile anh, @PathVariable("maSP") Integer maSP, BindingResult errors) {
+
+			if (sanpham.getTenSP().trim().isEmpty()) {
+				errors.rejectValue("tenSP", "sanPhamMoi", "Tên sản phẩm không được để trống");
+			}
+
+			if (sanpham.getGia() == 0) {
+				errors.rejectValue("gia", "sanPhamMoi", "Giá không được để trống");
+			}
+
+			if (errors.hasErrors()) {
+				model.addAttribute("isShowModalAddNew", true);
+				return "quantri/nhanvien/sanpham";
+			}
+
+			SanPham sanphamcu = sanPhamService.getByMaSP(maSP);
+			if (sanphamcu != null) {
+				if (!sanphamcu.getTenSP().equals(sanpham.getTenSP()))
+					sanphamcu.setTenSP(sanpham.getTenSP());
+				if (sanphamcu.getDanhMuc() != sanpham.getDanhMuc()) {
+					sanphamcu.setDanhMuc(sanpham.getDanhMuc());
+				}
+				if (sanphamcu.getPhai() != sanpham.getPhai()) {
+					sanphamcu.setPhai(sanpham.getPhai());
+				}
+				if (!sanphamcu.getMoTa().equals(sanpham.getMoTa())) {
+					sanphamcu.setMoTa(sanpham.getMoTa());
+				}
+				if (sanphamcu.getGia() != sanpham.getGia()) {
+					sanphamcu.setGia(sanpham.getGia());
+				}
+				if (sanphamcu.getGiamGia() != sanpham.getGiamGia()) {
+					sanphamcu.setGiamGia(sanpham.getGiamGia());
+				}
+				if (sanphamcu.getMauSanPham() != sanpham.getMauSanPham()) {
+					sanphamcu.setMauSanPham(sanpham.getMauSanPham());
+				}
+
+				if (!anh.isEmpty()) {
+					String hinh = "";
+					hinh = utilService.luuFile(anh);
+					if (!hinh.isEmpty()) {
+						sanphamcu.setHinhAnh(hinh);
+					}
+				}
+
+				if (sanPhamService.suaSP(sanphamcu)) {
+					model.addAttribute("thongTinNV", new NhanVien());
+					model.addAttribute("isSuccess", true);
+					model.addAttribute("alertMessage", "Sửa sản phẩm thành công");
+					model.addAttribute("hinh", "");
+					model.addAttribute("danhSachSanPham", sanPhamService.getDSSanPham());
+				}
+			}
+
+			else {
+				model.addAttribute("isSuccess", false);
+				model.addAttribute("alertMessage", "Sửa sản phẩm thất bại");
+			}
+
+			return "quantri/nhanvien/sanpham";
+		}
 }
