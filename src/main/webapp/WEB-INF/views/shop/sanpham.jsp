@@ -62,57 +62,23 @@
 				<div class="collapse show" id="collapseCategories">
 					<div class="bg-light p-4 mb-30">
 						<form>
-						<div
+						<!-- <div
 								class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
 								<input type="checkbox" class="custom-control-input"
 									id="category-all" checked> <label
 									class="custom-control-label" for="category-all">Tất cả</label> <span
 									class="badge border font-weight-normal">145</span>
-							</div>
+							</div> -->
 						<c:forEach var="dm" items="${danhSachDanhMucSanPham }">
 							<div
 								class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
 								<input type="checkbox" class="custom-control-input"
 									id="category-nike"> <label class="custom-control-label"
 									for="category-nike">${dm.getTenDM() }</label> <span
-									class="badge border font-weight-normal">168</span>
+									class="badge border font-weight-normal">${dm.getSanPhams().size() }</span>
 							</div>
 						</c:forEach>
-							<!-- <div
-								class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-								<input type="checkbox" class="custom-control-input"
-									id="category-nike"> <label class="custom-control-label"
-									for="category-nike">Nike</label> <span
-									class="badge border font-weight-normal">168</span>
-							</div>
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-								<input type="checkbox" class="custom-control-input"
-									id="category-adidas"> <label
-									class="custom-control-label" for="category-adidas">Adidas</label>
-								<span class="badge border font-weight-normal">145</span>
-							</div>
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-								<input type="checkbox" class="custom-control-input"
-									id="category-vans"> <label class="custom-control-label"
-									for="category-vans">Vans</label> <span
-									class="badge border font-weight-normal">145</span>
-							</div>
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-								<input type="checkbox" class="custom-control-input"
-									id="category-converse"> <label
-									class="custom-control-label" for="category-converse">Converse</label>
-								<span class="badge border font-weight-normal">145</span>
-							</div>
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-								<input type="checkbox" class="custom-control-input"
-									id="category-ananas"> <label
-									class="custom-control-label" for="category-ananas">Ananas</label>
-								<span class="badge border font-weight-normal">145</span>
-							</div> -->
+							
 						</form>
 					</div>
 				</div>
@@ -277,25 +243,20 @@
 				<div class="collapse show" id="collapseSize">
 					<div class="bg-light p-4 mb-30">
 						<div class="d-flex flex-wrap g-2">
-							<button class="btn border m-1 btn-filter-size" id="btn-size--35">35</button>
-							<button class="btn border m-1 btn-filter-size" id="btn-size--36">36</button>
-							<button class="btn border m-1 btn-filter-size" id="btn-size--37">37</button>
-							<button class="btn border m-1 btn-filter-size" id="btn-size--38">38</button>
-							<button class="btn border m-1 btn-filter-size" id="btn-size--39">39</button>
-							<button class="btn border m-1 btn-filter-size" id="btn-size--40">40</button>
-							<button class="btn border m-1 btn-filter-size" id="btn-size--41">41</button>
-							<button class="btn border m-1 btn-filter-size" id="btn-size--42">42</button>
-							<button class="btn border m-1 btn-filter-size" id="btn-size--43">43</button>
-							<button class="btn border m-1 btn-filter-size" id="btn-size--44">44</button>
+							<c:forEach var="s" items="${danhSachSize }">
+							<button data-masize="${s.getMaSize() }" class="btn border m-1 btn-filter-size" id="btn-size--${s.getTenSize() }">${s.getTenSize() }</button>
+							</c:forEach>
+							
+							
 						</div>
 
-						<div
+						<!-- <div
 							class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-2">
 							<input type="checkbox" class="custom-control-input" id="size-5">
 							<label class="custom-control-label ml-1" for="size-5">Tất
 								cả</label>
 
-						</div>
+						</div> -->
 					</div>
 				</div>
 
@@ -309,7 +270,7 @@
 			<div class="col-lg-9 col-md-8">
 				<div class="row pb-3">
 					<div class="col-12">
-						<div
+						<!-- <div
 							class="d-flex align-items-center justify-content-between mb-4">
 							<div>
 								<button class="btn btn-sm btn-light">
@@ -341,7 +302,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<jsp:useBean id="pagedListHolder" scope="request"
 						type="org.springframework.beans.support.PagedListHolder" />
@@ -370,7 +331,7 @@
 											class="fa fa-search"></i></a> -->
 										</div>
 
-										<button href="#" class="btn text-uppercase btn-product-buynow">mua
+										<button data-id="${sp.getMaSP() }" class="btn text-uppercase btn-product-buynow" style="display: inline-block;">mua
 											ngay</button>
 									</div>
 
