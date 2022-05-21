@@ -13,5 +13,6 @@
 
     <!-- Template Javascript -->
     <script src="<c:url value='resources/user/js/main.js'/>"></script>
+     <script src="<c:url value='resources/user/js/product.js'/>"></script>
     
    
