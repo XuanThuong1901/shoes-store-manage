@@ -31,6 +31,7 @@ public class TaiKhoanController {
 	@Autowired
 	NhanVienService nhanVienService;
 	
+	
 	@RequestMapping(value="dangxuat")
 	public String dangXuat(HttpSession ss) {
 		if(ss.getAttribute("user") != null) {
@@ -73,13 +74,17 @@ public class TaiKhoanController {
 				model.addAttribute("message", "Tài khoản chưa được kích hoạt hoặc đã bị khóa, vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi!");
 				return "taikhoan/dangnhap";
 			}
-
+			
+			
+			
 			if (thongtinTk.getVaitro().getMaVT().equals("KH")) {
 				if(thongtinTk.getKhachHang() == null) {
 					model.addAttribute("message", "Thông tin đăng nhập không hợp lệ");
 					return "taikhoan/dangnhap";
 				}
 				ss.setAttribute("user", thongtinTk);
+				ss.setAttribute("maUser", thongtinTk.getKhachHang().getMaKH());
+			
 				return "redirect:/trangchu";
 			} else if (thongtinTk.getVaitro().getMaVT().equals("NV")) {
 				
@@ -87,8 +92,8 @@ public class TaiKhoanController {
 					model.addAttribute("message", "Thông tin đăng nhập không hợp lệ");
 					return "taikhoan/dangnhap";
 				}
-				
 				ss.setAttribute("user", thongtinTk);
+				ss.setAttribute("maUser", thongtinTk.getNhanVien().getMaNV());
 				
 				return "redirect:/nhanvien/tongquan";
 			} else if (thongtinTk.getVaitro().getMaVT().equals("QL")) {
@@ -97,10 +102,12 @@ public class TaiKhoanController {
 					return "taikhoan/dangnhap";
 				}
 				ss.setAttribute("user", thongtinTk);
+				ss.setAttribute("maUser", thongtinTk.getNhanVien().getMaNV());
+				
 				return "redirect:/quanly/tongquan";
 			}
 
-
+			
 			return "redirect:/quanly/tongquan";
 		}
 		model.addAttribute("message", "Sai thông tin tài khoản hoặc mật khẩu");

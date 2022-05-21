@@ -108,4 +108,6 @@ $(document).ready(function(){
 	getIdDeleteIntoForm("input-delete-ncc");
 	
 	getIdUpdateIntoForm("input-update-hd");
+	
+	getIdDeleteIntoForm("input-delete-pn");
  });
