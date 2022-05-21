@@ -97,7 +97,8 @@
                 newVal = 0;
             }
         }
-        button.parent().parent().find('input').val(newVal);
+//        button.parent().parent().find('input').val(newVal);
+        button.parent().parent().find('input').attr("value", newVal);
     });
     
 })(jQuery);

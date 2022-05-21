@@ -46,20 +46,7 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box border border-info">
-              <div class="inner">
-                <h3>${danhSachNhanVien.size() }</h3>
-
-                <p>Nhân viên</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-user-tie text-info"></i>
-              </div>
-              <a href="nhanvien/nhanvien" class="small-box-footer bg-info">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
+          
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -81,7 +68,7 @@
             <!-- small box -->
             <div class="small-box border border-info">
               <div class="inner">
-                <h3>65</h3>
+                <h3>${danhSachSanPham.size() }</h3>
 
                 <p>San pham</p>
               </div>
