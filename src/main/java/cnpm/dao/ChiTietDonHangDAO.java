@@ -31,4 +31,18 @@ public class ChiTietDonHangDAO {
 		
 		return res;
 	}
+	
+	public Boolean kiemTraCTDH(Integer MaCTSP){
+		Session session = factory.getCurrentSession();
+		String hql = "from ChiTietDonHang where MaCTSP = :MaCTSP";
+		Query query = session.createQuery(hql);
+		query.setParameter("MaCTSP", MaCTSP);
+		List<ChiTietDonHang> res = query.list();
+		
+		if(res.isEmpty()) {
+			return false;
+		}
+		
+		return true;
+	}
 }

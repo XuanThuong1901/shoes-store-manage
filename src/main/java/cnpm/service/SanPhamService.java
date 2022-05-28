@@ -34,4 +34,8 @@ public class SanPhamService {
 	public Boolean suaSP(SanPham sanpham) {
 		return sanPhamDAO.sua(sanpham);
 	}
+	
+	public Boolean xoaSP(SanPham sanpham) {
+		return sanPhamDAO.xoa(sanpham);
+	}
 }

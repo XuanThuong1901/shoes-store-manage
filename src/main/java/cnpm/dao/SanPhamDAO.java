@@ -87,4 +87,25 @@ public class SanPhamDAO {
 		}
 		return isSuccess;
 	}
+	
+	public Boolean xoa(SanPham sanPham) {
+		Boolean isSuccess = true;
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		
+		try {
+			session.delete(sanPham);
+			t.commit();
+			
+		} catch (Exception e) {
+			System.out.println(e);
+			System.out.println(e.getCause());
+			t.rollback();
+			isSuccess = false;
+		}
+		finally {
+			session.close();
+		}
+		return isSuccess;
+	}
 }
