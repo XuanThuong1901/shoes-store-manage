@@ -27,7 +27,7 @@ public class ChiTietPhieuNhapDAO {
 		query.setParameter("maPhieuNhap", maPhieuNhap);
 		List<ChiTietPhieuNhap> res = query.list();
 		
-		if(res.size() == 0) {
+		if(res.isEmpty()) {
 			return null;
 		}
 		
@@ -43,6 +43,20 @@ public class ChiTietPhieuNhapDAO {
 		List<ChiTietPhieuNhap> res = query.list();
 
 		return res;
+	}
+	
+	public Boolean kiemTraCTPN(Integer MaChiTietSP) {
+		Session session = factory.getCurrentSession();
+		String hql = "from ChiTietPhieuNhap where MaChiTietSP = :MaChiTietSP";
+		Query query = session.createQuery(hql);
+		query.setParameter("MaChiTietSP", MaChiTietSP);
+		List<ChiTietPhieuNhap> res = query.list();
+		
+		if(res.isEmpty()) {
+			return false;
+		}
+
+		return true;
 	}
 	
 	

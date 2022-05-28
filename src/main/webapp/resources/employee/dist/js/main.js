@@ -110,4 +110,6 @@ $(document).ready(function(){
 	getIdUpdateIntoForm("input-update-hd");
 	
 	getIdDeleteIntoForm("input-delete-pn");
+	
+	getIdDeleteIntoForm("input-delete-ctsp");
  });

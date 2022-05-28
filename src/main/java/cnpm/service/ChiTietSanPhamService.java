@@ -19,6 +19,10 @@ public class ChiTietSanPhamService {
 		return chiTietSanPhamDAO.getByMaCTSPM(maCTSP);
 	}
 	
+	public List<ChiTietSanPham> getByMaSP(Integer maSP) {
+		return chiTietSanPhamDAO.getByMaSP(maSP);
+	}
+	
 	public ChiTietSanPham getByMaSPandMaSize(Integer maSP, Integer maSize) {
 		return chiTietSanPhamDAO.getByMaSPandMaSize(maSP, maSize);
 	}
@@ -33,6 +37,10 @@ public class ChiTietSanPhamService {
 	
 	public Boolean suaCTSP(ChiTietSanPham chiTietSanPham) {
 		return chiTietSanPhamDAO.sua(chiTietSanPham);
+	}
+	
+	public Boolean xoaCTSP(ChiTietSanPham chiTietSanPham) {
+		return chiTietSanPhamDAO.xoa(chiTietSanPham);
 	}
 	
 }

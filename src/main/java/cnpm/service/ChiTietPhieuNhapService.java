@@ -22,6 +22,10 @@ public class ChiTietPhieuNhapService {
 		return chiTietPhieuNhapDAO.getListCTPN(maCTPN);
 	}
 	
+	public Boolean kiemTraCTPN(Integer maCTSP) {
+		return chiTietPhieuNhapDAO.kiemTraCTPN(maCTSP);
+	}
+	
 	public Boolean themCTSP(ChiTietPhieuNhap chiTietPhieuNhap) {
 		return chiTietPhieuNhapDAO.them(chiTietPhieuNhap);
 	}

@@ -52,6 +52,19 @@ public class ChiTietSanPhamDAO {
 		return ctsp;
 	}
 	
+	public List<ChiTietSanPham> getByMaSP(Integer maSP){
+		Session session = factory.getCurrentSession();
+		String hql = "from ChiTietSanPham where maSP = :maSP";
+		Query query = session.createQuery(hql);
+		query.setParameter("maSP", maSP);
+		List<ChiTietSanPham> res = query.list();
+		if(res.isEmpty())
+		{
+			return null;
+		}
+		return res;
+	}
+	
 	public ChiTietSanPham getByMaSPandMaSize(Integer maSP, Integer maSize) {
 		Session session = factory.getCurrentSession();
 		String hql = "from ChiTietSanPham where maSP = :maSP and maSize = :maSize";
