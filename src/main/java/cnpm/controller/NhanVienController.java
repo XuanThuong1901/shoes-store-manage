@@ -172,22 +172,16 @@ public class NhanVienController {
 	}
 	
 	
-	@RequestMapping(value = "khachhang",  method = RequestMethod.GET)
-	public String showList (ModelMap model) {
-		
-		List<KhachHang> danhSachKhachHang = this.getDSKhachHang();
-		model.addAttribute("danhSachKhachHang", danhSachKhachHang);
-		model.addAttribute("isOpenModalInfo", false);
-		
-		return "quantri/nhanvien/khachhang";
-	}
-	
-	@ModelAttribute("danhSachKhachHang")
-	public List<KhachHang> getDSKhachHang() {
-		List<KhachHang> list = khachHangService.getDSKhachHang();
-		return list;	
-	} 
-
+	/*
+	 * @RequestMapping(value = "khachhang", method = RequestMethod.GET) public
+	 * String showList (ModelMap model) {
+	 * 
+	 * List<KhachHang> danhSachKhachHang = this.getDSKhachHang();
+	 * model.addAttribute("danhSachKhachHang", danhSachKhachHang);
+	 * model.addAttribute("isOpenModalInfo", false);
+	 * 
+	 * return "quantri/nhanvien/khachhang"; }
+	 */
 	// danh muc
 
 	@ModelAttribute("danhSachDanhMucSanPham")
@@ -722,14 +716,16 @@ public class NhanVienController {
 				model.addAttribute("danhSachDonHang", donHangService.getDSDonHang());
 			} else {
 				model.addAttribute("isSuccess", false);
-				model.addAttribute("alertMessage", "Thay đổi trạng thía thất bại");
+				model.addAttribute("alertMessage", "Thay đổi trạng thái thất bại");
 			}
 
 		} else {
 			model.addAttribute("isSuccess", false);
-			model.addAttribute("alertMessage", "Thay đổi trạng thía thất bại");
+			model.addAttribute("alertMessage", "Thay đổi trạng thái thất bại");
 		}
 
 		return "quantri/nhanvien/donhang";
 	}
+	
+	
 }

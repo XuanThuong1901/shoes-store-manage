@@ -21,7 +21,7 @@ public class UtilsService {
 			System.out.println("sys "+System.currentTimeMillis());
 
 			String path = System.currentTimeMillis() + file.getOriginalFilename();
-			String filePath = context.getRealPath("/resources/file/" + path );
+			String filePath = context.getRealPath("/resources/file/" +  file.getOriginalFilename());
 			file.transferTo(new File(filePath));
 			
 			
