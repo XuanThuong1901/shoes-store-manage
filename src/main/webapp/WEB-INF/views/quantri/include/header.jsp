@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@include file="/WEB-INF/views/taglib/tag.jsp"%>
+
+<!--<%@include file="/WEB-INF/views/taglib/tag.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en">-->
 
 <head>
 <base href="${pageContext.servletContext.contextPath}/">
@@ -129,14 +130,14 @@
 						src="resources/employee/dist/img/user2-160x160.jpg"
 						class="user-image img-circle elevation-2" alt="User Image">
 						<span class="d-none d-md-inline">${user.getNhanVien().getHo() }
-							${user.getNhanVien().getTen() }</span>
+							${user.getNhanVien().getTen() } </span>
 				</a>
 					<div class="dropdown-menu " style="width: 160px;">
-						<a href="#" class="dropdown-item" data-toggle="modal"
-							data-target="#modal-lg">Tai khoan</a>
+						<a href="${user.getVaitro().getTenVT()}/tongquan/${user.getNhanVien().getMaNV()}?chinhsua"
+							class="dropdown-item">Tài khoản</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" tabindex="-1" href="dangxuat">Dang
-							xuat</a>
+						<a class="dropdown-item" tabindex="-1" href="dangxuat">Đăng
+							xuất</a>
 					</div></li>
 
 				<li class="nav-item"><a class="nav-link"
@@ -145,4 +146,6 @@
 				</a></li>
 			</ul>
 		</nav>
+		
+
 		<!-- /.navbar -->

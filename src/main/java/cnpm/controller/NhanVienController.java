@@ -186,6 +186,7 @@ public class NhanVienController {
 		return "quantri/nhanvien/tongquan";
 	}
 
+
 //	@RequestMapping(value = "khachhang",  method = RequestMethod.GET)
 //	public String showList (ModelMap model) {
 //		
@@ -636,16 +637,19 @@ public class NhanVienController {
 				model.addAttribute("danhSachDonHang", donHangService.getDSDonHang());
 			} else {
 				model.addAttribute("isSuccess", false);
-				model.addAttribute("alertMessage", "Thay đổi trạng thía thất bại");
+				model.addAttribute("alertMessage", "Thay đổi trạng thái thất bại");
 			}
 
 		} else {
 			model.addAttribute("isSuccess", false);
-			model.addAttribute("alertMessage", "Thay đổi trạng thía thất bại");
+			model.addAttribute("alertMessage", "Thay đổi trạng thái thất bại");
 		}
 
 		return "quantri/nhanvien/donhang";
 	}
+
+	
+
 
 	// san pham
 	@RequestMapping(value = "sanpham", method = RequestMethod.GET)
@@ -1064,4 +1068,5 @@ public class NhanVienController {
 
 		return "quantri/nhanvien/phieunhap";
 	}
+
 }

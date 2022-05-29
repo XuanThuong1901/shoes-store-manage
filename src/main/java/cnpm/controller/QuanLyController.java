@@ -1,10 +1,19 @@
 package cnpm.controller;
 
+import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.manager.util.SessionUtils;
+
 
 import java.util.Date;
 
@@ -17,10 +26,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cnpm.entity.*;
+
+import cnpm.model.ThongTinCaNhan;
+
 import cnpm.model.ThongTinChiTietPN;
+
 import cnpm.service.*;
 
 @Controller
@@ -250,7 +264,8 @@ public class QuanLyController {
 	}
 
 	@RequestMapping(value = "tongquan", method = RequestMethod.GET)
-	public String getViewTongQuan() {
+	public String getViewTongQuan(ModelMap model) {
+		model.addAttribute("isOpenModalEditUser", false);
 
 		return "quantri/quanly/tongquan";
 	}
@@ -392,6 +407,7 @@ public class QuanLyController {
 			model.addAttribute("isOpenModalEdit", true);
 
 		}
+		
 
 		return "quantri/quanly/nhanvien";
 	}
@@ -1379,6 +1395,17 @@ public class QuanLyController {
 		NhanVien nv = nhanVienService.getByMaNV(manv);
 		phieunhap.setNhanVien(nv);
 //		
+
+//		return "quantri/quanly/nhacungcap";
+//	}
+	
+
+
+	
+
+	
+	
+
 //		System.out.println(phieunhap.g);
 		if (phieuNhapService.themPN(phieunhap)) {
 
@@ -1515,5 +1542,6 @@ public class QuanLyController {
 
 		return "quantri/quanly/phieunhap";
 	}
+
 
 }

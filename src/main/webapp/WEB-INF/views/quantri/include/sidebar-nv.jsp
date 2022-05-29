@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
       <!-- Brand Logo -->
       <a href="./index3.html" class="brand-link">
         <img src="resources/employee/dist/img/shoeniverse-logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
