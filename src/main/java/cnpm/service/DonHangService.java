@@ -29,4 +29,8 @@ public class DonHangService {
 	public Boolean suaDH(DonHang donhang) {
 		return donHangDAO.sua(donhang);
 	}
+	
+	public DonHang getDHVuaTao() {
+		return donHangDAO.getDHVuaTao();
+	}
 }

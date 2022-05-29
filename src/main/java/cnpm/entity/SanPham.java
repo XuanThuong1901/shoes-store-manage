@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "SANPHAM")
 public class SanPham {
@@ -20,35 +19,33 @@ public class SanPham {
 	@GeneratedValue
 	@Column(name = "MaSP")
 	private int maSP;
-	
-	@Column(name="TenSP")
+
+	@Column(name = "TenSP")
 	private String tenSP;
-	
+
 	@Column(name = "MoTa")
 	private String moTa;
-	
+
 	@Column(name = "Gia")
 	private float gia;
-	
+
 	@Column(name = "Phai")
 	private boolean phai;
-	
+
 	@Column(name = "GiamGia")
 	private Double giamGia;
-	
-	@Column(name="HinhAnh")
+
+	@Column(name = "HinhAnh")
 	private String hinhAnh;
-	
+
 	@ManyToOne
-	@JoinColumn(name="MaDanhMuc")
+	@JoinColumn(name = "MaDanhMuc")
 	private DanhMucSanPham danhMuc;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "MaMau")
 	private MauSanPham mauSanPham;
-	
-	
-	
+
 	public String getHinhAnh() {
 		return hinhAnh;
 	}
@@ -83,7 +80,6 @@ public class SanPham {
 	public void setMaSP(int maSP) {
 		this.maSP = maSP;
 	}
-	
 
 	public String getTenSP() {
 		return tenSP;
@@ -109,7 +105,6 @@ public class SanPham {
 		this.gia = gia;
 	}
 
-
 	public Double getGiamGia() {
 		return giamGia;
 	}
@@ -133,7 +128,5 @@ public class SanPham {
 	public void setPhai(boolean phai) {
 		this.phai = phai;
 	}
-	
-	
-	
+
 }

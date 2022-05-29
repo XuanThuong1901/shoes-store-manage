@@ -1,5 +1,7 @@
 package cnpm.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +13,29 @@ import cnpm.entity.GioHangPK;
 public class GioHangService {
 	@Autowired
 	GioHangDAO gioHangDAO;
-	
-	public Boolean them(String maKH, Integer MaCTSP, Integer soLuong) {
-		
-		GioHangPK pk = new GioHangPK(maKH, MaCTSP);
-		GioHang giohang = new GioHang();
-		giohang.setGioHangPK(pk);
-		giohang.setSoLuong(soLuong);
+
+	public Boolean them(GioHang giohang) {
+
 		
 		return gioHangDAO.them(giohang);
 	}
+
+	public GioHang getByPk(String maKH, Integer mactsp) {
+		return gioHangDAO.getByPk(maKH, mactsp);
+	}
+
+	public List<GioHang> getGioHangCuaKH(String maKH) {
+		return gioHangDAO.getGioHangCuaKH(maKH);
+	}
+
+	public Boolean sua(GioHang giohang) {
+
+		return gioHangDAO.sua(giohang);
+	}
+
+	public Boolean xoa(GioHang giohang) {
+
+		return gioHangDAO.xoa(giohang);
+	}
+
 }

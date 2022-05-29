@@ -10,9 +10,8 @@
 		<div class="row px-xl-5">
 			<div class="col-12">
 				<nav class="breadcrumb bg-light mb-30">
-					<a class="breadcrumb-item text-dark" href="#">Home</a> <a
-						class="breadcrumb-item text-dark" href="#">Shop</a> <span
-						class="breadcrumb-item active">Shopping Cart</span>
+					<a class="breadcrumb-item text-dark" href="#">Trang chủ</a> <span
+						class="breadcrumb-item active">Giỏ hàng</span>
 				</nav>
 			</div>
 		</div>
@@ -28,122 +27,64 @@
 					class="table table-light table-borderless table-hover text-center mb-0">
 					<thead class="thead-dark">
 						<tr>
-							<th>Products</th>
-							<th>Price</th>
-							<th>Quantity</th>
-							<th>Total</th>
-							<th>Remove</th>
+							<th>Sản phẩm</th>
+							<th>Size</th>
+							<th>Giá</th>
+							<th>Số lượng</th>
+							<th>Tổng tiền</th>
+							<th>Thao tác</th>
 						</tr>
 					</thead>
 					<tbody class="align-middle">
-						<tr>
-							<td class="align-middle"><img src="img/product-1.jpg" alt=""
-								style="width: 50px;"> Product Name</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle">
-								<div class="input-group quantity mx-auto" style="width: 100px;">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-minus">
-											<i class="fa fa-minus"></i>
-										</button>
+						<c:forEach var="i" items="${giohang }">
+							<tr class="row-sp">
+								<td class="align-middle"><img
+									src="resources/file/${i.chiTietSP.sanPham.hinhAnh }" alt=""
+									style="width: 50px;"> <span class="text-truncate">
+										${i.chiTietSP.sanPham.tenSP }</span></td>
+								<td class="align-middle">${i.chiTietSP.sizeSanPham.tenSize }</td>
+								<td class="align-middle"><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
+										maxFractionDigits="0"
+										value="${i.chiTietSP.sanPham.gia - i.chiTietSP.sanPham.gia* (i.chiTietSP.sanPham.giamGia/100)}"
+										type="currency" currencySymbol="vnđ" /></td>
+								<td class="align-middle">
+									<div class="input-group quantity mx-auto" style="width: 100px;">
+										<div class="input-group-btn">
+											<button type="button"
+												class="btn btn-sm btn-primary btn-minus" type="button">
+												<i class="fa fa-minus"></i>
+											</button>
+										</div>
+										<input type="text" name="soluong"
+											class="form-control form-control-sm bg-secondary border-0 text-center"
+											value="${i.soLuong }">
+										<div class="input-group-btn">
+											<button type="button" class="btn btn-sm btn-primary btn-plus">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
 									</div>
-									<input type="text"
-										class="form-control form-control-sm bg-secondary border-0 text-center"
-										value="1">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-plus">
-											<i class="fa fa-plus"></i>
+								</td>
+								<td class="align-middle price"
+									data-price="${(i.chiTietSP.sanPham.gia - i.chiTietSP.sanPham.gia* (i.chiTietSP.sanPham.giamGia/100)) * i.soLuong}"><fmt:setLocale
+										value="vi_VN" /> <fmt:formatNumber maxFractionDigits="0"
+										value="${(i.chiTietSP.sanPham.gia - i.chiTietSP.sanPham.gia* (i.chiTietSP.sanPham.giamGia/100)) * i.soLuong}"
+										type="currency" currencySymbol="đ" /></td>
+								<td class="align-middle">
+									<form action="giohang" method="post">
+										<input type="text" name="mactsp"
+											value="${i.chiTietSP.maChiTietSP }" hidden />
+										<button type="submit" name="xoasp"
+											class="btn btn-sm btn-danger">
+											<i class="fa fa-times"></i>
 										</button>
-									</div>
-								</div>
-							</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle"><button
-									class="btn btn-sm btn-danger">
-									<i class="fa fa-times"></i>
-								</button></td>
-						</tr>
-						<tr>
-							<td class="align-middle"><img src="img/product-2.jpg" alt=""
-								style="width: 50px;"> Product Name</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle">
-								<div class="input-group quantity mx-auto" style="width: 100px;">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-minus">
-											<i class="fa fa-minus"></i>
-										</button>
-									</div>
-									<input type="text"
-										class="form-control form-control-sm bg-secondary border-0 text-center"
-										value="1">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-plus">
-											<i class="fa fa-plus"></i>
-										</button>
-									</div>
-								</div>
-							</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle"><button
-									class="btn btn-sm btn-danger">
-									<i class="fa fa-times"></i>
-								</button></td>
-						</tr>
-						<tr>
-							<td class="align-middle"><img src="img/product-3.jpg" alt=""
-								style="width: 50px;"> Product Name</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle">
-								<div class="input-group quantity mx-auto" style="width: 100px;">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-minus">
-											<i class="fa fa-minus"></i>
-										</button>
-									</div>
-									<input type="text"
-										class="form-control form-control-sm bg-secondary border-0 text-center"
-										value="1">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-plus">
-											<i class="fa fa-plus"></i>
-										</button>
-									</div>
-								</div>
-							</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle"><button
-									class="btn btn-sm btn-danger">
-									<i class="fa fa-times"></i>
-								</button></td>
-						</tr>
-						<tr>
-							<td class="align-middle"><img src="img/product-4.jpg" alt=""
-								style="width: 50px;"> Product Name</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle">
-								<div class="input-group quantity mx-auto" style="width: 100px;">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-minus">
-											<i class="fa fa-minus"></i>
-										</button>
-									</div>
-									<input type="text"
-										class="form-control form-control-sm bg-secondary border-0 text-center"
-										value="1">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-plus">
-											<i class="fa fa-plus"></i>
-										</button>
-									</div>
-								</div>
-							</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle"><button
-									class="btn btn-sm btn-danger">
-									<i class="fa fa-times"></i>
-								</button></td>
-						</tr>
+									</form>
+
+								</td>
+							</tr>
+						</c:forEach>
+
+						<!-- 
 						<tr>
 							<td class="align-middle"><img src="img/product-5.jpg" alt=""
 								style="width: 50px;"> Product Name</td>
@@ -170,7 +111,7 @@
 									class="btn btn-sm btn-danger">
 									<i class="fa fa-times"></i>
 								</button></td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 			</div>
@@ -178,40 +119,52 @@
 				<form class="mb-30" action="">
 					<div class="input-group">
 						<input type="text" class="form-control border-0 p-4"
-							placeholder="Coupon Code">
+							placeholder="Mã giảm giá">
 						<div class="input-group-append">
-							<button class="btn btn-primary">Apply Coupon</button>
+							<button class="btn btn-primary">Áp dụng</button>
 						</div>
 					</div>
 				</form>
 				<h5 class="section-title position-relative text-uppercase mb-3">
-					<span class="bg-secondary pr-3">Cart Summary</span>
+					<span class="bg-secondary pr-3">Tổng giỏ hàng</span>
 				</h5>
 				<div class="bg-light p-30 mb-5">
 					<div class="border-bottom pb-2">
 						<div class="d-flex justify-content-between mb-3">
-							<h6>Subtotal</h6>
-							<h6>$150</h6>
+							<h6>Tạm tính</h6>
+							<h6 id="temp-price">$150</h6>
 						</div>
 						<div class="d-flex justify-content-between">
-							<h6 class="font-weight-medium">Shipping</h6>
-							<h6 class="font-weight-medium">$10</h6>
+							<h6 class="font-weight-medium">Phí giao hàng</h6>
+							<h6 class="font-weight-medium" id="ship-price">30.000&nbsp;đ</h6>
 						</div>
 					</div>
 					<div class="pt-2">
 						<div class="d-flex justify-content-between mt-2">
-							<h5>Total</h5>
-							<h5>$160</h5>
+							<h5>Tổng tiền</h5>
+							<h5 id="total-price">$160</h5>
 						</div>
-						<button
-							class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed
-							To Checkout</button>
+						<form action="thanhtoan" method="post">
+							<input type="text" name="tongtien" value="" hidden/>
+							<div class="row d-flex justify-content-between">
+								<a href="sanpham"
+									class="col-md-5 btn btn-block btn-primary font-weight-bold my-3 py-3">
+									Quay lại </a>
+
+								<button type="submit" name="thanhtoangiohang"
+									class="col-md-5 btn btn-block btn-primary font-weight-bold my-3 py-3">Thanh
+									toán</button>
+
+
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- Cart End -->
+	<p id="alertMessage" data-success=${isSuccess }></p>
 </main>
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary back-to-top"><i
@@ -225,3 +178,34 @@
 <!-- JS Lib -->
 <%@include file="/WEB-INF/views/shop/include/jsLib.jsp"%>
 <!-- JS Lib End -->
+
+<script>
+function tinhTongTien(){
+	let tongTien = 0;
+	$(".row-sp").each(function(){
+		
+		 tongTien += (parseFloat($(this).find("td.price").data("price")))
+		
+	})
+	
+	let formatter = new Intl.NumberFormat('vi-VN', {
+		style: 'currency',
+  		currency: 'VND',})
+  	
+	console.log('tong tien', formatter.format(tongTien), tongTien)
+	$("#temp-price").text(formatter.format(tongTien))
+	$("#total-price").text(formatter.format(tongTien + 30000))
+	$("input[name=tongtien]").attr("value", tongTien + 30000)
+}
+
+		$(document).ready(function(){
+			let isSuccess = $("#alertMessage").data("success")
+			if(isSuccess){
+				
+				toastr.success('Xóa khỏi giỏ hàng thành công!')
+			}
+			
+			tinhTongTien();
+		})
+
+</script>

@@ -15,8 +15,8 @@ public class ChiTietSanPhamService {
 	@Autowired
 	ChiTietSanPhamDAO chiTietSanPhamDAO;
 
-	public ChiTietSanPham getByCacMa(Integer maCTSP, Integer maMau, Integer maSize) {
-		return chiTietSanPhamDAO.getByCacMa(maCTSP, maMau, maSize);
+	public ChiTietSanPham getByMaSPVaSize(Integer maCTSP,  Integer maSize) {
+		return chiTietSanPhamDAO.getByMaSPVaSize(maCTSP,maSize);
 	}
 	
 	public Boolean themCTSP(ChiTietSanPham chiTietSanPham) {

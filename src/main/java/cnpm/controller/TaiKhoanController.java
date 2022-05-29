@@ -1,5 +1,6 @@
 package cnpm.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
@@ -52,12 +53,16 @@ public class TaiKhoanController {
 	}
 
 	@RequestMapping(value = "dangnhap", method = RequestMethod.POST)
-	public String postDangNhap(ModelMap model, HttpSession ss, @ModelAttribute("taikhoan") TaiKhoan taikhoan,BindingResult errors) {
+	public String postDangNhap(ModelMap model, HttpServletRequest request, HttpSession ss, @ModelAttribute("taikhoan") TaiKhoan taikhoan,BindingResult errors) {
 
 		if (taikhoan.getEmail().trim().isEmpty()) {
 			errors.rejectValue("email", "taikhoan", "Email không được để trống");
 		}
-
+		
+		if(!taikhoan.getEmail().trim().matches("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")) {
+			errors.rejectValue("email", "taikhoan", "Vui lòng nhập chính xác email của bạn!");
+		}
+			
 		if (taikhoan.getMatKhau().trim().isEmpty()) {
 			errors.rejectValue("matKhau", "taikhoan", "Mật khẩu không được để trống");
 		}
@@ -80,6 +85,7 @@ public class TaiKhoanController {
 					return "taikhoan/dangnhap";
 				}
 				ss.setAttribute("user", thongtinTk);
+				
 				return "redirect:/trangchu";
 			} else if (thongtinTk.getVaitro().getMaVT().equals("NV")) {
 				

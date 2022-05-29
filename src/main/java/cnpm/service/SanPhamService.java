@@ -13,10 +13,15 @@ public class SanPhamService {
 	@Autowired
 	SanPhamDAO sanPhamDAO;
 	
+	
 	public Integer maSPCuoiCung() {
 		List<SanPham> sanpham = this.getDSSanPham();
 		Integer index = sanpham.get(sanpham.size()-1).getMaSP();
 		return index;
+	}
+	
+	public List<SanPham> getRandomDSSanPham(){
+		return sanPhamDAO.getRandomDSSanPham();
 	}
 	
 	public List<SanPham> getDSSanPham(){

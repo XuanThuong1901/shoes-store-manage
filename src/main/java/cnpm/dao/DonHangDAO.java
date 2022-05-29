@@ -20,6 +20,19 @@ public class DonHangDAO {
 	@Autowired
 	SessionFactory factory;
 	
+	public DonHang getDHVuaTao() {
+		Session session = factory.getCurrentSession();
+		String hql = "from DonHang as dh order by dh.maDH desc";
+		Query query = session.createQuery(hql);
+		List<DonHang> res = query.list();
+		
+		if(res.size() == 0) {
+			return null;
+		}
+		
+		return res.get(0);
+	}
+	
 	public List<DonHang> getDSDonHang(){
 		Session session = factory.getCurrentSession();
 		String hql = "from  DonHang";
