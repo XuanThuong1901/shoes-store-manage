@@ -16,18 +16,18 @@ import cnpm.entity.PhieuNhap;
 
 @Transactional
 @Repository
-public class ChiTieuPhieuNhapDAO {
+public class ChiTietPhieuNhapDAO {
 	@Autowired
 	SessionFactory factory;
 	
-	public ChiTietPhieuNhap getByMaCTPN(Integer maCTPN) {
+	public ChiTietPhieuNhap getByMaCTPN(Integer maPhieuNhap) {
 		Session session = factory.getCurrentSession();
-		String hql = "from ChiTietPhieuNhap where maCTPN = :maCTPN";
+		String hql = "from ChiTietPhieuNhap where maPhieuNhap = :maPhieuNhap";
 		Query query = session.createQuery(hql);
-		query.setParameter("maCTPN", maCTPN);
+		query.setParameter("maPhieuNhap", maPhieuNhap);
 		List<ChiTietPhieuNhap> res = query.list();
 		
-		if(res.size() == 0) {
+		if(res.isEmpty()) {
 			return null;
 		}
 		
@@ -35,22 +35,46 @@ public class ChiTieuPhieuNhapDAO {
 		return pn;
 	}
 	
-	public List<PhieuNhap> getDSPhieuNhap(){
+	public List<ChiTietPhieuNhap> getListCTPN(Integer maPhieuNhap) {
 		Session session = factory.getCurrentSession();
-		String hql = "from PhieuNhap";
+		String hql = "from ChiTietPhieuNhap where maPhieuNhap = :maPhieuNhap";
 		Query query = session.createQuery(hql);
-		List<PhieuNhap> list = query.list();
-		
-		return list;
+		query.setParameter("maPhieuNhap", maPhieuNhap);
+		List<ChiTietPhieuNhap> res = query.list();
+
+		return res;
 	}
 	
-	public Boolean them(PhieuNhap phieuNhap) {
+	public Boolean kiemTraCTPN(Integer MaChiTietSP) {
+		Session session = factory.getCurrentSession();
+		String hql = "from ChiTietPhieuNhap where MaChiTietSP = :MaChiTietSP";
+		Query query = session.createQuery(hql);
+		query.setParameter("MaChiTietSP", MaChiTietSP);
+		List<ChiTietPhieuNhap> res = query.list();
+		
+		if(res.isEmpty()) {
+			return false;
+		}
+
+		return true;
+	}
+	
+	
+	/*
+	 * public List<PhieuNhap> getDSPhieuNhap(){ Session session =
+	 * factory.getCurrentSession(); String hql = "from PhieuNhap"; Query query =
+	 * session.createQuery(hql); List<PhieuNhap> list = query.list();
+	 * 
+	 * return list; }
+	 */
+	
+	public Boolean them(ChiTietPhieuNhap chiTietPhieuNhap) {
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
-			session.save(phieuNhap);
+			session.save(chiTietPhieuNhap);
 			t.commit();
 			
 		} catch (Exception e) {
@@ -65,13 +89,13 @@ public class ChiTieuPhieuNhapDAO {
 		return isSuccess;
 	}
 	
-	public Boolean sua(PhieuNhap phieuNhap) {
+	public Boolean sua(ChiTietPhieuNhap chiTietPhieuNhap) {
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
-			session.update(phieuNhap);
+			session.update(chiTietPhieuNhap);
 			t.commit();
 			
 		} catch (Exception e) {
@@ -86,13 +110,13 @@ public class ChiTieuPhieuNhapDAO {
 		return isSuccess;
 	}
 	
-	public Boolean xoa(PhieuNhap phieuNhap) {
+	public Boolean xoa(ChiTietPhieuNhap chiTietPhieuNhap) {
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
-			session.delete(phieuNhap);
+			session.delete(chiTietPhieuNhap);
 			t.commit();
 			
 		} catch (Exception e) {

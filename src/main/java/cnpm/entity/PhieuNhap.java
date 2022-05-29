@@ -39,14 +39,18 @@ public class PhieuNhap {
 	private NhaCungCap nhaCungCap;
 	
 	@Column(name="TongTien")
-	private Double tongTien;
+	private double tongTien;
 	
 	
-	public Double getTongTien() {
+	public void setThoiGian(Date thoiGian) {
+		this.thoiGian = thoiGian;
+	}
+
+	public double getTongTien() {
 		return tongTien;
 	}
 
-	public void setTongTien(Double tongTien) {
+	public void setTongTien(double tongTien) {
 		this.tongTien = tongTien;
 	}
 
@@ -81,9 +85,6 @@ public class PhieuNhap {
 		return thoiGian;
 	}
 
-	public void setThoiGian(Date thoiGian) {
-		this.thoiGian = thoiGian;
-	}
 
 	public NhanVien getNhanVien() {
 		return nhanVien;

@@ -9,12 +9,19 @@ import org.springframework.stereotype.Service;
 import cnpm.dao.PhieuNhapDAO;
 import cnpm.entity.NhanVien;
 import cnpm.entity.PhieuNhap;
+import cnpm.entity.SanPham;
 
 
 @Service
 public class PhieuNhapService {
 	@Autowired
 	PhieuNhapDAO phieuNhapDAO;
+	
+	public Integer maPNCuoiCung() {
+		List<PhieuNhap> phieuNhap = this.getDSPhieuNhap();
+		Integer index = phieuNhap.get(phieuNhap.size()-1).getMaPN();
+		return index;
+	}
 	
 	public List<PhieuNhap> getDSPhieuNhap(){
 		// TODO Auto-generated method stub
@@ -25,15 +32,15 @@ public class PhieuNhapService {
 		return phieuNhapDAO.getByMaPN(maPN);
 	}
 	
-	public Boolean them(PhieuNhap phieuNhap) {
+	public Boolean themPN(PhieuNhap phieuNhap) {
 		return phieuNhapDAO.them(phieuNhap);
 	}
 	
-	public Boolean sua(PhieuNhap phieuNhap) {
+	public Boolean suaPN(PhieuNhap phieuNhap) {
 		return phieuNhapDAO.sua(phieuNhap);
 	}
 	
-	public Boolean xoa(PhieuNhap phieuNhap) {
+	public Boolean xoaPN(PhieuNhap phieuNhap) {
 		return phieuNhapDAO.xoa(phieuNhap);
 	}
 }
