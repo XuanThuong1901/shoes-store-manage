@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cnpm.dao.SizeDAO;
+import cnpm.entity.KhachHang;
 import cnpm.entity.SizeSanPham;
 
 @Service
@@ -15,5 +16,10 @@ public class SizeService {
 	
 	public List<SizeSanPham> getDSSize(){
 		return sizeDAO.getDSSize();
+	}
+	
+	public SizeSanPham getByMaSize(Integer maSize) {
+		// TODO Auto-generated method stub
+		return sizeDAO.getByMaSize(maSize);
 	}
 }

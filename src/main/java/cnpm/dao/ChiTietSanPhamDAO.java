@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import cnpm.entity.ChiTietPhieuNhap;
 import cnpm.entity.ChiTietSanPham;
 import cnpm.entity.NhanVien;
 import cnpm.entity.ChiTietSanPham;
@@ -22,11 +23,12 @@ public class ChiTietSanPhamDAO {
 	SessionFactory factory;
 	
 	
-	public ChiTietSanPham getByCacMa(Integer maCTSP, Integer maMau, Integer maSize) {
+	public ChiTietSanPham getByMaSPVaSize(Integer maSP, Integer maSize) {
 		Session session = factory.getCurrentSession();
-		String hql = "from ChiTietSanPham where maChiTietSP = :maCTSP";
+		String hql = "from ChiTietSanPham where sanPham.maSP = :maSP and sizeSanPham.maSize = :maSize";
 		Query query = session.createQuery(hql);
-		query.setParameter("maCTSP", maCTSP);
+		query.setParameter("maSP", maSP);
+		query.setParameter("maSize", maSize);
 		List<ChiTietSanPham> res = query.list();
 		
 		if(res.size() == 0) {
@@ -41,6 +43,35 @@ public class ChiTietSanPhamDAO {
 		String hql = "from ChiTietSanPham where maChiTietSP = :maCTSP";
 		Query query = session.createQuery(hql);
 		query.setParameter("maCTSP", maCTSP);
+		List<ChiTietSanPham> res = query.list();
+		
+		if(res.size() == 0) {
+			return null;
+		}
+		
+		ChiTietSanPham ctsp = res.get(0);
+		return ctsp;
+	}
+	
+	public List<ChiTietSanPham> getByMaSP(Integer maSP){
+		Session session = factory.getCurrentSession();
+		String hql = "from ChiTietSanPham where maSP = :maSP";
+		Query query = session.createQuery(hql);
+		query.setParameter("maSP", maSP);
+		List<ChiTietSanPham> res = query.list();
+		if(res.isEmpty())
+		{
+			return null;
+		}
+		return res;
+	}
+	
+	public ChiTietSanPham getByMaSPandMaSize(Integer maSP, Integer maSize) {
+		Session session = factory.getCurrentSession();
+		String hql = "from ChiTietSanPham where maSP = :maSP and maSize = :maSize";
+		Query query = session.createQuery(hql);
+		query.setParameter("maSP", maSP);
+		query.setParameter("maSize", maSize);
 		List<ChiTietSanPham> res = query.list();
 		
 		if(res.size() == 0) {

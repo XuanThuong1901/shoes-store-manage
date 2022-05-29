@@ -2,6 +2,9 @@
   max-width: 450px;
 }
 
+.btn-size-active {
+  background-color: #ececec;
+}
 
 .product-item:hover .btn-product-buynow {
   display: inline-block;

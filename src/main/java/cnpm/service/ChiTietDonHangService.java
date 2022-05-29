@@ -16,4 +16,13 @@ public class ChiTietDonHangService {
 	public List<ChiTietDonHang> getDSByMaDH(Integer MaDH){
 		return chiTietDonHangDAO.getDSByMaDH(MaDH);
 	}
+	
+
+	public Boolean themCTDH(ChiTietDonHang ctdh) {
+		return chiTietDonHangDAO.them(ctdh);
+	}
+
+	public Boolean kiemTraCTDH(Integer maCTSP) {
+		return chiTietDonHangDAO.kiemTraCTDH(maCTSP);
+	}
 }

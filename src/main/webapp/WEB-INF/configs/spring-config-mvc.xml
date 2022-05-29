@@ -33,12 +33,12 @@
 	<context:component-scan
 		base-package="cnpm.service" />
 	<context:component-scan base-package="cnpm.dao" />
-	
-	 <!-- upload photo -->
-	 <bean id="multipartResolver" 
+
+	<!-- upload photo -->
+	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	 	<!-- maxUploadSize=20MB -->
-	 	<property name="maxUploadSize" value="20971520"/>
+		<!-- maxUploadSize=20MB -->
+		<property name="maxUploadSize" value="20971520" />
 	</bean>
 
 	<!-- Kết nối CSDL -->
@@ -76,7 +76,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/dangnhap" />
 			<mvc:mapping path="/dangky" />
-			
+
 			<bean class="cnpm.interceptor.DangNhapInterceptor" />
 		</mvc:interceptor>
 
@@ -85,17 +85,19 @@
 			<mvc:mapping path="/quanly/**" />
 			<bean class="cnpm.interceptor.QuanLyInterceptor" />
 		</mvc:interceptor>
-		
+
 		<mvc:interceptor>
 			<mvc:mapping path="/nhanvien/**" />
 			<bean class="cnpm.interceptor.NhanVienInterceptor" />
 		</mvc:interceptor>
-		
+
 		<mvc:interceptor>
 			<mvc:mapping path="/taikhoan" />
+			<mvc:mapping path="/giohang/**" />
+			<mvc:mapping path="/thanhtoan" />
 			<bean class="cnpm.interceptor.KhachHangInterceptor" />
 		</mvc:interceptor>
-		
+
 
 		<mvc:interceptor>
 			<mvc:mapping path="/user/**" />

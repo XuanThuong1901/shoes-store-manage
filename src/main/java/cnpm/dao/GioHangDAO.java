@@ -11,46 +11,44 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import cnpm.entity.ChiTietPhieuNhap;
-import cnpm.entity.PhieuNhap;
+import cnpm.entity.GioHang;
+import cnpm.entity.GioHangPK;
 
 @Transactional
 @Repository
-public class ChiTieuPhieuNhapDAO {
+public class GioHangDAO {
 	@Autowired
 	SessionFactory factory;
 	
-	public ChiTietPhieuNhap getByMaCTPN(Integer maCTPN) {
+	public GioHang getByPk(String maKH, Integer mactsp) {
 		Session session = factory.getCurrentSession();
-		String hql = "from ChiTietPhieuNhap where maCTPN = :maCTPN";
+		String hql ="from GioHang where gioHangPK.maKH = :maKH and gioHangPK.maCTSP = :maCTSP";
 		Query query = session.createQuery(hql);
-		query.setParameter("maCTPN", maCTPN);
-		List<ChiTietPhieuNhap> res = query.list();
-		
-		if(res.size() == 0) {
+		query.setParameter("maKH", maKH);
+		query.setParameter("maCTSP", mactsp);
+		List<GioHang> list = query.list();
+		if(list.size() == 0) {
 			return null;
 		}
-		
-		ChiTietPhieuNhap pn = res.get(0);
-		return pn;
+		return list.get(0);
 	}
 	
-	public List<PhieuNhap> getDSPhieuNhap(){
+	public List<GioHang> getGioHangCuaKH(String maKH){
 		Session session = factory.getCurrentSession();
-		String hql = "from PhieuNhap";
+		String hql ="from GioHang where gioHangPK.maKH = :maKH";
 		Query query = session.createQuery(hql);
-		List<PhieuNhap> list = query.list();
-		
+		query.setParameter("maKH", maKH);
+		List<GioHang> list = query.list();
 		return list;
 	}
 	
-	public Boolean them(PhieuNhap phieuNhap) {
+	public Boolean them(GioHang gioHang){
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
-			session.save(phieuNhap);
+			session.save(gioHang);
 			t.commit();
 			
 		} catch (Exception e) {
@@ -65,45 +63,45 @@ public class ChiTieuPhieuNhapDAO {
 		return isSuccess;
 	}
 	
-	public Boolean sua(PhieuNhap phieuNhap) {
+	public Boolean sua(GioHang gioHang){
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
-			session.update(phieuNhap);
+			session.update(gioHang);
 			t.commit();
 			
 		} catch (Exception e) {
 			System.out.println(e);
+			System.out.println(e.getCause());
 			t.rollback();
 			isSuccess = false;
 		}
 		finally {
 			session.close();
 		}
-		
 		return isSuccess;
 	}
 	
-	public Boolean xoa(PhieuNhap phieuNhap) {
+	public Boolean xoa(GioHang gioHang){
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
-			session.delete(phieuNhap);
+			session.delete(gioHang);
 			t.commit();
 			
 		} catch (Exception e) {
 			System.out.println(e);
+			System.out.println(e.getCause());
 			t.rollback();
 			isSuccess = false;
 		}
 		finally {
 			session.close();
 		}
-		
 		return isSuccess;
 	}
 }
