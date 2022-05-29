@@ -3,9 +3,11 @@ package cnpm.entity;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "DONHANG")
 public class DonHang {
 	@Id
+	@GeneratedValue
 	@Column(name = "MaDH")
 	private int maDH;
 
@@ -32,7 +35,7 @@ public class DonHang {
 	private KhachHang khachHang;
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/mm/yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "ThoiGian")
 	private Date thoiGian;
 
@@ -44,6 +47,9 @@ public class DonHang {
 
 	@Column(name = "GhiChu")
 	private String ghiChu;
+	
+	@Column(name="TenNguoiNhan")
+	private String tenNguoiNhan;
 
 	@ManyToOne
 	@JoinColumn(name = "HinhThucThanhToan")
@@ -59,6 +65,16 @@ public class DonHang {
 	@OneToMany(mappedBy = "donHang", fetch = FetchType.LAZY)
 	private Collection<ChiTietDonHang> chiTietDonHangs;
 	
+	
+	
+	public String getTenNguoiNhan() {
+		return tenNguoiNhan;
+	}
+
+	public void setTenNguoiNhan(String tenNguoiNhan) {
+		this.tenNguoiNhan = tenNguoiNhan;
+	}
+
 	public int getMaDH() {
 		return maDH;
 	}

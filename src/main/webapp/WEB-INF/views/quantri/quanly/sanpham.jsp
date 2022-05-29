@@ -193,11 +193,16 @@
 									<td>${ctsp.getSizeSanPham().getTenSize() }</td>
 									<td>${ctsp.getSoLuong() }</td>
 
-									<td><a class="" href=""
-										data-delete="${ctsp.getMaChiTietSP() }" data-toggle="modal"
-										data-target="#exampleModalDisable1"> <i
-											class="fas fa-trash-alt"></i>
-									</a></td>
+
+									<td><c:choose>
+											<c:when test="${ ctsp.getSoLuong()== 0}">
+												<a class="" href="" data-delete="${ctsp.getMaChiTietSP() }"
+													data-toggle="modal" data-target="#exampleModalDisable1">
+													<i class="fas fa-trash-alt"></i>
+												</a>
+											</c:when>
+										</c:choose></td>
+
 								</tr>
 							</c:forEach>
 

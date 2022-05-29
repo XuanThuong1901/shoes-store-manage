@@ -21,6 +21,15 @@ public class SanPhamDAO {
 	@Autowired
 	SessionFactory factory;
 	
+	public List<SanPham> getRandomDSSanPham(){
+		Session session = factory.getCurrentSession();
+		String hql = "from SanPham order by newid()";
+		Query query = session.createQuery(hql);
+		List<SanPham> list = query.list();
+		
+		return list;
+	}
+	
 	public List<SanPham> getDSSanPham(){
 		Session session = factory.getCurrentSession();
 		String hql = "from SanPham";

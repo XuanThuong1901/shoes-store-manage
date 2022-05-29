@@ -23,11 +23,12 @@ public class ChiTietSanPhamDAO {
 	SessionFactory factory;
 	
 	
-	public ChiTietSanPham getByCacMa(Integer maCTSP, Integer maMau, Integer maSize) {
+	public ChiTietSanPham getByMaSPVaSize(Integer maSP, Integer maSize) {
 		Session session = factory.getCurrentSession();
-		String hql = "from ChiTietSanPham where maChiTietSP = :maCTSP";
+		String hql = "from ChiTietSanPham where sanPham.maSP = :maSP and sizeSanPham.maSize = :maSize";
 		Query query = session.createQuery(hql);
-		query.setParameter("maCTSP", maCTSP);
+		query.setParameter("maSP", maSP);
+		query.setParameter("maSize", maSize);
 		List<ChiTietSanPham> res = query.list();
 		
 		if(res.size() == 0) {

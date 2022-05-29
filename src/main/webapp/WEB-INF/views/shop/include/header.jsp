@@ -35,6 +35,8 @@
 	href="<c:url value='resources/user/lib/owlcarousel/assets/owl.carousel.min.css'/>"
 	rel="stylesheet">
 
+<%-- --%>
+
 <!-- Customized Bootstrap Stylesheet -->
 <!-- <link href="css/style.css" rel="stylesheet"> -->
 <%-- <c:url value='resources/user/'/> --%>
@@ -49,6 +51,10 @@
 <link href="<c:url value='resources/user/css/custom-n.css'/>"
 	rel="stylesheet">
 <link href="<c:url value='resources/user/css/custom-d.css'/>"
+	rel="stylesheet">
+
+<link
+	href="<c:url value='resources/employee/plugins/toastr/toastr.min.css'/>"
 	rel="stylesheet">
 </head>
 
@@ -259,17 +265,23 @@
 							</div>
 							<a href="detail.html" class="nav-item nav-link">CHI TIẾT SẢN
 								PHẨM</a> <a href="contact.html" class="nav-item nav-link">LIÊN
-								HỆ</a>
+								HỆ </a>
 						</div>
-						<div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-							<a href="user.html" class="btn px-0"> <i
-								class="fas fa-user text-primary"></i>
-							</a> <a href="" class="btn px-0 ml-3"> <i
-								class="fas fa-shopping-cart text-primary"></i> <span
-								class="badge text-secondary border border-secondary rounded-circle"
-								style="padding-bottom: 2px;">0</span>
-							</a>
-						</div>
+						<c:choose>
+							<c:when test="${empty user == false }">
+								<div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+								<!-- 	<a href="user.html" class="btn px-0"> <i
+										class="fas fa-user text-primary"></i>
+									</a> --> <a href="giohang" class="btn px-0 ml-3"> <i
+										class="fas fa-shopping-cart text-primary"></i> <span
+										class="badge text-secondary border border-secondary rounded-circle"
+										style="padding-bottom: 2px;">${giohang.size() }</span>
+
+									</a>
+								</div>
+							</c:when>
+						</c:choose>
+
 					</div>
 				</nav>
 			</div>
