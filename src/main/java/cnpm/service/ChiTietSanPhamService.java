@@ -28,14 +28,13 @@ public class ChiTietSanPhamService {
 		return chiTietSanPhamDAO.getByMaSP(maSP);
   }
 	
-	public ChiTietSanPham getByMaSPandMaSize(Integer maSP, Integer maSize) {
-		return chiTietSanPhamDAO.getByMaSPandMaSize(maSP, maSize);
-	}
 	
-	public ChiTietSanPham getByCacMa(Integer maCTSP, Integer maMau, Integer maSize) {
-		return chiTietSanPhamDAO.getByCacMa(maCTSP, maMau, maSize);
-
-	}
+	/*
+	 * public ChiTietSanPham getByCacMa(Integer maCTSP, Integer maMau, Integer
+	 * maSize) { return chiTietSanPhamDAO.getByCacMa(maCTSP, maMau, maSize);
+	 * 
+	 * }
+	 */
 	
 	public ChiTietSanPham getByMaSPandMaSize(Integer maSP, Integer maSize) {
 		return chiTietSanPhamDAO.getByMaSPandMaSize(maSP, maSize);
