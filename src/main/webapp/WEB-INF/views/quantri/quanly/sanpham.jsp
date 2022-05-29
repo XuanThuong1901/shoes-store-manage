@@ -193,6 +193,7 @@
 									<td>${ctsp.getSizeSanPham().getTenSize() }</td>
 									<td>${ctsp.getSoLuong() }</td>
 
+
 									<td><c:choose>
 											<c:when test="${ ctsp.getSoLuong()== 0}">
 												<a class="" href="" data-delete="${ctsp.getMaChiTietSP() }"
@@ -201,6 +202,7 @@
 												</a>
 											</c:when>
 										</c:choose></td>
+
 								</tr>
 							</c:forEach>
 

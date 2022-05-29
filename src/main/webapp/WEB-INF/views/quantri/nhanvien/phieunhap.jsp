@@ -6,7 +6,7 @@
 <!-- Header end -->
 
 <!-- Sidebar -->
-<%@include file="/WEB-INF/views/quantri/include/sidebar-nv.jsp"%>
+<%@include file="/WEB-INF/views/quantri/include/sidebar-ql.jsp"%>
 <!-- Sidebar end -->
 
 

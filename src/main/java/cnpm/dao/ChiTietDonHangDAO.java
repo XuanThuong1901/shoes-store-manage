@@ -33,6 +33,7 @@ public class ChiTietDonHangDAO {
 		return res;
 	}
 	
+
 	public Boolean them(ChiTietDonHang chiTietDonHang) {
 		Boolean isSuccess = true;
 		Session session = factory.openSession();
@@ -54,6 +55,7 @@ public class ChiTietDonHangDAO {
 		return isSuccess;
 	}
 	
+
 	public Boolean kiemTraCTDH(Integer MaCTSP){
 		Session session = factory.getCurrentSession();
 		String hql = "from ChiTietDonHang where MaCTSP = :MaCTSP";

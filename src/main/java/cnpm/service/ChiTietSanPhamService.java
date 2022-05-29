@@ -15,15 +15,26 @@ public class ChiTietSanPhamService {
 	@Autowired
 	ChiTietSanPhamDAO chiTietSanPhamDAO;
 
+
 	public ChiTietSanPham getByMaSPVaSize(Integer maCTSP,  Integer maSize) {
 		return chiTietSanPhamDAO.getByMaSPVaSize(maCTSP,maSize);
 	}
+
 	public ChiTietSanPham getByMaSCTSP(Integer maCTSP) {
 		return chiTietSanPhamDAO.getByMaCTSPM(maCTSP);
 	}
 	
 	public List<ChiTietSanPham> getByMaSP(Integer maSP) {
 		return chiTietSanPhamDAO.getByMaSP(maSP);
+  }
+	
+	public ChiTietSanPham getByMaSPandMaSize(Integer maSP, Integer maSize) {
+		return chiTietSanPhamDAO.getByMaSPandMaSize(maSP, maSize);
+	}
+	
+	public ChiTietSanPham getByCacMa(Integer maCTSP, Integer maMau, Integer maSize) {
+		return chiTietSanPhamDAO.getByCacMa(maCTSP, maMau, maSize);
+
 	}
 	
 	public ChiTietSanPham getByMaSPandMaSize(Integer maSP, Integer maSize) {
