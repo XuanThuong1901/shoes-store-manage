@@ -129,6 +129,8 @@ public class TaiKhoanService {
 		return taiKhoanDAO.them(taikhoan);
 	}
 
-
+	public Boolean suaTK(TaiKhoan taikhoan) {
+		return taiKhoanDAO.sua(taikhoan);	
+	}
 	
 }

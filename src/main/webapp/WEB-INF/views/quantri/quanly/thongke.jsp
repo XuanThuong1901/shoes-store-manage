@@ -78,7 +78,9 @@
 						<tr>
 							<td>${sp.getMaSP() }</td>
 							<td>${sp.getTenSP() }</td>
-							<td>${sp.getDoanhThu() }VNĐ</td>
+							<td><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
+									value="${sp.getDoanhThu() }" type="currency"
+									currencySymbol="vnđ" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -95,18 +97,18 @@
 <!-- /.content-wrapper -->
 <script>
 	productLabels = [], productInfo = []
-	/* <c:forEach items="${danhSachThongKeTheoSP}" var="p">
-	productLabels.push('${p.getTenSP()}')
-	productInfo.push('${p.getDoanhThu()}')
-	</c:forEach> */
-	var rows = $('tbody>tr');
+	<c:forEach items="${danhSachThongKeTheoSP}" var="p">
+		productLabels.push('${p.getTenSP()}')
+		productInfo.push('${p.getDoanhThu()}')
+	</c:forEach>
+	/* var rows = $('tbody>tr');
 	var row;
 	for (let i = 0; i < rows.length; i++) {
 		productLabels.push($($(rows[i]).children()[1]).text());
 		productInfo.push(parseFloat($($(rows[i]).children()[2]).text()));
 		console.log($($(rows[i]).children()[1]).text());
 		console.log(parseFloat($($(rows[i]).children()[2]).text()));
-	}
+	} */
 
 	window.onload = function() {
 		productChart("myProductStatsChart", productLabels, productInfo)

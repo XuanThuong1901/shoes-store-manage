@@ -99,7 +99,7 @@ public class QuanLyController {
 		List<ChiTietDonHang> dh = chiTietDonHangService.getDSCTDH();
 		for (int i = 0; i < dh.size(); i++) {
 			boolean check = false;
-			double doanhthu = (double) dh.get(i).getGia() * (double) dh.get(i).getSoLuong();
+			double doanhthu = (double) dh.get(i).getGia();
 			for (int j = 0; j < thongKeTheoSP.size(); j++) {
 				if (dh.get(i).getChiTietSP().getSanPham().getMaSP() == thongKeTheoSP.get(j).getMaSP()) {
 					thongKeTheoSP.get(j).setDoanhThu(doanhthu + thongKeTheoSP.get(j).getDoanhThu());
@@ -323,7 +323,7 @@ public class QuanLyController {
 
 		return "quantri/quanly/nhacungcap";
 	}
-	
+
 	@RequestMapping(value = "thongke", method = RequestMethod.GET)
 	public String getViewThongKe(ModelMap model) {
 		model.addAttribute("isOpenModalInfo", false);
@@ -587,92 +587,75 @@ public class QuanLyController {
 
 	/// Khách hàng
 
-	@RequestMapping(value = "khachhang", params = "themKH", method = RequestMethod.POST)
-	public String themMoiNhanVien(ModelMap model, @ModelAttribute("khachHangMoi") KhachHang khachhang,
-			@RequestParam("anhMoi") MultipartFile anh, BindingResult errors) {
-		if (khachhang.getHo().trim().isEmpty()) {
-			errors.rejectValue("ho", "khachHangMoi", "Họ không được để trống");
-		}
-
-		if (khachhang.getTen().trim().isEmpty()) {
-			errors.rejectValue("ten", "khachHangMoi", "Tên không được để trống");
-		}
-
-		if (khachhang.getTaiKhoan().getEmail().trim().isEmpty() || !khachhang.getTaiKhoan().getEmail().trim().matches(
-				"^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")) {
-			errors.rejectValue("taiKhoan.email", "khachHangMoi", "Email không hợp lệ hoặc bị trống");
-		}
-
-		if (khachhang.getTaiKhoan().getMatKhau().trim().isEmpty()) {
-			errors.rejectValue("taiKhoan.matKhau", "khachHangMoi", "Mật khẩu không được để trống");
-		}
-
-		if (khachhang.getPhai() != true && khachhang.getPhai() != false) {
-			errors.rejectValue("phai", "khachHangMoi", "???");
-		}
-
-		if (khachhang.getNgaySinh() == null) {
-			errors.rejectValue("ngaySinh", "khachHangMoi", "Ngày sinh không được để trống");
-		}
-
-		if (khachhang.getDiaChi().trim().isEmpty()) {
-			errors.rejectValue("diaChi", "khachHangMoi", "Địa chỉ không được để trống");
-		}
-
-		if (khachhang.getSdt().trim().isEmpty()) {
-			errors.rejectValue("sdt", "khachHangMoi", "Số điện thoại không được để trống");
-		} else if (!khachhang.getSdt().trim().matches("^[0-9]*$")) {
-			errors.rejectValue("sdt", "khachHangMoi", "Số điện thoại không hợp lệ");
-		}
-
-		if (errors.hasErrors()) {
-			model.addAttribute("isShowModalAddNew", true);
-			return "quantri/quanly/khachhang";
-		}
-
-		if (taiKhoanService.emailDaCo(khachhang.getTaiKhoan().getEmail())) {
-			errors.rejectValue("email", "khachHangMoi", "Email đã được sử dụng");
-			model.addAttribute("isShowModalAddNew", true);
-			return "quantri/quanly/khachhang";
-		}
-
-		if (nhanVienService.getBySdt(khachhang.getSdt()) != null) {
-			errors.rejectValue("sdt", "khachHangMoi", "Số điện thoại đã được sử dụng");
-			model.addAttribute("isShowModalAddNew", true);
-			return "quantri/quanly/khachhang";
-		}
-
-		String hinh = "";
-		System.out.println("anh " + anh);
-		if (!anh.isEmpty()) {
-			hinh = utilService.luuFile(anh);
-			if (!hinh.isEmpty()) {
-				khachhang.setAnh(hinh);
-			}
-		}
-
-		TaiKhoan taiKhoan = taiKhoanService.setTK(khachhang.getTaiKhoan().getEmail(),
-				khachhang.getTaiKhoan().getMatKhau());
-		taiKhoanService.themKH(taiKhoan);
-
-		khachhang.setMaKH(khachHangService.taoMaKHMoi());
-		khachhang.setTaiKhoan(taiKhoan);
-
-		if (khachHangService.themKH(khachhang)) {
-//			model.addAttribute("thongTinNV", new ThongTinCaNhan());
-			model.addAttribute("khachHangMoi", new KhachHang());
-			model.addAttribute("isSuccess", true);
-			model.addAttribute("alertMessage", "Thêm tài khoản thành công");
-			model.addAttribute("hinh", "");
-			model.addAttribute("danhSachKhachHang", khachHangService.getDSKhachHang());
-		} else {
-			taiKhoanService.xoaTK(taiKhoan);
-			model.addAttribute("isSuccess", false);
-			model.addAttribute("alertMessage", "Thêm tài khoản thất bại");
-		}
-
-		return "quantri/quanly/khachhang";
-	}
+	/*
+	 * @RequestMapping(value = "khachhang", params = "themKH", method =
+	 * RequestMethod.POST) public String themMoiNhanVien(ModelMap
+	 * model, @ModelAttribute("khachHangMoi") KhachHang khachhang,
+	 * 
+	 * @RequestParam("anhMoi") MultipartFile anh, BindingResult errors) { if
+	 * (khachhang.getHo().trim().isEmpty()) { errors.rejectValue("ho",
+	 * "khachHangMoi", "Họ không được để trống"); }
+	 * 
+	 * if (khachhang.getTen().trim().isEmpty()) { errors.rejectValue("ten",
+	 * "khachHangMoi", "Tên không được để trống"); }
+	 * 
+	 * if (khachhang.getTaiKhoan().getEmail().trim().isEmpty() ||
+	 * !khachhang.getTaiKhoan().getEmail().trim().matches(
+	 * "^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+	 * )) { errors.rejectValue("taiKhoan.email", "khachHangMoi",
+	 * "Email không hợp lệ hoặc bị trống"); }
+	 * 
+	 * if (khachhang.getTaiKhoan().getMatKhau().trim().isEmpty()) {
+	 * errors.rejectValue("taiKhoan.matKhau", "khachHangMoi",
+	 * "Mật khẩu không được để trống"); }
+	 * 
+	 * if (khachhang.getPhai() != true && khachhang.getPhai() != false) {
+	 * errors.rejectValue("phai", "khachHangMoi", "???"); }
+	 * 
+	 * if (khachhang.getNgaySinh() == null) { errors.rejectValue("ngaySinh",
+	 * "khachHangMoi", "Ngày sinh không được để trống"); }
+	 * 
+	 * if (khachhang.getDiaChi().trim().isEmpty()) { errors.rejectValue("diaChi",
+	 * "khachHangMoi", "Địa chỉ không được để trống"); }
+	 * 
+	 * if (khachhang.getSdt().trim().isEmpty()) { errors.rejectValue("sdt",
+	 * "khachHangMoi", "Số điện thoại không được để trống"); } else if
+	 * (!khachhang.getSdt().trim().matches("^[0-9]*$")) { errors.rejectValue("sdt",
+	 * "khachHangMoi", "Số điện thoại không hợp lệ"); }
+	 * 
+	 * if (errors.hasErrors()) { model.addAttribute("isShowModalAddNew", true);
+	 * return "quantri/quanly/khachhang"; }
+	 * 
+	 * if (taiKhoanService.emailDaCo(khachhang.getTaiKhoan().getEmail())) {
+	 * errors.rejectValue("email", "khachHangMoi", "Email đã được sử dụng");
+	 * model.addAttribute("isShowModalAddNew", true); return
+	 * "quantri/quanly/khachhang"; }
+	 * 
+	 * if (nhanVienService.getBySdt(khachhang.getSdt()) != null) {
+	 * errors.rejectValue("sdt", "khachHangMoi", "Số điện thoại đã được sử dụng");
+	 * model.addAttribute("isShowModalAddNew", true); return
+	 * "quantri/quanly/khachhang"; }
+	 * 
+	 * String hinh = ""; System.out.println("anh " + anh); if (!anh.isEmpty()) {
+	 * hinh = utilService.luuFile(anh); if (!hinh.isEmpty()) {
+	 * khachhang.setAnh(hinh); } }
+	 * 
+	 * TaiKhoan taiKhoan = taiKhoanService.setTK(khachhang.getTaiKhoan().getEmail(),
+	 * khachhang.getTaiKhoan().getMatKhau()); taiKhoanService.themKH(taiKhoan);
+	 * 
+	 * khachhang.setMaKH(khachHangService.taoMaKHMoi());
+	 * khachhang.setTaiKhoan(taiKhoan);
+	 * 
+	 * if (khachHangService.themKH(khachhang)) { // model.addAttribute("thongTinNV",
+	 * new ThongTinCaNhan()); model.addAttribute("khachHangMoi", new KhachHang());
+	 * model.addAttribute("isSuccess", true); model.addAttribute("alertMessage",
+	 * "Thêm tài khoản thành công"); model.addAttribute("hinh", "");
+	 * model.addAttribute("danhSachKhachHang", khachHangService.getDSKhachHang()); }
+	 * else { taiKhoanService.xoaTK(taiKhoan); model.addAttribute("isSuccess",
+	 * false); model.addAttribute("alertMessage", "Thêm tài khoản thất bại"); }
+	 * 
+	 * return "quantri/quanly/khachhang"; }
+	 */
 
 	@RequestMapping(value = "khachhang/{maKH}", params = "thongtin", method = RequestMethod.GET)
 	public String getThongtin1KhachHang(ModelMap model, @PathVariable("maKH") String maKH) {
@@ -703,108 +686,26 @@ public class QuanLyController {
 
 	@RequestMapping(value = "khachhang/{maKH}", params = "suaKH", method = RequestMethod.POST)
 	public String postSuaKhachHang(ModelMap model, @ModelAttribute("thongTinKH") KhachHang khachhang,
-			@RequestParam("anhMoi") MultipartFile anh, @PathVariable("maKH") String maKH, BindingResult errors) {
+			@PathVariable("maKH") String maKH, BindingResult errors) {
 
-		if (khachhang.getHo().trim().isEmpty()) {
-			errors.rejectValue("ho", "thongTinNV", "Họ không được để trống");
+		KhachHang kh = khachHangService.getByMaKH(maKH);
+		TaiKhoan taikhoan = taiKhoanService.getByMaTK(kh.getTaiKhoan().getMaTK());
+		
+		taikhoan.setTrangThai(khachhang.getTaiKhoan().getTrangThai());
+
+		if (taiKhoanService.suaTK(taikhoan)) {
+			model.addAttribute("isSuccess", true);
+			model.addAttribute("alertMessage", "Thay đổi trạng thái thành công");
+			model.addAttribute("danhSachKhachHang", khachHangService.getDSKhachHang());
 		}
 
-		if (khachhang.getTen().trim().isEmpty()) {
-			errors.rejectValue("ten", "thongTinNV", "Tên không được để trống");
-		}
-
-		if (khachhang.getTaiKhoan().getEmail().trim().isEmpty() || !khachhang.getTaiKhoan().getEmail().trim().matches(
-				"^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")) {
-			errors.rejectValue("taiKhoan.email", "thongTinNV", "Email không hợp lệ hoặc bị trống");
-		}
-
-		if (khachhang.getPhai() != true && khachhang.getPhai() != false) {
-			errors.rejectValue("phai", "thongTinNV", "???");
-		}
-
-		if (khachhang.getNgaySinh() == null) {
-			errors.rejectValue("ngaySinh", "thongTinNV", "Ngày sinh không được để trống");
-		}
-
-		if (khachhang.getSdt().trim().isEmpty()) {
-			errors.rejectValue("sdt", "thongTinNV", "Số điện thoại không được để trống");
-		} else if (!khachhang.getSdt().trim().matches("^[0-9]*$")) {
-			errors.rejectValue("sdt", "thongTinNV", "Số điện thoại không hợp lệ");
-		}
-
-		if (errors.hasErrors()) {
-			model.addAttribute("isOpenModalEdit", true);
-			return "quantri/quanly/nhanvien";
-		}
-
-		KhachHang khachhangcu = khachHangService.getByMaKH(maKH);
-
-		if (!khachhangcu.getTaiKhoan().getEmail().equals(khachhang.getTaiKhoan().getEmail())) {
-			errors.rejectValue("taiKhoan.email", "thongTinNV", "Email không được thay đổi");
-			model.addAttribute("isOpenModalEdit", true);
-			return "quantri/quanly/nhanvien";
-		}
-
-		if (khachhangcu != null) {
-			if (!khachhangcu.getHo().equals(khachhang.getHo()))
-				khachhangcu.setHo(khachhang.getHo());
-			if (!khachhangcu.getTen().equals(khachhang.getTen())) {
-				khachhangcu.setTen(khachhang.getTen());
-			}
-			if (!khachhangcu.getNgaySinh().equals(khachhang.getNgaySinh())) {
-				khachhangcu.setNgaySinh(khachhang.getNgaySinh());
-			}
-			if (!khachhangcu.getDiaChi().equals(khachhang.getDiaChi())) {
-				khachhangcu.setDiaChi(khachhang.getDiaChi());
-			}
-
-			if (!khachhangcu.getSdt().equals(khachhang.getSdt())) {
-				if (nhanVienService.getBySdt(khachhang.getSdt()) != null) {
-					errors.rejectValue("sdt", "thongTinNV", "Số điện thoại đã được sử dụng");
-					model.addAttribute("isOpenModalEdit", true);
-					return "quantri/quanly/nhanvien";
-				} else {
-					khachhangcu.setSdt(khachhang.getSdt());
-				}
-			}
-
-			if (khachhangcu.getPhai() != khachhang.getPhai()) {
-				khachhangcu.setPhai(khachhang.getPhai());
-			}
-
-			System.out.println(khachhangcu.getTaiKhoan().getTrangThai());
-			System.out.println(khachhang.getTaiKhoan().getTrangThai());
-			System.out.println(1);
-
-			if (khachhangcu.getTaiKhoan().getTrangThai() != khachhang.getTaiKhoan().getTrangThai()) {
-				khachhangcu.getTaiKhoan().setTrangThai(khachhang.getTaiKhoan().getTrangThai());
-				System.out.println(2);
-				System.out.println(khachhangcu.getTaiKhoan().getTrangThai());
-			}
-
-			if (!anh.isEmpty()) {
-				String hinh = "";
-				hinh = utilService.luuFile(anh);
-				if (!hinh.isEmpty()) {
-					khachhangcu.setAnh(hinh);
-				}
-			}
-
-			if (khachHangService.suaKH(khachhangcu)) {
-				model.addAttribute("thongTinKH", new KhachHang());
-				model.addAttribute("isSuccess", true);
-				model.addAttribute("alertMessage", "Sửa khách hàng thành công");
-				model.addAttribute("hinh", "");
-				model.addAttribute("danhSachKhachHang", khachHangService.getDSKhachHang());
-			}
-
-			else {
-				model.addAttribute("isSuccess", false);
-				model.addAttribute("alertMessage", "Sửa khachhang thất bại");
-			}
+		else {
+			model.addAttribute("isSuccess", false);
+			model.addAttribute("alertMessage", "Thay đổi trạng thái thất bại");
 		}
 
 		return "quantri/quanly/khachhang";
+
 	}
 
 	/// Danh mục
@@ -1576,40 +1477,40 @@ public class QuanLyController {
 
 	@RequestMapping(value = "thongke", params = "thongke", method = RequestMethod.POST)
 	public String ThongKeTheoSP(ModelMap model, HttpSession ss,
-			@RequestParam(name="fromDate", required = false) String from,
-			@RequestParam(name="toDate", required = false) String to) throws ParseException {
+			@RequestParam(name = "fromDate", required = false) String from,
+			@RequestParam(name = "toDate", required = false) String to) throws ParseException {
 		thongKeTheoSP.clear();
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		System.out.println(from);
-		
+
 		Date fromdate = null;
 		Date todate = null;
-		
+
 		if (from != "") {
 			fromdate = f.parse(from);
 		}
 		if (to != "") {
 			todate = f.parse(to);
 		}
-		
-		if(fromdate == null) {
+
+		if (fromdate == null) {
 			model.addAttribute("fromdate", "chưa chọn ngày");
 			return "quantri/quanly/thongke";
 		}
-		if(todate == null) {
+		if (todate == null) {
 			model.addAttribute("todate", "chưa chọn ngày");
 			return "quantri/quanly/thongke";
 		}
-		
+
 //		DateFormat fd = new SimpleDateFormat("yyyy/MM/dd");
 //		DateFormat t = new SimpleDateFormat("yyyy/MM/dd");
-		
+
 		System.out.println(fromdate);
 
 		List<DonHang> dh = donHangService.getByDate(fromdate, todate);
 //		System.out.println(dh.get(0).getMaDH());
-		if(dh != null) {
+		if (dh != null) {
 			for (int i = 0; i < dh.size(); i++) {
 				List<ChiTietDonHang> ct = chiTietDonHangService.getDSByMaDH(dh.get(i).getMaDH());
 				for (int j = 0; j < ct.size(); j++) {
@@ -1632,8 +1533,7 @@ public class QuanLyController {
 				}
 			}
 		}
-		
-		
+
 		model.addAttribute("danhSachThongKeTheoSP", thongKeTheoSP);
 		return "quantri/quanly/thongke";
 	}

@@ -40,10 +40,7 @@
 						<div class="card-header d-flex flex-column ">
 							<div class="d-flex align-items-center justify-content-between">
 								<h3 class="card-title">Danh sách khách hàng</h3>
-								<button type="submit" class="btn bg-primary  mt-2"
-									data-toggle="modal" data-target="#modal-add-new">
-									<i class="fas fa-plus mr-2"></i>Thêm mới
-								</button>
+								
 							</div>
 							<div>
 
@@ -326,7 +323,7 @@
 	<div class="modal-dialog modal-lg modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Sửa khách hàng</h4>
+				<h4 class="modal-title">Trạng thái khách hàng</h4>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -337,14 +334,6 @@
 					<!-- /.col -->
 					<div class="col-md-12">
 						<div class="">
-							<div class="card-header p-2">
-								<ul class="nav nav-pills">
-									<li class="nav-item"><a class="nav-link active"
-										href="#activity" data-toggle="tab">Thông tin cá nhân</a></li>
-									<li class="nav-item"><a class="nav-link" href="#settings"
-										data-toggle="tab">Khác</a></li>
-								</ul>
-							</div>
 							<!-- /.card-header -->
 							<div class="card-body">
 								<div class="tab-content">
@@ -357,22 +346,6 @@
 											<div class="row">
 												<div class="col-md-4">
 													<!-- Profile Image -->
-													<div class="card card-primary card-outline">
-														<div class="card-body box-profile">
-															<div class="text-center">
-																<img id="modal-update-avatar"
-																	class="profile-user-img img-fluid img-circle"
-																	src="resources/file/${thongTinKH.getAnh() }"
-																	alt="User profile picture" style="width: 120px;" />
-															</div>
-													 <input name="anhMoi" type="file" id="input-update-avatar"
-																class="mt-3 form-control" /> 
-															
-
-
-														</div>
-														<!-- /.card-body -->
-													</div>
 													<div class="form-group row d-flex  ">
 														<div class="mr-3">
 															<label for="" class=" col-form-label">Trạng thái</label>
@@ -395,102 +368,8 @@
 																	Default radio </label> -->
 															</div>
 														</div>
-
-														<%-- <div class="col-sm-10">
-															<form:radiobutton path="taiKhoan.trangThai" value="true"
-																label="Hoạt động"
-																checked="${thongtinNV.getTaiKhoan.getTrangThai() == true ? 'checked' : '' }" />
-
-															<form:radiobutton path="taiKhoan.trangThai" value="false"
-																label="Khóa"
-																checked="${thongtinNV.getTaiKhoan.getTrangThai() == false ? 'checked' : '' }" />
-															<form:errors path="phai" cssClass="text-danger" />
-														</div> --%>
 													</div>
 
-												</div>
-
-												<div class="col-md-8">
-													<div class="card">
-														<div class="card-body text-primary">
-
-															<div class="form-group row">
-																<label for=""
-																	class="col-sm-2 col-form-label text-primary">Email
-																</label>
-																<div class="col-sm-10">
-																	<form:input path="taiKhoan.email" class="form-control"
-																		id="" />
-																	<form:errors path="taiKhoan.email"
-																		cssClass="text-danger" />
-																</div>
-															</div>
-															<div class="form-group row">
-																<label for="" class="col-sm-2 col-form-label">Họ
-																</label>
-																<div class="col-sm-10">
-																	<form:input path="ho" class="form-control" id=""
-																		placeholder="" />
-																	<form:errors path="ho" cssClass="text-danger" />
-																</div>
-															</div>
-															<div class="form-group row">
-																<label for="" class="col-sm-2 col-form-label">Tên
-																</label>
-																<div class="col-sm-10">
-																	<form:input path="ten" class="form-control" id=""
-																		placeholder="" />
-																	<form:errors path="ten" cssClass="text-danger" />
-																</div>
-															</div>
-															<div class="form-group row">
-																<label for="inputName2" class="col-sm-2 col-form-label">Giới
-																	tính</label>
-																<div class="col-sm-10">
-																<div class="form-check form-check-inline">
-																<form:radiobutton path="phai" value="true" label="Nam" class="form-check-input"
-																		checked="${thongtinkh.getPhai() == true ? 'checked' : '' }" />
-																
-																</div>
-																<div class="form-check form-check-inline">
-																	<form:radiobutton path="phai" value="false" label="Nữ" class="form-check-input"
-																		checked="${thongtinkh.getPhai() == false ? 'checked' : '' }" />
-																	<form:errors path="phai" cssClass="text-danger" />
-																</div>
-																	
-																	
-																</div>
-															</div>
-															<div class="form-group row">
-																<label for="inputExperience"
-																	class="col-sm-2 col-form-label ">Ngày sinh</label>
-																<div class="col-sm-10">
-																	<form:input path="ngaySinh" type="date"
-																		value="${thongTinkh.getNgaySinh() }"
-																		class="form-control" />
-																	<form:errors path="ngaySinh" cssClass="text-danger" />
-																</div>
-															</div>
-															
-															<div class="form-group row">
-																<label for="inputSkills"
-																	class="col-sm-2 col-form-label ">SĐT</label>
-																<div class="col-sm-10">
-																	<form:input path="sdt" class="form-control" />
-																	<form:errors path="sdt" cssClass="text-danger" />
-																</div>
-															</div>
-															<div class="form-group row">
-																<label for="inputSkills" class="col-sm-2 col-form-label">
-																	Địa chỉ</label>
-																<div class="col-sm-10">
-																	<form:input path="diaChi" class="form-control" />
-																	<form:errors path="diaChi" cssClass="text-danger" />
-																</div>
-															</div>
-
-														</div>
-													</div>
 												</div>
 												<div class="col-12">
 													<div class=" d-flex justify-content-end">
@@ -505,25 +384,7 @@
 										</form:form>
 										<!-- /.Info profile -->
 									</div>
-									<!-- /.tab-pane -->
-
-
-									<div class="tab-pane" id="settings">
-										<form class="form-horizontal" method="post" action="quanly/khachhang/${thongTinKH.getMaKH() }?resetmatkhau">
-											<div class="form-group row">
-												<div class=" col-sm-10">
-													<input type="text" name="makh" value="${thongTinKH.getMaKH() }" hidden/>
-												</div>
-											</div>
-											<div class="form-group row">
-												<div class=" col-sm-10">
-													<button type="submit" name="resetmatkhau" class="btn bg-danger" id="btn-reset-mk">Reset
-														mật khẩu</button>
-												</div>
-											</div>
-										</form>
-									</div>
-									<!-- /.tab-pane -->
+			
 								</div>
 								<!-- /.tab-content -->
 							</div>

@@ -128,7 +128,9 @@
 											<td>
 												<div class="d-flex justify-content-between px-4">
 													<a class="" href="nhanvien/khachhang/${kh.getMaKH()}?thongtin"><i
-														class="fas fa-info-circle"></i> </a> 
+														class="fas fa-info-circle"></i> </a> <a class=""
+														href="nhanvien/khachhang/${kh.getMaKH() }?suaThongtin"><i
+														class="fas fa-edit"></i> </a>
 													
 												</div>
 
@@ -297,7 +299,88 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<div class="modal fade" id="modal-edit-cus" isShow="${isOpenModalEdit }">
+	<div class="modal-dialog modal-lg modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Trạng thái khách hàng</h4>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<!-- /.col -->
+					<div class="col-md-12">
+						<div class="">
+							<!-- /.card-header -->
+							<div class="card-body">
+								<div class="tab-content">
+									<div class="active tab-pane" id="activity">
+										<!-- Info profile -->
 
+										<form:form action="nhanvien/khachhang/${thongTinKH.getMaKH() }?suaKH" class="form-horizontal" modelAttribute="thongTinKH"
+											enctype="multipart/form-data">
+										
+											<div class="row">
+												<div class="col-md-4">
+													<!-- Profile Image -->
+													<div class="form-group row d-flex  ">
+														<div class="mr-3">
+															<label for="" class=" col-form-label">Trạng thái</label>
+														</div>
+														<div>
+															<div class="form-check">
+
+																<form:radiobutton path="taiKhoan.trangThai" value="true"
+																	class="form-check-input" label="Hoạt động"
+																	checked="${thongtinKH.getTaiKhoan.getTrangThai() == true ? 'checked' : '' }" />
+
+															</div>
+															<div class="form-check">
+
+																<form:radiobutton path="taiKhoan.trangThai"
+																	value="false" class="form-check-input" label="Khóa"
+																	checked="${thongtinKH.getTaiKhoan.getTrangThai() == false ? 'checked' : '' }" />
+																<form:errors path="phai" cssClass="text-danger" />
+																<!-- <label class="form-check-label" for="exampleRadios1">
+																	Default radio </label> -->
+															</div>
+														</div>
+													</div>
+
+												</div>
+												<div class="col-12">
+													<div class=" d-flex justify-content-end">
+														<button type="submit" class="btn btn-primary">Sửa</button>
+														<a href="nhanvien/khachhang" id="cancel-update-modal"
+															class="mx-2 btn btn-secondary">Hủy</a>
+													</div>
+												</div>
+
+											</div>
+
+										</form:form>
+										<!-- /.Info profile -->
+									</div>
+							
+								</div>
+								<!-- /.tab-content -->
+							</div>
+							<!-- /.card-body -->
+						</div>
+						<!-- /.card -->
+					</div>
+					<!-- /.col -->
+				</div>
+			</div>
+
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
 
 <!-- Footer -->
 <%@include file="/WEB-INF/views/quantri/include/footer.jsp"%>

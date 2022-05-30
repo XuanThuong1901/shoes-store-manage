@@ -74,7 +74,7 @@ public class NhanVienController {
 
 	@Autowired
 	ChiTietSanPhamService chiTietSanPhamService;
-	
+
 	@Autowired
 	ChiTietPhieuNhapService chiTietPhieuNhapService;
 
@@ -108,7 +108,7 @@ public class NhanVienController {
 		List<ChiTietDonHang> dh = chiTietDonHangService.getDSCTDH();
 		for (int i = 0; i < dh.size(); i++) {
 			boolean check = false;
-			double doanhthu = (double) dh.get(i).getGia() * (double) dh.get(i).getSoLuong();
+			double doanhthu = (double) dh.get(i).getGia();
 			for (int j = 0; j < thongKeTheoSP.size(); j++) {
 				if (dh.get(i).getChiTietSP().getSanPham().getMaSP() == thongKeTheoSP.get(j).getMaSP()) {
 					thongKeTheoSP.get(j).setDoanhThu(doanhthu + thongKeTheoSP.get(j).getDoanhThu());
@@ -127,7 +127,7 @@ public class NhanVienController {
 		}
 		return thongKeTheoSP;
 	}
-	
+
 	@ModelAttribute("danhSachDonHang")
 	public List<DonHang> getDSDH() {
 		return donHangService.getDSDonHang();
@@ -215,7 +215,6 @@ public class NhanVienController {
 	public String getViewTongQuan(ModelMap model) {
 		return "quantri/nhanvien/tongquan";
 	}
-
 
 //	@RequestMapping(value = "khachhang",  method = RequestMethod.GET)
 //	public String showList (ModelMap model) {
@@ -315,7 +314,7 @@ public class NhanVienController {
 
 		return "quantri/nhanvien/khachhang";
 	}
-	
+
 	@RequestMapping(value = "thongke", method = RequestMethod.GET)
 	public String getViewThongKe(ModelMap model) {
 		model.addAttribute("isOpenModalInfo", false);
@@ -336,6 +335,44 @@ public class NhanVienController {
 		}
 
 		return "quantri/nhanvien/khachhang";
+	}
+
+	@RequestMapping(value = "khachhang/{maKH}", params = "suaThongtin", method = RequestMethod.GET)
+	public String getSuaKhachHang(ModelMap model, @PathVariable("maKH") String maKH) {
+
+		KhachHang khachhang = khachHangService.getByMaKH(maKH);
+
+		if (khachhang != null) {
+			model.addAttribute("thongTinKH", khachhang);
+			model.addAttribute("isOpenModalEdit", true);
+
+		}
+
+		return "quantri/nhanvien/khachhang";
+	}
+	
+	@RequestMapping(value = "khachhang/{maKH}", params = "suaKH", method = RequestMethod.POST)
+	public String postSuaKhachHang(ModelMap model, @ModelAttribute("thongTinKH") KhachHang khachhang,
+			@PathVariable("maKH") String maKH, BindingResult errors) {
+
+		KhachHang kh = khachHangService.getByMaKH(maKH);
+		TaiKhoan taikhoan = taiKhoanService.getByMaTK(kh.getTaiKhoan().getMaTK());
+
+		taikhoan.setTrangThai(khachhang.getTaiKhoan().getTrangThai());
+
+		if (taiKhoanService.suaTK(taikhoan)) {
+			model.addAttribute("isSuccess", true);
+			model.addAttribute("alertMessage", "Thay đổi trạng thái thành công");
+			model.addAttribute("danhSachKhachHang", khachHangService.getDSKhachHang());
+		}
+
+		else {
+			model.addAttribute("isSuccess", false);
+			model.addAttribute("alertMessage", "Thay đổi trạng thái thất bại");
+		}
+
+		return "quantri/nhanvien/khachhang";
+
 	}
 
 	@RequestMapping(value = "danhmucsp", params = "themDM", method = RequestMethod.POST)
@@ -590,9 +627,6 @@ public class NhanVienController {
 
 	//// Lỗi không biết sữa
 
-
-	
-
 	@RequestMapping(value = "donhang", method = RequestMethod.GET)
 	public String getViewDonHang() {
 		return "quantri/nhanvien/donhang";
@@ -684,9 +718,6 @@ public class NhanVienController {
 
 		return "quantri/nhanvien/donhang";
 	}
-
-	
-
 
 	// san pham
 	@RequestMapping(value = "sanpham", method = RequestMethod.GET)
@@ -871,7 +902,6 @@ public class NhanVienController {
 		ChiTietSanPham ctsp = chiTietSanPhamService.getByMaSCTSP(maCTSP);
 		int masp = ctsp.getSanPham().getMaSP();
 
-		
 		if (ctsp != null) {
 			if (ctsp.getSoLuong() != 0) {
 				model.addAttribute("xoactsp", "Chi tiết này không được xóa");
@@ -882,7 +912,7 @@ public class NhanVienController {
 			} else {
 				chiTietSanPhamService.xoaCTSP(ctsp);
 				List<ChiTietSanPham> list = chiTietSanPhamService.getByMaSP(masp);
-				if(list == null) {
+				if (list == null) {
 					SanPham sanPham = sanPhamService.getByMaSP(masp);
 					sanPhamService.xoaSP(sanPham);
 					model.addAttribute("isSuccess", false);
@@ -1105,48 +1135,48 @@ public class NhanVienController {
 
 		return "quantri/nhanvien/phieunhap";
 	}
-	
+
 	@RequestMapping(value = "thongke", params = "thongke", method = RequestMethod.POST)
 	public String ThongKeTheoSP(ModelMap model, HttpSession ss,
-			@RequestParam(name="fromDate", required = false) String from,
-			@RequestParam(name="toDate", required = false) String to) throws ParseException {
+			@RequestParam(name = "fromDate", required = false) String from,
+			@RequestParam(name = "toDate", required = false) String to) throws ParseException {
 		thongKeTheoSP.clear();
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		System.out.println(from);
-		
+
 		Date fromdate = null;
 		Date todate = null;
-		
+
 		if (from != "") {
 			fromdate = f.parse(from);
 		}
 		if (to != "") {
 			todate = f.parse(to);
 		}
-		
-		if(fromdate == null) {
+
+		if (fromdate == null) {
 			model.addAttribute("fromdate", "chưa chọn ngày");
 			return "quantri/nhanvien/thongke";
 		}
-		if(todate == null) {
+		if (todate == null) {
 			model.addAttribute("todate", "chưa chọn ngày");
 			return "quantri/nhanvien/thongke";
 		}
-		
+
 //		DateFormat fd = new SimpleDateFormat("yyyy/MM/dd");
 //		DateFormat t = new SimpleDateFormat("yyyy/MM/dd");
-		
+
 		System.out.println(fromdate);
 
 		List<DonHang> dh = donHangService.getByDate(fromdate, todate);
 //		System.out.println(dh.get(0).getMaDH());
-		if(dh != null) {
+		if (dh != null) {
 			for (int i = 0; i < dh.size(); i++) {
 				List<ChiTietDonHang> ct = chiTietDonHangService.getDSByMaDH(dh.get(i).getMaDH());
 				for (int j = 0; j < ct.size(); j++) {
 					boolean check = false;
-					double doanhthu = (double) ct.get(j).getGia() * (double) ct.get(j).getSoLuong();
+					double doanhthu = (double) ct.get(j).getGia();
 					for (int z = 0; z < thongKeTheoSP.size(); z++) {
 						if (ct.get(j).getChiTietSP().getSanPham().getMaSP() == thongKeTheoSP.get(z).getMaSP()) {
 							thongKeTheoSP.get(z).setDoanhThu(doanhthu + thongKeTheoSP.get(z).getDoanhThu());
@@ -1164,11 +1194,9 @@ public class NhanVienController {
 				}
 			}
 		}
-		
-		
+
 		model.addAttribute("danhSachThongKeTheoSP", thongKeTheoSP);
 		return "quantri/nhanvien/thongke";
 	}
-
 
 }
