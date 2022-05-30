@@ -109,7 +109,7 @@ function productChart(id, productLabels=[], productInfo=[]){
 
 $(document).ready(function(){
 	
-	
+	generateColor();
 	
 	activeSidebarItem();
 	
@@ -149,6 +149,6 @@ $(document).ready(function(){
 	
 	getIdDeleteIntoForm("input-delete-ctsp");
 	
-	generateColor();
+	
 	productChart('myProductStatsChart',  productLabels, productInfo);
  });

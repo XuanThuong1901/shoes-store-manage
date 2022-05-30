@@ -497,6 +497,9 @@
 												<label for="inputSkills" class="col-sm-2 col-form-label ">Tổng
 													tiền</label>
 												<div class="col-sm-10">
+												<fmt:setLocale value="vi_VN" /><%--  <fmt:formatNumber
+									value="${sp.getDoanhThu() }" type="currency"
+									currencySymbol="vnđ" /> --%>
 													<input type="number" class="form-control" id="inputSkills"
 														placeholder="" value="${thongTinPN.getTongTien() }"
 														disabled>
