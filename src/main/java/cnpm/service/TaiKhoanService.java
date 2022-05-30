@@ -116,6 +116,11 @@ public class TaiKhoanService {
 		return taiKhoanDAO.them(taikhoan);
 	}
 	
+	public Boolean doiMK(TaiKhoan taikhoan ,String matkhaumoi) {
+		taikhoan.setMatKhau(hashPass(matkhaumoi));
+		return taiKhoanDAO.sua(taikhoan);
+	}
+	
 	
 	public Boolean themNV(TaiKhoan taikhoan) {
 		taikhoan.setTrangThai(true);

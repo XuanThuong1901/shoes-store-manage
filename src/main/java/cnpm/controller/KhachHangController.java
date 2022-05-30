@@ -1,5 +1,6 @@
 package cnpm.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -35,6 +37,7 @@ import cnpm.service.DonHangService;
 import cnpm.service.GioHangService;
 import cnpm.service.HinhThucThanhToanService;
 import cnpm.service.KhachHangService;
+import cnpm.service.SanPhamService;
 import cnpm.service.TaiKhoanService;
 import cnpm.service.TrangThaiDonHangService;
 import cnpm.service.UtilsService;
@@ -68,6 +71,29 @@ public class KhachHangController {
 
 	@Autowired
 	UtilsService utilService;
+	
+	@Autowired
+	SanPhamService sanPhamService;
+
+	@ModelAttribute("khachhang")
+	public KhachHang getKh(HttpSession ss) {
+		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
+		if (tk == null) {
+			return null;
+		}
+		return tk.getKhachHang();
+	}
+
+	@ModelAttribute("dsdonhang")
+	public List<DonHang> getDSDonHangCuaKH(HttpSession ss) {
+		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
+		if (tk == null) {
+			return null;
+		}
+
+		List<DonHang> list = donHangService.getDSDonHangCuaKH(tk.getKhachHang().getMaKH());
+		return list;
+	}
 
 	@ModelAttribute("dsHTTT")
 	public List<HinhThucThanhToan> getDSHinhThucThanhToan() {
@@ -95,7 +121,6 @@ public class KhachHangController {
 		}
 
 		List<GioHang> list = gioHangService.getGioHangCuaKH(tk.getKhachHang().getMaKH());
-		System.out.println("list " + list.size());
 		return list;
 
 	}
@@ -109,7 +134,7 @@ public class KhachHangController {
 		return "shop/taikhoan";
 	}
 
-	@RequestMapping(value = "taikhoan", params = "luuthaydoi", method = RequestMethod.POST)
+	/*@RequestMapping(value = "taikhoan", params = "luuthaydoi", method = RequestMethod.POST)
 	public String postLoginUser(ModelMap model, @ModelAttribute("thongTinKH") KhachHang khachhang,
 			@RequestParam("anhMoi") MultipartFile anh, BindingResult errors, HttpSession ss) {
 
@@ -221,15 +246,94 @@ public class KhachHangController {
 		}
 
 		return "shop/taikhoan";
-	}
+	}*/
 
 	float tongtien = 0.0F;
 
-	@RequestMapping(value = "thanhtoan")
-	public String getViewThanhToan(ModelMap model, HttpServletRequest request) {
+	@RequestMapping("donhang")
+	public String getDonHang(ModelMap model) {
+		model.addAttribute("tabListOrder", true);
+		return "shop/taikhoan";
+	}
 
-		// Double tongtien = Double.parseDouble(request.getParameter("tongtien"));
-		// model.addAttribute("tongtien", tongtien);
+	@RequestMapping(value = "donhang", params = "huydonhang", method = RequestMethod.POST)
+	public String huyDonHang(ModelMap model, HttpSession ss, @RequestParam("maDH") Integer maDH) {
+		if (maDH == null) {
+			return "shop/taikhoan";
+		}
+
+		DonHang donhang = donHangService.getByMaDH(maDH);
+		if (donhang != null) {
+			donhang.getTrangThaiDH().setMaTTDH(5);
+			if (donHangService.suaDH(donhang)) {
+				model.addAttribute("isSuccess", true);
+				model.addAttribute("alertMessage", "Hủy đơn hàng thành công");
+				TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
+				model.addAttribute("dsdonhang", donHangService.getDSDonHangCuaKH(tk.getKhachHang().getMaKH()));
+			} else {
+				model.addAttribute("isSuccess", false);
+				model.addAttribute("alertMessage", "Hủy đơn hàng thất bại");
+			}
+			model.addAttribute("tabListOrder", true);
+		}
+
+		return "shop/taikhoan";
+	}
+
+	@RequestMapping(value = "donhang/{maDH}", method = RequestMethod.GET)
+	public String getDetailOrder(ModelMap model, @PathVariable("maDH") Integer maDH) {
+		if (maDH == null) {
+			return "shop/taikhoan";
+		}
+		DonHang dh = donHangService.getByMaDH(maDH);
+		List<ChiTietDonHang> list = chiTietDonHangService.getDSByMaDH(maDH);
+
+		if (list.size() > 0) {
+			model.addAttribute("donhang", dh);
+			model.addAttribute("ctdh", list);
+			model.addAttribute("isShowModalInfo", true);
+			model.addAttribute("tabListOrder", true);
+		}
+
+		return "shop/taikhoan";
+	}
+
+	@RequestMapping(value = "donhang/{maTT}", params = "trangthaidh", method = RequestMethod.GET)
+	public String getListOrderByStatus(ModelMap model, @PathVariable("maTT") Integer maTT) {
+		if (maTT == null) {
+			return "shop/taikhoan";
+		}
+
+		List<DonHang> list = donHangService.getDSDonHangByTT(maTT);
+		if (list != null) {
+			model.addAttribute("dsdonhang", list);
+			model.addAttribute("tabListOrder", true);
+		}
+
+		return "shop/taikhoan";
+	}
+
+	@RequestMapping(value = "thanhtoan", method = RequestMethod.GET)
+	public String getViewThanhToan(ModelMap model, HttpSession ss, HttpServletRequest request) {
+
+		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
+		if (tk == null) {
+			return "redirect:/dangnhap";
+		} else if (!tk.getVaitro().getMaVT().equals("KH")) {
+
+			return "redirect:/";
+		}
+
+		List<GioHang> dsgiohang = gioHangService.getGioHangCuaKH(tk.getKhachHang().getMaKH());
+		if (dsgiohang == null) {
+
+			return "redirect:/giohang";
+		}
+		if (dsgiohang.size() == 0) {
+			return "redirect:/giohang";
+		}
+
+		model.addAttribute("tongtien", tongtien);
 		model.addAttribute("donhang", new DonHang());
 
 		return "shop/thanhtoan";
@@ -248,7 +352,27 @@ public class KhachHangController {
 
 	@RequestMapping(value = "thanhtoan", params = "muahang", method = RequestMethod.POST)
 	public String muaHang(ModelMap model, HttpSession ss, HttpServletRequest request,
-			@ModelAttribute("donhang") DonHang donhang) {
+			@ModelAttribute("donhang") DonHang donhang, BindingResult errors) {
+
+		if (donhang.getTenNguoiNhan().trim().isEmpty()) {
+			errors.rejectValue("tenNguoiNhan", "donhang", "Tên người nhận không được bỏ trống");
+		}
+
+		if (donhang.getDiaChi().trim().isEmpty()) {
+			errors.rejectValue("diaChi", "donhang", "Địa chỉ nhận hàng không được bỏ trống");
+		}
+
+		if (donhang.getSdtKH().trim().isEmpty()) {
+			errors.rejectValue("sdtKH", "donhang", "Số điện thoại người nhận không được bỏ trống");
+		}
+		
+		if(donhang.getHinhThucTT() == null) {
+			errors.rejectValue("hinhThucTT.maHTTT", "donhang", "Vui lòng chọn 1 hình thức thanh toán");
+		}
+
+		if (errors.hasErrors()) {
+			return "shop/thanhtoan";
+		}
 
 		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
 		if (tk == null) {
@@ -279,6 +403,9 @@ public class KhachHangController {
 				ctdonhang.setGia(giohang.getChiTietSP().getSanPham().getGia());
 
 				if (chiTietDonHangService.themCTDH(ctdonhang)) {
+					// tru sl ton trong ctsp
+					chiTietSanPhamService.truSLTon(giohang.getChiTietSP().getMaChiTietSP(), giohang.getSoLuong());
+					// xoa trong gio hang
 					gioHangService.xoa(giohang);
 				} else {
 					return "shop/giohang";
@@ -286,6 +413,9 @@ public class KhachHangController {
 			}
 
 			model.addAttribute("giohang", new ArrayList<GioHang>());
+			model.addAttribute("isSuccess", true);
+			return "shop/kqdathang";
+
 		}
 
 		return "shop/thanhtoan";
@@ -354,7 +484,7 @@ public class KhachHangController {
 
 		if (size == 0) {
 			redirectAttributes.addFlashAttribute("isSuccess", false);
-			redirectAttributes.addFlashAttribute("message", "Vui lòng chọn size");
+			redirectAttributes.addFlashAttribute("alertMessage", "Vui lòng chọn size");
 
 			return "redirect:" + request.getHeader("Referer");
 
@@ -362,7 +492,7 @@ public class KhachHangController {
 
 		if (soLuong == 0) {
 			redirectAttributes.addFlashAttribute("isSuccess", false);
-			redirectAttributes.addFlashAttribute("message", "Vui lòng chọn số lượng thêm");
+			redirectAttributes.addFlashAttribute("alertMessage", "Vui lòng chọn số lượng thêm");
 			return "redirect:" + request.getHeader("Referer");
 		}
 
@@ -377,7 +507,14 @@ public class KhachHangController {
 		ChiTietSanPham ctsp = chiTietSanPhamService.getByMaSPVaSize(maSP, size);
 
 		System.out.println("number " + size + " numer" + soLuong + " " + maSP + " " + ctsp);
-
+		
+		if(ctsp.getSoLuong() < soLuong) {
+			model.addAttribute("isSuccess", false);
+			model.addAttribute("alertMessage", "Thêm sản phẩm vào giỏ thất bại");
+			model.addAttribute("ctsanpham", sanPhamService.getByMaSP(maSP));
+			return "shop/chitietsanpham";
+		}
+		
 		GioHang giohang = gioHangService.getByPk(tk.getKhachHang().getMaKH(), ctsp.getMaChiTietSP());
 		if (giohang == null) {
 			GioHangPK pk = new GioHangPK(tk.getKhachHang().getMaKH(), ctsp.getMaChiTietSP());
@@ -392,6 +529,8 @@ public class KhachHangController {
 				List<GioHang> list = gioHangService.getGioHangCuaKH(tk.getKhachHang().getMaKH());
 				model.addAttribute("giohang", list);
 			} else {
+				model.addAttribute("isSuccess", false);
+				model.addAttribute("alertMessage", "Thêm sản phẩm vào giỏ thất bại");
 				System.out.println("Thêm sản phẩm vào giỏ thất bại");
 			}
 		} else {
@@ -402,6 +541,8 @@ public class KhachHangController {
 				model.addAttribute("alertMessage", "Đã thêm sản phẩm vào giỏ");
 				System.out.println("Cập nhật giỏ hàng thành công");
 			} else {
+				model.addAttribute("isSuccess", false);
+				model.addAttribute("alertMessage", "Cập nhật giỏ hàng thất bại");
 				System.out.println("Cập nhật giỏ hàng thất bại");
 			}
 
@@ -412,6 +553,160 @@ public class KhachHangController {
 
 		model.addAttribute("ctsanpham", ctsp.getSanPham());
 		return "shop/chitietsanpham";
+	}
+
+	@RequestMapping(value = "kqdathang")
+	public String kqdatHang(ModelMap model) {
+		return "shop/kqdathang";
+	}
+
+	@RequestMapping(value = "taikhoan", params = "updatethongtin", method = RequestMethod.POST)
+	public String updateThongTin(ModelMap model, @RequestParam("anhMoi") MultipartFile anh,
+			@ModelAttribute("khachhang") KhachHang khachhang, HttpSession ss, BindingResult errors) {
+
+		if (khachhang.getHo().trim().isEmpty()) {
+			errors.rejectValue("ho", "khachhang", "Họ không được để trống");
+		}
+
+		if (khachhang.getTen().trim().isEmpty()) {
+			errors.rejectValue("ten", "khachhang", "Tên không được để trống");
+		}
+
+		if (khachhang.getPhai() != true && khachhang.getPhai() != false) {
+			errors.rejectValue("phai", "khachhang", "???");
+		}
+
+		if (khachhang.getNgaySinh() == null) {
+			errors.rejectValue("ngaySinh", "khachhang", "Ngày sinh không được để trống");
+		} else if (khachhang.getNgaySinh().after(new Date())) {
+			errors.rejectValue("ngaySinh", "khachhang", "Ngày sinh không được quá ngày hiện tại");
+		}
+
+		if (khachhang.getDiaChi().trim().isEmpty()) {
+			errors.rejectValue("ngaySinh", "khachhang", "Địa chỉ không được để trống");
+		}
+
+		if (khachhang.getSdt().trim().isEmpty()) {
+			errors.rejectValue("sdt", "khachhang", "Số điện thoại không được để trống");
+		} else if (!khachhang.getSdt().trim().matches("^[0-9]*$")) {
+			errors.rejectValue("sdt", "khachhang", "Số điện thoại không hợp lệ");
+		}
+
+		if (errors.hasErrors()) {
+
+			return "shop/taikhoan";
+		}
+
+		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
+		//KhachHang khachhangcu = khachHangService.getByMaKH(tk.getKhachHang().getMaKH());
+		KhachHang khachhangcu = tk.getKhachHang();
+		if (!khachhangcu.getHo().equals(khachhang.getHo())) {
+			khachhangcu.setHo(khachhang.getHo());
+		}
+
+		if (!khachhangcu.getTen().equals(khachhang.getTen())) {
+			khachhangcu.setTen(khachhang.getTen());
+		}
+
+		if (khachhangcu.getPhai() != khachhang.getPhai()) {
+			khachhangcu.setPhai(khachhang.getPhai());
+		}
+
+		if (!khachhangcu.getNgaySinh().equals(khachhang.getNgaySinh())) {
+			khachhangcu.setNgaySinh(khachhang.getNgaySinh());
+		}
+
+		if (!khachhangcu.getDiaChi().equals(khachhang.getDiaChi())) {
+			khachhangcu.setDiaChi(khachhang.getDiaChi());
+		}
+
+		if (!khachhangcu.getSdt().equals(khachhang.getSdt())) {
+			khachhangcu.setSdt(khachhang.getSdt());
+		}
+
+		if (!anh.isEmpty()) {
+			String hinh = "";
+			hinh = utilService.luuFile(anh);
+			if (!hinh.isEmpty()) {
+				khachhangcu.setAnh(hinh);
+			}
+		}
+
+		if (khachHangService.suaKH(khachhangcu)) {
+			khachhangcu = khachHangService.getByMaKH(tk.getKhachHang().getMaKH());
+			tk.setKhachHang(khachhangcu);
+			ss.setAttribute("user", tk);
+			model.addAttribute("isSuccess", true);
+			model.addAttribute("alertMessage", "Sửa thông tin cá nhân thành công");
+			model.addAttribute("khachhang", khachhangcu);
+
+		} else {
+			model.addAttribute("isSuccess", true);
+			model.addAttribute("alertMessage", "Sửa thông tin cá nhân thất bại");
+		}
+
+		return "shop/taikhoan";
+	}
+
+	@RequestMapping(value = "taikhoan", params = "doimatkhau", method = RequestMethod.POST)
+	public String doiMatKhau(ModelMap model, HttpSession ss, HttpServletRequest request) {
+
+		Boolean check = false;
+		if (request.getParameter("matkhau").length() == 0) {
+			check = true;
+			model.addAttribute("matkhau", "Mật khẩu không được để trống");
+		}
+
+		if (request.getParameter("matkhaumoi").length() == 0) {
+			check = true;
+			model.addAttribute("matkhaumoi", "Mật khẩu mới không được để trống");
+		}
+
+		if (request.getParameter("nlmatkhaumoi").length() == 0) {
+			check = true;
+			model.addAttribute("nlmatkhaumoi", "Mật khẩu nhập lại không được để trống");
+		}
+
+		if (check) {
+			model.addAttribute("tabListPassword", true);
+			return "shop/taikhoan";
+		}
+
+		String matKhau = request.getParameter("matkhau");
+		String matkhaumoi = request.getParameter("matkhaumoi");
+		String nlmatkhaumoi = request.getParameter("nlmatkhaumoi");
+
+		System.out.println("mat khau" + matKhau);
+
+		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
+		if (!tk.getMatKhau().equals(taiKhoanService.hashPass(matKhau))) {
+			System.out.println(tk.getMatKhau());
+			check = true;
+			model.addAttribute("matkhau", "Mật khẩu hiện tại không đúng");
+		}
+
+		if (!matkhaumoi.equals(nlmatkhaumoi)) {
+			check = true;
+			model.addAttribute("nlmatkhaumoi", "Mật khẩu nhập lại không trùng");
+		}
+
+		if (check) {
+			model.addAttribute("tabListPassword", true);
+			return "shop/taikhoan";
+		}
+
+		if (taiKhoanService.doiMK(tk, matkhaumoi)) {
+			tk.setMatKhau(taiKhoanService.hashPass(matkhaumoi));
+			ss.setAttribute("user", tk);
+			model.addAttribute("isSuccess", true);
+			model.addAttribute("alertMessage", "Đổi mật khẩu thành công");
+		} else {
+			model.addAttribute("isSuccess", false);
+			model.addAttribute("alertMessage", "Đổi mật khẩu thất bại");
+		}
+
+		model.addAttribute("tabListPassword", true);
+		return "shop/taikhoan";
 	}
 
 }

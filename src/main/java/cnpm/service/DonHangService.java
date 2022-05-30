@@ -15,6 +15,15 @@ public class DonHangService {
 	@Autowired
 	DonHangDAO donHangDAO;
 	
+	public List<DonHang> getDSDonHangByTT(Integer maTT){
+		return donHangDAO.getDSDonHangByTT(maTT);
+	}
+	
+	
+	public List<DonHang> getDSDonHangCuaKH(String maKH){
+		return donHangDAO.getDSDonHangCuaKH(maKH);
+	}
+	
 	public List<DonHang> getDSDonHang(){
 		return donHangDAO.getDSDonHang();
 	}

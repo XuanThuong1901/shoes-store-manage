@@ -110,20 +110,22 @@
 
 		<mvc:interceptor>
 			<mvc:mapping path="/taikhoan" />
+				<mvc:mapping path="/taikhoan/**" />
 			<mvc:mapping path="/giohang/**" />
+			<mvc:mapping path="/donhang/**" />
 			<mvc:mapping path="/thanhtoan" />
 			<bean class="cnpm.interceptor.KhachHangInterceptor" />
 		</mvc:interceptor>
 
 
-		<mvc:interceptor>
+		<!-- <mvc:interceptor>
 			<mvc:mapping path="/user/**" />
 			<mvc:exclude-mapping path="/login.htm" />
 			<mvc:exclude-mapping path="/register.htm" />
 			<mvc:exclude-mapping path="/forgot-password.htm" />
 			<mvc:exclude-mapping path="/activate.htm" />
 			<bean class="cnpm.interceptor.QuanLyInterceptor" />
-		</mvc:interceptor>
+		</mvc:interceptor> -->
 
 
 	</mvc:interceptors>

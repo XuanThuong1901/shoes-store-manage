@@ -34,7 +34,7 @@ import cnpm.service.TaiKhoanService;
 import cnpm.service.UtilsService;
 
 @Controller
-@SessionAttributes("user")
+//@SessionAttributes("user")
 public class TaiKhoanController {
 	@Autowired
 	TaiKhoanService taiKhoanService;
@@ -59,7 +59,9 @@ public class TaiKhoanController {
 
 	@RequestMapping(value = "dangxuat")
 	public String dangXuat(HttpSession ss) {
-		if (ss.getAttribute("user") != null) {
+		
+		if(ss.getAttribute("user") != null) {
+			 
 			ss.removeAttribute("user");
 		}
 		return "redirect:/";
@@ -235,9 +237,9 @@ public class TaiKhoanController {
 	}
 
 	@RequestMapping(value = "tongquan/{maNV}", params = "chinhsua", method = RequestMethod.POST)
-	public String postLoginUser(ModelMap model, @ModelAttribute("thongTinNV") NhanVien nhanvien,
+	public String postLoginUser(ModelMap model, HttpSession ss, @ModelAttribute("thongTinNV") NhanVien nhanvien,
 			@RequestParam("anhMoi") MultipartFile anh, @PathVariable("maNV") String maNV, BindingResult errors) {
-
+		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
 		if (nhanvien.getHo().trim().isEmpty()) {
 			errors.rejectValue("ho", "thongTinNV", "Họ không được để trống");
 		}
@@ -246,10 +248,13 @@ public class TaiKhoanController {
 			errors.rejectValue("ten", "thongTinNV", "Tên không được để trống");
 		}
 
-		if (nhanvien.getTaiKhoan().getEmail().trim().isEmpty() || !nhanvien.getTaiKhoan().getEmail().trim().matches(
-				"^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")) {
-			errors.rejectValue("taiKhoan.email", "thongTinNV", "Email không hợp lệ hoặc bị trống");
-		}
+		/*
+		 * if (nhanvien.getTaiKhoan().getEmail().trim().isEmpty() ||
+		 * !nhanvien.getTaiKhoan().getEmail().trim().matches(
+		 * "^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+		 * )) { errors.rejectValue("taiKhoan.email", "thongTinNV",
+		 * "Email không hợp lệ hoặc bị trống"); }
+		 */
 
 		if (nhanvien.getPhai() != true && nhanvien.getPhai() != false) {
 			errors.rejectValue("phai", "thongTinNV", "???");
@@ -273,6 +278,8 @@ public class TaiKhoanController {
 
 		if (errors.hasErrors()) {
 //			model.addAttribute("isOpenModalEditUser", true);
+			nhanvien.getTaiKhoan().setEmail(tk.getEmail());
+			model.addAttribute("thongTinNV", nhanvien);
 			return "quantri/include/taikhoan";
 		}
 
@@ -330,7 +337,10 @@ public class TaiKhoanController {
 			}
 
 			if (nhanVienService.suaNV(nhanviencu)) {
+				
 				model.addAttribute("thongTinNV", nhanviencu);
+				tk.setNhanVien(nhanviencu);
+				ss.setAttribute("user", tk);
 				model.addAttribute("isSuccess", true);
 				model.addAttribute("alertMessage", "Sửa nhân viên thành công");
 			}

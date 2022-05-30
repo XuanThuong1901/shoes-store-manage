@@ -48,6 +48,15 @@ public class ChiTietSanPhamService {
 		return chiTietSanPhamDAO.them(chiTietSanPham);
 	}
 	
+	public Boolean truSLTon(Integer maCTSP, Integer soLuong) {
+		ChiTietSanPham ctsp = this.getByMaSCTSP(maCTSP);
+		if(ctsp.getSoLuong() < soLuong) {
+			return false;
+		}
+		ctsp.setSoLuong(ctsp.getSoLuong() - soLuong);
+		return chiTietSanPhamDAO.sua(ctsp);
+	}
+	
 	public Boolean suaCTSP(ChiTietSanPham chiTietSanPham) {
 		return chiTietSanPhamDAO.sua(chiTietSanPham);
 	}
