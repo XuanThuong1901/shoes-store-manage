@@ -1,5 +1,6 @@
 package cnpm.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ public class DonHangService {
 	
 	public List<DonHang> getDSDonHang(){
 		return donHangDAO.getDSDonHang();
+	}
+	
+	public List<DonHang> getByDate(Date fromdate, Date todate){
+		return donHangDAO.getByDate(fromdate, todate);
 	}
 	
 	public DonHang getByMaDH(Integer maDH) {

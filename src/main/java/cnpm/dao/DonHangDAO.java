@@ -1,5 +1,6 @@
 package cnpm.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -54,6 +55,21 @@ public class DonHangDAO {
 		}
 		
 		return res.get(0);
+	}
+	
+	public List<DonHang> getByDate(Date fromdate, Date todate) {
+		Session session = factory.getCurrentSession();
+		String hql = "from DonHang where thoiGian >= :fromdate AND thoiGian <= :todate";
+		Query query = session.createQuery(hql);
+		query.setParameter("fromdate", fromdate);
+		query.setParameter("todate", todate);
+		List<DonHang> res = query.list();
+		
+		if(res.isEmpty()) {
+			return null;
+		}
+		
+		return res;
 	}
 	
 	public Boolean them(DonHang donhang) {

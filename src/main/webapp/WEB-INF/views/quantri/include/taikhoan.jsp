@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
-<%@taglib uri= "http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!-- Header -->
 <%@include file="/WEB-INF/views/quantri/include/header.jsp"%>
@@ -31,48 +31,51 @@
 		</div>
 		<!-- /.container-fluid -->
 	</section>
-	
-	
+
+
 
 
 	<!-- Main content -->
 
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-12">
-					
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
 
-					<div class="card">
+
+				<div class="card">
 					<div class="card-header">
 						<h4 class="">Chỉnh sửa tài khoản</h4>
 					</div>
 					<div>
-									<c:choose>
-										<c:when test="${isSuccess }">
-											<div
-												class="mt-2 alert alert-success alert-dismissible fade show"
-												role="alert">
-												${alertMessage }
-												<button type="button" class="close" data-dismiss="alert"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-										</c:when>
-										<c:when test="${isSuccess == false }">
-											<div
-												class="mt-2 alert alert-danger alert-dismissible fade show"
-												role="alert">
-												${alertMessage }
-												<button type="button" class="close" data-dismiss="alert"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-										</c:when>
-									</c:choose>
 
-								</div>
+						<div>
+							<c:choose>
+								<c:when test="${isSuccess }">
+									<div
+										class="mt-2 alert alert-success alert-dismissible fade show"
+										role="alert">
+										${alertMessage }
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								</c:when>
+								<c:when test="${isSuccess == false }">
+									<div
+										class="mt-2 alert alert-danger alert-dismissible fade show"
+										role="alert">
+										${alertMessage }
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								</c:when>
+							</c:choose>
+
+						</div>
+					</div>
 					<div class="card-body">
 						<div class="row">
 							<!-- /.col -->
@@ -93,7 +96,7 @@
 												<!-- Info profile -->
 
 												<form:form
-													action="${thongTinNV.getTaiKhoan().getVaitro().getTenVT()}/tongquan/${thongTinNV.getMaNV()}?chinhsua"
+													action="tongquan/${thongTinNV.getMaNV()}?chinhsua"
 													class="form-horizontal" modelAttribute="thongTinNV"
 													enctype="multipart/form-data">
 
@@ -117,41 +120,6 @@
 																<!-- /.card-body -->
 															</div>
 															<!-- /.card -->
-															<div class="form-group row d-flex  ">
-																<!--<div class="mr-3">
-																	<label for="" class=" col-form-label">Trạng
-																		thái</label>
-																</div>
-																<div>
-																	 <div class="form-check">
-
-																		<form:radiobutton path="taiKhoan.trangThai"
-																			value="true" class="form-check-input"
-																			label="Hoạt động"
-																			checked="${thongtinNV.getTaiKhoan().getTrangThai() == true ? 'checked' : '' }" />
-
-																	</div>
-																	<div class="form-check">
-
-																		<form:radiobutton path="taiKhoan.trangThai"
-																			value="false" class="form-check-input" label="Khóa"
-																			checked="${thongtinNV.getTaiKhoan().getTrangThai() == false ? 'checked' : '' }" />
-																		<form:errors path="phai" cssClass="text-danger" />
-																		
-																	</div>
-																</div> -->
-
-																<%-- <div class="col-sm-10">
-															<form:radiobutton path="taiKhoan.trangThai" value="true"
-																label="Hoạt động"
-																checked="${thongtinNV.getTaiKhoan.getTrangThai() == true ? 'checked' : '' }" />
-
-															<form:radiobutton path="taiKhoan.trangThai" value="false"
-																label="Khóa"
-																checked="${thongtinNV.getTaiKhoan.getTrangThai() == false ? 'checked' : '' }" />
-															<form:errors path="phai" cssClass="text-danger" />
-														</div> --%>
-															</div>
 
 														</div>
 
@@ -164,10 +132,8 @@
 																			class="col-sm-2 col-form-label text-primary">Email
 																		</label>
 																		<div class="col-sm-10">
-																			<form:input path="taiKhoan.email"
-																				class="form-control" id="" />
-																			<form:errors path="taiKhoan.email"
-																				cssClass="text-danger" />
+																			<label class="form-control">${thongTinNV.getTaiKhoan().getEmail() }</label>
+																			
 																		</div>
 																	</div>
 																	<div class="form-group row">
@@ -248,8 +214,9 @@
 														</div>
 														<div class="col-12">
 															<div class=" d-flex justify-content-end">
-																
-																<button type="submit" class="btn btn-primary">Sửa</button>
+
+																<button type="submit" class="btn btn-primary"
+																	name="chinhsua">Sửa</button>
 															</div>
 														</div>
 
@@ -262,71 +229,52 @@
 
 
 											<div class="tab-pane" id="settings">
-										<form:form class="form-horizontal" method="post"
-											action="${thongTinNV.getTaiKhoan().getVaitro().getTenVT()}/tongquan/${thongTinNV.getMaNV() }?doimatkhau" modelAttribute = "thongTinNV">
-											<div class="form-group row">
-												<label for="inputSkills"
-													class="col-sm-2 col-form-label text-primary">Mật khẩu</label>
-												<div class="col-sm-10">
-													<form:input type="password" path="taiKhoan.matKhau" class="form-control" />
-													<form:errors path="taiKhoan.matKhau" cssClass="text-danger" />
-												</div>
-											</div>
-											
-											<!--<div class="form-floating">
-												<input type="password" name="password-register"
-													class=" mb-3 form-control border-top-0 border-left-0 border-right-0 border-size-2"
-													id="password-register" placeholder="MẬT KHẨU"/>
-													<p class="text-danger">${password }</p>
-											</div> -->
-											<div class="form-group row">
-												<label for="confirmPassword-register"
-													class="col-sm-2 col-form-label text-primary">Nhập lại</label>
-												<div class="col-sm-10">
-													<input type="password" name="confirm-password"
-													class="form-control"
-													id="confirmPassword-register" placeholder="Nhập lại mật khẩu">
-													<p class="text-danger">${confirmPassword }</p>
-												</div>
-											</div>
-											
-					                          <!--<div class="form-group row">
-					                            <label for="inputName" class="col-sm-2 col-form-label">Mật khẩu</label>
-					                            <div class="col-sm-10">
-					                              <input  name="pw" class="form-control" id="inputName" 
-					                              placeholder="Nhập mật khẩu hiện tại" value = ${thongTinNV.getTaiKhoan().getMatKhau() }>
-					                            </div>
-					                          </div>
-					                          <div class="form-group row">
-					                            <label for="inputEmail" class="col-sm-2 col-form-label">Mật khẩu mới</label>
-					                            <div class="col-sm-10">
-					                              <input type="password" name="npw" class="form-control" id="inputName2"
-					                                placeholder="Nhập mật khẩu mới"> 
-					                             <form:input path="taiKhoan.email" placeholder="Nhập mật khẩu mới"
-												class="form-control" id="inputName" />
-												<form:errors path="taiKhoan.matKhau" cssClass="text-danger" />
-					                               
-					                            </div>
-					                          </div>-->
-					                          <!--<div class="form-group row">
-					                            <label for="inputName2" class="col-sm-2 col-form-label">Nhập lại</label>
-					                            <div class="col-sm-10">
-					                               <input type="password" name="apw" class="form-control" id="inputName2"
-					                                placeholder="Nhập lại mật khẩu mới"> 
-					                                <form:input path="taiKhoan.matKhau" placeholder="123456"
-													class="form-control" id="inputName" />
-													<form:errors path="taiKhoan.matKhau" cssClass="text-danger" />
-					                            </div>
-					                          </div>-->
-					
-					                          <div class="form-group row">
-					                            <div class="offset-sm-2 col-sm-10">
-					                              <button type="submit" class="btn bg-primary" type="submit" name="doimatkhau"
-														 id="btn-change-mk">Xác nhận</button>
-					                            </div>
-					                          </div>
-					                        </form:form>
-					                        <!--<div class="col-12">
+												<form class="form-horizontal" method="post"
+													action="tongquan/${thongTinNV.getMaNV() }?doimatkhau">
+													<div class="form-group row">
+														<label for="inputSkills"
+															class="col-sm-2 col-form-label text-primary">Mật
+															khẩu hiện tại</label>
+														<div class="col-sm-10">
+															<input type="password" name="s-password"
+																class="form-control" placeholder="Mật khẩu hiện tại" />
+															<p class="text-danger">${sPassword }</p>
+														</div>
+													</div>
+													<div class="form-group row">
+														<label for="confirmPassword-register"
+															class="col-sm-2 col-form-label text-primary">Mật
+															khẩu mới</label>
+														<div class="col-sm-10">
+															<input type="password" name="new-password"
+																class="form-control" id="confirmPassword-register"
+																placeholder="Mật khẩu mới">
+															<p class="text-danger">${newPassword }</p>
+														</div>
+													</div>
+													<div class="form-group row">
+														<label for="confirmPassword-register"
+															class="col-sm-2 col-form-label text-primary">Xác
+															nhận mật khẩu</label>
+														<div class="col-sm-10">
+															<input type="password" name="confirm-password"
+																class="form-control" id="confirmPassword-register"
+																placeholder="Nhập lại mật khẩu">
+															<p class="text-danger">${confirmPassword }</p>
+														</div>
+													</div>
+
+
+
+													<div class="form-group row">
+														<div class="offset-sm-2 col-sm-10">
+															<button type="submit" class="btn bg-primary"
+																type="submit" name="doimatkhau" id="btn-change-mk">Xác
+																nhận</button>
+														</div>
+													</div>
+												</form>
+												<!--<div class="col-12">
 												<div class=" d-flex justify-content-end">
 													
 													<a href="quanly/tongquan" id="cancel-update-modal"
@@ -341,30 +289,30 @@
 														khẩu</button>
 												</div>
 											</div>   -->
-										
-									</div> 
-											<!-- /.tab-pane -->
+
 										</div>
-										<!-- /.tab-content -->
+										<!-- /.tab-pane -->
 									</div>
-									<!-- /.card-body -->
+									<!-- /.tab-content -->
 								</div>
-								<!-- /.card -->
+								<!-- /.card-body -->
 							</div>
-							<!-- /.col -->
+							<!-- /.card -->
 						</div>
+						<!-- /.col -->
 					</div>
+				</div>
 
-				</div>
-				<!-- /.card -->
-				</div>
 			</div>
-			<!-- /.row -->
-
+			<!-- /.card -->
 		</div>
+	</div>
+	<!-- /.row -->
+
+</div>
 
 
-	<!-- /.content -->
+<!-- /.content -->
 
 <!-- /.content-wrapper -->
 

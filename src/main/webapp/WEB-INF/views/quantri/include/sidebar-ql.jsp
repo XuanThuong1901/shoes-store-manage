@@ -90,7 +90,7 @@
               </a>
             </li>
              <li class="nav-item" id="thongke">
-              <a href="#" class="nav-link ">
+              <a href="quanly/thongke" class="nav-link ">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
 
                 <p>

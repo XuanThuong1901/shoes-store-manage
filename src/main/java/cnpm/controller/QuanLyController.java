@@ -2,11 +2,16 @@ package cnpm.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,10 +19,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.manager.util.SessionUtils;
 
-
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -30,7 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cnpm.entity.*;
-
+import cnpm.model.ThongKeTheoSP;
 import cnpm.model.ThongTinCaNhan;
 
 import cnpm.model.ThongTinChiTietPN;
@@ -84,9 +89,35 @@ public class QuanLyController {
 
 // ============== List ==========================
 	List<ThongTinChiTietPN> thongTinChiTietPN = new ArrayList<ThongTinChiTietPN>();
-
+	List<ThongKeTheoSP> thongKeTheoSP = new ArrayList<ThongKeTheoSP>();
 	boolean check = false;
 //	============== Model - Attribute ==============
+
+	@ModelAttribute("danhSachThongKeTheoSP")
+	public List<ThongKeTheoSP> dsThongKe(HttpSession ss) {
+		thongKeTheoSP.clear();
+		List<ChiTietDonHang> dh = chiTietDonHangService.getDSCTDH();
+		for (int i = 0; i < dh.size(); i++) {
+			boolean check = false;
+			double doanhthu = (double) dh.get(i).getGia() * (double) dh.get(i).getSoLuong();
+			for (int j = 0; j < thongKeTheoSP.size(); j++) {
+				if (dh.get(i).getChiTietSP().getSanPham().getMaSP() == thongKeTheoSP.get(j).getMaSP()) {
+					thongKeTheoSP.get(j).setDoanhThu(doanhthu + thongKeTheoSP.get(j).getDoanhThu());
+					;
+					check = true;
+					break;
+				}
+			}
+			if (check == false) {
+				ThongKeTheoSP tk = new ThongKeTheoSP();
+				tk.setMaSP(dh.get(i).getChiTietSP().getSanPham().getMaSP());
+				tk.setTenSP(dh.get(i).getChiTietSP().getSanPham().getTenSP());
+				tk.setDoanhThu(doanhthu);
+				thongKeTheoSP.add(tk);
+			}
+		}
+		return thongKeTheoSP;
+	}
 
 	@ModelAttribute("danhSachThongTinCTPN")
 	public List<ThongTinChiTietPN> thongTinCTPN() {
@@ -264,7 +295,9 @@ public class QuanLyController {
 	}
 
 	@RequestMapping(value = "tongquan", method = RequestMethod.GET)
-	public String getViewTongQuan(ModelMap model) {
+	public String getViewTongQuan(ModelMap model, HttpSession ss) {
+		ss.setAttribute("fromDate", "");
+		ss.setAttribute("toDate", "");
 		model.addAttribute("isOpenModalEditUser", false);
 
 		return "quantri/quanly/tongquan";
@@ -289,6 +322,13 @@ public class QuanLyController {
 		model.addAttribute("isOpenModalInfo", false);
 
 		return "quantri/quanly/nhacungcap";
+	}
+	
+	@RequestMapping(value = "thongke", method = RequestMethod.GET)
+	public String getViewThongKe(ModelMap model) {
+		model.addAttribute("isOpenModalInfo", false);
+
+		return "quantri/quanly/thongke";
 	}
 
 	@RequestMapping(value = "nhanvien", params = "themNV", method = RequestMethod.POST)
@@ -407,7 +447,6 @@ public class QuanLyController {
 			model.addAttribute("isOpenModalEdit", true);
 
 		}
-		
 
 		return "quantri/quanly/nhanvien";
 	}
@@ -1297,7 +1336,6 @@ public class QuanLyController {
 		ChiTietSanPham ctsp = chiTietSanPhamService.getByMaSCTSP(maCTSP);
 		int masp = ctsp.getSanPham().getMaSP();
 
-		
 		if (ctsp != null) {
 			if (ctsp.getSoLuong() != 0) {
 				model.addAttribute("xoactsp", "Chi tiết này không được xóa");
@@ -1308,7 +1346,7 @@ public class QuanLyController {
 			} else {
 				chiTietSanPhamService.xoaCTSP(ctsp);
 				List<ChiTietSanPham> list = chiTietSanPhamService.getByMaSP(masp);
-				if(list == null) {
+				if (list == null) {
 					SanPham sanPham = sanPhamService.getByMaSP(masp);
 					sanPhamService.xoaSP(sanPham);
 					model.addAttribute("isSuccess", false);
@@ -1398,13 +1436,6 @@ public class QuanLyController {
 
 //		return "quantri/quanly/nhacungcap";
 //	}
-	
-
-
-	
-
-	
-	
 
 //		System.out.println(phieunhap.g);
 		if (phieuNhapService.themPN(phieunhap)) {
@@ -1543,5 +1574,68 @@ public class QuanLyController {
 		return "quantri/quanly/phieunhap";
 	}
 
+	@RequestMapping(value = "thongke", params = "thongke", method = RequestMethod.POST)
+	public String ThongKeTheoSP(ModelMap model, HttpSession ss,
+			@RequestParam(name="fromDate", required = false) String from,
+			@RequestParam(name="toDate", required = false) String to) throws ParseException {
+		thongKeTheoSP.clear();
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		
+		System.out.println(from);
+		
+		Date fromdate = null;
+		Date todate = null;
+		
+		if (from != "") {
+			fromdate = f.parse(from);
+		}
+		if (to != "") {
+			todate = f.parse(to);
+		}
+		
+		if(fromdate == null) {
+			model.addAttribute("fromdate", "chưa chọn ngày");
+			return "quantri/quanly/thongke";
+		}
+		if(todate == null) {
+			model.addAttribute("todate", "chưa chọn ngày");
+			return "quantri/quanly/thongke";
+		}
+		
+//		DateFormat fd = new SimpleDateFormat("yyyy/MM/dd");
+//		DateFormat t = new SimpleDateFormat("yyyy/MM/dd");
+		
+		System.out.println(fromdate);
+
+		List<DonHang> dh = donHangService.getByDate(fromdate, todate);
+//		System.out.println(dh.get(0).getMaDH());
+		if(dh != null) {
+			for (int i = 0; i < dh.size(); i++) {
+				List<ChiTietDonHang> ct = chiTietDonHangService.getDSByMaDH(dh.get(i).getMaDH());
+				for (int j = 0; j < ct.size(); j++) {
+					boolean check = false;
+					double doanhthu = (double) ct.get(j).getGia() * (double) ct.get(j).getSoLuong();
+					for (int z = 0; z < thongKeTheoSP.size(); z++) {
+						if (ct.get(j).getChiTietSP().getSanPham().getMaSP() == thongKeTheoSP.get(z).getMaSP()) {
+							thongKeTheoSP.get(z).setDoanhThu(doanhthu + thongKeTheoSP.get(z).getDoanhThu());
+							check = true;
+							break;
+						}
+					}
+					if (check == false) {
+						ThongKeTheoSP tk = new ThongKeTheoSP();
+						tk.setMaSP(ct.get(i).getChiTietSP().getSanPham().getMaSP());
+						tk.setTenSP(ct.get(i).getChiTietSP().getSanPham().getTenSP());
+						tk.setDoanhThu(doanhthu);
+						thongKeTheoSP.add(tk);
+					}
+				}
+			}
+		}
+		
+		
+		model.addAttribute("danhSachThongKeTheoSP", thongKeTheoSP);
+		return "quantri/quanly/thongke";
+	}
 
 }
