@@ -26,7 +26,7 @@
 
 			<form action="sanpham/${ctsanpham.getMaSP() }" method="post"
 				class="d-flex">
-				<div class="col-lg-5 mb-30">
+				<div class="col-sm-12 col-lg-5 mb-30">
 					<%-- <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner bg-light">
                         <div class="carousel-item active">
@@ -55,7 +55,7 @@
 					</div>
 				</div>
 
-				<div class="col-lg-7 h-auto mb-30">
+				<div class="col-sm-12 col-lg-7 h-auto mb-30">
 					<div class="h-100 bg-light p-30">
 						<h3>${ctsanpham.getTenSP() }</h3>
 						<!-- <div class="d-flex mb-3">
@@ -80,7 +80,7 @@
 											<fmt:setLocale value="vi_VN" />
 											<fmt:formatNumber maxFractionDigits="0"
 												value="${ctsanpham.getGia()} " type="currency"
-												currencySymbol="vnđ" />
+												currencySymbol="đ" />
 										</del></span>
 								</c:when>
 							</c:choose>
@@ -123,7 +123,7 @@
 							<c:when test="${isSuccess == false }">
 								<div class="alert alert-warning alert-dismissible fade show"
 									role="alert">
-									${message }
+									${alertMessage }
 									<button type="button" class="close" data-dismiss="alert"
 										aria-label="Close" data-success="${isSuccess }">
 										<span aria-hidden="true">&times;</span>
@@ -139,7 +139,7 @@
 										<i class="fa fa-minus"></i>
 									</button>
 								</div>
-								<input type="text" name="soluong"
+								<input type="text" name="soluong"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
 									class="form-control bg-secondary border-0 text-center"
 									value="1">
 
@@ -492,21 +492,7 @@
 
 <script>
 	$(document).ready(function(){
-		let addCardBtn = $("#add-card-btn")
-		addCardBtn.click(function(e){
-			e.preventDefault()
-			let number = $("#number-product").attr("value")
-			let size = $("input[name='size']:checked").val()
-			let  detailNumber = $("input[name='size']:checked").data("ctsp")
-			console.log('number', number, size)
-			
-			let queryParams = "?size=" + size + "&number=" + number + "&ctsp=" + detailNumber
-			console.log(queryParams)
-			addCardBtn.attr("href", addCardBtn.attr("href").concat(queryParams))
-			addCardBtn.unbind("click")
-			addCardBtn[0].click()
-			console.log(addCardBtn.attr("href"))
-		})
+		 
 		
 		
 		let isSuccess = $("#themvaogiohang").data("success")
@@ -514,9 +500,9 @@
 			
 			toastr.success('Thêm vào giỏ hàng thành công!')
 		}
-		//else{
-			// toastr.error('Thêm vào giỏ hàng thất bại!')		
-		//}
+		else if(isSuccess==false && isSuccess != ''){
+			 toastr.error('Thêm vào giỏ hàng thất bại!')		
+		}
 		
 		$(".custom-control-input").click(function() {
 			let slcosan = $(this).data("cosan")

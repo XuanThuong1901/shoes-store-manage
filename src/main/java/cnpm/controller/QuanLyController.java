@@ -1614,7 +1614,7 @@ public class QuanLyController {
 				List<ChiTietDonHang> ct = chiTietDonHangService.getDSByMaDH(dh.get(i).getMaDH());
 				for (int j = 0; j < ct.size(); j++) {
 					boolean check = false;
-					double doanhthu = (double) ct.get(j).getGia() * (double) ct.get(j).getSoLuong();
+					double doanhthu = (double) ct.get(j).getGia();
 					for (int z = 0; z < thongKeTheoSP.size(); z++) {
 						if (ct.get(j).getChiTietSP().getSanPham().getMaSP() == thongKeTheoSP.get(z).getMaSP()) {
 							thongKeTheoSP.get(z).setDoanhThu(doanhthu + thongKeTheoSP.get(z).getDoanhThu());

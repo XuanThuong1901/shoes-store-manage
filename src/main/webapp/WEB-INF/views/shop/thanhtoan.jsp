@@ -75,6 +75,7 @@
 											<ul style="list-style: none; padding-left: 0px;">
 												<form:radiobuttons element="li" path="hinhThucTT.maHTTT"
 													itemValue="maHTTT" itemLabel="kieuTT" items="${dsHTTT}" />
+												 <form:errors path="hinhThucTT.maHTTT" cssClass="text-danger"/>
 											</ul>
 										</div>
 
@@ -91,8 +92,7 @@
 
 									<button type="submit" name="muahang"
 										class="btn btn-block btn-primary font-weight-bold py-3"
-										style="font-size: 20px" data-toggle="modal"
-										data-target="#exampleModal">ĐẶT HÀNG</button>
+										style="font-size: 20px" >ĐẶT HÀNG</button>
 
 									<!-- Modal -->
 									<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -137,24 +137,28 @@
 				</h5>
 				<div class="bg-primary p-30 mb-5">
 					<div class="border-bottom">
-						<h6 class="mb-3">3 Sản phẩm</h6>
-						<div class="d-flex justify-content-between">
-							<p>Product Name 1</p>
-							<p>$150</p>
+						<h6 class="mb-3">${giohang.size()}&nbsp;Sản phẩm</h6>
+						<c:forEach var="sp" items="${giohang }">
+							<div class="d-flex justify-content-between">
+							<p class="text-truncate">${sp.chiTietSP.sanPham.tenSP }</p>
+							<p class="price-item"><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
+										maxFractionDigits="0"
+										value="${sp.chiTietSP.sanPham.gia - sp.chiTietSP.sanPham.gia* (sp.chiTietSP.sanPham.giamGia/100)}"
+										type="currency" currencySymbol="đ" />
+							
+							</p>
 						</div>
-						<div class="d-flex justify-content-between">
-							<p>Product Name 2</p>
-							<p>$150</p>
-						</div>
-						<div class="d-flex justify-content-between">
-							<p>Product Name 3</p>
-							<p>$150</p>
-						</div>
+						</c:forEach>
+						
+						
 					</div>
 					<div class="border-bottom pt-3 pb-2">
 						<div class="d-flex justify-content-between mb-3">
 							<h6>Tạm tính</h6>
-							<h6>$150</h6>
+							<h6><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
+										maxFractionDigits="0"
+										value="${tongtien}"
+										type="currency" currencySymbol="đ" /></h6>
 						</div>
 						<div class="d-flex justify-content-between">
 							<h6 class="font-weight-medium">Phí giao hàng</h6>
@@ -164,7 +168,10 @@
 					<div class="pt-2">
 						<div class="d-flex justify-content-between mt-2">
 							<h5>Tổng tiền</h5>
-							<h5>$160</h5>
+							<h5><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
+										maxFractionDigits="0"
+										value="${tongtien + 30000}"
+										type="currency" currencySymbol="đ" /></h5>
 						</div>
 					</div>
 				</div>
@@ -174,6 +181,7 @@
 		<%-- <form:form> --%>
 	</div>
 	<!-- Checkout End -->
+	<p id="alertMessage" data-message="${alertMessage }" data-success=${isSuccess }></p>
 </main>
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary back-to-top"><i
@@ -189,4 +197,14 @@
 <!-- JS Lib End -->
 
 <script>
+	$(document).ready(function() {
+	
+		let isSuccess = $("#alertMessage").data("success")
+			if(isSuccess){
+				
+				toastr.success($("#alertMessage").data("message"))
+			}else if(isSuccess == false && isSuccess.trim() != ''){
+				toastr.error($("#alertMessage").data("message"))
+			}
+	})
 </script>

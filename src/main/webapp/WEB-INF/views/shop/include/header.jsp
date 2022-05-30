@@ -34,7 +34,17 @@
 <link
 	href="<c:url value='resources/user/lib/owlcarousel/assets/owl.carousel.min.css'/>"
 	rel="stylesheet">
-
+<link
+	href="<c:url value='resources/user/lib/alertify/css/alertify.min.css'/>"
+	rel="stylesheet">
+<link
+	href="<c:url value='resources/user/lib/alertify/css/themes/default.min.css'/>"
+	rel="stylesheet">
+<link
+	href="<c:url value='resources/user/lib/alertify/css/themes/semantic.min.css'/>"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 <%-- --%>
 
 <!-- Customized Bootstrap Stylesheet -->
@@ -155,7 +165,7 @@
 
 				</div>
 				<div class="d-inline-flex align-items-center d-block d-lg-none">
-					<a href="" class="btn px-0 ml-2"> <i class="fa fa-search"></i>
+					<%-- <a href="" class="btn px-0 ml-2"> <i class="fa fa-search"></i>
 					</a>
 					<div class="btn px-0 ml-2">
 						<button type="button" class="btn btn-sm btn-light dropdown-toggle"
@@ -164,17 +174,26 @@
 						</button>
 						<div class="dropdown-menu dropdown-menu-right">
 							<a href="" class="dropdown-item">${user.getKhachHang().getHo() }&nbsp;${user.getKhachHang().getTen() }
-							</a> <a href="" class="dropdown-item">Đăng xuất </a>
+							</a> <a href="dangxuat" class="dropdown-item">Đăng xuất </a>
 						</div>
-					</div>
+					</div> --%>
 					<!-- <a href="user.html" class="btn px-0 ml-2">
                         <i class="fas fa-user text-dark"></i>
                     </a> -->
-					<a href="" class="btn px-0 ml-2"> <i
-						class="fas fa-shopping-cart text-dark"></i> <span
-						class="badge text-dark border border-dark rounded-circle"
-						style="padding-bottom: 2px;">0</span>
-					</a>
+					<c:choose>
+						<c:when test="${empty user == false }">
+							<c:choose>
+								<c:when test="${user.getVaitro().getMaVT() == 'KH' }">
+									<a href="giohang" class="btn px-0 ml-2"> <i
+										class="fas fa-shopping-cart text-primary"></i> <span
+										class="badge text-dark border border-dark rounded-circle"
+										style="padding-bottom: 2px;">${giohang.size()}</span>
+									</a>
+								</c:when>
+							</c:choose>
+
+						</c:when>
+					</c:choose>
 				</div>
 			</div>
 		</div>
@@ -263,22 +282,28 @@
 										href="checkout.html" class="dropdown-item">NỮ</a>
 								</div>
 							</div>
-							<a href="detail.html" class="nav-item nav-link">CHI TIẾT SẢN
+							<!-- <a href="detail.html" class="nav-item nav-link">CHI TIẾT SẢN
 								PHẨM</a> <a href="contact.html" class="nav-item nav-link">LIÊN
-								HỆ </a>
+								HỆ </a> -->
 						</div>
 						<c:choose>
 							<c:when test="${empty user == false }">
-								<div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-								<!-- 	<a href="user.html" class="btn px-0"> <i
+								<c:choose>
+									<c:when test="${user.getVaitro().getMaVT() == 'KH' }">
+										<div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+											<!-- 	<a href="user.html" class="btn px-0"> <i
 										class="fas fa-user text-primary"></i>
-									</a> --> <a href="giohang" class="btn px-0 ml-3"> <i
-										class="fas fa-shopping-cart text-primary"></i> <span
-										class="badge text-secondary border border-secondary rounded-circle"
-										style="padding-bottom: 2px;">${giohang.size() }</span>
+									</a> -->
+											<a href="giohang" class="btn px-0 ml-3"> <i
+												class="fas fa-shopping-cart text-primary"></i> <span
+												class="badge text-secondary border border-secondary rounded-circle"
+												style="padding-bottom: 2px;">${giohang.size() }</span>
 
-									</a>
-								</div>
+											</a>
+										</div>
+									</c:when>
+								</c:choose>
+
 							</c:when>
 						</c:choose>
 

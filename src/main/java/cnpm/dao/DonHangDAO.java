@@ -34,6 +34,26 @@ public class DonHangDAO {
 		return res.get(0);
 	}
 	
+	public List<DonHang> getDSDonHangByTT(Integer maTT){
+		Session session = factory.getCurrentSession();
+		String hql = "from DonHang where trangThaiDH.maTTDH =:maTT";
+		Query query = session.createQuery(hql);
+		query.setParameter("maTT", maTT);
+		List< DonHang> list = query.list();
+		
+		return list;
+	}
+	
+	public List<DonHang> getDSDonHangCuaKH(String maKH){
+		Session session = factory.getCurrentSession();
+		String hql = "from DonHang as dh where dh.khachHang.maKH = :maKH order by dh.trangThaiDH.maTTDH asc ";
+		Query query = session.createQuery(hql);
+		query.setParameter("maKH", maKH);
+		List< DonHang> list = query.list();
+		
+		return list;
+	}
+	
 	public List<DonHang> getDSDonHang(){
 		Session session = factory.getCurrentSession();
 		String hql = "from  DonHang";

@@ -10,7 +10,9 @@
 	src="<c:url value='resources/user/lib/owlcarousel/owl.carousel.min.js'/>"></script>
 <script
 	src="<c:url value='resources/employee/plugins/toastr/toastr.min.js'/>"></script>
-
+ <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+ <script src="<c:url value='resources/user/lib/alertify/alertify.min.js'/>"></script>
+ 
 <!-- Contact Javascript File -->
 <script
 	src="<c:url value='resources/user/mail/jqBootstrapValidation.min.js'/>"></script>

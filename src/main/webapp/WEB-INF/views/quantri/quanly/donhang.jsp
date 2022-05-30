@@ -39,10 +39,7 @@
 							<div class="d-flex justify-content-between">
 								<h3 class="mt-2">Danh sách đơn hàng</h3>
 
-								<button type="submit" class="btn bg-primary  mt-2"
-									data-toggle="modal" data-target="#modal-add-new">
-									<i class="fas fa-plus mr-2"></i>Thêm đơn hàng mới
-								</button>
+								
 							</div>
 
 						</div>
@@ -87,9 +84,7 @@
 											<td>
 												<div class="d-flex justify-content-between px-4">
 													<a class="" href="quanly/donhang/${dh.getMaDH() }?thongtin"><i
-														class="fas fa-info-circle"></i> </a> <a class="" href="#"
-														data-toggle="modal" data-target="#modal-edit"><i
-														class="fas fa-edit"></i> </a> <a class=""
+														class="fas fa-info-circle"></i> </a>  <a class=""
 														href="quanly/donhang/${dh.getMaDH() }?suaTrangthai"> <i
 														class="fas fa-check-square"></i></a>
 													<!-- <a class="" href="#" data-toggle="modal" data-target="#exampleModalDisable"><i class="fas fa-lock"></i> </a> -->
@@ -191,7 +186,7 @@
 										<td>${ctdh.getChiTietSP().getSizeSanPham().getTenSize() }</td>
 										
 										<td><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
-												value=" ${ctdh.getChiTietSP().getSanPham().getGia() }"
+												value=" ${(ctdh.chiTietSP.sanPham.gia - ctdh.chiTietSP.sanPham.gia* (ctdh.chiTietSP.sanPham.giamGia/100)) * ctdh.soLuong}"
 												type="currency" currencySymbol="vnđ" /></td>
 									</tr>
 								</c:forEach>
