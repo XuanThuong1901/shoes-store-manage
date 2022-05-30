@@ -1,6 +1,9 @@
 package cnpm.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -30,6 +33,7 @@ import cnpm.entity.PhieuNhap;
 import cnpm.entity.SanPham;
 import cnpm.entity.SizeSanPham;
 import cnpm.entity.TaiKhoan;
+import cnpm.model.ThongKeTheoSP;
 import cnpm.model.ThongTinChiTietPN;
 import cnpm.service.ChiTietDonHangService;
 import cnpm.service.ChiTietPhieuNhapService;
@@ -94,10 +98,36 @@ public class NhanVienController {
 
 	// ============== List ==========================
 	List<ThongTinChiTietPN> thongTinChiTietPN = new ArrayList<ThongTinChiTietPN>();
-
+	List<ThongKeTheoSP> thongKeTheoSP = new ArrayList<ThongKeTheoSP>();
 	boolean check = false;
 //	============== Model - Attribute ==============
 
+	@ModelAttribute("danhSachThongKeTheoSP")
+	public List<ThongKeTheoSP> dsThongKe(HttpSession ss) {
+		thongKeTheoSP.clear();
+		List<ChiTietDonHang> dh = chiTietDonHangService.getDSCTDH();
+		for (int i = 0; i < dh.size(); i++) {
+			boolean check = false;
+			double doanhthu = (double) dh.get(i).getGia() * (double) dh.get(i).getSoLuong();
+			for (int j = 0; j < thongKeTheoSP.size(); j++) {
+				if (dh.get(i).getChiTietSP().getSanPham().getMaSP() == thongKeTheoSP.get(j).getMaSP()) {
+					thongKeTheoSP.get(j).setDoanhThu(doanhthu + thongKeTheoSP.get(j).getDoanhThu());
+					;
+					check = true;
+					break;
+				}
+			}
+			if (check == false) {
+				ThongKeTheoSP tk = new ThongKeTheoSP();
+				tk.setMaSP(dh.get(i).getChiTietSP().getSanPham().getMaSP());
+				tk.setTenSP(dh.get(i).getChiTietSP().getSanPham().getTenSP());
+				tk.setDoanhThu(doanhthu);
+				thongKeTheoSP.add(tk);
+			}
+		}
+		return thongKeTheoSP;
+	}
+	
 	@ModelAttribute("danhSachDonHang")
 	public List<DonHang> getDSDH() {
 		return donHangService.getDSDonHang();
@@ -284,6 +314,13 @@ public class NhanVienController {
 		model.addAttribute("isOpenModalInfo", false);
 
 		return "quantri/nhanvien/khachhang";
+	}
+	
+	@RequestMapping(value = "thongke", method = RequestMethod.GET)
+	public String getViewThongKe(ModelMap model) {
+		model.addAttribute("isOpenModalInfo", false);
+
+		return "quantri/nhanvien/thongke";
 	}
 
 	/// Khách hàng
@@ -1068,5 +1105,70 @@ public class NhanVienController {
 
 		return "quantri/nhanvien/phieunhap";
 	}
+	
+	@RequestMapping(value = "thongke", params = "thongke", method = RequestMethod.POST)
+	public String ThongKeTheoSP(ModelMap model, HttpSession ss,
+			@RequestParam(name="fromDate", required = false) String from,
+			@RequestParam(name="toDate", required = false) String to) throws ParseException {
+		thongKeTheoSP.clear();
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		
+		System.out.println(from);
+		
+		Date fromdate = null;
+		Date todate = null;
+		
+		if (from != "") {
+			fromdate = f.parse(from);
+		}
+		if (to != "") {
+			todate = f.parse(to);
+		}
+		
+		if(fromdate == null) {
+			model.addAttribute("fromdate", "chưa chọn ngày");
+			return "quantri/nhanvien/thongke";
+		}
+		if(todate == null) {
+			model.addAttribute("todate", "chưa chọn ngày");
+			return "quantri/nhanvien/thongke";
+		}
+		
+//		DateFormat fd = new SimpleDateFormat("yyyy/MM/dd");
+//		DateFormat t = new SimpleDateFormat("yyyy/MM/dd");
+		
+		System.out.println(fromdate);
+
+		List<DonHang> dh = donHangService.getByDate(fromdate, todate);
+//		System.out.println(dh.get(0).getMaDH());
+		if(dh != null) {
+			for (int i = 0; i < dh.size(); i++) {
+				List<ChiTietDonHang> ct = chiTietDonHangService.getDSByMaDH(dh.get(i).getMaDH());
+				for (int j = 0; j < ct.size(); j++) {
+					boolean check = false;
+					double doanhthu = (double) ct.get(j).getGia() * (double) ct.get(j).getSoLuong();
+					for (int z = 0; z < thongKeTheoSP.size(); z++) {
+						if (ct.get(j).getChiTietSP().getSanPham().getMaSP() == thongKeTheoSP.get(z).getMaSP()) {
+							thongKeTheoSP.get(z).setDoanhThu(doanhthu + thongKeTheoSP.get(z).getDoanhThu());
+							check = true;
+							break;
+						}
+					}
+					if (check == false) {
+						ThongKeTheoSP tk = new ThongKeTheoSP();
+						tk.setMaSP(ct.get(i).getChiTietSP().getSanPham().getMaSP());
+						tk.setTenSP(ct.get(i).getChiTietSP().getSanPham().getTenSP());
+						tk.setDoanhThu(doanhthu);
+						thongKeTheoSP.add(tk);
+					}
+				}
+			}
+		}
+		
+		
+		model.addAttribute("danhSachThongKeTheoSP", thongKeTheoSP);
+		return "quantri/nhanvien/thongke";
+	}
+
 
 }

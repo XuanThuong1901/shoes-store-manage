@@ -19,6 +19,19 @@ public class ChiTietDonHangDAO {
 	@Autowired
 	SessionFactory factory;
 	
+	public List<ChiTietDonHang> getDSCTDH(){
+		Session session = factory.getCurrentSession();
+		String hql = "from ChiTietDonHang";
+		Query query = session.createQuery(hql);
+		List<ChiTietDonHang> res = query.list();
+		
+		if(res.isEmpty()) {
+			return null;
+		}
+		
+		return res;
+	}
+	
 	public List<ChiTietDonHang> getDSByMaDH(Integer MaDH){
 		Session session = factory.getCurrentSession();
 		String hql = "from ChiTietDonHang where MaDH = :MaDH";

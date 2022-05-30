@@ -23,6 +23,12 @@ public class TaiKhoanService {
 		String pwHash = hashPass(matkhau);
 		return taiKhoanDAO.kiemTraDangNhap(email, pwHash);
 	}
+	
+	public boolean checkEmailExcept(String email) {
+		// TODO Auto-generated method stub
+		
+		return taiKhoanDAO.checkEmailExcept(email);
+	}
 
 	public TaiKhoan getByEmail(String email) {
 		// TODO Auto-generated method stub
@@ -45,6 +51,11 @@ public class TaiKhoanService {
 	public Boolean resetMK(TaiKhoan taikhoan) {
 		taikhoan.setMatKhau(hashPass("123456"));
 		return taiKhoanDAO.sua(taikhoan);
+	}
+	
+	public Boolean thayDoiMK(TaiKhoan taiKhoan, String mk) {
+		taiKhoan.setMatKhau(hashPass(mk));
+		return taiKhoanDAO.sua(taiKhoan);
 	}
 	
 	public Boolean xoaTK(TaiKhoan taikhoan) {

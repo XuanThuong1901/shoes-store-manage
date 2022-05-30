@@ -22,7 +22,7 @@ public class TaiKhoanDAO implements TaiKhoanDAOImp{
 
 	public boolean checkEmailExcept(String email) {
 		Session session = factory.getCurrentSession();
-		String hql = "from TaiKhoan where email = :email and matkhau = :matkhau";
+		String hql = "from TaiKhoan where email = :email";
 		Query query = session.createQuery(hql);
 		query.setParameter("email", email);
 		

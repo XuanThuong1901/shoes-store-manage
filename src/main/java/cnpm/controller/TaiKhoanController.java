@@ -1,10 +1,17 @@
 package cnpm.controller;
 
+import java.util.Random;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -26,7 +33,6 @@ import cnpm.service.NhanVienService;
 import cnpm.service.TaiKhoanService;
 import cnpm.service.UtilsService;
 
-
 @Controller
 @SessionAttributes("user")
 public class TaiKhoanController {
@@ -38,81 +44,87 @@ public class TaiKhoanController {
 
 	@Autowired
 	NhanVienService nhanVienService;
-	
 
 	@Autowired
 	UtilsService utilService;
-	
+
+	@Autowired
+	JavaMailSender mailSender;
+
 	@ModelAttribute("thongTinNV")
 	public NhanVien thongtinNv(ModelMap model) {
 
 		return new NhanVien();
 	}
 
-	
-	@RequestMapping(value="dangxuat")
+	@RequestMapping(value = "dangxuat")
 	public String dangXuat(HttpSession ss) {
-		if(ss.getAttribute("user") != null) {
+		if (ss.getAttribute("user") != null) {
 			ss.removeAttribute("user");
 		}
 		return "redirect:/";
 	}
-	
-	@RequestMapping(value = {"dangnhap" }, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "dangnhap" }, method = RequestMethod.GET)
 	public String getDangNhap(ModelMap model) {
 		model.addAttribute("taikhoan", new TaiKhoan());
 		return "taikhoan/dangnhap";
 	}
-	
-	@RequestMapping(value = {"dangky" }, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "dangky" }, method = RequestMethod.GET)
 	public String getDangKy(ModelMap model) {
 		model.addAttribute("tkdangky", new KhachHang());
 		return "taikhoan/dangky";
 	}
 
+	@RequestMapping(value = { "quenmatkhau" }, method = RequestMethod.GET)
+	public String getQuenMatKhau(ModelMap model) {
+		model.addAttribute("quenmatkhau", new TaiKhoan());
+		return "taikhoan/quenmatkhau";
+	}
+
 	@RequestMapping(value = "dangnhap", method = RequestMethod.POST)
-	public String postDangNhap(ModelMap model, HttpServletRequest request, HttpSession ss, @ModelAttribute("taikhoan") TaiKhoan taikhoan,BindingResult errors) {
+	public String postDangNhap(ModelMap model, HttpServletRequest request, HttpSession ss,
+			@ModelAttribute("taikhoan") TaiKhoan taikhoan, BindingResult errors) {
 
 		if (taikhoan.getEmail().trim().isEmpty()) {
 			errors.rejectValue("email", "taikhoan", "Email không được để trống");
 		}
-		
-		if(!taikhoan.getEmail().trim().matches("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")) {
+
+		if (!taikhoan.getEmail().trim().matches(
+				"^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")) {
 			errors.rejectValue("email", "taikhoan", "Vui lòng nhập chính xác email của bạn!");
 		}
-			
+
 		if (taikhoan.getMatKhau().trim().isEmpty()) {
 			errors.rejectValue("matKhau", "taikhoan", "Mật khẩu không được để trống");
 		}
 		if (errors.hasErrors()) {
 			return "taikhoan/dangnhap";
 		}
-		
-		
+
 		if (taiKhoanService.kiemTraDangNhap(taikhoan.getEmail(), taikhoan.getMatKhau())) {
 			TaiKhoan thongtinTk = taiKhoanService.getByEmail(taikhoan.getEmail());
-			
-			if(!thongtinTk.getTrangThai()) {
-				model.addAttribute("message", "Tài khoản chưa được kích hoạt hoặc đã bị khóa, vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi!");
+
+			if (!thongtinTk.getTrangThai()) {
+				model.addAttribute("message",
+						"Tài khoản chưa được kích hoạt hoặc đã bị khóa, vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi!");
 				return "taikhoan/dangnhap";
 			}
-			
-			
-			
+
 			if (thongtinTk.getVaitro().getMaVT().equals("KH")) {
-				if(thongtinTk.getKhachHang() == null) {
+				if (thongtinTk.getKhachHang() == null) {
 					model.addAttribute("message", "Thông tin đăng nhập không hợp lệ");
 					return "taikhoan/dangnhap";
 				}
 				ss.setAttribute("user", thongtinTk);
 
 				ss.setAttribute("maUser", thongtinTk.getKhachHang().getMaKH());
-			
 
 				return "redirect:/trangchu";
 			} else if (thongtinTk.getVaitro().getMaVT().equals("NV")) {
-				
-				if(thongtinTk.getNhanVien() == null) {
+
+				if (thongtinTk.getNhanVien() == null) {
 					model.addAttribute("message", "Thông tin đăng nhập không hợp lệ");
 					return "taikhoan/dangnhap";
 				}
@@ -122,120 +134,109 @@ public class TaiKhoanController {
 
 				return "redirect:/nhanvien/tongquan";
 			} else if (thongtinTk.getVaitro().getMaVT().equals("QL")) {
-				if(thongtinTk.getNhanVien() == null) {
+				if (thongtinTk.getNhanVien() == null) {
 					model.addAttribute("message", "Thông tin đăng nhập không hợp lệ");
 					return "taikhoan/dangnhap";
 				}
 				ss.setAttribute("user", thongtinTk);
 				ss.setAttribute("maUser", thongtinTk.getNhanVien().getMaNV());
-				
+
 				return "redirect:/quanly/tongquan";
 			}
 
-			
 			return "redirect:/quanly/tongquan";
 		}
 		model.addAttribute("message", "Sai thông tin tài khoản hoặc mật khẩu");
 
 		return "taikhoan/dangnhap";
 	}
-	
-	
-	
-	
-	
-	@RequestMapping(value="dangky", method=RequestMethod.POST)
+
+	@RequestMapping(value = "dangky", method = RequestMethod.POST)
 	public String postDangKy(ModelMap model, @ModelAttribute("tkdangky") KhachHang khachHang, BindingResult errors,
-			@RequestParam("email-register") String email, 
-			@RequestParam("password-register") String matKhau, 
+			@RequestParam("email-register") String email, @RequestParam("password-register") String matKhau,
 			@RequestParam("confirm-password-register") String xnMatKhau) {
 
-		
-		if(khachHang.getHo().trim().isEmpty()) {
+		if (khachHang.getHo().trim().isEmpty()) {
 			errors.rejectValue("ho", "tkdangky", "Họ không được để trống");
 		}
-		
-		if(khachHang.getTen().trim().isEmpty()) {
+
+		if (khachHang.getTen().trim().isEmpty()) {
 			errors.rejectValue("ten", "tkdangky", "Tên không được để trống");
 		}
-		
-		if(email == "") {
+
+		if (email == "") {
 			model.addAttribute("email", "Email không thể để trống");
 			return "taikhoan/dangky";
 		}
-		
-		if(matKhau == "") {
+
+		if (matKhau == "") {
 			model.addAttribute("password", "Mật khẩu không thể để trống");
 			return "taikhoan/dangky";
 		}
-		
-		if(xnMatKhau == "") {
+
+		if (xnMatKhau == "") {
 			model.addAttribute("confirmPassword", "Mật khẩu xác nhận không thể để trống");
 			return "taikhoan/dangky";
 		}
-		
-		if(matKhau!="" && xnMatKhau!="" && !xnMatKhau.equals(matKhau)) {
+
+		if (matKhau != "" && xnMatKhau != "" && !xnMatKhau.equals(matKhau)) {
 			model.addAttribute("confirmPassword", "Mật khẩu và mật khẩu xác nhận không trùng nhau");
 			return "taikhoan/dangky";
 		}
-		
 
-		if(khachHang.getSdt().trim().isEmpty()) {
+		if (khachHang.getSdt().trim().isEmpty()) {
 			errors.rejectValue("sdt", "tkdangky", "Số điện thoại không được để trống");
 		}
-		
-		if(khachHang.getDiaChi().trim().isEmpty()) {
+
+		if (khachHang.getDiaChi().trim().isEmpty()) {
 			errors.rejectValue("diaChi", "tkdangky", "Địa chỉ không được để trống");
 		}
 		if (errors.hasErrors()) {
 			return "taikhoan/dangky";
 		}
-		
+
 //		System.out.println("khahchang " + khachhang.getHo());
 //		
 //		System.out.println("email " + email);
-		
-		if(taiKhoanService.emailDaCo(email) ) {
+
+		if (taiKhoanService.emailDaCo(email)) {
 			model.addAttribute("email", "Email đã được sử dụng");
 			return "taikhoan/dangky";
 		}
-		
-		if(khachHangService.getBySdt(khachHang.getSdt()) != null) {
+
+		if (khachHangService.getBySdt(khachHang.getSdt()) != null) {
 			errors.rejectValue("sdt", "tkdangky", "Số điện thoại đã được sử dụng");
 			return "taikhoan/dangky";
 		}
-		
-		
-			TaiKhoan taiKhoan = taiKhoanService.setTK(email, matKhau);			
-			taiKhoanService.themKH(taiKhoan);
-			
-			khachHang.setMaKH(khachHangService.taoMaKHMoi());
-			khachHang.setTaiKhoan(taiKhoan);
-			if(khachHangService.themKH(khachHang)) {
-				model.addAttribute("tkdangky", new KhachHang());
-				model.addAttribute("message", "Tạo tài khoản thành công");
-			}else {
-				model.addAttribute("message", "Tạo tài khoản thất bại");
-			}
-			
-		
-		
+
+		TaiKhoan taiKhoan = taiKhoanService.setTK(email, matKhau);
+		taiKhoanService.themKH(taiKhoan);
+
+		khachHang.setMaKH(khachHangService.taoMaKHMoi());
+		khachHang.setTaiKhoan(taiKhoan);
+		if (khachHangService.themKH(khachHang)) {
+			model.addAttribute("tkdangky", new KhachHang());
+			model.addAttribute("message", "Tạo tài khoản thành công");
+		} else {
+			model.addAttribute("message", "Tạo tài khoản thất bại");
+		}
+
 		return "taikhoan/dangky";
 	}
-	
-	@RequestMapping(value = "{tenVT}/tongquan/{maNV}", params = "chinhsua", method = RequestMethod.GET)
-	public String getLoginUser ( @PathVariable("maNV") String maNV, @PathVariable("tenVT") String tenVT, HttpSession ss, ModelMap model) {
-		
-			NhanVien nhanvien = nhanVienService.getByMaNV(maNV);
-			model.addAttribute("thongTinNV", nhanvien);
+
+	@RequestMapping(value = "tongquan/{maNV}", params = "chinhsua", method = RequestMethod.GET)
+	public String getLoginUser(@PathVariable("maNV") String maNV, HttpSession ss, ModelMap model) {
+
+		NhanVien nhanvien = nhanVienService.getByMaNV(maNV);
+		model.addAttribute("thongTinNV", nhanvien);
 //			model.addAttribute("isOpenModalEditUser", true);
-			
+
 		return "quantri/include/taikhoan";
 	}
-	
-	@RequestMapping(value = "{tenVT}/tongquan/{maNV}", params = "chinhsua", method = RequestMethod.POST)
+
+	@RequestMapping(value = "tongquan/{maNV}", params = "chinhsua", method = RequestMethod.POST)
 	public String postLoginUser(ModelMap model, @ModelAttribute("thongTinNV") NhanVien nhanvien,
-			@PathVariable("tenVT") String tenVT, @RequestParam("anhMoi") MultipartFile anh, @PathVariable("maNV") String maNV, BindingResult errors) {
+			@RequestParam("anhMoi") MultipartFile anh, @PathVariable("maNV") String maNV, BindingResult errors) {
 
 		if (nhanvien.getHo().trim().isEmpty()) {
 			errors.rejectValue("ho", "thongTinNV", "Họ không được để trống");
@@ -305,20 +306,20 @@ public class TaiKhoanController {
 			if (nhanviencu.getPhai() != nhanvien.getPhai()) {
 				nhanviencu.setPhai(nhanvien.getPhai());
 			}
-			if (!nhanviencu.getTaiKhoan().getEmail().equals(nhanvien.getTaiKhoan().getEmail())) {
-				if (taiKhoanService.emailDaCo(nhanvien.getTaiKhoan().getEmail())) {
-					errors.rejectValue("taiKhoan.email", "thongTinNV", "Email đã được sử dụng");
-//					model.addAttribute("isOpenModalEditUser", true);
-					return "quantri/include/taikhoan";
-				} else {
-					nhanviencu.getTaiKhoan().setEmail(nhanvien.getTaiKhoan().getEmail());
-				}
+//			if (!nhanviencu.getTaiKhoan().getEmail().equals(nhanvien.getTaiKhoan().getEmail())) {
+//				if (taiKhoanService.emailDaCo(nhanvien.getTaiKhoan().getEmail())) {
+//					errors.rejectValue("taiKhoan.email", "thongTinNV", "Email đã được sử dụng");
+////					model.addAttribute("isOpenModalEditUser", true);
+//					return "quantri/include/taikhoan";
+//				} else {
+//					nhanviencu.getTaiKhoan().setEmail(nhanvien.getTaiKhoan().getEmail());
+//				}
+//
+//			}
 
-			}
-
-			if (nhanviencu.getTaiKhoan().getTrangThai() != nhanvien.getTaiKhoan().getTrangThai()) {
-				nhanviencu.getTaiKhoan().setTrangThai(nhanvien.getTaiKhoan().getTrangThai());
-			}
+//			if (nhanviencu.getTaiKhoan().getTrangThai() != nhanvien.getTaiKhoan().getTrangThai()) {
+//				nhanviencu.getTaiKhoan().setTrangThai(nhanvien.getTaiKhoan().getTrangThai());
+//			}
 
 			if (!anh.isEmpty()) {
 				String hinh = "";
@@ -329,11 +330,9 @@ public class TaiKhoanController {
 			}
 
 			if (nhanVienService.suaNV(nhanviencu)) {
-				model.addAttribute("thongTinNV", new NhanVien());
+				model.addAttribute("thongTinNV", nhanviencu);
 				model.addAttribute("isSuccess", true);
 				model.addAttribute("alertMessage", "Sửa nhân viên thành công");
-				model.addAttribute("hinh", "");
-				model.addAttribute("danhSachNhanVien", nhanVienService.getDSNhanVien());
 			}
 		}
 
@@ -344,56 +343,85 @@ public class TaiKhoanController {
 
 		return "quantri/include/taikhoan";
 	}
-	
-	@RequestMapping(value = "{tenVT}/tongquan/{maNV}", params = "doimatkhau", method = RequestMethod.POST)
-	public String resetMatKhau(ModelMap model, @ModelAttribute("thongTinNV") NhanVien nhanvien,
-			@PathVariable("tenVT") String tenVT, @PathVariable("maNV") String maNV, 
-			BindingResult errors, @RequestParam("confirm-password") String nlmk) {
-	
-		if (nhanvien.getTaiKhoan().getMatKhau().trim().isEmpty()) {
-			errors.rejectValue("taiKhoan.matKhau", "thongTinNV", "Mật khẩu không được để trống");
-		}
-		if (errors.hasErrors()) {
-//			model.addAttribute("isOpenModalEditUser", true);
-			return "quantri/include/taikhoan";
-		}
-		if(nlmk == "") {
-			model.addAttribute("confirmPassword", "Mật khẩu xác nhận không thể để trống");
-			return "quantri/include/taikhoan";
-		}
-		
-		if(nlmk!="" && nlmk!="" && !nlmk.equals(nhanvien.getTaiKhoan().getMatKhau())) {
-			model.addAttribute("confirmPassword", "Mật khẩu và mật khẩu xác nhận không trùng nhau");
+
+	@RequestMapping(value = "tongquan/{maNV}", params = "doimatkhau", method = RequestMethod.POST)
+	public String resetMatKhau(ModelMap model, HttpSession ss, @RequestParam("s-password") String spass,
+			@RequestParam("new-password") String newpass, @RequestParam("confirm-password") String confpass) {
+
+		if (spass == "") {
+			model.addAttribute("sPassword", "Chưa nhập mật khẩu hiện tại");
 			return "quantri/include/taikhoan";
 		}
 
-		NhanVien nhanviencu = nhanVienService.getByMaNV(maNV);
-		if (nhanviencu != null) {
-			
-			String hash = "2B95EBA6BA37DAB56CC03660404AA729";
-			
-			if (!nhanviencu.getTaiKhoan().getMatKhau().equals(nhanvien.getTaiKhoan().getMatKhau())) {
-				nhanviencu.getTaiKhoan().setMatKhau(DigestUtils.md5Hex(nhanvien.getTaiKhoan().getMatKhau()).toUpperCase());
-			}
-
-			if (nhanVienService.suaNV(nhanviencu)) {
-				model.addAttribute("thongTinNV", new NhanVien());
-				model.addAttribute("isSuccess", true);
-				model.addAttribute("alertMessage", "Đổi mật khẩu thành công");
-				model.addAttribute("hinh", "");
-				model.addAttribute("danhSachNhanVien", nhanVienService.getDSNhanVien());
-			}
+		if (newpass == "") {
+			model.addAttribute("newPassword", "Chưa nhập mật khẩu mới");
+			return "quantri/include/taikhoan";
 		}
 
-		else {
+		if (confpass == "") {
+			model.addAttribute("confirmPassword", "Chưa nhập mật khẩu xác nhận");
+			return "quantri/include/taikhoan";
+		}
+
+		if (!newpass.equals(confpass)) {
+			model.addAttribute("confirmPassword", "Mật khẩu và mật khẩu xác nhận khác nhau");
+			return "quantri/include/taikhoan";
+		}
+
+		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
+
+		if (taiKhoanService.kiemTraDangNhap(tk.getEmail(), spass)) {
+			taiKhoanService.thayDoiMK(tk, newpass);
+			model.addAttribute("isSuccess", true);
+			model.addAttribute("alertMessage", "Thay đổi thành công");
+		} else {
 			model.addAttribute("isSuccess", false);
-			model.addAttribute("alertMessage", "Đổi mật khẩu thất bại");
+			model.addAttribute("alertMessage", "Thay đổi thất bại");
 		}
-		
-		
+		model.addAttribute("thongTinNV", tk.getNhanVien());
 		return "quantri/include/taikhoan";
-	
+	}
+
+	@RequestMapping(value = "quenmatkhau", method = RequestMethod.POST)
+	public String postQuenMatKhau(ModelMap model, HttpSession ss, @ModelAttribute("quenmatkhau") TaiKhoan taikhoan,
+			BindingResult errors) {
+
+		if (taikhoan.getEmail().trim().isEmpty()) {
+			errors.rejectValue("email", "taikhoan", "Email không được để trống");
+		}
+
+		if (errors.hasErrors()) {
+			return "taikhoan/quenmatkhau";
+		}
+
+		if (taiKhoanService.checkEmailExcept(taikhoan.getEmail())) {
+			TaiKhoan thongtinTk = taiKhoanService.getByEmail(taikhoan.getEmail());
+
+			Random generator = new Random();
+			int ramdom = generator.nextInt(99999999) + 100000;
+			String mkmoi = String.valueOf(ramdom);
+
+			taiKhoanService.thayDoiMK(thongtinTk, mkmoi);
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message);
+
+			try {
+				helper.setFrom("no-reply-email");
+				helper.setTo(thongtinTk.getEmail());
+				helper.setSubject("Đổi mật khẩu thành công!");
+				helper.setText("Mật khẩu mới của quý khách là: " + mkmoi);
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			mailSender.send(message);
+			model.addAttribute("message", "Mật khẩu mới đã được gửi vào Email");
+			return "taikhoan/quenmatkhau";
+
+		}
+		model.addAttribute("message", "Quên mật khẩu thất bại");
+
+		return "taikhoan/quenmatkhau";
 	}
 
 }
-
