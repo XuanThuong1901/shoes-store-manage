@@ -1,12 +1,90 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ngoài luồng sử lý</title>
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="resources/employee/plugins/fontawesome-free/css/all.min.css">
+<!-- Theme style -->
+<link rel="stylesheet"
+	href="resources/employee/dist/css/adminlte.min.css">
 </head>
-<body>
-	<h1>404</h1>
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+
+
+
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Ngoài luồng sử lý</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item"><a href="trangchu">Trang
+										chủ</a></li>
+								<li class="breadcrumb-item active">Ngoài luồng</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="error-page">
+					<h1 class="text-warning">Ngoài luồng sử lý</h1>
+					<h3>
+						<i class="fas fa-exclamation-triangle text-warning"></i> Trang
+						truy cập ngoài luồng sử lý!
+					</h3>
+
+					<!-- /.error-content -->
+				</div>
+				<!-- /.error-page -->
+			</section>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+		<footer class="main-footer">
+			<div class="float-right d-none d-sm-block">
+				<b>Version</b> 3.2.0
+			</div>
+			<strong>Copyright &copy; 2014-2021 <a
+				href="https://adminlte.io">AdminLTE.io</a>.
+			</strong> All rights reserved.
+		</footer>
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- jQuery -->
+	<script src="resources/employee/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap 4 -->
+	<script
+		src="resources/employee/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="resources/employee/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="resources/employee/dist/js/demo.js"></script>
 </body>
 </html>
