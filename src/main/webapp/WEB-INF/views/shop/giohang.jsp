@@ -47,8 +47,10 @@
 							<tr class="row-sp">
 								<td class="align-middle"><img
 									src="resources/file/${i.chiTietSP.sanPham.hinhAnh }" alt=""
-									style="width: 50px;"> <span class="text-truncate">
-										${i.chiTietSP.sanPham.tenSP }</span></td>
+									style="width: 50px;"> 
+									<a href="sanpham/${ i.chiTietSP.sanPham.maSP}"><span class="text-truncate">
+										${i.chiTietSP.sanPham.tenSP }</span></a>
+									</td>
 								<td class="align-middle">${i.chiTietSP.sizeSanPham.tenSize }</td>
 								<td class="align-middle"><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
 										maxFractionDigits="0"
@@ -246,7 +248,7 @@ function tinhTongTien(){
 								success: function(result){
 									console.log('result', result);
 									if(result === 'true') {
-										let price =  parseFloat($("td.price").data("priceone"))
+										let price =  parseFloat($("td.price[data-ctsp="+mactsp+"]").data("priceone"))
 										console.log('price', price)
 										
 										let formatter = new Intl.NumberFormat('vi-VN', {
@@ -285,7 +287,7 @@ function tinhTongTien(){
 								success: function(result){
 									console.log('result', result);
 									if(result === 'true') {
-										let price =  parseFloat($("td.price").data("priceone"))
+										let price =  parseFloat($("td.price[data-ctsp="+mactsp+"]").data("priceone"))
 										console.log('price', price)
 										
 										let formatter = new Intl.NumberFormat('vi-VN', {

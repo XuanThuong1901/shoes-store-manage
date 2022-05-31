@@ -25,8 +25,8 @@
 		<div class="row px-xl-5">
 
 			<form action="sanpham/${ctsanpham.getMaSP() }" method="post"
-				class="d-flex">
-				<div class="col-sm-12 col-lg-5 mb-30">
+				class="d-flex row">
+				<div class="col-sm-12 col-md-12 col-lg-5 mb-30">
 					<%-- <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner bg-light">
                         <div class="carousel-item active">
@@ -55,7 +55,7 @@
 					</div>
 				</div>
 
-				<div class="col-sm-12 col-lg-7 h-auto mb-30">
+				<div class="col-sm-12 col-md-12 col-lg-7 h-auto mb-30">
 					<div class="h-100 bg-light p-30">
 						<h3>${ctsanpham.getTenSP() }</h3>
 						<!-- <div class="d-flex mb-3">
@@ -177,22 +177,7 @@
 					<div class="tab-content">
 						<div class="tab-pane fade show active" id="tab-pane-1">
 							<h4 class="mb-3">Mô tả sản phẩm</h4>
-							<p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam
-								sea. Consetetur vero aliquyam invidunt duo dolores et duo sit.
-								Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur
-								invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd
-								ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod.
-								Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut
-								diam consetetur duo justo est, sit sanctus diam tempor aliquyam
-								eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at
-								sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr
-								sanctus eirmod takimata dolor ea invidunt.</p>
-							<p>Dolore magna est eirmod sanctus dolor, amet diam et eirmod
-								et ipsum. Amet dolore tempor consetetur sed lorem dolor sit
-								lorem tempor. Gubergren amet amet labore sadipscing clita clita
-								diam clita. Sea amet et sed ipsum lorem elitr et, amet et labore
-								voluptua sit rebum. Ea erat sed et diam takimata sed justo.
-								Magna takimata justo et amet magna et.</p>
+							<p>${ ctsanpham.moTa}</p>
 						</div>
 						<!-- <div class="tab-pane fade" id="tab-pane-2">
                             <h4 class="mb-3">Additional Information</h4>

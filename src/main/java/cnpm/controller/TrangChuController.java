@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import cnpm.entity.ChiTietSanPham;
 import cnpm.entity.DanhMucSanPham;
 import cnpm.entity.GioHang;
 import cnpm.entity.HinhThucThanhToan;
@@ -151,6 +152,7 @@ public class TrangChuController {
 		SanPham sanpham = sanPhamService.getByMaSP(maSP);
 		if (sanpham != null) {
 			model.addAttribute("ctsanpham", sanpham);
+				
 		}
 
 		PagedListHolder pagedListHolder = this.getSPTheoTrang(request);

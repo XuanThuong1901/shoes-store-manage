@@ -212,9 +212,9 @@
 						<input type="text" class="form-control"
 							placeholder="Nhập sản phẩm cần tìm">
 						<div class="input-group-append">
-							<span class="input-group-text bg-transparent text-primary">
+							<button class="input-group-text bg-transparent text-primary">
 								<i class="fa fa-search"></i>
-							</span>
+							</button>
 						</div>
 					</div>
 				</form>
