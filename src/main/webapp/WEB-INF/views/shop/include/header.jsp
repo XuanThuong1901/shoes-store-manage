@@ -252,9 +252,15 @@
 					id="navbar-vertical"
 					style="width: calc(100% - 30px); z-index: 999;">
 					<div class="navbar-nav w-100 dropdown-menu rounded-0 border-0">
-						<a href="" class="nav-item nav-link">SNEAKER</a> <a href=""
-							class="nav-item nav-link">SANDAL</a> <a href=""
-							class="nav-item nav-link">DÉP</a>
+
+						<c:forEach var="danhmuc" items="${danhSachDanhMucSanPham }">
+							<div class="d-flex justify-content-between px-4">
+								<a class="nav-item nav-link"
+									href="danhmuc/${danhmuc.getMaDM()}?ds">${danhmuc.tenDM}</a>
+
+							</div>
+							<%-- <a href="danhmuc/${danhmuc.maDM }?ds" class="nav-item nav-link">${danhmuc.tenDM}</a> --%>
+						</c:forEach>
 					</div>
 				</nav>
 			</div>
@@ -278,8 +284,8 @@
 									data-toggle="dropdown">MUA SẮM<i
 									class="fa fa-angle-down ml-1 mt-1"></i></a>
 								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-									<a href="cart.html" class="dropdown-item">NAM</a> <a
-										href="checkout.html" class="dropdown-item">NỮ</a>
+									<a href="muasam/nam?ds" class="dropdown-item">NAM</a> <a
+										href="muasam/nu?ds" class="dropdown-item">NỮ</a>
 								</div>
 							</div>
 							<!-- <a href="detail.html" class="nav-item nav-link">CHI TIẾT SẢN

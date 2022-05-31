@@ -195,4 +195,57 @@ public class TrangChuController {
 		return "true";
 	}
 	
+	@RequestMapping(value = "danhmuc/{maDM}", params = "ds", method = RequestMethod.GET)
+	public String getTheoDanhMuc(ModelMap model, HttpServletRequest request, @PathVariable("maDM") Integer maDM) {
+
+//		dsSanPhamTheoDM.clear();
+
+		List<SanPham> list = sanPhamService.getDSSanPhamTheoDM(maDM);
+		PagedListHolder pagedListHolder = new PagedListHolder(list);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+		
+		pagedListHolder.setPageSize(12);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+
+//		for(int i=0; i<sanpham.size(); i++) {
+//			
+//			if(sanpham.get(i).getDanhMuc().getMaDM() == maDM) {
+//				dsSanPhamTheoDM.add(sanpham.get(i));
+//			}
+//		}
+
+		return "shop/sanpham";
+	}
+	
+	@RequestMapping(value = "muasam/{phai}", params = "ds", method = RequestMethod.GET)
+	public String getTheoGioiTinh(ModelMap model, HttpServletRequest request, @PathVariable("phai") String phai) {
+
+//		dsSanPhamTheoDM.clear();
+		
+		boolean checkphai = true;
+		if(phai.equals("nu")) {
+			checkphai = false;
+		}
+
+		List<SanPham> list = sanPhamService.getDSSanPhamTheoPhai(checkphai);
+		PagedListHolder pagedListHolder = new PagedListHolder(list);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+		
+		pagedListHolder.setPageSize(12);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+
+//		for(int i=0; i<sanpham.size(); i++) {
+//			
+//			if(sanpham.get(i).getDanhMuc().getMaDM() == maDM) {
+//				dsSanPhamTheoDM.add(sanpham.get(i));
+//			}
+//		}
+
+		return "shop/sanpham";
+	}
+	
 }

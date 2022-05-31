@@ -32,6 +32,14 @@ public class SanPhamService {
 		return sanPhamDAO.getByMaSP(maSP);
 	}
 	
+	public List<SanPham> getDSSanPhamTheoDM(Integer maDM){
+		return sanPhamDAO.getDSSanPhamTheoDM(maDM);
+	}
+	
+	public List<SanPham> getDSSanPhamTheoPhai(Boolean phai){
+		return sanPhamDAO.getDSSanPhamTheoPhai(phai);
+	}
+	
 	public Boolean themSP(SanPham sanpham) {
 		return sanPhamDAO.them(sanpham);
 	}
