@@ -30,6 +30,32 @@ public class SanPhamDAO {
 		return list;
 	}
 	
+	public List<SanPham> getDSSanPhamTheoDM(Integer maDanhMuc){
+		Session session = factory.getCurrentSession();
+		String hql = "from SanPham where maDanhMuc = :maDanhMuc";
+		Query query = session.createQuery(hql);
+		
+		query.setParameter("maDanhMuc", maDanhMuc);
+		List<SanPham> list = query.list();
+		
+		return list;
+	}
+	
+	public List<SanPham> getDSSanPhamTheoPhai(Boolean phai){
+		Session session = factory.getCurrentSession();
+		String hql = "from SanPham where phai = :phai";
+		Query query = session.createQuery(hql);
+		
+		query.setParameter("phai", phai);
+		List<SanPham> list = query.list();
+		if(list.isEmpty())
+		{
+			return null;
+		}
+		
+		return list;
+	}
+	
 	public List<SanPham> getDSSanPham(){
 		Session session = factory.getCurrentSession();
 		String hql = "from SanPham";
