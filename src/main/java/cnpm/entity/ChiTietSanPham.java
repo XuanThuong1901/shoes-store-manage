@@ -33,7 +33,7 @@ public class ChiTietSanPham {
 	@JoinColumn(name = "MaSize")
 	private SizeSanPham sizeSanPham;
 
-	@OneToMany(mappedBy = "chiTietSP", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "chiTietSP", fetch = FetchType.LAZY)
 	private Collection<GioHang> gioHangs;
 
 	@OneToMany(mappedBy = "chiTietSP", fetch = FetchType.LAZY)
