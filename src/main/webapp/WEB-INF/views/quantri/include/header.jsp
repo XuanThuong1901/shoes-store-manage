@@ -128,7 +128,7 @@
         </li>-->
 				<li class="nav-item dropdown user-menu"><a href="#"
 					class="nav-link dropdown-toggle" data-toggle="dropdown"> <img
-						src="resources/employee/dist/img/user2-160x160.jpg"
+						src="resources/file/${user.getNhanVien().getAnh() }"
 						class="user-image img-circle elevation-2" alt="User Image">
 						<span class="d-none d-md-inline">${user.getNhanVien().getHo() }
 							${user.getNhanVien().getTen() } </span>

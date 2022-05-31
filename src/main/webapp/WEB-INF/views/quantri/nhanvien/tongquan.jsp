@@ -140,9 +140,9 @@
 				<!-- small box -->
 				<div class="small-box border border-info">
 					<div class="inner">
-						<h3>65</h3>
+						<h3>&nbsp;</h3>
 
-						<p>Thong ke</p>
+						<p>Thống kê</p>
 					</div>
 					<div class="icon">
 						<i class="ion ion-pie-graph text-info"></i>
