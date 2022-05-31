@@ -25,10 +25,10 @@
 			<!-- Shop Sidebar Start -->
 			<div class="col-lg-3 col-md-4">
 				<!-- Status Start -->
-				<h5 class="section-title position-relative text-uppercase mb-3"
+				<!-- <h5 class="section-title position-relative text-uppercase mb-3"
 					data-toggle="collapse" href="#collapseStatus" role="button"
 					aria-expanded="true" aria-controls="collapseStatus">
-					<span class="bg-secondary pr-3">Status <i
+					<span class="bg-secondary pr-3">Sale <i
 						class="fas fa-chevron-down"></i></span>
 				</h5>
 				<div class="collapse show" id="collapseStatus">
@@ -39,18 +39,18 @@
 								<input type="checkbox" class="custom-control-input"
 									id="status-all" checked> <label
 									class="custom-control-label" for="status-all">All</label> <span
-									class="badge border font-weight-normal">145</span>
+									class="badge border font-weight-normal"></span>
 							</div>
 							<div
 								class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
 								<input type="checkbox" class="custom-control-input"
 									id="status-sale-off"> <label
 									class="custom-control-label" for="status-sale-off">Sale
-									off</label> <span class="badge border font-weight-normal">168</span>
+									off</label> <span class="badge border font-weight-normal"></span>
 							</div>
 						</form>
 					</div>
-				</div>
+				</div> -->
 				<!-- Status End -->
 				<!-- Categories Start -->
 				<h5 class="section-title position-relative text-uppercase mb-3"
@@ -64,12 +64,12 @@
 						<form>
 
 							<c:forEach var="dm" items="${danhSachDanhMucSanPham }">
-								<div
-									class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+								<div data-dmid="${dm.maDM }"
+									class="category-item custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
 									<input type="checkbox" class="custom-control-input"
-										id="category-nike"> <label
-										class="custom-control-label" for="category-nike">${dm.getTenDM() }</label>
-									<span class="badge border font-weight-normal">${dm.getSanPhams().size() }</span>
+										id="category-${dm.maDM}"> <label
+										class="custom-control-label" for="category-${dm.maDM }">${dm.getTenDM() }</label>
+									<span class="badge border font-weight-normal"></span>
 								</div>
 							</c:forEach>
 
@@ -78,7 +78,7 @@
 				</div>
 				<!-- Categories End -->
 				<!-- Price Start -->
-				<h5 class="section-title position-relative text-uppercase mb-3"
+				<!-- <h5 class="section-title position-relative text-uppercase mb-3"
 					data-toggle="collapse" href="#collapsePrice" role="button"
 					aria-expanded="true" aria-controls="collapsePrice">
 					<span class="bg-secondary pr-3">Price <i
@@ -126,101 +126,51 @@
 							</div>
 						</form>
 					</div>
-				</div>
+				</div> -->
 				<!-- Price End -->
-				<!-- Color Start -->
-				<!-- <h5 class="section-title position-relative text-uppercase mb-3" data-toggle="collapse"
-                    href="#collapseColor1" role="button" aria-expanded="true" aria-controls="collapseColor1"><span
-                        class="bg-secondary pr-3">color <i class="fas fa-chevron-down"></i></span></h5>
-                <div class="collapse show" id="collapseColor1">
-                    <div class="bg-light p-4 mb-30">
-                        <form>
-                            <div
-                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" checked id="color-all">
-                                <label class="custom-control-label" for="price-all">All Color</label>
-                                <span class="badge border font-weight-normal">1000</span>
-                            </div>
-                            <div
-                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="color-1">
-                                <label class="custom-control-label" for="color-1">Black</label>
-                                <span class="badge border font-weight-normal">150</span>
-                            </div>
-                            <div
-                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="color-2">
-                                <label class="custom-control-label" for="color-2">White</label>
-                                <span class="badge border font-weight-normal">295</span>
-                            </div>
-                            <div
-                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="color-3">
-                                <label class="custom-control-label" for="color-3">Red</label>
-                                <span class="badge border font-weight-normal">246</span>
-                            </div>
-                            <div
-                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="color-4">
-                                <label class="custom-control-label" for="color-4">Blue</label>
-                                <span class="badge border font-weight-normal">145</span>
-                            </div>
-                            <div
-                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                <input type="checkbox" class="custom-control-input" id="color-5">
-                                <label class="custom-control-label" for="color-5">Green</label>
-                                <span class="badge border font-weight-normal">168</span>
-                            </div>
-                        </form>
-                    </div>
-                </div> -->
-				<!-- Color End -->
+
 				<!-- Color custom start-->
 				<h5 class="section-title position-relative text-uppercase mb-3"
 					data-toggle="collapse" href="#collapseColor" role="button"
 					aria-expanded="true" aria-controls="collapseColor">
-					<span class="bg-secondary pr-3">color custom <i
+					<span class="bg-secondary pr-3">Màu <i
 						class="fas fa-chevron-down"></i></span>
 				</h5>
 				<div class="collapse show" id="collapseColor">
 					<div class="bg-light p-4 mb-30">
 						<div class="d-flex flex-wrap g-2">
 							<label class=" btn-filter-color" id="btn-color--#dc3545">
-								<span class=" btn-filter-color-item"
+								<span class=" btn-filter-color-item" data-colorid="3"
 								style="background-color: #dc3545"></span> <input type="checkbox"
 								name="" hidden />
 							</label> <label class=" btn-filter-color" id="btn-color--#007bff">
-								<span class=" btn-filter-color-item"
+								<span class=" btn-filter-color-item" data-colorid="5"
 								style="background-color: #007bff"></span> <input type="checkbox"
 								name="" hidden />
 							</label> <label class=" btn-filter-color" id="btn-color--#6f42c1">
-								<span class=" btn-filter-color-item"
+								<span class=" btn-filter-color-item" data-colorid="11"
 								style="background-color: #6f42c1"></span> <input type="checkbox"
 								name="" hidden />
 							</label> <label class=" btn-filter-color" id="btn-color--#ffc107">
-								<span class=" btn-filter-color-item"
+								<span class=" btn-filter-color-item" data-colorid="12"
 								style="background-color: #ffc107"></span> <input type="checkbox"
 								name="" hidden />
 							</label> <label class=" btn-filter-color" id="btn-color--#fff"> <span
-								class=" btn-filter-color-item" style="background-color: #fff"></span>
+								class=" btn-filter-color-item" style="background-color: #fff" data-colorid="1"></span>
 								<input type="checkbox" name="" hidden />
 							</label> <label class=" btn-filter-color" id="btn-color--#28a745">
-								<span class=" btn-filter-color-item"
+								<span class=" btn-filter-color-item" data-colorid="13"
 								style="background-color: #28a745"></span> <input type="checkbox"
 								name="" hidden />
 							</label> <label class=" btn-filter-color" id="btn-color--#343a40">
-								<span class=" btn-filter-color-item"
+								<span class=" btn-filter-color-item" data-colorid="2"
 								style="background-color: #343a40"></span> <input type="checkbox"
 								name="" hidden />
 							</label> <label class=" btn-filter-color" id="btn-color--#e83e8c">
-								<span class=" btn-filter-color-item"
+								<span class=" btn-filter-color-item" data-colorid="4"
 								style="background-color: #e83e8c"></span> <input type="checkbox"
 								name="" hidden />
-							</label> <label class=" btn-filter-color" id="btn-color--#fd7e14">
-								<span class=" btn-filter-color-item"
-								style="background-color: #fd7e14"></span> <input type="checkbox"
-								name="" hidden />
-							</label>
+							</label> 
 
 						</div>
 					</div>
@@ -246,6 +196,7 @@
 
 						</div>
 
+
 						<!-- <div
 							class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-2">
 							<input type="checkbox" class="custom-control-input" id="size-5">
@@ -257,7 +208,9 @@
 				</div>
 
 				<!-- Size End -->
-
+				<div>
+					<button class="btn btn-info" id="btn-fitler">Lọc</button>
+				</div>
 			</div>
 			<!-- Shop Sidebar End -->
 
@@ -314,7 +267,7 @@
 									<!-- <span class="badge bg-warning">NEW</span>  -->
 									<img class="img-fluid w-100"
 										src="resources/file/${sp.getHinhAnh() }" alt="">
-									<!-- src="resources/user/img/product-1.jpg" src="resources/file/${sp.getHinhAnh() }" -->
+
 									<div class="product-action d-flex">
 										<div class="d-flex flex-row">
 											<!--<a class="btn btn-outline-dark btn-square" href=""><i
@@ -336,26 +289,27 @@
 								</div>
 								<div class="text-center py-4 text-pd"
 									style="overflow-wrap: break-word;">
-									<a class="h6 text-decoration-none text-truncate"
+									<a class="h6 text-decoration-none text-truncate d-block"
 										style="word-wrap: break-word" href="">${sp.getTenSP() }</a>
 									<div
 										class="d-flex align-items-center justify-content-center mt-2">
-										<h5><fmt:setLocale
-										value="vi_VN" /> <fmt:formatNumber maxFractionDigits="0"
-										value="${sp.gia}"
-										type="currency" currencySymbol="đ" /></h5>
+										<h5>
+											<fmt:setLocale value="vi_VN" />
+											<fmt:formatNumber maxFractionDigits="0" value="${sp.gia}"
+												type="currency" currencySymbol="đ" />
+										</h5>
 										<h6 class="text-muted ml-2">
 											<del>
-											
-											<c:if test="${sp.giamGia > 0 }">
-											<fmt:setLocale
-										value="vi_VN" /> <fmt:formatNumber maxFractionDigits="0"
-										value="${(sp.gia - sp.gia* (sp.giamGia/100))}"
-										type="currency" currencySymbol="đ" />
-											</c:if>
-												
-											
-											
+
+												<c:if test="${sp.giamGia > 0 }">
+													<fmt:setLocale value="vi_VN" />
+													<fmt:formatNumber maxFractionDigits="0"
+														value="${(sp.gia - sp.gia* (sp.giamGia/100))}"
+														type="currency" currencySymbol="đ" />
+												</c:if>
+
+
+
 											</del>
 										</h6>
 									</div>

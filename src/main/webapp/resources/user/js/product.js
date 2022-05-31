@@ -25,11 +25,61 @@ function filterSizeProduct(){
 		  });
 }
 
+function filterSize(){
+	$(".btn-filter-size").each(function () {
+		$(this).on('click', function() {
+			 $(this).toggleClass("btn-size-active");
+			  $(this).data("isclick", true)
+		})
+	})
+}
+
+
+
 function filterColorProduct(){
 	 $(".btn-filter-color-item").click(function () {
 		    $(this).parent().toggleClass("border border-dark");
-		    console.log(window.location)
+		   
+		    $(this).data("isclick", true)
 		  });
+}
+
+function filterCategories(){
+	$(".category-item").each(function () {
+		$(this).on('click', function () {
+			$(this).data("isclick", true)
+		})
+	})
+}
+
+function filter(){
+	
+	$("#btn-fitler").on('click', function() {
+		let mainurl = "sanpham?filter"
+		$(".btn-filter-size").each(function () {
+			if($(this).data("isclick")){
+				mainurl += "&size="+$(this).data("masize")
+				
+			}
+		})
+		
+		$(".btn-filter-color-item").each(function () {
+			if($(this).data("isclick")){
+				mainurl += "&color="+$(this).data("colorid")
+				
+			}
+		})
+		
+		$(".category-item").each(function () {
+			if($(this).data("isclick")){
+				mainurl += "&dm="+$(this).data("dmid")
+				
+			}
+		})
+		
+		console.log(mainurl)
+		window.location.href = mainurl;
+	})
 }
 
 function getDetailProduct(){
@@ -41,9 +91,15 @@ function getDetailProduct(){
 
 $(document).ready(function () {
  
-	filterSizeProduct();
+//	filterSizeProduct();
+	
+	filterCategories();
 	
 	filterColorProduct();
 	
 	getDetailProduct();
+	
+	filterSize();
+	
+	filter();
 });

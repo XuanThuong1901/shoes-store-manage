@@ -21,6 +21,24 @@ public class SanPhamDAO {
 	@Autowired
 	SessionFactory factory;
 	
+	/*
+	 * public List<SanPham> locSP(String hql){ Session session =
+	 * factory.getCurrentSession(); String hql = "from SanPham where " + hql; Query
+	 * query = session.createQuery(hql); List<SanPham> list = query.list();
+	 * 
+	 * return list; }
+	 */
+	
+	public List<SanPham> getSanPhamTheoTen(String tensp){
+		Session session = factory.getCurrentSession();
+		String hql = "from SanPham where tenSP like :tensp";
+		Query query = session.createQuery(hql);
+		query.setParameter("tensp", "%"+tensp+"%");
+		List<SanPham> list = query.list();
+		
+		return list;
+	}
+	
 	public List<SanPham> getRandomDSSanPham(){
 		Session session = factory.getCurrentSession();
 		String hql = "from SanPham order by newid()";

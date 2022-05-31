@@ -207,12 +207,12 @@
 				</a>
 			</div>
 			<div class="col-lg-5 col-6">
-				<form action="">
+				<form action="sanpham" method="post">
 					<div class="input-group justify-content-center">
-						<input type="text" class="form-control"
+						<input type="text" name="tensp" class="form-control"
 							placeholder="Nhập sản phẩm cần tìm">
 						<div class="input-group-append">
-							<button class="input-group-text bg-transparent text-primary">
+							<button name="timsp" class="input-group-text bg-transparent text-primary">
 								<i class="fa fa-search"></i>
 							</button>
 						</div>

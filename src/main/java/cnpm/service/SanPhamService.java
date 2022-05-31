@@ -13,6 +13,9 @@ public class SanPhamService {
 	@Autowired
 	SanPhamDAO sanPhamDAO;
 	
+	public List<SanPham> getSanPhamTheoTen(String tensp){
+		return sanPhamDAO.getSanPhamTheoTen(tensp);
+	}
 	
 	public Integer maSPCuoiCung() {
 		List<SanPham> sanpham = this.getDSSanPham();

@@ -1,5 +1,6 @@
 package cnpm.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import cnpm.entity.ChiTietPhieuNhap;
 import cnpm.entity.ChiTietSanPham;
 import cnpm.entity.NhanVien;
+import cnpm.entity.SanPham;
 import cnpm.entity.ChiTietSanPham;
 
 @Transactional
@@ -22,6 +24,20 @@ public class ChiTietSanPhamDAO {
 	@Autowired
 	SessionFactory factory;
 	
+	public List<SanPham> locSP(String hql1){
+		Session session = factory.getCurrentSession();
+		String hql = "from ChiTietSanPham " + hql1;
+		Query query = session.createQuery(hql);
+		
+		List<ChiTietSanPham> res = query.list();
+		
+		List<SanPham> list = new ArrayList<SanPham>();
+		for(ChiTietSanPham ctsp : res) {
+			list.add(ctsp.getSanPham());
+		}
+		
+		return list;
+	}
 	
 	public ChiTietSanPham getByMaSPVaSize(Integer maSP, Integer maSize) {
 		Session session = factory.getCurrentSession();
