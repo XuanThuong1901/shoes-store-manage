@@ -400,7 +400,7 @@ public class KhachHangController {
 				ctpk.setMaCTSP(giohang.getChiTietSP().getMaChiTietSP());
 				ctdonhang.setChiTietDonHangPK(ctpk);
 				ctdonhang.setSoLuong(giohang.getSoLuong());
-				ctdonhang.setGia(giohang.getChiTietSP().getSanPham().getGia());
+				ctdonhang.setGia((float) (giohang.getChiTietSP().getSanPham().getGia() - (giohang.getChiTietSP().getSanPham().getGia()*(giohang.getChiTietSP().getSanPham().getGiamGia()/100))));
 
 				if (chiTietDonHangService.themCTDH(ctdonhang)) {
 					// tru sl ton trong ctsp
