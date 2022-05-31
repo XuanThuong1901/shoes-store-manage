@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -371,6 +372,7 @@ public class KhachHangController {
 		}
 
 		if (errors.hasErrors()) {
+			model.addAttribute("tongtien", tongtien);
 			return "shop/thanhtoan";
 		}
 
@@ -425,6 +427,33 @@ public class KhachHangController {
 	public String getViewGioHang(ModelMap model, HttpSession ss) {
 
 		return "shop/giohang";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="giohang", params="capnhatsl", method=RequestMethod.POST)
+	public String capNhatSL(ModelMap model, HttpSession ss, HttpServletRequest request) {
+		
+		if (request.getParameter("soluong") == null || request.getParameter("mactsp") == null) {
+			System.out.println( "soluong " + request.getParameter("soluong"));
+			System.out.println( "mactsp " + request.getParameter("mactsp"));
+			return null;
+		}
+		
+		System.out.println( "soluong " + request.getParameter("soluong"));
+		System.out.println( "mactsp " + request.getParameter("mactsp"));
+		
+		Integer mactsp = Integer.parseInt(request.getParameter("mactsp"));
+		Integer soluong = Integer.parseInt(request.getParameter("soluong"));
+		
+		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
+		GioHang giohang = gioHangService.getByPk(tk.getKhachHang().getMaKH(), mactsp);
+		giohang.setSoLuong(soluong);
+		if(gioHangService.sua(giohang)) {
+			return "true";
+		}
+		
+		
+		return "false";
 	}
 
 	@RequestMapping(value = "giohang", params = "xoasp", method = RequestMethod.POST)
