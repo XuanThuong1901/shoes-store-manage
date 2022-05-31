@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.servlet.ServletException;
@@ -23,6 +26,8 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -86,6 +91,9 @@ public class QuanLyController {
 
 	@Autowired
 	UtilsService utilService;
+
+	@Autowired
+	JavaMailSender mailSender;
 
 // ============== List ==========================
 	List<ThongTinChiTietPN> thongTinChiTietPN = new ArrayList<ThongTinChiTietPN>();
@@ -347,9 +355,9 @@ public class QuanLyController {
 			errors.rejectValue("taiKhoan.email", "nhanVienMoi", "Email không hợp lệ hoặc bị trống");
 		}
 
-		if (nhanvien.getTaiKhoan().getMatKhau().trim().isEmpty()) {
-			errors.rejectValue("taiKhoan.matKhau", "nhanVienMoi", "Mật khẩu không được để trống");
-		}
+//		if (nhanvien.getTaiKhoan().getMatKhau().trim().isEmpty()) {
+//			errors.rejectValue("taiKhoan.matKhau", "nhanVienMoi", "Mật khẩu không được để trống");
+//		}
 
 		if (nhanvien.getPhai() != true && nhanvien.getPhai() != false) {
 			errors.rejectValue("phai", "nhanVienMoi", "???");
@@ -401,14 +409,32 @@ public class QuanLyController {
 			}
 		}
 
-		TaiKhoan taiKhoan = taiKhoanService.setTK(nhanvien.getTaiKhoan().getEmail(),
-				nhanvien.getTaiKhoan().getMatKhau());
+		Random generator = new Random();
+		int ramdom = generator.nextInt(99999999) + 100000;
+		String mkmoi = String.valueOf(ramdom);
+
+		TaiKhoan taiKhoan = taiKhoanService.setTK(nhanvien.getTaiKhoan().getEmail(), mkmoi);
 		taiKhoanService.themNV(taiKhoan);
 
 		nhanvien.setMaNV(nhanVienService.taoMaNVMoi());
 		nhanvien.setTaiKhoan(taiKhoan);
 
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+
+		try {
+			helper.setFrom("no-reply-email");
+			helper.setTo(nhanvien.getTaiKhoan().getEmail());
+			helper.setSubject("Tạo tài khoản thành công!");
+			helper.setText("Mật khẩu của quý khách là: " + mkmoi);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mailSender.send(message);
+
 		if (nhanVienService.themNV(nhanvien)) {
+
 //			model.addAttribute("thongTinNV", new ThongTinCaNhan());
 			model.addAttribute("nhanVienMoi", new NhanVien());
 			model.addAttribute("isSuccess", true);
@@ -690,7 +716,7 @@ public class QuanLyController {
 
 		KhachHang kh = khachHangService.getByMaKH(maKH);
 		TaiKhoan taikhoan = taiKhoanService.getByMaTK(kh.getTaiKhoan().getMaTK());
-		
+
 		taikhoan.setTrangThai(khachhang.getTaiKhoan().getTrangThai());
 
 		if (taiKhoanService.suaTK(taikhoan)) {
