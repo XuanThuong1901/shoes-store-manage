@@ -475,3 +475,20 @@
 <!-- JS Lib -->
 <%@include file="/WEB-INF/views/shop/include/jsLib.jsp"%>
 <!-- JS Lib End -->
+
+<script>
+	$(document).ready(function() {
+		
+		$.ajax({
+			url: "test",
+			type: "get",
+			data: {"data": "okok"},
+			success: function(result){
+				console.log('result', result);
+			},
+			error: function(error){
+				console.log(error);
+			}
+		})
+	})
+</script>

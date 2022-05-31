@@ -37,8 +37,11 @@
 					</thead>
 					<tbody class="align-middle">
 						<c:if test="${giohang.size()  == 0}">
-							<div class="alert alert-primary" role="alert">Giỏ hàng của bạn đang trống</div>
-							<div class="my-4"><a href="sanpham" class="btn btn-info">Mua sắm</a></div>
+							<div class="alert alert-primary" role="alert">Giỏ hàng của
+								bạn đang trống</div>
+							<div class="my-4">
+								<a href="sanpham" class="btn btn-info">Mua sắm</a>
+							</div>
 						</c:if>
 						<c:forEach var="i" items="${giohang }">
 							<tr class="row-sp">
@@ -55,21 +58,25 @@
 									<div class="input-group quantity mx-auto" style="width: 100px;">
 										<div class="input-group-btn">
 											<button type="button"
-												class="btn btn-sm btn-primary btn-minus" type="button">
+												class="btn btn-sm btn-primary btn-minus" type="button"
+												id="btn-minus" data-ctsp="${i.chiTietSP.maChiTietSP }">
 												<i class="fa fa-minus"></i>
 											</button>
 										</div>
 										<input type="text" name="soluong"
+											data-ctsp="${i.chiTietSP.maChiTietSP }"
 											class="form-control form-control-sm bg-secondary border-0 text-center"
 											value="${i.soLuong }">
 										<div class="input-group-btn">
-											<button type="button" class="btn btn-sm btn-primary btn-plus">
+											<button type="button" class="btn btn-sm btn-primary btn-plus"
+												id="btn-plus" data-ctsp="${i.chiTietSP.maChiTietSP }">
 												<i class="fa fa-plus"></i>
 											</button>
 										</div>
 									</div>
 								</td>
-								<td class="align-middle price"
+								<td class="align-middle price" data-ctsp="${ i.chiTietSP.maChiTietSP}"
+								data-priceone="${(i.chiTietSP.sanPham.gia - i.chiTietSP.sanPham.gia* (i.chiTietSP.sanPham.giamGia/100)) }"
 									data-price="${(i.chiTietSP.sanPham.gia - i.chiTietSP.sanPham.gia* (i.chiTietSP.sanPham.giamGia/100)) * i.soLuong}"><fmt:setLocale
 										value="vi_VN" /> <fmt:formatNumber maxFractionDigits="0"
 										value="${(i.chiTietSP.sanPham.gia - i.chiTietSP.sanPham.gia* (i.chiTietSP.sanPham.giamGia/100)) * i.soLuong}"
@@ -219,6 +226,85 @@ function tinhTongTien(){
 			}
 			
 			tinhTongTien();
+			
+			
+			let data = {}
+			$(".btn-plus").each(function () {
+				let btnPlus = $(this)
+				
+					btnPlus.on("click", function() {
+						let mactsp = btnPlus.data("ctsp")
+						console.log($("input[data-ctsp="+mactsp+"]"))
+						 data.soluong = parseInt($("input[data-ctsp="+mactsp+"]").attr("value"))
+						 data.mactsp = $("input[data-ctsp="+mactsp+"]").data("ctsp")
+						console.log('soluong', data);
+						
+							$.ajax({
+								url: "giohang?capnhatsl",
+								type: "post",
+								data: data,
+								success: function(result){
+									console.log('result', result);
+									if(result === 'true') {
+										let price =  parseFloat($("td.price").data("priceone"))
+										console.log('price', price)
+										
+										let formatter = new Intl.NumberFormat('vi-VN', {
+											style: 'currency',
+									  		currency: 'VND',})
+										$("td.price[data-ctsp="+mactsp+"]").text(formatter.format(price * data.soluong))
+										$("td.price[data-ctsp="+mactsp+"]").data("price", price * data.soluong)
+										tinhTongTien();
+										
+									}
+									
+								},
+								error: function(error){
+									console.log(error);
+								}
+							})
+					})
+			})
+			
+			
+			
+			$(".btn-minus").each(function () {
+				let btnMinus = $(this)
+				
+					btnMinus.on("click", function() {
+						let mactsp = btnMinus.data("ctsp")
+						console.log($("input[data-ctsp="+mactsp+"]"))
+						 data.soluong = parseInt($("input[data-ctsp="+mactsp+"]").attr("value"))
+						 data.mactsp = $("input[data-ctsp="+mactsp+"]").data("ctsp")
+						console.log('soluong', data);
+						
+							$.ajax({
+								url: "giohang?capnhatsl",
+								type: "post",
+								data: data,
+								success: function(result){
+									console.log('result', result);
+									if(result === 'true') {
+										let price =  parseFloat($("td.price").data("priceone"))
+										console.log('price', price)
+										
+										let formatter = new Intl.NumberFormat('vi-VN', {
+											style: 'currency',
+									  		currency: 'VND',})
+										$("td.price[data-ctsp="+mactsp+"]").text(formatter.format(price * data.soluong))
+										$("td.price[data-ctsp="+mactsp+"]").data("price", price * data.soluong)
+										tinhTongTien();
+										
+									}
+									
+								},
+								error: function(error){
+									console.log(error);
+								}
+							})
+					})
+			})
+			
 		})
 
 </script>

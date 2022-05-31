@@ -16,8 +16,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cnpm.entity.DanhMucSanPham;
@@ -183,5 +185,12 @@ public class TrangChuController {
 		pagedListHolder.setPageSize(12);
 		return pagedListHolder;
 	}
-
+	
+	@ResponseBody 
+	@RequestMapping(value="test", method=RequestMethod.GET)
+	public String text(HttpServletRequest request) {
+		System.out.println(request.getParameter("data"));
+		return "true";
+	}
+	
 }
