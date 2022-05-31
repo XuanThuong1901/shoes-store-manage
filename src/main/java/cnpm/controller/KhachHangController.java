@@ -101,12 +101,11 @@ public class KhachHangController {
 		return hinhThucThanhToanService.getDSHinhThucThanhToan();
 	}
 	
-	@ModelAttribute("thongTinKH")
-	public KhachHang getThongTin(HttpSession ss) {
-		TaiKhoan taiKhoan = (TaiKhoan) ss.getAttribute("user");
-		KhachHang kh = taiKhoan.getKhachHang();
-		return kh;
-	}
+	/*
+	 * @ModelAttribute("thongTinKH") public KhachHang getThongTin(HttpSession ss) {
+	 * TaiKhoan taiKhoan = (TaiKhoan) ss.getAttribute("user"); KhachHang kh =
+	 * taiKhoan.getKhachHang(); return kh; }
+	 */
 
 	@ModelAttribute("giohang")
 	public List<GioHang> getGioHang(HttpSession ss, ModelMap model) {

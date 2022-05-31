@@ -31,6 +31,7 @@ import cnpm.entity.SanPham;
 import cnpm.entity.SizeSanPham;
 import cnpm.entity.TaiKhoan;
 import cnpm.entity.VaiTro;
+import cnpm.service.ChiTietSanPhamService;
 import cnpm.service.DanhMucSanPhamService;
 import cnpm.service.GioHangService;
 import cnpm.service.HinhThucThanhToanService;
@@ -65,6 +66,9 @@ public class TrangChuController {
 	
 	@Autowired
 	GioHangService gioHangService;
+	
+	@Autowired
+	ChiTietSanPhamService chiTietSanPhamService;
 
 	@ModelAttribute("dsHTTT")
 	public  List<HinhThucThanhToan> getDSHinhThucThanhToan(){
@@ -169,7 +173,76 @@ public class TrangChuController {
 	 * 
 	 * return "shop/chitietsanpham"; }
 	 */
+	
+	@RequestMapping(value="sanpham", params="filter", method=RequestMethod.GET)
+	public String filter(HttpServletRequest request, ModelMap model) {
+		
+		String[] size = request.getParameterValues("size");
+		String[] color = request.getParameterValues("color");
+		String[] danhmuc = request.getParameterValues("dm");
+		
+		String hql = "where ";
+		Integer index = 0;
+		if(size != null) {
+			for(String s : size) {
+				hql += "sizeSanPham.maSize = " + s;
+				index++;
+				if(index < size.length) hql += " and ";
+			}
+		}
+		
+		index = 0;
+		if(color != null) {
+			if(size != null) {
+				hql += " and ";
+			}
+			for(String c : color) {
+				hql += "sanPham.mauSanPham.maMau = " + c;
+				index++;
+				if(index < color.length) hql += " and ";
+			}
+		}
+		
+		index = 0;
+		if(danhmuc != null) {
+			if(size!= null || color != null) {
+				hql += " and ";
+			}
+			for(String d : danhmuc) {
+				hql += "sanPham.danhMuc.maDM = " + d;
+				index++;
+				if(index < danhmuc.length) hql += " and ";
+			}
+		}
+		
+		
+		
+		System.out.println(hql);
+		//hql = hql.substring(0, hql.length() - 5);
+		System.out.println(hql);
+		
+		
+		PagedListHolder pagedListHolder = this.locSP(request, hql);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		return "shop/sanpham";
+	}
 
+	@RequestMapping(value="sanpham", params="timsp", method=RequestMethod.POST)
+	public String timSp(HttpServletRequest request, ModelMap model) {
+		
+		if(request.getParameter("tensp") == null) {
+			return "shop/sanpham";
+		}
+		
+		String tensp = request.getParameter("tensp");
+		
+		PagedListHolder pagedListHolder = this.timSPTheoTen(request, tensp);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
+		pagedListHolder.setPageSize(12);
+		return "shop/sanpham";
+	}
+	
 	@RequestMapping(value = "/lienhe")
 	public String getViewLienHe() {
 
@@ -187,6 +260,30 @@ public class TrangChuController {
 		pagedListHolder.setPageSize(12);
 		return pagedListHolder;
 	}
+	
+	public PagedListHolder locSP(HttpServletRequest request, String hql) {
+		List<SanPham> list = chiTietSanPhamService.locSP(hql);
+		PagedListHolder pagedListHolder = new PagedListHolder(list);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+
+		pagedListHolder.setPageSize(12);
+		return pagedListHolder;
+	}
+	
+	public PagedListHolder timSPTheoTen(HttpServletRequest request, String tenSP) {
+		List<SanPham> list = sanPhamService.getSanPhamTheoTen(tenSP);
+		PagedListHolder pagedListHolder = new PagedListHolder(list);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+
+		pagedListHolder.setPageSize(12);
+		return pagedListHolder;
+	}
+	
+	
 	
 	@ResponseBody 
 	@RequestMapping(value="test", method=RequestMethod.GET)
