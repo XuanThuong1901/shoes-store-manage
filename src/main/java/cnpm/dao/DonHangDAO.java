@@ -36,7 +36,7 @@ public class DonHangDAO {
 	
 	public List<DonHang> getDSDonHangByTT(Integer maTT){
 		Session session = factory.getCurrentSession();
-		String hql = "from DonHang where trangThaiDH.maTTDH =:maTT";
+		String hql = "from DonHang as dh where dh.trangThaiDH.maTTDH =:maTT order by dh.maDH desc";
 		Query query = session.createQuery(hql);
 		query.setParameter("maTT", maTT);
 		List< DonHang> list = query.list();
