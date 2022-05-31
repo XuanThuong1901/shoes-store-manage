@@ -222,16 +222,16 @@
 											<!--  <input type="email" class="form-control" id="inputName" placeholder=""> -->
 										</div>
 									</div>
-									<div class="form-group row">
+									<!-- <div class="form-group row">
 										<label for="" class="col-sm-2 col-form-label text-primary">Mật
 											khẩu</label>
 										<div class="col-sm-10">
 											<form:input path="taiKhoan.matKhau" value="123456"
 												class="form-control" id="inputName" />
 											<form:errors path="taiKhoan.matKhau" cssClass="text-danger" />
-											<!--  <input type="email" class="form-control" id="inputName" placeholder=""> -->
+											 <input type="email" class="form-control" id="inputName" placeholder="">
 										</div>
-									</div>
+									</div> -->
 									<div class="form-group row">
 										<label for="" class="col-sm-2 col-form-label text-primary">Giới
 											tính</label>
@@ -351,8 +351,7 @@
 								<ul class="nav nav-pills">
 									<li class="nav-item"><a class="nav-link active"
 										href="#activity" data-toggle="tab">Thông tin cá nhân</a></li>
-									<li class="nav-item"><a class="nav-link" href="#settings"
-										data-toggle="tab">Khác</a></li>
+									
 								</ul>
 							</div>
 							<!-- /.card-header -->
@@ -530,7 +529,7 @@
 									<!-- /.tab-pane -->
 
 
-									<div class="tab-pane" id="settings">
+									<%-- <div class="tab-pane" id="settings">
 										<form class="form-horizontal" method="post"
 											action="quanly/nhanvien/${thongTinNV.getMaNV() }?resetmatkhau">
 											<div class="form-group row">
@@ -547,7 +546,7 @@
 												</div>
 											</div>
 										</form>
-									</div>
+									</div> --%>
 									<!-- /.tab-pane -->
 								</div>
 								<!-- /.tab-content -->
