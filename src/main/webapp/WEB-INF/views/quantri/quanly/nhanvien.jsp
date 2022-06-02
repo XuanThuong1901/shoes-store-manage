@@ -129,7 +129,7 @@
 													<c:when test="${nv.getTaiKhoan().getTrangThai() == 0}">
 														<span class="badge badge-danger">Khóa</span>
 													</c:when>
-													<c:when test="${kh.getTaiKhoan().getTrangThai() == 2 }">
+													<c:when test="${nv.getTaiKhoan().getTrangThai() == 2 }">
 														<span class="badge badge-warning">Xác thực</span>
 													</c:when>
 												</c:choose>

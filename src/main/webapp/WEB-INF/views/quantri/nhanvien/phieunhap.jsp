@@ -98,17 +98,22 @@
 											<td>${pn.getNhanVien().getMaNV() }</td>
 											<td><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
 													value="${pn.getTongTien()}" type="currency"
-													currencySymbol="vnđ" /></td>
+													maxFractionDigits="0" currencySymbol="đ" /></td>
 
 											<td>
 												<div class="d-flex justify-content-between px-4">
 													<a class=""
 														href="nhanvien/phieunhap/${pn.getMaPN() }?thongtin"><i
-														class="fas fa-info-circle"></i> </a> <a class="" href=""
-														data-delete="${pn.getMaPN() }" data-toggle="modal"
-														data-target="#exampleModalDelete"> <i
-														class="fas fa-trash-alt"></i>
-													</a>
+														class="fas fa-info-circle"></i> </a>
+													<c:if
+														test="${ pn.getNhanVien().getMaNV() == user.getNhanVien().getMaNV()}">
+														<a class="" href="" data-delete="${pn.getMaPN() }"
+															data-toggle="modal" data-target="#exampleModalDelete">
+															<i class="fas fa-trash-alt"></i>
+														</a>
+													</c:if>
+
+
 												</div>
 											</td>
 
@@ -420,7 +425,7 @@
 		<div class="modal-content">
 			<div class="modal-header bg-danger">
 				<h5 class="modal-title" id="exampleModalDelete">
-					<i class="fas fa-trash-alt"></i>&nbsp; Bạn muốn xóa danh mục này?
+					<i class="fas fa-trash-alt"></i>&nbsp; Bạn muốn xóa phiếu nhập này?
 				</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
@@ -520,7 +525,7 @@
 												<div class="d-flex justify-content-between">
 													<h3 class="mt-2">Danh sách chi tiết phiếu nhập</h3>
 												</div>
-												
+
 											</div>
 											<!-- /.card-header -->
 											<div class="card-body">
@@ -531,7 +536,7 @@
 															<th>Tên sản phẩm</th>
 															<th>Size</th>
 															<th>Số lương</th>
-															
+
 														</tr>
 													</thead>
 													<tbody>

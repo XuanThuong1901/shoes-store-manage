@@ -17,7 +17,8 @@
 			<div class="row mb-2">
 				<div class="col-sm-12">
 					<ol class="breadcrumb ">
-						<li class="breadcrumb-item"><a href="quanly/tongquan">Quản lý</a></li>
+						<li class="breadcrumb-item"><a href="quanly/tongquan">Quản
+								lý</a></li>
 						<li class="breadcrumb-item active">Đơn hàng</li>
 					</ol>
 				</div>
@@ -39,7 +40,7 @@
 							<div class="d-flex justify-content-between">
 								<h3 class="mt-2">Danh sách đơn hàng</h3>
 
-								
+
 							</div>
 
 						</div>
@@ -50,7 +51,7 @@
 								<thead class="bg-primary">
 									<tr>
 										<th>Mã đơn hàng</th>
-
+										<th>Mã khách hàng</th>
 										<th>Ngày đặt</th>
 
 										<th>Tổng tiền</th>
@@ -62,10 +63,11 @@
 									<c:forEach var="dh" items="${danhSachDonHang }">
 										<tr>
 											<td>${dh.getMaDH() }</td>
+											<td>${dh.getKhachHang().getMaKH() }</td>
 											<td>${dh.getThoiGian() }</td>
 											<td><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
-													value="${dh.getTongTien()}" type="currency" maxFractionDigits="0"
-													currencySymbol="đ" /></td>
+													value="${dh.getTongTien()}" type="currency"
+													maxFractionDigits="0" currencySymbol="đ" /></td>
 											<td><c:choose>
 													<c:when test="${dh.getTrangThaiDH().getMaTTDH() == 1 }">
 														<span class="badge badge-info">Đơn mới</span>
@@ -87,7 +89,7 @@
 											<td>
 												<div class="d-flex justify-content-between px-4">
 													<a class="" href="quanly/donhang/${dh.getMaDH() }?thongtin"><i
-														class="fas fa-info-circle"></i> </a>  <a class=""
+														class="fas fa-info-circle"></i> </a> <a class=""
 														href="quanly/donhang/${dh.getMaDH() }?suaTrangthai"> <i
 														class="fas fa-check-square"></i></a>
 													<!-- <a class="" href="#" data-toggle="modal" data-target="#exampleModalDisable"><i class="fas fa-lock"></i> </a> -->
@@ -140,7 +142,7 @@
 
 			<div class="jumbotron" style="overflow: scroll">
 				<div>
-					
+
 					<p>Mã đơn hàng: ${thongTinDH.getMaDH() }</p>
 					<p class="float-right">SĐT: ${thongTinDH.getSdtKH() }</p>
 					<p>Khách hàng: ${thongTinDH.getKhachHang().getHo() }&nbsp;${thongTinDH.getKhachHang().getTen() }</p>
@@ -184,10 +186,11 @@
 										<td>${ctdh.getChiTietSP().getSanPham().getMaSP() }</td>
 										<td class="d-flex justify-content-center"><img
 											src="resources/file/${ctdh.getChiTietSP().getSanPham().getHinhAnh() }"
-											width="40px" height="40px"> <span class="p-2 text-truncate d-block">${ctdh.chiTietSP.sanPham.tenSP }</span></td>
+											width="40px" height="40px"> <span
+											class="p-2 text-truncate d-block">${ctdh.chiTietSP.sanPham.tenSP }</span></td>
 										<td>${ctdh.getSoLuong() }</td>
 										<td>${ctdh.getChiTietSP().getSizeSanPham().getTenSize() }</td>
-										
+
 										<td><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
 												value=" ${(ctdh.chiTietSP.sanPham.gia - ctdh.chiTietSP.sanPham.gia* (ctdh.chiTietSP.sanPham.giamGia/100)) * ctdh.soLuong}"
 												type="currency" currencySymbol="vnđ" /></td>
@@ -373,7 +376,7 @@
 
 											<div class="row">
 												<div class="">
-													
+
 													<!-- /.card -->
 													<div class="form-group row d-flex  ">
 														<div class="mr-5">
@@ -386,47 +389,47 @@
 																	class="form-check-input" label="Đơn mới"
 																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 1 ? 'checked' : '' }" /> --%>
 
-																</div>
-																<div class="form-check">
-	
-																	<form:radiobutton path="trangThaiDH.maTTDH"
-																	value="2" class="form-check-input" label="Xác nhận"
+															</div>
+															<div class="form-check">
+
+																<form:radiobutton path="trangThaiDH.maTTDH" value="2"
+																	class="form-check-input" label="Xác nhận"
 																	checked="${thongTinDH.getTrangThaiDH().getMaTTDH() == 2 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
 															</div>
 															<div class="form-check">
 
-																<form:radiobutton path="trangThaiDH.maTTDH"
-																	value="3" class="form-check-input" label="Đang giao"
+																<form:radiobutton path="trangThaiDH.maTTDH" value="3"
+																	class="form-check-input" label="Đang giao"
 																	checked="${thongTinDH.getTrangThaiDH().getMaTTDH() == 3 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
 															</div>
 															<div class="form-check">
 
-																<form:radiobutton path="trangThaiDH.maTTDH"
-																	value="4" class="form-check-input" label="Đã giao"
+																<form:radiobutton path="trangThaiDH.maTTDH" value="4"
+																	class="form-check-input" label="Đã giao"
 																	checked="${thongTinDH.getTrangThaiDH().getMaTTDH() == 4 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
 															</div>
 															<div class="form-check">
 
-																<form:radiobutton path="trangThaiDH.maTTDH"
-																	value="5" class="form-check-input" label="Hủy"
+																<form:radiobutton path="trangThaiDH.maTTDH" value="5"
+																	class="form-check-input" label="Hủy"
 																	checked="${thongTinDH.getTrangThaiDH().getMaTTDH() == 5 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
 															</div>
 															<form:errors path="trangThaiDH" cssClass="text-danger" />
-															
+
 														</div>
 													</div>
 
 												</div>
 
-												
+
 												<div class="col-12">
 													<div class=" d-flex justify-content-end">
 														<button type="submit" class="btn btn-primary">Sửa</button>

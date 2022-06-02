@@ -143,7 +143,7 @@
 							<p class="text-truncate">${sp.chiTietSP.sanPham.tenSP }</p>
 							<p class="price-item"><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
 										maxFractionDigits="0"
-										value="${sp.chiTietSP.sanPham.gia - sp.chiTietSP.sanPham.gia* (sp.chiTietSP.sanPham.giamGia/100)}"
+										value="${(sp.chiTietSP.sanPham.gia - sp.chiTietSP.sanPham.gia* (sp.chiTietSP.sanPham.giamGia/100)) * sp.soLuong}"
 										type="currency" currencySymbol="đ" />
 							
 							</p>

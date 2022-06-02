@@ -466,7 +466,7 @@
 
  <!-- Back to Top -->
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
+<p id="alertMessage" data-message="${alertMessage }" data-success=${isSuccess }></p>
 <!-- Footer -->
 <%@include file="/WEB-INF/views/shop/include/footer.jsp"%>
 <!-- Footer End -->
@@ -477,6 +477,14 @@
 <!-- JS Lib End -->
 
 <script>
+let isSuccess = $("#alertMessage").data("success")
+			if(isSuccess){
+			
+			toastr.success($("#alertMessage").data("message"))
+		}
+		else if(isSuccess==false && isSuccess != ''){
+			 toastr.error($("#alertMessage").data("message"))		
+		}
 	$(document).ready(function() {
 		
 		$.ajax({

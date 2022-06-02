@@ -53,6 +53,7 @@ public class TaiKhoanService {
 	}
 	
 	public Boolean thayDoiMK(TaiKhoan taiKhoan, String mk) {
+		taiKhoan.setTrangThai(2);
 		taiKhoan.setMatKhau(hashPass(mk));
 		return taiKhoanDAO.sua(taiKhoan);
 	}
