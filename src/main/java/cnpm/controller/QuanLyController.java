@@ -1016,7 +1016,7 @@ public class QuanLyController {
 	}
 
 	@RequestMapping(value = "donhang/{maDH}", params = "suaTrangthai", method = RequestMethod.GET)
-	public String getTrangThaiNhanVien(ModelMap model, @PathVariable("maDH") Integer maDH) {
+	public String getTrangThaiDonHang(ModelMap model, @PathVariable("maDH") Integer maDH) {
 
 		if(maDH == null) {
 			return "quantri/quanly/donhang";
@@ -1043,26 +1043,36 @@ public class QuanLyController {
 			return "quantri/quanly/donhang";
 		}
 		
+		if(donhang.getTrangThaiDH().getMaTTDH() == 1) {
+			return "quantri/quanly/donhang";
+		}
+		
 		DonHang donhangcu = donHangService.getByMaDH(maDH);
 		if (donhangcu != null) {
-			if (donhangcu.getTrangThaiDH().getMaTTDH() == 3 && donhang.getTrangThaiDH().getMaTTDH() != 3) {
+			if (donhangcu.getTrangThaiDH().getMaTTDH() == 5 && donhang.getTrangThaiDH().getMaTTDH() != 5) {
 
 				errors.rejectValue("trangThaiDH", "thongTinDH", "Đơn hàng đã bị hủy trươc đó");
 				model.addAttribute("isOpenModalEdit", true);
 				return "quantri/quanly/donhang";
 			}
-			if (donhangcu.getTrangThaiDH().getMaTTDH() == 1 && donhang.getTrangThaiDH().getMaTTDH() == 4) {
+			if (donhangcu.getTrangThaiDH().getMaTTDH() == 1 && (donhang.getTrangThaiDH().getMaTTDH() == 3 || donhang.getTrangThaiDH().getMaTTDH() == 4)) {
 				errors.rejectValue("trangThaiDH", "thongTinDH", "Đơn hàng chưa được xác nhận");
 				model.addAttribute("isOpenModalEdit", true);
 				return "quantri/quanly/donhang";
 			}
 
-			if (donhangcu.getTrangThaiDH().getMaTTDH() == 2 && donhang.getTrangThaiDH().getMaTTDH() != 4) {
-				errors.rejectValue("trangThaiDH", "thongTinDH", "Đơn hàng không thể hủy hoặc chuyển thành đơn mới");
+			if (donhang.getTrangThaiDH().getMaTTDH() == 5 && donhangcu.getTrangThaiDH().getMaTTDH() != 5 ) {
+				errors.rejectValue("trangThaiDH", "thongTinDH", "Đơn hàng không thể hủy");
 				model.addAttribute("isOpenModalEdit", true);
 				return "quantri/quanly/donhang";
 			}
 
+			if (donhangcu.getTrangThaiDH().getMaTTDH() == 3 && donhang.getTrangThaiDH().getMaTTDH() == 2) {
+				errors.rejectValue("trangThaiDH", "thongTinDH", "Đơn hàng đã được xác nhận và đang được vẫn  chuyển");
+				model.addAttribute("isOpenModalEdit", true);
+				return "quantri/quanly/donhang";
+			}
+			
 			if (donhangcu.getTrangThaiDH().getMaTTDH() == 4 && donhang.getTrangThaiDH().getMaTTDH() != 4) {
 				errors.rejectValue("trangThaiDH", "thongTinDH", "Đơn hàng đã giao thành công trước đó");
 				model.addAttribute("isOpenModalEdit", true);
@@ -1072,17 +1082,33 @@ public class QuanLyController {
 			donhangcu.getTrangThaiDH().setMaTTDH(donhang.getTrangThaiDH().getMaTTDH());
 
 			if (donHangService.suaDH(donhangcu)) {
+				String email = donhangcu.getKhachHang().getTaiKhoan().getEmail();
+				String noidung;
+			
+				if(donhang.getTrangThaiDH().getMaTTDH() == 2) {
+					noidung = "đã được xác nhận.";
+					boolean c = utilService.guiEmail(email, noidung, 1);
+				}
+				else if(donhang.getTrangThaiDH().getMaTTDH() == 3) {
+					noidung = "đang được vẫn chuyển.";
+					boolean c = utilService.guiEmail(email, noidung, 1);
+				}
+				else if(donhang.getTrangThaiDH().getMaTTDH() == 4) {
+					noidung = "đã được giao thành công.";
+					boolean c = utilService.guiEmail(email, noidung, 1);
+				}
+				
 				model.addAttribute("isSuccess", true);
 				model.addAttribute("alertMessage", "Thay đổi trạng thái thành công");
 				model.addAttribute("danhSachDonHang", donHangService.getDSDonHang());
 			} else {
 				model.addAttribute("isSuccess", false);
-				model.addAttribute("alertMessage", "Thay đổi trạng thía thất bại");
+				model.addAttribute("alertMessage", "Thay đổi trạng thái thất bại");
 			}
 
 		} else {
 			model.addAttribute("isSuccess", false);
-			model.addAttribute("alertMessage", "Thay đổi trạng thía thất bại");
+			model.addAttribute("alertMessage", "Thay đổi trạng thái thất bại");
 		}
 
 		return "quantri/quanly/donhang";

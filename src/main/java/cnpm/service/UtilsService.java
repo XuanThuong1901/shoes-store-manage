@@ -2,9 +2,13 @@ package cnpm.service;
 
 import java.io.File;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class UtilsService {
 	@Autowired
 	ServletContext context;
+	
+	@Autowired
+	JavaMailSender mailSender;
 	
 	public String luuFile(MultipartFile file) {
 		if(file.isEmpty()) {
@@ -45,5 +52,29 @@ public class UtilsService {
 			
 		}
 		return null;
+	}
+	
+	public Boolean guiEmail(String email, String noiDung, int kieu) {
+		
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+
+		try {
+			helper.setFrom("no-reply-email");
+			helper.setTo(email);
+			if(kieu == 1) {
+				helper.setSubject("Tình trạng đơn hàng!");
+				helper.setText("Đơn hàng của quý khách " + noiDung + " Xin cảm ơn và hẹn gặp lại quý khách!");
+			}
+			else if(kieu == 2) {
+				helper.setSubject("Thanh toán thành công!");
+				helper.setText("Đơn hàng của quý khách đã thanh toán online thành công. Xin cảm ơn và hẹn gặp lại quý khách!");
+			}
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mailSender.send(message);
+		return true;
 	}
 }

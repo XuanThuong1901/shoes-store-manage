@@ -40,10 +40,10 @@
 						<div class="card-header d-flex flex-column ">
 							<div class="d-flex align-items-center justify-content-between">
 								<h3 class="card-title">Danh sách danh mục sản phẩm</h3>
-								<button type="submit" class="btn bg-primary  mt-2"
+								<!-- <button type="submit" class="btn bg-primary  mt-2"
 									data-toggle="modal" data-target="#modal-add-new">
 									<i class="fas fa-plus mr-2"></i>Thêm mới
-								</button>
+								</button> -->
 							</div>
 							<div>
 
@@ -99,13 +99,13 @@
 												<div class="d-flex justify-content-between px-4">
 													<a class=""
 														href="nhanvien/danhmucsp/${dm.getMaDM()}?thongtin"><i
-														class="fas fa-info-circle"></i> </a> <a class=""
+														class="fas fa-info-circle"></i> </a> <%-- <a class=""
 														href="nhanvien/danhmucsp/${dm.getMaDM() }?suaThongtin"><i
 														class="fas fa-edit"></i> </a> <a class=""
 														href="" data-delete="${dm.getMaDM() }" data-toggle="modal"
 														data-target="#exampleModalDisable"> <i
 														class="fas fa-trash-alt"></i>
-													</a>
+													</a> --%>
 
 												</div>
 

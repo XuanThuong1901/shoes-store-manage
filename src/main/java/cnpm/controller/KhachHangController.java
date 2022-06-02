@@ -263,12 +263,18 @@ public class KhachHangController {
 		}
 
 		DonHang donhang = donHangService.getByMaDH(maDH);
+		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
+		
 		if (donhang != null) {
 			donhang.getTrangThaiDH().setMaTTDH(5);
 			if (donHangService.suaDH(donhang)) {
+				/*
+				 * String noidung = "đã được hủy thành công."; boolean c =
+				 * utilService.guiEmail(tk.getEmail(), noidung, 1);
+				 */
 				model.addAttribute("isSuccess", true);
 				model.addAttribute("alertMessage", "Hủy đơn hàng thành công");
-				TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
+				
 				model.addAttribute("dsdonhang", donHangService.getDSDonHangCuaKH(tk.getKhachHang().getMaKH()));
 			} else {
 				model.addAttribute("isSuccess", false);
@@ -413,6 +419,9 @@ public class KhachHangController {
 				}
 			}
 
+			if(donhang.getHinhThucTT().getMaHTTT() == 1) {
+				utilService.guiEmail(tk.getEmail(), "", 2);
+			}
 			model.addAttribute("giohang", new ArrayList<GioHang>());
 			model.addAttribute("isSuccess", true);
 			return "shop/kqdathang";
