@@ -66,7 +66,7 @@
 											</button>
 										</div>
 										<input type="text" name="soluong"
-											data-ctsp="${i.chiTietSP.maChiTietSP }"
+											data-ctsp="${i.chiTietSP.maChiTietSP }" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
 											class="form-control form-control-sm bg-secondary border-0 text-center"
 											value="${i.soLuong }">
 										<div class="input-group-btn">

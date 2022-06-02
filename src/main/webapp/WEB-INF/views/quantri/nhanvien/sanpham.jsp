@@ -277,8 +277,8 @@
 					<p>
 						Giá&nbsp;
 						<fmt:setLocale value="vi_VN" />
-						<fmt:formatNumber value="${thongTinSP.getGia()}" type="currency"
-							currencySymbol="vnđ" />
+						<fmt:formatNumber value="${thongTinSP.getGia()}" type="currency" maxFractionDigits="0"
+							currencySymbol="đ" />
 					</p>
 
 					<p>Mô tả sản phẩm&nbsp;${thongTinSP.getMoTa() }</p>
@@ -410,7 +410,7 @@
 										value="${size.getMaSize() }">
 
 
-									<label for="vehicle1">"${size.getTenSize()}" </label>
+									<label for="vehicle1" class="mr-3">${size.getTenSize()} </label>
 								</c:forEach>
 								<p class="text-danger">${size }</p>
 

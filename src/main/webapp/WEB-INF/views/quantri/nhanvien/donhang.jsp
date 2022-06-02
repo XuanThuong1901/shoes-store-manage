@@ -53,7 +53,7 @@
 								<thead class="bg-primary">
 									<tr>
 										<th>Mã đơn hàng</th>
-
+										<th>Mã khách hàng </th>
 										<th>Ngày đặt</th>
 
 										<th>Tổng tiền</th>
@@ -65,6 +65,7 @@
 									<c:forEach var="dh" items="${danhSachDonHang }">
 										<tr>
 											<td>${dh.getMaDH() }</td>
+											<td>${dh.getKhachHang().getMaKH() }</td>
 											<td>${dh.getThoiGian() }</td>
 											<td><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
 													value="${dh.getTongTien()}" type="currency" maxFractionDigits="0"

@@ -8,8 +8,16 @@
 <%@include file="/WEB-INF/views/quantri/include/header.jsp"%>
 <!-- Header end -->
 
+<c:choose>
+	<c:when test="${user.getVaitro().getMaVT() == 'NV' }">
+		<%@include file="/WEB-INF/views/quantri/include/sidebar-nv.jsp"%>
+	</c:when>
+	<c:when test="${user.getVaitro().getMaVT()=='QL' }">
+		<%@include file="/WEB-INF/views/quantri/include/sidebar-ql.jsp"%>
+	</c:when>
+</c:choose>
 <!-- Sidebar -->
-<%@include file="/WEB-INF/views/quantri/include/sidebar-ql.jsp"%>
+
 <!-- Sidebar end -->
 
 <!-- Content Wrapper. Contains page content -->
@@ -133,7 +141,7 @@
 																		</label>
 																		<div class="col-sm-10">
 																			<label class="form-control">${thongTinNV.getTaiKhoan().getEmail() }</label>
-																			
+
 																		</div>
 																	</div>
 																	<div class="form-group row">
