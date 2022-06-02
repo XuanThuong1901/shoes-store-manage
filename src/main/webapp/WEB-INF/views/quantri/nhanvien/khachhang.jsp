@@ -40,14 +40,13 @@
 						<div class="card-header d-flex flex-column ">
 							<div class="d-flex align-items-center justify-content-between">
 								<h3 class="card-title">Danh sách khách hàng</h3>
-															</div>
+							</div>
 							<div>
 
 								<div>
 									<c:choose>
 										<c:when test="${isSuccess }">
-											<div
-												class="mt-2 alert alert-success alert-dismissible fade show"
+											<div class="mt-2 alert alert-success alert-dismissible fade show"
 												role="alert">
 												${alertMessage }
 												<button type="button" class="close" data-dismiss="alert"
@@ -57,8 +56,7 @@
 											</div>
 										</c:when>
 										<c:when test="${isSuccess == false }">
-											<div
-												class="mt-2 alert alert-danger alert-dismissible fade show"
+											<div class="mt-2 alert alert-danger alert-dismissible fade show"
 												role="alert">
 												${alertMessage }
 												<button type="button" class="close" data-dismiss="alert"
@@ -92,46 +90,53 @@
 										<tr>
 											<td>${kh.getMaKH() }</td>
 
-											<td class="text-center"><c:choose>
+											<td class="text-center">
+												<c:choose>
 													<c:when test="${kh.anh != null   }">
 
 														<a href="resources/file/${ kh.getAnh()}"
 															data-toggle="lightbox"><img
-															src="resources/file/${ kh.getAnh()}" alt="Hinh anh"
-															class="img-size-50" /></a>
+																src="resources/file/${ kh.getAnh()}" alt="Hinh anh"
+																class="img-size-50" /></a>
 													</c:when>
 													<c:otherwise>
 
 													</c:otherwise>
-												</c:choose></td>
+												</c:choose>
+											</td>
 											<td>${kh.getHo() } ${kh.getTen() }</td>
 											<td>${kh.getSdt() }</td>
-											<td><c:choose>
+											<td>
+												<c:choose>
 													<c:when test="${kh.getPhai() }">
 														Nam
 													</c:when>
 													<c:when test="${kh.getPhai() == false }">
 														Nữ
 													</c:when>
-												</c:choose></td>
-											<td><c:choose>
-													<c:when test="${kh.getTaiKhoan().getTrangThai() }">
+												</c:choose>
+											</td>
+											<td>
+												<c:choose>
+													<c:when test="${kh.getTaiKhoan().getTrangThai() == 1 }">
 														<span class="badge badge-success">Hoạt động</span>
 													</c:when>
-													<c:when test="${kh.getTaiKhoan().getTrangThai() == false }">
+													<c:when test="${kh.getTaiKhoan().getTrangThai() == 0 }">
 														<span class="badge badge-danger">Khóa</span>
 													</c:when>
-												</c:choose></td>
+													<c:when test="${kh.getTaiKhoan().getTrangThai() == 2 }">
+														<span class="badge badge-warning">Xác thực</span>
+													</c:when>
+												</c:choose>
+											</td>
 
 
 											</td>
 											<td>
 												<div class="d-flex justify-content-between px-4">
 													<a class="" href="nhanvien/khachhang/${kh.getMaKH()}?thongtin"><i
-														class="fas fa-info-circle"></i> </a> <a class=""
-														href="nhanvien/khachhang/${kh.getMaKH() }?suaThongtin"><i
-														class="fas fa-edit"></i> </a>
-													
+															class="fas fa-info-circle"></i> </a> 
+
 												</div>
 
 											</td>
@@ -170,14 +175,12 @@
 
 
 <!-- Modal thong tin chi tiet -->
-<div class="modal fade" id="modal-info-detail"
-	isShow="${isOpenModalInfo }">
+<div class="modal fade" id="modal-info-detail" isShow="${isOpenModalInfo }">
 	<div class="modal-dialog modal-lg modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title text-primary">Thông tin khách hàng</h4>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<!-- <a href="nhanvien/nhakhien" class="close">&times;</a> -->
@@ -201,8 +204,7 @@
 															alt="User profile picture" style="width: 120px;" />
 													</c:when>
 													<c:otherwise>
-														<img
-															src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwoHCAoJBwkGCAoHCAoICAcIDRIICQcKFREWFhURExMYHCggGCYxGxMTITEhMSkrLi4uFx8zODMsNygtLisBCgoKCw0NDw0NFS0dHxkrKysrKysrLSsrKysrLTcrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAN8A2QMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAAAQIFBgQDB//EADYQAQACAgEBBQUFBwUBAAAAAAABAgMRBAUSISIxUjJBUXKSExVCYmMzNFNhcYKiIyRzgZEU/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEB/9oADAMBAAIRAxEAPwD9EAaQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADv8AKO+WhxelXyx2s9vs49NfaBn7g3DocXTsOOPY7XzPrHHw/wAKn0lHM7PN0l+FhtGpxU/6ePkdIraJnDOvyyUY4vkxWwTNMlOzKgAAAAAAAAAAAAAAAAAAAPRwMP8A9GaKx3xXxWBodK4PZiMuaN3nyaceZEajUR3R3JZVIACJSA83K4teTSa2jv8Aw2c9mx2w3mlvc6lldZwbrGWI12PaUZAfzFQAAAAAAAAAAAAAAAAavQsf7TJP4vZZTc6LH+2j49pBogIoAAACJfHmY4yYL1n0vuraNxMT74BykfD0i2SIjJeI/DZVpAAAAAAAAAAAAAAAABudE/d/7mG1eh5Y1fHv2fEitgRuEoAAAACLd0TMpefm5Ix4L2mdeHsg5y87yZJ9VrKnf5yNIAAAAAAAAAAAAAAAAT5Ptw808fNS8eXs2fEB1dbRaItHvWY3SebFI+xzW+SzY3DKpERO0gAjcAT5MfrXI76YqTv1PdzeVXj1nxeO3s1c9e9sl5vbzsuYI7/eAqAAAAAAAAAAAAAAAAAAHm0OF1S2KOxyPFWPZyM81sHTYeRjyxE0vSX23Hm5OImPJb7S8RqMmX6kiuotetY3a2ng5PVaUia4fFdi2ta0atO/62RqI8u4gtlyXzW7eSe9UGsQAQAAAAAAAAAAAAAADcL4sVs89jFG5a3F6VSmr5/9S/p/CDKxYb5v2dLz/g9ePpOW/fbsVbdaxXurGo/kmPNKrIjo1vfl1/RP3P8Ar3+lsBRj/c/69/pPuf8AXv8AS2Aox/uf9e/0n3P+vf6WwFGPPR592b/F87dIyxG65KS3ET3lHNZuFmxe1TcflfCe7unudXO3m5PBxciPFXU+qCjnR6eZwr8ad9ndPU8yoAAAAAAAAAAPtx+PbkXilPrfGImZ7NfOzouBxY42OI7Pjn2rGi/F4teNTsUj5p9T7wlG4ZVIjcG4BIhIAhIAIBII3AJRPkbg3AK3rFomt43EsPqHAnBPbxd+P0+lvT/6rakWia2jcSDlfdsenncaeNkmPwX9l5mkAAAAAAAJ8gaHSMEZcn2lo7qVbW+95emYoxcakfHxPQmqts3CogtuDcKgLbNqgLbNqgLbNqgLbNwqAtuDcKgLbN/FUB5+p4Iz4ZmPOrA13fK6ie+NfHwua5FPssuSn5lxHzAUAAAADW5iPzCY84+aoOjw+HHSvpqvtSs+GPlSC2zapALbNo3BuATs2jcEgnZtUgFtm0SgFtm1QFtm1QFtm1UAvtidVr2eRM/GvabLI6v+8R/xA8IAAAAAB74+aoA6OvsRP5Tb4cHLOTDG/OKvuBs2AGzYAbNgBs2AGzYAbNgBs2AGzYAbZPVpic8a/hNWZ1G/SwuXknLmvf8AtB8gAAAf/9k="
+														<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwoHCAoJBwkGCAoHCAoICAcIDRIICQcKFREWFhURExMYHCggGCYxGxMTITEhMSkrLi4uFx8zODMsNygtLisBCgoKCw0NDw0NFS0dHxkrKysrKysrLSsrKysrLTcrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAN8A2QMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAAAQIFBgQDB//EADYQAQACAgEBBQUFBwUBAAAAAAABAgMRBAUSISIxUjJBUXKSExVCYmMzNFNhcYKiIyRzgZEU/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEB/9oADAMBAAIRAxEAPwD9EAaQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADv8AKO+WhxelXyx2s9vs49NfaBn7g3DocXTsOOPY7XzPrHHw/wAKn0lHM7PN0l+FhtGpxU/6ePkdIraJnDOvyyUY4vkxWwTNMlOzKgAAAAAAAAAAAAAAAAAAAPRwMP8A9GaKx3xXxWBodK4PZiMuaN3nyaceZEajUR3R3JZVIACJSA83K4teTSa2jv8Aw2c9mx2w3mlvc6lldZwbrGWI12PaUZAfzFQAAAAAAAAAAAAAAAAavQsf7TJP4vZZTc6LH+2j49pBogIoAAACJfHmY4yYL1n0vuraNxMT74BykfD0i2SIjJeI/DZVpAAAAAAAAAAAAAAAABudE/d/7mG1eh5Y1fHv2fEitgRuEoAAAACLd0TMpefm5Ix4L2mdeHsg5y87yZJ9VrKnf5yNIAAAAAAAAAAAAAAAAT5Ptw808fNS8eXs2fEB1dbRaItHvWY3SebFI+xzW+SzY3DKpERO0gAjcAT5MfrXI76YqTv1PdzeVXj1nxeO3s1c9e9sl5vbzsuYI7/eAqAAAAAAAAAAAAAAAAAAHm0OF1S2KOxyPFWPZyM81sHTYeRjyxE0vSX23Hm5OImPJb7S8RqMmX6kiuotetY3a2ng5PVaUia4fFdi2ta0atO/62RqI8u4gtlyXzW7eSe9UGsQAQAAAAAAAAAAAAAADcL4sVs89jFG5a3F6VSmr5/9S/p/CDKxYb5v2dLz/g9ePpOW/fbsVbdaxXurGo/kmPNKrIjo1vfl1/RP3P8Ar3+lsBRj/c/69/pPuf8AXv8AS2Aox/uf9e/0n3P+vf6WwFGPPR592b/F87dIyxG65KS3ET3lHNZuFmxe1TcflfCe7unudXO3m5PBxciPFXU+qCjnR6eZwr8ad9ndPU8yoAAAAAAAAAAPtx+PbkXilPrfGImZ7NfOzouBxY42OI7Pjn2rGi/F4teNTsUj5p9T7wlG4ZVIjcG4BIhIAhIAIBII3AJRPkbg3AK3rFomt43EsPqHAnBPbxd+P0+lvT/6rakWia2jcSDlfdsenncaeNkmPwX9l5mkAAAAAAAJ8gaHSMEZcn2lo7qVbW+95emYoxcakfHxPQmqts3CogtuDcKgLbNqgLbNqgLbNqgLbNwqAtuDcKgLbN/FUB5+p4Iz4ZmPOrA13fK6ie+NfHwua5FPssuSn5lxHzAUAAAADW5iPzCY84+aoOjw+HHSvpqvtSs+GPlSC2zapALbNo3BuATs2jcEgnZtUgFtm0SgFtm1QFtm1QFtm1UAvtidVr2eRM/GvabLI6v+8R/xA8IAAAAAB74+aoA6OvsRP5Tb4cHLOTDG/OKvuBs2AGzYAbNgBs2AGzYAbNgBs2AGzYAbZPVpic8a/hNWZ1G/SwuXknLmvf8AtB8gAAAf/9k="
 															alt="User profile picture" style="width: 120px;"
 															class="profile-user-img img-fluid img-circle" />
 													</c:otherwise>
@@ -214,7 +216,7 @@
 
 											<!-- <h3 class="profile-username text-center text-primary"></h3> -->
 
-											
+
 
 										</div>
 										<!-- /.card-body -->
@@ -240,8 +242,7 @@
 												<div class="col-sm-10">
 													<input type="email" class="form-control" id="inputEmail"
 														placeholder=""
-														value="${thongTinKH.getHo() } ${thongTinKH.getTen() }"
-														disabled>
+														value="${thongTinKH.getHo() } ${thongTinKH.getTen() }" disabled>
 												</div>
 											</div>
 											<div class="form-group row">
@@ -255,15 +256,14 @@
 												</div>
 											</div>
 											<div class="form-group row">
-												<label for="inputExperience"
-													class="col-sm-2 col-form-label ">Ngày sinh</label>
+												<label for="inputExperience" class="col-sm-2 col-form-label ">Ngày
+													sinh</label>
 												<div class="col-sm-10">
-													<input class="form-control" id="inputExperience"
-														placeholder="" value="${thongTinKH.getNgaySinh() }"
-														disabled></input>
+													<input class="form-control" id="inputExperience" placeholder=""
+														value="${thongTinKH.getNgaySinh() }" disabled></input>
 												</div>
 											</div>
-											
+
 											<div class="form-group row">
 												<label for="inputSkills" class="col-sm-2 col-form-label ">SĐT</label>
 												<div class="col-sm-10">
@@ -304,8 +304,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Trạng thái khách hàng</h4>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -320,9 +319,10 @@
 									<div class="active tab-pane" id="activity">
 										<!-- Info profile -->
 
-										<form:form action="nhanvien/khachhang/${thongTinKH.getMaKH() }?suaKH" class="form-horizontal" modelAttribute="thongTinKH"
+										<form:form action="nhanvien/khachhang/${thongTinKH.getMaKH() }?suaKH"
+											class="form-horizontal" modelAttribute="thongTinKH"
 											enctype="multipart/form-data">
-										
+
 											<div class="row">
 												<div class="col-md-4">
 													<!-- Profile Image -->
@@ -333,16 +333,16 @@
 														<div>
 															<div class="form-check">
 
-																<form:radiobutton path="taiKhoan.trangThai" value="true"
+																<form:radiobutton path="taiKhoan.trangThai" value="1"
 																	class="form-check-input" label="Hoạt động"
-																	checked="${thongtinKH.getTaiKhoan.getTrangThai() == true ? 'checked' : '' }" />
+																	checked="${thongtinKH.getTaiKhoan.getTrangThai() == 1 ? 'checked' : '' }" />
 
 															</div>
 															<div class="form-check">
 
-																<form:radiobutton path="taiKhoan.trangThai"
-																	value="false" class="form-check-input" label="Khóa"
-																	checked="${thongtinKH.getTaiKhoan.getTrangThai() == false ? 'checked' : '' }" />
+																<form:radiobutton path="taiKhoan.trangThai" value="0"
+																	class="form-check-input" label="Khóa"
+																	checked="${thongtinKH.getTaiKhoan.getTrangThai() == 0 ? 'checked' : '' }" />
 																<form:errors path="phai" cssClass="text-danger" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
@@ -364,7 +364,7 @@
 										</form:form>
 										<!-- /.Info profile -->
 									</div>
-							
+
 								</div>
 								<!-- /.tab-content -->
 							</div>

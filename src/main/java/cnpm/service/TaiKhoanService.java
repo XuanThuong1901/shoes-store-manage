@@ -91,7 +91,7 @@ public class TaiKhoanService {
 		return taiKhoan;
 	}
 	
-	public Boolean setTrangThaiTK(TaiKhoan taiKhoan, Boolean trangThai) {
+	public Boolean setTrangThaiTK(TaiKhoan taiKhoan, Integer trangThai) {
 		taiKhoan.setTrangThai(trangThai);
 		return taiKhoanDAO.sua(taiKhoan);
 	}
@@ -109,7 +109,7 @@ public class TaiKhoanService {
 	}
 
 	public Boolean themKH(TaiKhoan taikhoan) {
-		taikhoan.setTrangThai(true);
+		taikhoan.setTrangThai(2);
 		taikhoan.setVaitro(vaiTroService.getByMaVT("KH"));
 		
 		return taiKhoanDAO.them(taikhoan);
@@ -122,7 +122,7 @@ public class TaiKhoanService {
 	
 	
 	public Boolean themNV(TaiKhoan taikhoan) {
-		taikhoan.setTrangThai(true);
+		taikhoan.setTrangThai(2);
 		taikhoan.setVaitro(vaiTroService.getByMaVT("NV"));
 		
 		return taiKhoanDAO.them(taikhoan);

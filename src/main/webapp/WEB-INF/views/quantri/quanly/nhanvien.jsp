@@ -41,8 +41,8 @@
 						<div class="card-header d-flex flex-column ">
 							<div class="d-flex align-items-center justify-content-between">
 								<h3 class="card-title">Danh sách nhân viên</h3>
-								<button type="submit" class="btn bg-primary  mt-2"
-									data-toggle="modal" data-target="#modal-add-new">
+								<button type="submit" class="btn bg-primary  mt-2" data-toggle="modal"
+									data-target="#modal-add-new">
 									<i class="fas fa-plus mr-2"></i>Thêm mới
 								</button>
 							</div>
@@ -51,8 +51,7 @@
 								<div>
 									<c:choose>
 										<c:when test="${isSuccess }">
-											<div
-												class="mt-2 alert alert-success alert-dismissible fade show"
+											<div class="mt-2 alert alert-success alert-dismissible fade show"
 												role="alert">
 												${alertMessage }
 												<button type="button" class="close" data-dismiss="alert"
@@ -62,8 +61,7 @@
 											</div>
 										</c:when>
 										<c:when test="${isSuccess == false }">
-											<div
-												class="mt-2 alert alert-danger alert-dismissible fade show"
+											<div class="mt-2 alert alert-danger alert-dismissible fade show"
 												role="alert">
 												${alertMessage }
 												<button type="button" class="close" data-dismiss="alert"
@@ -97,45 +95,54 @@
 										<tr>
 											<td>${nv.getMaNV() }</td>
 
-											<td class="text-center"><c:choose>
+											<td class="text-center">
+												<c:choose>
 													<c:when test="${nv.anh != null   }">
 
 														<a href="resources/file/${ nv.getAnh()}"
 															data-toggle="lightbox"><img
-															src="resources/file/${ nv.getAnh()}" alt="Hinh anh"
-															class="img-size-50" /></a>
+																src="resources/file/${ nv.getAnh()}" alt="Hinh anh"
+																class="img-size-50" /></a>
 													</c:when>
 													<c:otherwise>
 
 													</c:otherwise>
-												</c:choose></td>
+												</c:choose>
+											</td>
 											<td>${nv.getHo() }${nv.getTen() }</td>
 											<td>${nv.getSdt() }</td>
-											<td><c:choose>
+											<td>
+												<c:choose>
 													<c:when test="${nv.getPhai() }">
 														Nam
 													</c:when>
 													<c:when test="${nv.getPhai() == false }">
 														Nữ
 													</c:when>
-												</c:choose></td>
-											<td><c:choose>
-													<c:when test="${nv.getTaiKhoan().getTrangThai() }">
+												</c:choose>
+											</td>
+											<td>
+												<c:choose>
+													<c:when test="${nv.getTaiKhoan().getTrangThai() == 1 }">
 														<span class="badge badge-success">Hoạt động</span>
 													</c:when>
-													<c:when test="${nv.getTaiKhoan().getTrangThai() == false }">
+													<c:when test="${nv.getTaiKhoan().getTrangThai() == 0}">
 														<span class="badge badge-danger">Khóa</span>
 													</c:when>
-												</c:choose></td>
+													<c:when test="${kh.getTaiKhoan().getTrangThai() == 2 }">
+														<span class="badge badge-warning">Xác thực</span>
+													</c:when>
+												</c:choose>
+											</td>
 
 
 											</td>
 											<td>
 												<div class="d-flex justify-content-between px-4">
 													<a class="" href="quanly/nhanvien/${nv.getMaNV()}?thongtin"><i
-														class="fas fa-info-circle"></i> </a> <a class=""
+															class="fas fa-info-circle"></i> </a> <a class=""
 														href="quanly/nhanvien/${nv.getMaNV() }?suaThongtin"><i
-														class="fas fa-edit"></i> </a>
+															class="fas fa-edit"></i> </a>
 
 												</div>
 
@@ -172,15 +179,13 @@
 <!-- /.content-wrapper -->
 
 <!-- Modal them moi nhan vien -->
-<div class="modal fade" id="modal-add-new"
-	isShow="${isShowModalAddNew }">
+<div class="modal fade" id="modal-add-new" isShow="${isShowModalAddNew }">
 	<div class="modal-dialog modal-lg modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title text-primary" style="font-weight: 600;">Thêm
 					nhân viên</h4>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -188,9 +193,8 @@
 				<div class="row">
 					<!-- /.col -->
 					<div class="col-md-12">
-						<form:form action="quanly/nhanvien?themNV" class="form-horizontal"
-							method="post" modelAttribute="nhanVienMoi"
-							enctype="multipart/form-data">
+						<form:form action="quanly/nhanvien?themNV" class="form-horizontal" method="post"
+							modelAttribute="nhanVienMoi" enctype="multipart/form-data">
 							<div class="row">
 
 
@@ -216,8 +220,7 @@
 									<div class="form-group row">
 										<label for="" class="col-sm-2 col-form-label text-primary">Email</label>
 										<div class="col-sm-10">
-											<form:input path="taiKhoan.email" class="form-control"
-												id="inputName" />
+											<form:input path="taiKhoan.email" class="form-control" id="inputName" />
 											<form:errors path="taiKhoan.email" cssClass="text-danger" />
 											<!--  <input type="email" class="form-control" id="inputName" placeholder=""> -->
 										</div>
@@ -249,8 +252,7 @@
 										</div>
 									</div>
 									<div class="form-group row">
-										<label for="inputExperience"
-											class="col-sm-2 col-form-label text-primary">Ngày
+										<label for="inputExperience" class="col-sm-2 col-form-label text-primary">Ngày
 											sinh</label>
 										<div class="col-sm-10">
 											<div class="form-group">
@@ -276,8 +278,8 @@
 										</div>
 									</div>
 									<div class="form-group row">
-										<label for="inputSkills"
-											class="col-sm-2 col-form-label text-primary">Địa chỉ</label>
+										<label for="inputSkills" class="col-sm-2 col-form-label text-primary">Địa
+											chỉ</label>
 										<div class="col-sm-10">
 											<form:input path="diaChi" class="form-control" />
 											<form:errors path="diaChi" cssClass="text-danger" />
@@ -331,14 +333,12 @@
 
 <!-- Modal sua thong tin nhan vien -->
 
-<div class="modal fade" id="modal-edit-employee"
-	isShow="${isOpenModalEdit }">
+<div class="modal fade" id="modal-edit-employee" isShow="${isOpenModalEdit }">
 	<div class="modal-dialog modal-lg modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Sửa nhân viên</h4>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -349,9 +349,9 @@
 						<div class="">
 							<div class="card-header p-2">
 								<ul class="nav nav-pills">
-									<li class="nav-item"><a class="nav-link active"
-										href="#activity" data-toggle="tab">Thông tin cá nhân</a></li>
-									
+									<li class="nav-item"><a class="nav-link active" href="#activity"
+											data-toggle="tab">Thông tin cá nhân</a></li>
+
 								</ul>
 							</div>
 							<!-- /.card-header -->
@@ -360,8 +360,7 @@
 									<div class="active tab-pane" id="activity">
 										<!-- Info profile -->
 
-										<form:form
-											action="quanly/nhanvien/${thongTinNV.getMaNV() }?suaNV"
+										<form:form action="quanly/nhanvien/${thongTinNV.getMaNV() }?suaNV"
 											class="form-horizontal" modelAttribute="thongTinNV"
 											enctype="multipart/form-data">
 
@@ -392,16 +391,16 @@
 														<div>
 															<div class="form-check">
 
-																<form:radiobutton path="taiKhoan.trangThai" value="true"
+																<form:radiobutton path="taiKhoan.trangThai" value="1"
 																	class="form-check-input" label="Hoạt động"
-																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == true ? 'checked' : '' }" />
+																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 1 ? 'checked' : '' }" />
 
 															</div>
 															<div class="form-check">
 
-																<form:radiobutton path="taiKhoan.trangThai"
-																	value="false" class="form-check-input" label="Khóa"
-																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == false ? 'checked' : '' }" />
+																<form:radiobutton path="taiKhoan.trangThai" value="0"
+																	class="form-check-input" label="Khóa"
+																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 0 ? 'checked' : '' }" />
 																<form:errors path="phai" cssClass="text-danger" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
@@ -409,13 +408,13 @@
 														</div>
 
 														<%-- <div class="col-sm-10">
-															<form:radiobutton path="taiKhoan.trangThai" value="true"
+															<form:radiobutton path="taiKhoan.trangThai" value="1"
 																label="Hoạt động"
-																checked="${thongtinNV.getTaiKhoan.getTrangThai() == true ? 'checked' : '' }" />
+																checked="${thongtinNV.getTaiKhoan.getTrangThai() == 1 ? 'checked' : '' }" />
 
-															<form:radiobutton path="taiKhoan.trangThai" value="false"
+															<form:radiobutton path="taiKhoan.trangThai" value="0"
 																label="Khóa"
-																checked="${thongtinNV.getTaiKhoan.getTrangThai() == false ? 'checked' : '' }" />
+																checked="${thongtinNV.getTaiKhoan.getTrangThai() == 0 ? 'checked' : '' }" />
 															<form:errors path="phai" cssClass="text-danger" />
 														</div> --%>
 													</div>
@@ -431,8 +430,8 @@
 																	class="col-sm-2 col-form-label text-primary">Email
 																</label>
 																<div class="col-sm-10">
-																	<form:input path="taiKhoan.email" class="form-control"
-																		id="" />
+																	<form:input path="taiKhoan.email"
+																		class="form-control" id="" />
 																	<form:errors path="taiKhoan.email"
 																		cssClass="text-danger" />
 																</div>
@@ -456,20 +455,22 @@
 																</div>
 															</div>
 															<div class="form-group row">
-																<label for="inputName2" class="col-sm-2 col-form-label">Giới
+																<label for="inputName2"
+																	class="col-sm-2 col-form-label">Giới
 																	tính</label>
 																<div class="col-sm-10">
 																	<div class="form-check form-check-inline">
-																		<form:radiobutton path="phai" value="true" label="Nam"
-																			class="form-check-input"
+																		<form:radiobutton path="phai" value="true"
+																			label="Nam" class="form-check-input"
 																			checked="${thongtinNV.getPhai() == true ? 'checked' : '' }" />
 
 																	</div>
 																	<div class="form-check form-check-inline">
-																		<form:radiobutton path="phai" value="false" label="Nữ"
-																			class="form-check-input"
+																		<form:radiobutton path="phai" value="false"
+																			label="Nữ" class="form-check-input"
 																			checked="${thongtinNV.getPhai() == false ? 'checked' : '' }" />
-																		<form:errors path="phai" cssClass="text-danger" />
+																		<form:errors path="phai"
+																			cssClass="text-danger" />
 																	</div>
 
 
@@ -482,7 +483,8 @@
 																	<form:input path="ngaySinh" type="date"
 																		value="${thongTinNV.getNgaySinh() }"
 																		class="form-control" />
-																	<form:errors path="ngaySinh" cssClass="text-danger" />
+																	<form:errors path="ngaySinh"
+																		cssClass="text-danger" />
 																</div>
 															</div>
 															<div class="form-group row">
@@ -502,7 +504,8 @@
 																</div>
 															</div>
 															<div class="form-group row">
-																<label for="inputSkills" class="col-sm-2 col-form-label">
+																<label for="inputSkills"
+																	class="col-sm-2 col-form-label">
 																	Địa chỉ</label>
 																<div class="col-sm-10">
 																	<form:input path="diaChi" class="form-control" />
@@ -567,14 +570,12 @@
 
 
 <!-- Modal thong tin chi tiet -->
-<div class="modal fade" id="modal-info-detail"
-	isShow="${isOpenModalInfo }">
+<div class="modal fade" id="modal-info-detail" isShow="${isOpenModalInfo }">
 	<div class="modal-dialog modal-lg modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title text-primary">Thông tin nhân viên</h4>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<!-- <a href="quanly/nhanvien" class="close">&times;</a> -->
@@ -598,8 +599,7 @@
 															alt="User profile picture" style="width: 120px;" />
 													</c:when>
 													<c:otherwise>
-														<img
-															src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwoHCAoJBwkGCAoHCAoICAcIDRIICQcKFREWFhURExMYHCggGCYxGxMTITEhMSkrLi4uFx8zODMsNygtLisBCgoKCw0NDw0NFS0dHxkrKysrKysrLSsrKysrLTcrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAN8A2QMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAAAQIFBgQDB//EADYQAQACAgEBBQUFBwUBAAAAAAABAgMRBAUSISIxUjJBUXKSExVCYmMzNFNhcYKiIyRzgZEU/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEB/9oADAMBAAIRAxEAPwD9EAaQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADv8AKO+WhxelXyx2s9vs49NfaBn7g3DocXTsOOPY7XzPrHHw/wAKn0lHM7PN0l+FhtGpxU/6ePkdIraJnDOvyyUY4vkxWwTNMlOzKgAAAAAAAAAAAAAAAAAAAPRwMP8A9GaKx3xXxWBodK4PZiMuaN3nyaceZEajUR3R3JZVIACJSA83K4teTSa2jv8Aw2c9mx2w3mlvc6lldZwbrGWI12PaUZAfzFQAAAAAAAAAAAAAAAAavQsf7TJP4vZZTc6LH+2j49pBogIoAAACJfHmY4yYL1n0vuraNxMT74BykfD0i2SIjJeI/DZVpAAAAAAAAAAAAAAAABudE/d/7mG1eh5Y1fHv2fEitgRuEoAAAACLd0TMpefm5Ix4L2mdeHsg5y87yZJ9VrKnf5yNIAAAAAAAAAAAAAAAAT5Ptw808fNS8eXs2fEB1dbRaItHvWY3SebFI+xzW+SzY3DKpERO0gAjcAT5MfrXI76YqTv1PdzeVXj1nxeO3s1c9e9sl5vbzsuYI7/eAqAAAAAAAAAAAAAAAAAAHm0OF1S2KOxyPFWPZyM81sHTYeRjyxE0vSX23Hm5OImPJb7S8RqMmX6kiuotetY3a2ng5PVaUia4fFdi2ta0atO/62RqI8u4gtlyXzW7eSe9UGsQAQAAAAAAAAAAAAAADcL4sVs89jFG5a3F6VSmr5/9S/p/CDKxYb5v2dLz/g9ePpOW/fbsVbdaxXurGo/kmPNKrIjo1vfl1/RP3P8Ar3+lsBRj/c/69/pPuf8AXv8AS2Aox/uf9e/0n3P+vf6WwFGPPR592b/F87dIyxG65KS3ET3lHNZuFmxe1TcflfCe7unudXO3m5PBxciPFXU+qCjnR6eZwr8ad9ndPU8yoAAAAAAAAAAPtx+PbkXilPrfGImZ7NfOzouBxY42OI7Pjn2rGi/F4teNTsUj5p9T7wlG4ZVIjcG4BIhIAhIAIBII3AJRPkbg3AK3rFomt43EsPqHAnBPbxd+P0+lvT/6rakWia2jcSDlfdsenncaeNkmPwX9l5mkAAAAAAAJ8gaHSMEZcn2lo7qVbW+95emYoxcakfHxPQmqts3CogtuDcKgLbNqgLbNqgLbNqgLbNwqAtuDcKgLbN/FUB5+p4Iz4ZmPOrA13fK6ie+NfHwua5FPssuSn5lxHzAUAAAADW5iPzCY84+aoOjw+HHSvpqvtSs+GPlSC2zapALbNo3BuATs2jcEgnZtUgFtm0SgFtm1QFtm1QFtm1UAvtidVr2eRM/GvabLI6v+8R/xA8IAAAAAB74+aoA6OvsRP5Tb4cHLOTDG/OKvuBs2AGzYAbNgBs2AGzYAbNgBs2AGzYAbZPVpic8a/hNWZ1G/SwuXknLmvf8AtB8gAAAf/9k="
+														<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwoHCAoJBwkGCAoHCAoICAcIDRIICQcKFREWFhURExMYHCggGCYxGxMTITEhMSkrLi4uFx8zODMsNygtLisBCgoKCw0NDw0NFS0dHxkrKysrKysrLSsrKysrLTcrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAN8A2QMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAAAQIFBgQDB//EADYQAQACAgEBBQUFBwUBAAAAAAABAgMRBAUSISIxUjJBUXKSExVCYmMzNFNhcYKiIyRzgZEU/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEB/9oADAMBAAIRAxEAPwD9EAaQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADv8AKO+WhxelXyx2s9vs49NfaBn7g3DocXTsOOPY7XzPrHHw/wAKn0lHM7PN0l+FhtGpxU/6ePkdIraJnDOvyyUY4vkxWwTNMlOzKgAAAAAAAAAAAAAAAAAAAPRwMP8A9GaKx3xXxWBodK4PZiMuaN3nyaceZEajUR3R3JZVIACJSA83K4teTSa2jv8Aw2c9mx2w3mlvc6lldZwbrGWI12PaUZAfzFQAAAAAAAAAAAAAAAAavQsf7TJP4vZZTc6LH+2j49pBogIoAAACJfHmY4yYL1n0vuraNxMT74BykfD0i2SIjJeI/DZVpAAAAAAAAAAAAAAAABudE/d/7mG1eh5Y1fHv2fEitgRuEoAAAACLd0TMpefm5Ix4L2mdeHsg5y87yZJ9VrKnf5yNIAAAAAAAAAAAAAAAAT5Ptw808fNS8eXs2fEB1dbRaItHvWY3SebFI+xzW+SzY3DKpERO0gAjcAT5MfrXI76YqTv1PdzeVXj1nxeO3s1c9e9sl5vbzsuYI7/eAqAAAAAAAAAAAAAAAAAAHm0OF1S2KOxyPFWPZyM81sHTYeRjyxE0vSX23Hm5OImPJb7S8RqMmX6kiuotetY3a2ng5PVaUia4fFdi2ta0atO/62RqI8u4gtlyXzW7eSe9UGsQAQAAAAAAAAAAAAAADcL4sVs89jFG5a3F6VSmr5/9S/p/CDKxYb5v2dLz/g9ePpOW/fbsVbdaxXurGo/kmPNKrIjo1vfl1/RP3P8Ar3+lsBRj/c/69/pPuf8AXv8AS2Aox/uf9e/0n3P+vf6WwFGPPR592b/F87dIyxG65KS3ET3lHNZuFmxe1TcflfCe7unudXO3m5PBxciPFXU+qCjnR6eZwr8ad9ndPU8yoAAAAAAAAAAPtx+PbkXilPrfGImZ7NfOzouBxY42OI7Pjn2rGi/F4teNTsUj5p9T7wlG4ZVIjcG4BIhIAhIAIBII3AJRPkbg3AK3rFomt43EsPqHAnBPbxd+P0+lvT/6rakWia2jcSDlfdsenncaeNkmPwX9l5mkAAAAAAAJ8gaHSMEZcn2lo7qVbW+95emYoxcakfHxPQmqts3CogtuDcKgLbNqgLbNqgLbNqgLbNwqAtuDcKgLbN/FUB5+p4Iz4ZmPOrA13fK6ie+NfHwua5FPssuSn5lxHzAUAAAADW5iPzCY84+aoOjw+HHSvpqvtSs+GPlSC2zapALbNo3BuATs2jcEgnZtUgFtm0SgFtm1QFtm1QFtm1UAvtidVr2eRM/GvabLI6v+8R/xA8IAAAAAB74+aoA6OvsRP5Tb4cHLOTDG/OKvuBs2AGzYAbNgBs2AGzYAbNgBs2AGzYAbZPVpic8a/hNWZ1G/SwuXknLmvf8AtB8gAAAf/9k="
 															alt="User profile picture" style="width: 120px;"
 															class="profile-user-img img-fluid img-circle" />
 													</c:otherwise>
@@ -638,8 +638,7 @@
 												<div class="col-sm-10">
 													<input type="email" class="form-control" id="inputEmail"
 														placeholder=""
-														value="${thongTinNV.getHo() } ${thongTinNV.getTen() }"
-														disabled>
+														value="${thongTinNV.getHo() } ${thongTinNV.getTen() }" disabled>
 												</div>
 											</div>
 											<div class="form-group row">
@@ -653,12 +652,11 @@
 												</div>
 											</div>
 											<div class="form-group row">
-												<label for="inputExperience"
-													class="col-sm-2 col-form-label ">Ngày sinh</label>
+												<label for="inputExperience" class="col-sm-2 col-form-label ">Ngày
+													sinh</label>
 												<div class="col-sm-10">
-													<input class="form-control" id="inputExperience"
-														placeholder="" value="${thongTinNV.getNgaySinh() }"
-														disabled></input>
+													<input class="form-control" id="inputExperience" placeholder=""
+														value="${thongTinNV.getNgaySinh() }" disabled></input>
 												</div>
 											</div>
 											<div class="form-group row">

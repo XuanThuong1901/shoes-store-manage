@@ -28,7 +28,7 @@ public class TaiKhoan {
 	private VaiTro vaitro;
 	
 	@Column(name="TrangThai")
-	private Boolean trangThai;
+	private Integer trangThai;
 
 	@OneToOne(mappedBy="taiKhoan", fetch=FetchType.EAGER)
 	private NhanVien nhanVien;
@@ -68,11 +68,13 @@ public class TaiKhoan {
 		this.vaitro = vaitro;
 	}
 
-	public Boolean getTrangThai() {
+	
+
+	public Integer getTrangThai() {
 		return trangThai;
 	}
 
-	public void setTrangThai(Boolean trangThai) {
+	public void setTrangThai(Integer trangThai) {
 		this.trangThai = trangThai;
 	}
 
