@@ -11,12 +11,11 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import cnpm.daoimp.TaiKhoanDAOImp;
 import cnpm.entity.TaiKhoan;
 
 @Transactional
 @Repository
-public class TaiKhoanDAO implements TaiKhoanDAOImp{
+public class TaiKhoanDAO {
 	@Autowired
 	SessionFactory factory;
 

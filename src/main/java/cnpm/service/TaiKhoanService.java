@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cnpm.dao.TaiKhoanDAO;
-import cnpm.daoimp.TaiKhoanDAOImp;
 import cnpm.entity.TaiKhoan;
 
 @Service
