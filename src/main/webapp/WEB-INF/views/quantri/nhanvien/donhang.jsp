@@ -77,10 +77,13 @@
 														<span class="badge badge-primary">Đã xác nhận</span>
 													</c:when>
 													<c:when test="${dh.getTrangThaiDH().getMaTTDH() == 3 }">
-														<span class="badge badge-danger">Đã hủy</span>
+														<span class="badge badge-info">Đang giao</span>
 													</c:when>
 													<c:when test="${dh.getTrangThaiDH().getMaTTDH() == 4 }">
 														<span class="badge badge-success">Đã giao hàng</span>
+													</c:when>
+													<c:when test="${dh.getTrangThaiDH().getMaTTDH() == 5 }">
+														<span class="badge badge-danger">Đã hủy</span>
 													</c:when>
 												</c:choose></td>
 
@@ -142,7 +145,8 @@
 
 			<div class="jumbotron" style="overflow: scroll">
 				<div>
-
+	
+					<p>Mã đơn hàng: ${thongTinDH.getMaDH() }</p>
 					<p class="float-right">SĐT: ${thongTinDH.getSdtKH() }</p>
 					<p>Khách hàng: ${thongTinDH.getKhachHang().getHo() }&nbsp;${thongTinDH.getKhachHang().getTen() }</p>
 					<p>Địa chỉ: ${thongTinDH.getDiaChi() }</p>
@@ -185,9 +189,8 @@
 									<tr>
 										<td>${ctdh.getChiTietSP().getSanPham().getMaSP() }</td>
 										<td class="d-flex justify-content-center"><img
-											src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/7348553c641f4da7b881adf80119295a_9366/Giay_NMD_V3_DJen_GX3373_01_standard.jpg"
-											width="40px" height="40px"> <span class="p-2">GIÀY
-												SUPERSTAR PARLEY</span></td>
+											src="resources/file/${ctdh.getChiTietSP().getSanPham().getHinhAnh() }"
+											width="40px" height="40px"><span class="p-2 text-truncate d-block">${ctdh.chiTietSP.sanPham.tenSP }</span></td>
 										<td>${ctdh.getSoLuong() }</td>
 										<td>${ctdh.getChiTietSP().getSizeSanPham().getTenSize() }</td>
 										<td></td>
@@ -401,7 +404,7 @@
 															<div class="form-check">
 
 																<form:radiobutton path="trangThaiDH.maTTDH"
-																	value="3" class="form-check-input" label="Hủy"
+																	value="3" class="form-check-input" label="Đang giao"
 																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 3 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
@@ -411,6 +414,14 @@
 																<form:radiobutton path="trangThaiDH.maTTDH"
 																	value="4" class="form-check-input" label="Đã giao"
 																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 4 ? 'checked' : '' }" />
+																<!-- <label class="form-check-label" for="exampleRadios1">
+																	Default radio </label> -->
+															</div>
+															<div class="form-check">
+
+																<form:radiobutton path="trangThaiDH.maTTDH"
+																	value="5" class="form-check-input" label="Hủy"
+																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 5 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
 															</div>
@@ -425,7 +436,7 @@
 												<div class="col-12">
 													<div class=" d-flex justify-content-end">
 														<button type="submit" class="btn btn-primary">Sửa</button>
-														<a href="nhanvien/donhang" id="cancel-update-modal"
+														<a href="nhanvien/donhang" id=""
 															class="mx-2 btn btn-secondary">Hủy</a>
 													</div>
 												</div>
