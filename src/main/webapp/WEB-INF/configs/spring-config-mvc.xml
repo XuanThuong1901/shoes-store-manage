@@ -90,6 +90,16 @@
 	<mvc:interceptors>
 		<!-- Lọc tất cả các URL -->
 		<!-- <bean class="ltweb.interceptor.UserInterceptor" /> -->
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/dangnhap" />
+			<mvc:mapping path="/dangky" />
+
+			<bean class="cnpm.interceptor.DangNhapInterceptor" />
+		</mvc:interceptor>
+		
+		<bean class="cnpm.interceptor.ResetInterceptor" />
+		
 		<mvc:interceptor>
 			<mvc:mapping path="/dangnhap" />
 			<mvc:mapping path="/dangky" />

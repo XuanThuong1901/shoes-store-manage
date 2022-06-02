@@ -210,9 +210,23 @@
 
 
 	</div> --%>
+	<p id="alertMessage" data-message="${alertMessage }" data-success=${isSuccess }></p>
 </div>
 <!-- /.content-wrapper -->
+
+<!-- Footer -->
+<%@include file="/WEB-INF/views/quantri/include/footer.jsp"%>
+<!-- Footer end -->
+
 <script>
+let isSuccess = $("#alertMessage").data("success")
+			if(isSuccess){
+			
+			toastr.success($("#alertMessage").data("message"))
+		}
+		else if(isSuccess==false && isSuccess != ''){
+			 toastr.error($("#alertMessage").data("message"))		
+		}
 	productLabels = [], productInfo = []
 	/* <c:forEach items="${danhSachThongKeTheoSP}" var="p">
 	productLabels.push('${p.getTenSP()}')
@@ -231,8 +245,4 @@
 		productChart("myProductStatsChart", productLabels, productInfo)
 	}
 </script>
-<!-- Footer -->
-<%@include file="/WEB-INF/views/quantri/include/footer.jsp"%>
-<!-- Footer end -->
-
 

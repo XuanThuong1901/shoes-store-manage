@@ -47,13 +47,17 @@
 <script
 	src="<c:url value='resources/employee/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' />"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="<c:url value='resources/employee/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' />"></script>
+<script
+	src="<c:url value='resources/employee/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' />"></script>
 <!-- Bootstrap Switch -->
-<script src="<c:url value='resources/employee/plugins/bootstrap-switch/js/bootstrap-switch.min.js' />"></script>
+<script
+	src="<c:url value='resources/employee/plugins/bootstrap-switch/js/bootstrap-switch.min.js' />"></script>
 <!-- BS-Stepper -->
-<script src="<c:url value='resources/employee/plugins/bs-stepper/js/bs-stepper.min.js' />"></script>
+<script
+	src="<c:url value='resources/employee/plugins/bs-stepper/js/bs-stepper.min.js' />"></script>
 <!-- dropzonejs -->
-<script src="<c:url value='resources/employee/plugins/dropzone/min/dropzone.min.js' />"></script>
+<script
+	src="<c:url value='resources/employee/plugins/dropzone/min/dropzone.min.js' />"></script>
 <!-- DataTables  & Plugins -->
 <script
 	src="<c:url value='resources/employee/plugins/datatables/jquery.dataTables.min.js' />"></script>
@@ -79,13 +83,19 @@
 	src="<c:url value='resources/employee/plugins/datatables-buttons/js/buttons.print.min.js' />"></script>
 <script
 	src="<c:url value='resources/employee/plugins/datatables-buttons/js/buttons.colVis.min.js' />"></script>
+<script
+	src="<c:url value='resources/employee/plugins/toastr/toastr.min.js'/>"></script>
 <!--  ekko-lightbox show img--->
+
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"
 	integrity="sha512-Y2IiVZeaBwXG1wSV7f13plqlmFOx8MdjuHyYFVoYzhyRr3nH/NMDjTBSswijzADdNzMyWNetbLMfOpIPl6Cv9g=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- Alertify -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js" integrity="sha512-JnjG+Wt53GspUQXQhc+c4j8SBERsgJAoHeehagKHlxQN+MtCCmFDghX9/AcbkkNRZptyZU4zC8utK59M5L45Iw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"
+	integrity="sha512-JnjG+Wt53GspUQXQhc+c4j8SBERsgJAoHeehagKHlxQN+MtCCmFDghX9/AcbkkNRZptyZU4zC8utK59M5L45Iw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- AdminLTE App -->
 <script
 	src="<c:url value='resources/employee/dist/js/adminlte.min.js' />"></script>
