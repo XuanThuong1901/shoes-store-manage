@@ -10,12 +10,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import cnpm.daoimp.VaiTroDAOImp;
 import cnpm.entity.VaiTro;
 
 @Transactional
 @Repository
-public class VaiTroDAO implements VaiTroDAOImp{
+public class VaiTroDAO {
 	@Autowired
 	SessionFactory factory;
 	

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cnpm.dao.NhanVienDAO;
-import cnpm.daoimp.NhanVienDAOImp;
 import cnpm.entity.NhanVien;
 
 @Service

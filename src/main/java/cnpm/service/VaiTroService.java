@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cnpm.dao.VaiTroDAO;
-import cnpm.daoimp.VaiTroDAOImp;
 import cnpm.entity.VaiTro;
 
 @Service
