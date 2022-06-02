@@ -78,7 +78,10 @@ function filter(){
 		})
 		
 		console.log(mainurl)
-		window.location.href = mainurl;
+		if(mainurl.includes("&")){
+			window.location.href = mainurl;
+		}
+		
 	})
 }
 

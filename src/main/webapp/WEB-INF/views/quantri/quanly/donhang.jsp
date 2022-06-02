@@ -17,7 +17,7 @@
 			<div class="row mb-2">
 				<div class="col-sm-12">
 					<ol class="breadcrumb ">
-						<li class="breadcrumb-item"><a href="#">Quản lý</a></li>
+						<li class="breadcrumb-item"><a href="quanly/tongquan">Quản lý</a></li>
 						<li class="breadcrumb-item active">Đơn hàng</li>
 					</ol>
 				</div>
@@ -64,14 +64,14 @@
 											<td>${dh.getMaDH() }</td>
 											<td>${dh.getThoiGian() }</td>
 											<td><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
-													value="${dh.getTongTien()}" type="currency"
-													currencySymbol="vnđ" /></td>
+													value="${dh.getTongTien()}" type="currency" maxFractionDigits="0"
+													currencySymbol="đ" /></td>
 											<td><c:choose>
 													<c:when test="${dh.getTrangThaiDH().getMaTTDH() == 1 }">
 														<span class="badge badge-info">Đơn mới</span>
 													</c:when>
 													<c:when test="${dh.getTrangThaiDH().getMaTTDH() == 2 }">
-														<span class="badge badge-info">Đã xác nhận</span>
+														<span class="badge badge-primary">Đã xác nhận</span>
 													</c:when>
 													<c:when test="${dh.getTrangThaiDH().getMaTTDH() == 3 }">
 														<span class="badge badge-danger">Đã hủy</span>
@@ -379,9 +379,9 @@
 														<div>
 															<div class="form-check">
 
-																<form:radiobutton path="trangThaiDH.maTTDH" value="1"
+																<%-- <form:radiobutton path="trangThaiDH.maTTDH" value="1"
 																	class="form-check-input" label="Đơn mới"
-																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 1 ? 'checked' : '' }" />
+																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 1 ? 'checked' : '' }" /> --%>
 
 															</div>
 															<div class="form-check">

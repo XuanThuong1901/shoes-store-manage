@@ -358,7 +358,7 @@ public class NhanVienController {
 		KhachHang kh = khachHangService.getByMaKH(maKH);
 		TaiKhoan taikhoan = taiKhoanService.getByMaTK(kh.getTaiKhoan().getMaTK());
 
-		taikhoan.setTrangThai(khachhang.getTaiKhoan().getTrangThai());
+		//taikhoan.setTrangThai(khachhang.getTaiKhoan().getTrangThai());
 
 		if (taiKhoanService.suaTK(taikhoan)) {
 			model.addAttribute("isSuccess", true);

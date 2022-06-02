@@ -108,10 +108,13 @@ public class TaiKhoanController {
 		if (taiKhoanService.kiemTraDangNhap(taikhoan.getEmail(), taikhoan.getMatKhau())) {
 			TaiKhoan thongtinTk = taiKhoanService.getByEmail(taikhoan.getEmail());
 
-			if (!thongtinTk.getTrangThai()) {
+			
+			if (thongtinTk.getTrangThai() == 0) {
 				model.addAttribute("message",
 						"Tài khoản chưa được kích hoạt hoặc đã bị khóa, vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi!");
 				return "taikhoan/dangnhap";
+			}else if(thongtinTk.getTrangThai() == 2) {
+				
 			}
 
 			if (thongtinTk.getVaitro().getMaVT().equals("KH")) {
