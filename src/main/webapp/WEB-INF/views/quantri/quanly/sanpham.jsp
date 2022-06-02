@@ -427,12 +427,12 @@
 							<div class="card card-primary card-outline">
 								<div class="card-body box-profile">
 									<div class="text-center">
-										<img id="modal-update-avatar"
+										<img id="modal-add-avatar"
 											class="profile-user-img img-fluid img-circle"
 											src="resources/file/${hinh }" alt="User profile picture"
 											style="width: 120px;" />
 									</div>
-									<input name="anhMoi" type="file" id="input-update-avatar"
+									<input name="anhMoi" type="file" id="input-add-avatar"
 										class="mt-3 form-control" />
 
 
@@ -443,7 +443,7 @@
 
 							<div class="form-group row d-flex justify-content-end">
 								<button type="submit" class="btn btn-primary">Thêm</button>
-								<a href="quanly/sanpham" id="cancel-save-modal"
+								<a href="quanly/sanpham" 
 									class="mx-2 btn btn-secondary">Hủy</a>
 							</div>
 

@@ -376,8 +376,8 @@
 												</div>
 												<div class="col-12">
 													<div class=" d-flex justify-content-end">
-														<button type="submit" class="btn btn-primary">Sửa</button>
-														<a href="quanly/khachhang" id="cancel-update-modal"
+														<button type="submit" class="btn btn-primary" id="btn-change-state">Sửa</button>
+														<a href="quanly/khachhang" 
 															class="mx-2 btn btn-secondary">Hủy</a>
 													</div>
 												</div>

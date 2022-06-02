@@ -1018,6 +1018,10 @@ public class QuanLyController {
 	@RequestMapping(value = "donhang/{maDH}", params = "suaTrangthai", method = RequestMethod.GET)
 	public String getTrangThaiNhanVien(ModelMap model, @PathVariable("maDH") Integer maDH) {
 
+		if(maDH == null) {
+			return "quantri/quanly/donhang";
+		}
+		
 		DonHang donhang = donHangService.getByMaDH(maDH);
 
 		System.out.println(donhang.getTrangThaiDH().getMaTTDH());
@@ -1035,6 +1039,10 @@ public class QuanLyController {
 	public String postTrangThaiDonHang(ModelMap model, @PathVariable("maDH") Integer maDH,
 			@ModelAttribute("thongTinDH") DonHang donhang, BindingResult errors) {
 
+		if(maDH == null) {
+			return "quantri/quanly/donhang";
+		}
+		
 		DonHang donhangcu = donHangService.getByMaDH(maDH);
 		if (donhangcu != null) {
 			if (donhangcu.getTrangThaiDH().getMaTTDH() == 3 && donhang.getTrangThaiDH().getMaTTDH() != 3) {

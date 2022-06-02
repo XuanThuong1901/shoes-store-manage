@@ -130,6 +130,9 @@ $(document).ready(function(){
 	// button them
 	showModalConfirm("cancel-update-modal-phieunhap", "Bạn có chắc chắn hủy?", "Hủy");
 	
+	// button doi trang thai
+	showModalConfirm("btn-change-state", "Bạn có chắc chắn thực hiện thao tác này", "Xác nhận");
+	
 	// button sua
 	showModalConfirm("cancel-update-modal", "Bạn có chắc chăn hủy?", "Hủy");
 	
@@ -149,6 +152,7 @@ $(document).ready(function(){
 	
 	getIdDeleteIntoForm("input-delete-ctsp");
 	
-	
+	//let productLabels = []
+	//let productInfo = []
 	productChart('myProductStatsChart',  productLabels, productInfo);
  });

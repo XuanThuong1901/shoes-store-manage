@@ -657,6 +657,10 @@ public class NhanVienController {
 	@RequestMapping(value = "donhang/{maDH}", params = "suaTrangthai", method = RequestMethod.GET)
 	public String getTrangThaiNhanVien(ModelMap model, @PathVariable("maDH") Integer maDH) {
 
+		if(maDH == null) {
+			return "quantri/nhanvien/donhang";
+		}
+		
 		DonHang donhang = donHangService.getByMaDH(maDH);
 
 		System.out.println(donhang.getTrangThaiDH().getMaTTDH());
@@ -673,6 +677,10 @@ public class NhanVienController {
 	@RequestMapping(value = "donhang/{maDH}", params = "suaDH", method = RequestMethod.POST)
 	public String postTrangThaiDonHang(ModelMap model, @PathVariable("maDH") Integer maDH,
 			@ModelAttribute("thongTinDH") DonHang donhang, BindingResult errors) {
+		
+		if(maDH == null) {
+			return "quantri/nhanvien/donhang";
+		}
 
 		DonHang donhangcu = donHangService.getByMaDH(maDH);
 		if (donhangcu != null) {

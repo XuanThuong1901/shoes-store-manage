@@ -30,7 +30,7 @@
   var historyTraversal = event.persisted || 
                          ( typeof window.performance != "undefined" && 
                               window.performance.navigation.type === 2 );
-  if ( historyTraversal ) {
+  if ( historyTraversal && !window.location.href.includes("sanpham")) {
     // Handle page restore.
     window.location.reload();
   }
