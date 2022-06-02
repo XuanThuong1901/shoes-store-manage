@@ -107,7 +107,7 @@ public class QuanLyController {
 		List<ChiTietDonHang> dh = chiTietDonHangService.getDSCTDH();
 		for (int i = 0; i < dh.size(); i++) {
 			boolean check = false;
-			double doanhthu = (double) dh.get(i).getGia();
+			double doanhthu = (double) dh.get(i).getGia()*ct.get(j).getSoLuong();
 			for (int j = 0; j < thongKeTheoSP.size(); j++) {
 				if (dh.get(i).getChiTietSP().getSanPham().getMaSP() == thongKeTheoSP.get(j).getMaSP()) {
 					thongKeTheoSP.get(j).setDoanhThu(doanhthu + thongKeTheoSP.get(j).getDoanhThu());
@@ -1090,7 +1090,7 @@ public class QuanLyController {
 					boolean c = utilService.guiEmail(email, noidung, 1);
 				}
 				else if(donhang.getTrangThaiDH().getMaTTDH() == 3) {
-					noidung = "đang được vẫn chuyển.";
+					noidung = "đang được vận chuyển.";
 					boolean c = utilService.guiEmail(email, noidung, 1);
 				}
 				else if(donhang.getTrangThaiDH().getMaTTDH() == 4) {
@@ -1575,7 +1575,7 @@ public class QuanLyController {
 				List<ChiTietDonHang> ct = chiTietDonHangService.getDSByMaDH(dh.get(i).getMaDH());
 				for (int j = 0; j < ct.size(); j++) {
 					boolean check = false;
-					double doanhthu = (double) ct.get(j).getGia();
+					double doanhthu = (double) (ct.get(j).getGia()*ct.get(j).getSoLuong());
 					for (int z = 0; z < thongKeTheoSP.size(); z++) {
 						if (ct.get(j).getChiTietSP().getSanPham().getMaSP() == thongKeTheoSP.get(z).getMaSP()) {
 							thongKeTheoSP.get(z).setDoanhThu(doanhthu + thongKeTheoSP.get(z).getDoanhThu());

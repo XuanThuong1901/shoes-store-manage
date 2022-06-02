@@ -108,7 +108,7 @@ public class NhanVienController {
 		List<ChiTietDonHang> dh = chiTietDonHangService.getDSCTDH();
 		for (int i = 0; i < dh.size(); i++) {
 			boolean check = false;
-			double doanhthu = (double) dh.get(i).getGia();
+			double doanhthu = (double) dh.get(i).getGia()*dh.get(i).getSoLuong();
 			for (int j = 0; j < thongKeTheoSP.size(); j++) {
 				if (dh.get(i).getChiTietSP().getSanPham().getMaSP() == thongKeTheoSP.get(j).getMaSP()) {
 					thongKeTheoSP.get(j).setDoanhThu(doanhthu + thongKeTheoSP.get(j).getDoanhThu());
@@ -682,26 +682,36 @@ public class NhanVienController {
 			return "quantri/nhanvien/donhang";
 		}
 
+		if(donhang.getTrangThaiDH().getMaTTDH() == 1) {
+			return "quantri/nhanvien/donhang";
+		}
+		
 		DonHang donhangcu = donHangService.getByMaDH(maDH);
 		if (donhangcu != null) {
-			if (donhangcu.getTrangThaiDH().getMaTTDH() == 3 && donhang.getTrangThaiDH().getMaTTDH() != 3) {
+			if (donhangcu.getTrangThaiDH().getMaTTDH() == 5 && donhang.getTrangThaiDH().getMaTTDH() != 5) {
 
 				errors.rejectValue("trangThaiDH", "thongTinDH", "Đơn hàng đã bị hủy trươc đó");
 				model.addAttribute("isOpenModalEdit", true);
 				return "quantri/nhanvien/donhang";
 			}
-			if (donhangcu.getTrangThaiDH().getMaTTDH() == 1 && donhang.getTrangThaiDH().getMaTTDH() == 4) {
+			if (donhangcu.getTrangThaiDH().getMaTTDH() == 1 && (donhang.getTrangThaiDH().getMaTTDH() == 3 || donhang.getTrangThaiDH().getMaTTDH() == 4)) {
 				errors.rejectValue("trangThaiDH", "thongTinDH", "Đơn hàng chưa được xác nhận");
 				model.addAttribute("isOpenModalEdit", true);
 				return "quantri/nhanvien/donhang";
 			}
 
-			if (donhangcu.getTrangThaiDH().getMaTTDH() == 2 && donhang.getTrangThaiDH().getMaTTDH() != 4) {
-				errors.rejectValue("trangThaiDH", "thongTinDH", "Đơn hàng không thể hủy hoặc chuyển thành đơn mới");
+			if (donhang.getTrangThaiDH().getMaTTDH() == 5 && donhangcu.getTrangThaiDH().getMaTTDH() != 5 ) {
+				errors.rejectValue("trangThaiDH", "thongTinDH", "Đơn hàng không thể hủy");
 				model.addAttribute("isOpenModalEdit", true);
 				return "quantri/nhanvien/donhang";
 			}
 
+			if (donhangcu.getTrangThaiDH().getMaTTDH() == 3 && donhang.getTrangThaiDH().getMaTTDH() == 2) {
+				errors.rejectValue("trangThaiDH", "thongTinDH", "Đơn hàng đã được xác nhận và đang được vẫn  chuyển");
+				model.addAttribute("isOpenModalEdit", true);
+				return "quantri/nhanvien/donhang";
+			}
+			
 			if (donhangcu.getTrangThaiDH().getMaTTDH() == 4 && donhang.getTrangThaiDH().getMaTTDH() != 4) {
 				errors.rejectValue("trangThaiDH", "thongTinDH", "Đơn hàng đã giao thành công trước đó");
 				model.addAttribute("isOpenModalEdit", true);
@@ -711,6 +721,22 @@ public class NhanVienController {
 			donhangcu.getTrangThaiDH().setMaTTDH(donhang.getTrangThaiDH().getMaTTDH());
 
 			if (donHangService.suaDH(donhangcu)) {
+				String email = donhangcu.getKhachHang().getTaiKhoan().getEmail();
+				String noidung;
+			
+				if(donhang.getTrangThaiDH().getMaTTDH() == 2) {
+					noidung = "đã được xác nhận.";
+					boolean c = utilService.guiEmail(email, noidung, 1);
+				}
+				else if(donhang.getTrangThaiDH().getMaTTDH() == 3) {
+					noidung = "đang được vận chuyển.";
+					boolean c = utilService.guiEmail(email, noidung, 1);
+				}
+				else if(donhang.getTrangThaiDH().getMaTTDH() == 4) {
+					noidung = "đã được giao thành công.";
+					boolean c = utilService.guiEmail(email, noidung, 1);
+				}
+				
 				model.addAttribute("isSuccess", true);
 				model.addAttribute("alertMessage", "Thay đổi trạng thái thành công");
 				model.addAttribute("danhSachDonHang", donHangService.getDSDonHang());
@@ -1184,7 +1210,7 @@ public class NhanVienController {
 				List<ChiTietDonHang> ct = chiTietDonHangService.getDSByMaDH(dh.get(i).getMaDH());
 				for (int j = 0; j < ct.size(); j++) {
 					boolean check = false;
-					double doanhthu = (double) ct.get(j).getGia();
+					double doanhthu = (double) ct.get(j).getGia()*ct.get(j).getSoLuong();
 					for (int z = 0; z < thongKeTheoSP.size(); z++) {
 						if (ct.get(j).getChiTietSP().getSanPham().getMaSP() == thongKeTheoSP.get(z).getMaSP()) {
 							thongKeTheoSP.get(z).setDoanhThu(doanhthu + thongKeTheoSP.get(z).getDoanhThu());
