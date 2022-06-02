@@ -39,10 +39,10 @@
 							<div class="d-flex justify-content-between">
 								<h3 class="mt-2">Danh sách đơn hàng</h3>
 
-								<button type="submit" class="btn bg-primary  mt-2"
+								<!-- <button type="submit" class="btn bg-primary  mt-2"
 									data-toggle="modal" data-target="#modal-add-new">
 									<i class="fas fa-plus mr-2"></i>Thêm đơn hàng mới
-								</button>
+								</button> -->
 							</div>
 
 						</div>
@@ -90,9 +90,7 @@
 											<td>
 												<div class="d-flex justify-content-between px-4">
 													<a class="" href="nhanvien/donhang/${dh.getMaDH() }?thongtin"><i
-														class="fas fa-info-circle"></i> </a> <a class="" href="#"
-														data-toggle="modal" data-target="#modal-edit"><i
-														class="fas fa-edit"></i> </a> <a class=""
+														class="fas fa-info-circle"></i> </a> <a class=""
 														href="nhanvien/donhang/${dh.getMaDH() }?suaTrangthai"> <i
 														class="fas fa-check-square"></i></a>
 													<!-- <a class="" href="#" data-toggle="modal" data-target="#exampleModalDisable"><i class="fas fa-lock"></i> </a> -->
@@ -397,7 +395,7 @@
 
 																<form:radiobutton path="trangThaiDH.maTTDH"
 																	value="2" class="form-check-input" label="Xác nhận"
-																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 2 ? 'checked' : '' }" />
+																	checked="${thongTinDH.getTrangThaiDH().getMaTTDH() == 2 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
 															</div>
@@ -405,7 +403,7 @@
 
 																<form:radiobutton path="trangThaiDH.maTTDH"
 																	value="3" class="form-check-input" label="Đang giao"
-																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 3 ? 'checked' : '' }" />
+																	checked="${thongTinDH.getTrangThaiDH().getMaTTDH() == 3 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
 															</div>
@@ -413,7 +411,7 @@
 
 																<form:radiobutton path="trangThaiDH.maTTDH"
 																	value="4" class="form-check-input" label="Đã giao"
-																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 4 ? 'checked' : '' }" />
+																	checked="${thongTinDH.getTrangThaiDH().getMaTTDH() == 4 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
 															</div>
@@ -421,7 +419,7 @@
 
 																<form:radiobutton path="trangThaiDH.maTTDH"
 																	value="5" class="form-check-input" label="Hủy"
-																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 5 ? 'checked' : '' }" />
+																	checked="${thongTinDH.getTrangThaiDH().getMaTTDH() == 5 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
 															</div>

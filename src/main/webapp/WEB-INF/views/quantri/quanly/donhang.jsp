@@ -391,7 +391,7 @@
 	
 																	<form:radiobutton path="trangThaiDH.maTTDH"
 																	value="2" class="form-check-input" label="Xác nhận"
-																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 2 ? 'checked' : '' }" />
+																	checked="${thongTinDH.getTrangThaiDH().getMaTTDH() == 2 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
 															</div>
@@ -399,7 +399,7 @@
 
 																<form:radiobutton path="trangThaiDH.maTTDH"
 																	value="3" class="form-check-input" label="Đang giao"
-																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 3 ? 'checked' : '' }" />
+																	checked="${thongTinDH.getTrangThaiDH().getMaTTDH() == 3 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
 															</div>
@@ -407,7 +407,7 @@
 
 																<form:radiobutton path="trangThaiDH.maTTDH"
 																	value="4" class="form-check-input" label="Đã giao"
-																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 4 ? 'checked' : '' }" />
+																	checked="${thongTinDH.getTrangThaiDH().getMaTTDH() == 4 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
 															</div>
@@ -415,7 +415,7 @@
 
 																<form:radiobutton path="trangThaiDH.maTTDH"
 																	value="5" class="form-check-input" label="Hủy"
-																	checked="${thongtinNV.getTaiKhoan.getTrangThai() == 5 ? 'checked' : '' }" />
+																	checked="${thongTinDH.getTrangThaiDH().getMaTTDH() == 5 ? 'checked' : '' }" />
 																<!-- <label class="form-check-label" for="exampleRadios1">
 																	Default radio </label> -->
 															</div>

@@ -98,13 +98,13 @@
 												<div class="d-flex justify-content-between px-4">
 													<a class=""
 														href="nhanvien/nhacungcap/${ncc.getMaNCC()}?thongtin"><i
-														class="fas fa-info-circle"></i> </a> <a class=""
+														class="fas fa-info-circle"></i> </a> <%-- <a class=""
 														href="nhanvien/nhacungcap/${ncc.getMaNCC() }?suaThongtin"><i
 														class="fas fa-edit"></i> </a>
 														 <a class=""
 														href="" data-delete="${ncc.getMaNCC()}"data-toggle="modal"
 														data-target="#xoanhacungcap"> <i
-														class="fas fa-trash-alt"></i></a>
+														class="fas fa-trash-alt"></i></a> --%>
 
 												</div>
 
