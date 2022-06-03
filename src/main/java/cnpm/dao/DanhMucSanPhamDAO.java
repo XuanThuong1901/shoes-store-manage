@@ -45,6 +45,14 @@ public class DanhMucSanPhamDAO {
 		return list;
 	}
 	
+	public List<DanhMucSanPham> getDS4DanhMuc(){
+		Session session = factory.getCurrentSession();
+		String hql ="from DanhMucSanPham order by newid()";
+		Query query = session.createQuery(hql);
+		List<DanhMucSanPham> list = query.list();
+		return list;
+	}
+	
 	public Boolean them(DanhMucSanPham danhMucSanPham) {
 		Boolean isSuccess = true;
 		Session session = factory.openSession();

@@ -98,6 +98,18 @@ public class TrangChuController {
 		List<DanhMucSanPham> list = danhMucSanPhamService.getDSDanhMuc();
 		return list;
 	}
+	
+	@ModelAttribute("danhSachDanh4MucSanPham")
+	public List<DanhMucSanPham> ds4DanhMucSanPham() {
+		List<DanhMucSanPham> list = danhMucSanPhamService.get4DanhMuc();
+		return list;
+	}
+	
+	@ModelAttribute("danhSach8SanPham")
+	public List<SanPham> ds8SanPham(){
+		List<SanPham> list = sanPhamService.get8SanPham();
+		return list;
+	}
 
 	@ModelAttribute("danhSachMau")
 	public List<MauSanPham> getDSMau() {
@@ -152,13 +164,16 @@ public class TrangChuController {
 	}
 
 	@RequestMapping(value = "/sanpham/{maSP}", method = RequestMethod.GET)
-	public String getDetailProduct(ModelMap model, HttpServletRequest request, @PathVariable("maSP") Integer maSP) {
+	public String getDetailProduct(ModelMap model, HttpSession ss, HttpServletRequest request, @PathVariable("maSP") Integer maSP) {
 		SanPham sanpham = sanPhamService.getByMaSP(maSP);
 		if (sanpham != null) {
 			model.addAttribute("ctsanpham", sanpham);
 				
 		}
 
+		int maDM = sanpham.getDanhMuc().getMaDM();
+		List<SanPham> spTheoDM = sanPhamService.get4SanPham(maDM);
+		ss.setAttribute("sanPhamTrongCT", spTheoDM);
 		PagedListHolder pagedListHolder = this.getSPTheoTrang(request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		return "shop/chitietsanpham";
