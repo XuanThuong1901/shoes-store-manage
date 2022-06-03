@@ -1043,6 +1043,12 @@ public class QuanLyController {
 			return "quantri/quanly/donhang";
 		}
 		
+		if(donhang.getTrangThaiDH() == null) {
+			errors.rejectValue("trangThaiDH", "thongTinDH", "Vui lòng chọn trạng thái đơn hàng");
+			model.addAttribute("isOpenModalEdit", true);
+			return "quantri/nhanvien/donhang";
+		}
+		
 		if(donhang.getTrangThaiDH().getMaTTDH() == 1) {
 			return "quantri/quanly/donhang";
 		}

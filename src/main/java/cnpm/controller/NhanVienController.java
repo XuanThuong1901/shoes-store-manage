@@ -681,8 +681,16 @@ public class NhanVienController {
 		if(maDH == null) {
 			return "quantri/nhanvien/donhang";
 		}
+		
+		if(donhang.getTrangThaiDH() == null) {
+			errors.rejectValue("trangThaiDH", "thongTinDH", "Vui lòng chọn trạng thái đơn hàng");
+			model.addAttribute("isOpenModalEdit", true);
+			return "quantri/nhanvien/donhang";
+		}
 
 		if(donhang.getTrangThaiDH().getMaTTDH() == 1) {
+			errors.rejectValue("trangThaiDH", "thongTinDH", "Vui lòng chọn trạng thái đơn hàng phù hợp");
+			model.addAttribute("isOpenModalEdit", true);
 			return "quantri/nhanvien/donhang";
 		}
 		
