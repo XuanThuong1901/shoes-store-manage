@@ -192,7 +192,7 @@
 											width="40px" height="40px"><span class="p-2 text-truncate d-block">${ctdh.chiTietSP.sanPham.tenSP }</span></td>
 										<td>${ctdh.getSoLuong() }</td>
 										<td>${ctdh.getChiTietSP().getSizeSanPham().getTenSize() }</td>
-										<td></td>
+										<td>${ctdh.getChiTietSP().getSanPham().getMauSanPham().getTenMau() }</td>
 										<td><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
 												value=" ${ctdh.getChiTietSP().getSanPham().getGia() }"
 												type="currency" currencySymbol="vnđ" /></td>

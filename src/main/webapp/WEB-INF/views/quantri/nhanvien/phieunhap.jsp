@@ -221,6 +221,15 @@
 						<p class="text-danger">${soluong }</p>
 					</div>
 
+					<div class="form-group row">
+						<label for="inputSkills"
+							class="col-sm-2 col-form-label text-primary">Giá </label>
+						<div class="col-sm-10">
+							<input class="form-control" name="gia" />
+						</div>
+						<p class="text-danger">${gia }</p>
+					</div>
+
 					<div class="form-group d-flex justify-content-end">
 						<button type="submit" name="themCTPN" class="btn btn-primary">Thêm
 							chi tiết</button>
@@ -277,6 +286,7 @@
 														<th>Tên sản phẩm</th>
 														<th>Size</th>
 														<th>Số lương</th>
+														<th>Giá</th>
 														<th>Thao tác</th>
 													</tr>
 												</thead>
@@ -286,6 +296,7 @@
 															<td>${ctpn.getTenSP() }</td>
 															<td>${ctpn.getTenSize() }</td>
 															<td>${ctpn.getSoLuong() }</td>
+															<td>${ctpn.getGia() }</td>
 
 
 															<td>
@@ -359,7 +370,7 @@
 			</div>
 			<form:form action="nhanvien/phieunhap?xoactpn" method="post">
 				<div class="modal-footer d-flex justify-content-between">
-					<input type="text" name="maCTPN" value="" hidden />
+					<input type="text" name="maCTPN" id="input-delete-ctpn" value="" hidden />
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Đóng</button>
 					<button type="submit" class="btn btn-danger" name="xoaThongtin">Xóa</button>
@@ -501,10 +512,15 @@
 											<div class="form-group row">
 												<label for="inputSkills" class="col-sm-2 col-form-label ">Tổng
 													tiền</label>
-												<div class="col-sm-10">
-													<input type="number" class="form-control" id="inputSkills"
+
+
+												<div class="col-sm-10 form-control" >
+													<fmt:setLocale value="vi_VN" />
+													<fmt:formatNumber value="${thongTinPN.getTongTien()}"
+														type="currency" maxFractionDigits="0" currencySymbol="vnđ" />
+													<%-- <input type="number" class="form-control" id="inputSkills"
 														placeholder="" value="${thongTinPN.getTongTien() }"
-														disabled>
+														disabled> --%>
 												</div>
 											</div>
 
@@ -536,6 +552,7 @@
 															<th>Tên sản phẩm</th>
 															<th>Size</th>
 															<th>Số lương</th>
+															<th>Giá</th>
 
 														</tr>
 													</thead>
@@ -545,6 +562,7 @@
 																<td>${ctpn.getTenSP() }</td>
 																<td>${ctpn.getTenSize() }</td>
 																<td>${ctpn.getSoLuong() }</td>
+																<td>${ctpn.getGia() }</td>
 
 															</tr>
 														</c:forEach>

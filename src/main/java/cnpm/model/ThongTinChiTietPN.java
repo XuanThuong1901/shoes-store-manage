@@ -16,8 +16,20 @@ public class ThongTinChiTietPN {
 	private String tenSize;
 	
 	private int soLuong;
+	
+	private float gia;
+	
+	
 
 	
+	public float getGia() {
+		return gia;
+	}
+
+	public void setGia(float gia) {
+		this.gia = gia;
+	}
+
 	public int getMaTTCTPN() {
 		return maTTCTPN;
 	}

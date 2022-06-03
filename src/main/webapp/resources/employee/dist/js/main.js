@@ -152,6 +152,8 @@ $(document).ready(function(){
 	
 	getIdDeleteIntoForm("input-delete-ctsp");
 	
+	getIdDeleteIntoForm("input-delete-ctpn");
+	
 	//let productLabels = []
 	//let productInfo = []
 	productChart('myProductStatsChart',  productLabels, productInfo);
