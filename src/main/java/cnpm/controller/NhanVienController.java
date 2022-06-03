@@ -981,7 +981,13 @@ public class NhanVienController {
 	@RequestMapping(value = "phieunhap", params = "themCTPN", method = RequestMethod.POST)
 	public String themMoiThongTinCTPN(ModelMap model, HttpSession ss, @RequestParam("masp") Integer masp,
 			@RequestParam(name = "size", required = false) Integer size,
-			@RequestParam(name = "soluong", required = false) Integer soluong) {
+			@RequestParam(name = "soluong", required = false) Integer soluong,
+			@RequestParam(name = "gia", required = false) Float gia) {
+		
+		if(check == true) {
+			thongTinChiTietPN.clear();
+			check = false;
+		}
 
 		ThongTinChiTietPN thongtinctpn = new ThongTinChiTietPN();
 		if (size == null) {
@@ -989,8 +995,15 @@ public class NhanVienController {
 			model.addAttribute("isShowModalAddNew", true);
 			return "quantri/nhanvien/phieunhap";
 		}
+		
 		if (soluong == null) {
 			model.addAttribute("soluong", "Chưa nhập số lượng");
+			model.addAttribute("isShowModalAddNew", true);
+			return "quantri/nhanvien/phieunhap";
+		}
+		
+		if (gia == null) {
+			model.addAttribute("gia", "Chưa nhập giá");
 			model.addAttribute("isShowModalAddNew", true);
 			return "quantri/nhanvien/phieunhap";
 		}
@@ -999,6 +1012,7 @@ public class NhanVienController {
 		thongtinctpn.setMaSP(masp);
 		thongtinctpn.setMaSize(size);
 		thongtinctpn.setSoLuong(soluong);
+		thongtinctpn.setGia(gia);
 		thongtinctpn.setTenSP(sanPhamService.getByMaSP(masp).getTenSP());
 		System.out.println(thongtinctpn.getTenSP());
 		thongtinctpn.setTenSize(sizeService.getByMaSize(size).getTenSize());
@@ -1018,6 +1032,22 @@ public class NhanVienController {
 
 		return "quantri/nhanvien/phieunhap";
 	}
+	
+	@RequestMapping(value = "phieunhap", params = "xoactpn", method = RequestMethod.POST)
+	public String postXoaThongTinCTPN(ModelMap model, @RequestParam("maCTPN") Integer maCTPN) {
+
+		System.out.println(maCTPN);
+		for (int i = 0; i < thongTinChiTietPN.size(); i++) {
+			if (thongTinChiTietPN.get(i).getMaTTCTPN() == maCTPN)
+				thongTinChiTietPN.remove(i);
+			break;
+		}
+
+		model.addAttribute("danhSachThongTinCTPN", thongTinChiTietPN);
+		model.addAttribute("isShowModalAddNew", true);
+		return "quantri/nhanvien/phieunhap";
+
+	}
 
 	@RequestMapping(value = "phieunhap", params = "themPN", method = RequestMethod.POST)
 	public String themMoiPhieuNhap(ModelMap model, HttpSession ss,
@@ -1031,7 +1061,7 @@ public class NhanVienController {
 
 		double tongtien = 0;
 		for (int i = 0; i < thongTinChiTietPN.size(); i++) {
-			tongtien += sanPhamService.getByMaSP(thongTinChiTietPN.get(i).getMaSP()).getGia()
+			tongtien += (double)thongTinChiTietPN.get(i).getGia()
 					* (double) thongTinChiTietPN.get(i).getSoLuong();
 		}
 
@@ -1041,6 +1071,10 @@ public class NhanVienController {
 		NhanVien nv = nhanVienService.getByMaNV(manv);
 		phieunhap.setNhanVien(nv);
 //		
+
+//		return "quantri/quanly/nhacungcap";
+//	}
+
 //		System.out.println(phieunhap.g);
 		if (phieuNhapService.themPN(phieunhap)) {
 
@@ -1078,14 +1112,23 @@ public class NhanVienController {
 					chiTietSanPhamService.suaCTSP(chiTietSP);
 				}
 
+				SanPham sp = sanPhamService.getByMaSP(thongTinChiTietPN.get(i).getMaSP());
+				
 				chiTietPNPK.setMaCTSP(chiTietSP.getMaChiTietSP());
 				chiTietPNPK.setMaPhieuNhap(mapn);
 				chiTietPN.setChitietpn(chiTietPNPK);
 				chiTietPN.setPhieuNhap(phieunhap);
 				chiTietPN.setChiTietSP(chiTietSP);
 				chiTietPN.setSoLuong(thongTinChiTietPN.get(i).getSoLuong());
+				chiTietPN.setGia(thongTinChiTietPN.get(i).getGia());
+				
+				if(sp.getGia() <= chiTietPN.getGia()) {
+					sp.setGia(chiTietPN.getGia()+chiTietPN.getGia()*3/10);
+					sanPhamService.suaSP(sp);
+				}
 
 				chiTietPhieuNhapService.themCTSP(chiTietPN);
+				
 
 			}
 			thongTinChiTietPN.clear();
@@ -1150,24 +1193,28 @@ public class NhanVienController {
 		if (phieunhap != null) {
 
 			List<ChiTietPhieuNhap> listct = chiTietPhieuNhapService.getByListCTPN(maPN);
-
-			ChiTietSanPham ctsp = new ChiTietSanPham();
-			ThongTinChiTietPN thongtinctpn = new ThongTinChiTietPN();
+			
+			
+			
+			String tensp = "";
+			String tensize = "";
 			for (int i = 0; i < listct.size(); i++) {
-//				ctsp = chiTietSanPhamService.getByMaSCTSP(listct.get(i).getChiTietSP().getMaChiTietSP());
-				String tensp = listct.get(i).getChiTietSP().getSanPham().getTenSP();
-				String tensize = listct.get(i).getChiTietSP().getSizeSanPham().getTenSize();
+				ThongTinChiTietPN thongtinctpn = new ThongTinChiTietPN();
 
-				thongtinctpn.setMaTTCTPN(0);
+				tensp = listct.get(i).getChiTietSP().getSanPham().getTenSP();
+				tensize = listct.get(i).getChiTietSP().getSizeSanPham().getTenSize();
+
 				thongtinctpn.setTenSP(tensp);
 				thongtinctpn.setTenSize(tensize);
 				thongtinctpn.setSoLuong(listct.get(i).getSoLuong());
+				thongtinctpn.setGia(listct.get(i).getGia());
+				
 
 				thongTinChiTietPN.add(thongtinctpn);
+				//System.out.println(thongTinChiTietPN.get(i));
 			}
-
-			System.out.println(thongTinChiTietPN.get(0).getTenSP());
-
+			System.out.println(thongTinChiTietPN);
+			
 			model.addAttribute("thongTinPN", phieunhap);
 
 			model.addAttribute("isOpenModalInfo", true);

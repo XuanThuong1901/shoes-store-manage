@@ -1340,7 +1340,8 @@ public class QuanLyController {
 	@RequestMapping(value = "phieunhap", params = "themCTPN", method = RequestMethod.POST)
 	public String themMoiThongTinCTPN(ModelMap model, HttpSession ss, @RequestParam("masp") Integer masp,
 			@RequestParam(name = "size", required = false) Integer size,
-			@RequestParam(name = "soluong", required = false) Integer soluong) {
+			@RequestParam(name = "soluong", required = false) Integer soluong,
+			@RequestParam(name = "gia", required = false) Float gia) {
 
 		ThongTinChiTietPN thongtinctpn = new ThongTinChiTietPN();
 		if (size == null) {
@@ -1348,8 +1349,15 @@ public class QuanLyController {
 			model.addAttribute("isShowModalAddNew", true);
 			return "quantri/quanly/phieunhap";
 		}
+		
 		if (soluong == null) {
 			model.addAttribute("soluong", "Chưa nhập số lượng");
+			model.addAttribute("isShowModalAddNew", true);
+			return "quantri/quanly/phieunhap";
+		}
+		
+		if (gia == null) {
+			model.addAttribute("gia", "Chưa nhập giá");
 			model.addAttribute("isShowModalAddNew", true);
 			return "quantri/quanly/phieunhap";
 		}
@@ -1358,6 +1366,7 @@ public class QuanLyController {
 		thongtinctpn.setMaSP(masp);
 		thongtinctpn.setMaSize(size);
 		thongtinctpn.setSoLuong(soluong);
+		thongtinctpn.setGia(gia);
 		thongtinctpn.setTenSP(sanPhamService.getByMaSP(masp).getTenSP());
 		System.out.println(thongtinctpn.getTenSP());
 		thongtinctpn.setTenSize(sizeService.getByMaSize(size).getTenSize());
@@ -1441,14 +1450,23 @@ public class QuanLyController {
 					chiTietSanPhamService.suaCTSP(chiTietSP);
 				}
 
+				SanPham sp = sanPhamService.getByMaSP(thongTinChiTietPN.get(i).getMaSP());
+				
 				chiTietPNPK.setMaCTSP(chiTietSP.getMaChiTietSP());
 				chiTietPNPK.setMaPhieuNhap(mapn);
 				chiTietPN.setChitietpn(chiTietPNPK);
 				chiTietPN.setPhieuNhap(phieunhap);
 				chiTietPN.setChiTietSP(chiTietSP);
 				chiTietPN.setSoLuong(thongTinChiTietPN.get(i).getSoLuong());
+				chiTietPN.setGia(thongTinChiTietPN.get(i).getGia());
+				
+				if(sp.getGia() <= chiTietPN.getGia()) {
+					sp.setGia(chiTietPN.getGia()+chiTietPN.getGia()*3/10);
+					sanPhamService.suaSP(sp);
+				}
 
 				chiTietPhieuNhapService.themCTSP(chiTietPN);
+				
 
 			}
 			thongTinChiTietPN.clear();
@@ -1515,8 +1533,10 @@ public class QuanLyController {
 			List<ChiTietPhieuNhap> listct = chiTietPhieuNhapService.getByListCTPN(maPN);
 
 			ChiTietSanPham ctsp = new ChiTietSanPham();
-			ThongTinChiTietPN thongtinctpn = new ThongTinChiTietPN();
+			
 			for (int i = 0; i < listct.size(); i++) {
+				
+				ThongTinChiTietPN thongtinctpn = new ThongTinChiTietPN();
 //				ctsp = chiTietSanPhamService.getByMaSCTSP(listct.get(i).getChiTietSP().getMaChiTietSP());
 				String tensp = listct.get(i).getChiTietSP().getSanPham().getTenSP();
 				String tensize = listct.get(i).getChiTietSP().getSizeSanPham().getTenSize();

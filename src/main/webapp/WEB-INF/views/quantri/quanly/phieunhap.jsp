@@ -41,10 +41,10 @@
 							<div class="d-flex justify-content-between">
 								<h3 class=" mt-2">Danh sách phiếu nhập hàng</h3>
 
-								<button type="submit" class="btn bg-primary  mt-2"
+								<!-- <button type="submit" class="btn bg-primary  mt-2"
 									data-toggle="modal" data-target="#modal-add-new">
 									<i class="fas fa-plus mr-2"></i>Thêm phiếu nhập mới
-								</button>
+								</button> -->
 							</div>
 							<div>
 								<c:choose>
@@ -104,11 +104,11 @@
 												<div class="d-flex justify-content-between px-4">
 													<a class=""
 														href="quanly/phieunhap/${pn.getMaPN() }?thongtin"><i
-														class="fas fa-info-circle"></i> </a> <a class="" href=""
+														class="fas fa-info-circle"></i> </a> <%-- <a class="" href=""
 														data-delete="${pn.getMaPN() }" data-toggle="modal"
 														data-target="#exampleModalDelete"> <i
 														class="fas fa-trash-alt"></i>
-													</a>
+													</a> --%>
 												</div>
 											</td>
 
@@ -215,6 +215,16 @@
 						</div>
 						<p class="text-danger">${soluong }</p>
 					</div>
+					
+					<div class="form-group row">
+						<label for="inputSkills"
+							class="col-sm-2 col-form-label text-primary">Giá </label>
+						<div class="col-sm-10">
+							<input class="form-control" name="gia" />
+						</div>
+						<p class="text-danger">${gia }</p>
+					</div>
+					
 
 					<div class="form-group d-flex justify-content-end">
 						<button type="submit" name="themCTPN" class="btn btn-primary">Thêm
@@ -272,6 +282,7 @@
 														<th>Tên sản phẩm</th>
 														<th>Size</th>
 														<th>Số lương</th>
+														<th>Giá</th>
 														<th>Thao tác</th>
 													</tr>
 												</thead>
@@ -281,6 +292,7 @@
 															<td>${ctpn.getTenSP() }</td>
 															<td>${ctpn.getTenSize() }</td>
 															<td>${ctpn.getSoLuong() }</td>
+															<td>${ctpn.getGia() }</td>
 
 
 															<td>

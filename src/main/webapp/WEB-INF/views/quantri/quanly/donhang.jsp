@@ -89,9 +89,9 @@
 											<td>
 												<div class="d-flex justify-content-between px-4">
 													<a class="" href="quanly/donhang/${dh.getMaDH() }?thongtin"><i
-														class="fas fa-info-circle"></i> </a> <a class=""
+														class="fas fa-info-circle"></i> </a> <%-- <a class=""
 														href="quanly/donhang/${dh.getMaDH() }?suaTrangthai"> <i
-														class="fas fa-check-square"></i></a>
+														class="fas fa-check-square"></i></a> --%>
 													<!-- <a class="" href="#" data-toggle="modal" data-target="#exampleModalDisable"><i class="fas fa-lock"></i> </a> -->
 												</div>
 
