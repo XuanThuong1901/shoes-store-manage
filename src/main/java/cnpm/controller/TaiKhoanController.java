@@ -263,6 +263,11 @@ public class TaiKhoanController {
 			return "taikhoan/dangky";
 		}
 
+		if(matKhau.trim().length() <6) {
+			model.addAttribute("password", "Mật khẩu phải tổi thiểu 6 kí tự");
+			return "taikhoan/dangky";
+		}
+		
 		if (matKhau != "" && xnMatKhau != "" && !xnMatKhau.equals(matKhau)) {
 			model.addAttribute("confirmPassword", "Mật khẩu và mật khẩu xác nhận không trùng nhau");
 			return "taikhoan/dangky";
