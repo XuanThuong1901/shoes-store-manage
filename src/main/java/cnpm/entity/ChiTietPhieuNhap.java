@@ -35,6 +35,8 @@ public class ChiTietPhieuNhap implements Serializable {
 	@Column(name="Gia")
 	private float gia;
 
+	
+	
 	public float getGia() {
 		return gia;
 	}

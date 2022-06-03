@@ -29,12 +29,10 @@
 								<div class="p-3" style="max-width: 700px;">
 									<h1
 										class="text-uppercase display-4 text-white mb-3 animate__animated animate__fadeInDown">Nam</h1>
-									<p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem
-										rebum magna amet lorem magna erat diam stet. Sadips duo stet
-										amet amet ndiam elitr ipsum diam</p>
+									<p class="mx-md-5 px-5 animate__animated animate__bounceIn">Cam kết hàng chuẩn siêu cấp like auth 99% nói không với hàng kém chất lượng như trên thị trường.</p>
 									<a
 										class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
-										href="#">MUA NGAY</a>
+										href="sanpham">MUA NGAY</a>
 								</div>
 							</div>
 						</div>
@@ -48,12 +46,10 @@
 								<div class="p-3" style="max-width: 700px;">
 									<h1
 										class="text-uppercase display-4 text-white mb-3 animate__animated animate__fadeInDown">Nữ</h1>
-									<p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem
-										rebum magna amet lorem magna erat diam stet. Sadips duo stet
-										amet amet ndiam elitr ipsum diam</p>
+									<p class="mx-md-5 px-5 animate__animated animate__bounceIn">Kiểu dáng, chi tiết, chất liệu da và độ hoàn thiện như hình 100%.</p>
 									<a
 										class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
-										href="#">MUA NGAY</a>
+										href="sanpham">MUA NGAY</a>
 								</div>
 							</div>
 						</div>
@@ -67,12 +63,10 @@
 								<div class="p-3" style="max-width: 700px;">
 									<h1
 										class="text-uppercase display-4 text-white mb-3 animate__animated animate__fadeInDown">Unisex</h1>
-									<p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem
-										rebum magna amet lorem magna erat diam stet. Sadips duo stet
-										amet amet ndiam elitr ipsum diam</p>
+									<p class="mx-md-5 px-5 animate__animated animate__bounceIn">Hàng fullbox đầy đủ hộp, túi giấy, tem, tag, bill store (Pháp, Hong Kong...)</p>
 									<a
 										class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
-										href="#">MUA NGAY</a>
+										href="sanpham">MUA NGAY</a>
 								</div>
 							</div>
 						</div>
@@ -95,7 +89,7 @@
 					<div class="offer-text">
 						<h5 class="text-white text-uppercase">Tiết kiệm 20%</h5>
 						<h1 class="text-white mb-3">Mua từ 2 sản phẩm</h1>
-						<a href="" class="btn btn-danger">MUA NGAY</a>
+						<a href="sanpham" class="btn btn-danger">MUA NGAY</a>
 					</div>
 				</div>
 			</div>
@@ -109,7 +103,7 @@
 						<h1 class="text-white text-center mb-3">
 							<span>Áp dụng đối với</span><br> <span>tài khoản mới</span>
 						</h1>
-						<a href="" class="btn btn-danger">MUA NGAY</a>
+						<a href="sanpham" class="btn btn-danger">MUA NGAY</a>
 					</div>
 				</div>
 			</div>
@@ -273,7 +267,7 @@
 						</div>
 						<div class="bg-light p-4">
 							<img
-								src="http://assets.stickpng.com/images/5a314c97cb9a85480a628f80.png"
+								src="https://i.pinimg.com/originals/c5/95/4d/c5954d7cc0ced1bb721c8eae0c6b0553.jpg"
 								alt="">
 						</div>
 						<div class="bg-light p-4">
