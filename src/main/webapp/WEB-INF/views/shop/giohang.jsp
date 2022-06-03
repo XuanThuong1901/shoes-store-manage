@@ -48,7 +48,7 @@
 								<td class="align-middle"><img
 									src="resources/file/${i.chiTietSP.sanPham.hinhAnh }" alt=""
 									style="width: 50px;"> 
-									<a href="sanpham/${ i.chiTietSP.sanPham.maSP}"><span class="text-truncate">
+									<a href="sanpham/${ i.chiTietSP.sanPham.maSP}"><span class="text-truncate text-info">
 										${i.chiTietSP.sanPham.tenSP }</span></a>
 									</td>
 								<td class="align-middle">${i.chiTietSP.sizeSanPham.tenSize }</td>
@@ -231,6 +231,23 @@ function tinhTongTien(){
 			
 			
 			let data = {}
+			let dataInput = {}
+			$("input[name=soluong]").on('click', function() {
+				dataInput.mactsp = $(this).data("ctsp")
+				dataInput.val = $(this).val()
+			})
+			
+			$("input[name=soluong]").on('blur', function() {
+				
+				
+				if(!$(this).val()){
+					$(this).val(dataInput.val ? dataInput.val : '')
+				}else {
+					
+				}
+				
+			})
+			
 			$(".btn-plus").each(function () {
 				let btnPlus = $(this)
 				
@@ -257,6 +274,8 @@ function tinhTongTien(){
 										$("td.price[data-ctsp="+mactsp+"]").text(formatter.format(price * data.soluong))
 										$("td.price[data-ctsp="+mactsp+"]").data("price", price * data.soluong)
 										tinhTongTien();
+										
+									}else {
 										
 									}
 									

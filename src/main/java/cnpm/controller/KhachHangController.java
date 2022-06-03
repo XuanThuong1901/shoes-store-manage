@@ -390,6 +390,7 @@ public class KhachHangController {
 		}
 
 		List<GioHang> dsgiohang = gioHangService.getGioHangCuaKH(tk.getKhachHang().getMaKH());
+		// check sl ton
 		if (dsgiohang != null) {
 			// them don hang
 			donhang.setKhachHang(tk.getKhachHang());
