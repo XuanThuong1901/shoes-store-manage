@@ -31,6 +31,17 @@ public class ChiTietPhieuNhap implements Serializable {
 
 	@Column(name = "SoLuong")
 	private int soLuong;
+	
+	@Column(name="Gia")
+	private float gia;
+
+	public float getGia() {
+		return gia;
+	}
+
+	public void setGia(float gia) {
+		this.gia = gia;
+	}
 
 	public ChiTietPhieuNhapPK getChitietpn() {
 		return chitietpn;

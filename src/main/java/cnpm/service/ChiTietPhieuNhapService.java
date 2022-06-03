@@ -18,8 +18,8 @@ public class ChiTietPhieuNhapService {
 		return chiTietPhieuNhapDAO.getByMaCTPN(maCTPN);
 	}
 	
-	public List<ChiTietPhieuNhap> getByListCTPN(Integer maCTPN){
-		return chiTietPhieuNhapDAO.getListCTPN(maCTPN);
+	public List<ChiTietPhieuNhap> getByListCTPN(Integer maPN){
+		return chiTietPhieuNhapDAO.getListCTPN(maPN);
 	}
 	
 	public Boolean kiemTraCTPN(Integer maCTSP) {
