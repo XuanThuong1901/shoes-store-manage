@@ -108,7 +108,7 @@ public class NhanVienController {
 		List<ChiTietDonHang> dh = chiTietDonHangService.getDSCTDH();
 		for (int i = 0; i < dh.size(); i++) {
 			boolean check = false;
-			double doanhthu = (double) dh.get(i).getGia()*dh.get(i).getSoLuong();
+			double doanhthu = (double) (dh.get(i).getGia()*dh.get(i).getSoLuong());
 			for (int j = 0; j < thongKeTheoSP.size(); j++) {
 				if (dh.get(i).getChiTietSP().getSanPham().getMaSP() == thongKeTheoSP.get(j).getMaSP()) {
 					thongKeTheoSP.get(j).setDoanhThu(doanhthu + thongKeTheoSP.get(j).getDoanhThu());

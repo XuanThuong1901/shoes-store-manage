@@ -1,5 +1,6 @@
 package cnpm.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,24 @@ public class SanPhamService {
 	
 	public List<SanPham> getRandomDSSanPham(){
 		return sanPhamDAO.getRandomDSSanPham();
+	}
+	
+	public List<SanPham> get8SanPham(){
+		List<SanPham> list = sanPhamDAO.getRandomDSSanPham();
+		List<SanPham> list8sp = new ArrayList<SanPham>();
+		for(int i=0; i<8; i++) {
+			list8sp.add(list.get(i));
+		}
+		return list8sp;
+	}
+	
+	public List<SanPham> get4SanPham(Integer maDM){
+		List<SanPham> list = sanPhamDAO.getDSSanPhamTheoDM(maDM);
+		List<SanPham> list4sp = new ArrayList<SanPham>();
+		for(int i=0; i<4; i++) {
+			list4sp.add(list.get(i));
+		}
+		return list4sp;
 	}
 	
 	public List<SanPham> getDSSanPham(){

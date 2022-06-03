@@ -139,7 +139,8 @@
 										<i class="fa fa-minus"></i>
 									</button>
 								</div>
-								<input type="text" name="soluong"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+								<input type="text" name="soluong"
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
 									class="form-control bg-secondary border-0 text-center"
 									value="1">
 
@@ -281,182 +282,51 @@
 	<div class="container-fluid py-5">
 		<h2
 			class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-			<span class="bg-secondary pr-3">You May Also Like</span>
+			<span class="bg-secondary pr-3">Sản phẩm cùng loại</span>
 		</h2>
-		<div class="row px-xl-5">
-			<div class="col">
-				<div class="owl-carousel related-carousel">
-					<div class="product-item bg-light">
-						<div class="product-img position-relative overflow-hidden">
-							<img class="img-fluid w-100" src="img/product-1.jpg" alt="">
-							<div class="product-action">
-								<a class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-shopping-cart"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="far fa-heart"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-sync-alt"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-search"></i></a>
+		<div>
+			<div class="row px-xl-5">
+				<c:forEach var="sp" items="${sanPhamTrongCT }">
+
+					<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+						<div class="product-item bg-light mb-4">
+							<div class="product-img position-relative overflow-hidden"
+								style="height: 320px;">
+								<!-- <span class="badge bg-warning">NEW</span>  -->
+								<img class="img-fluid w-100"
+									src="resources/file/${sp.getHinhAnh() }" alt="">
+
 							</div>
-						</div>
-						<div class="text-center py-4">
-							<a class="h6 text-decoration-none text-truncate" href="">Product
-								Name Goes Here</a>
-							<div
-								class="d-flex align-items-center justify-content-center mt-2">
-								<h5>$123.00</h5>
-								<h6 class="text-muted ml-2">
-									<del>$123.00</del>
-								</h6>
-							</div>
-							<div
-								class="d-flex align-items-center justify-content-center mb-1">
-								<small class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small>(99)</small>
-							</div>
-						</div>
-					</div>
-					<div class="product-item bg-light">
-						<div class="product-img position-relative overflow-hidden">
-							<img class="img-fluid w-100" src="img/product-2.jpg" alt="">
-							<div class="product-action">
-								<a class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-shopping-cart"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="far fa-heart"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-sync-alt"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-search"></i></a>
-							</div>
-						</div>
-						<div class="text-center py-4">
-							<a class="h6 text-decoration-none text-truncate" href="">Product
-								Name Goes Here</a>
-							<div
-								class="d-flex align-items-center justify-content-center mt-2">
-								<h5>$123.00</h5>
-								<h6 class="text-muted ml-2">
-									<del>$123.00</del>
-								</h6>
-							</div>
-							<div
-								class="d-flex align-items-center justify-content-center mb-1">
-								<small class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small>(99)</small>
+							<div class="text-center py-4">
+								<a class="h6 text-decoration-none text-truncate"
+									href="sanpham/${sp.getMaSP() }">${sp.getTenSP() }</a>
+								<div
+									class="d-flex align-items-center justify-content-center mt-2">
+									<h5>
+										<fmt:setLocale value="vi_VN" />
+										<fmt:formatNumber maxFractionDigits="0" value="${sp.gia}"
+											type="currency" currencySymbol="đ" />
+									</h5>
+									<h6 class="text-muted ml-2">
+										<del>
+
+											<c:if test="${sp.giamGia > 0 }">
+												<fmt:setLocale value="vi_VN" />
+												<fmt:formatNumber maxFractionDigits="0"
+													value="${(sp.gia - sp.gia* (sp.giamGia/100))}"
+													type="currency" currencySymbol="đ" />
+											</c:if>
+
+
+
+										</del>
+									</h6>
+								</div>
+
 							</div>
 						</div>
 					</div>
-					<div class="product-item bg-light">
-						<div class="product-img position-relative overflow-hidden">
-							<img class="img-fluid w-100" src="img/product-3.jpg" alt="">
-							<div class="product-action">
-								<a class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-shopping-cart"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="far fa-heart"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-sync-alt"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-search"></i></a>
-							</div>
-						</div>
-						<div class="text-center py-4">
-							<a class="h6 text-decoration-none text-truncate" href="">Product
-								Name Goes Here</a>
-							<div
-								class="d-flex align-items-center justify-content-center mt-2">
-								<h5>$123.00</h5>
-								<h6 class="text-muted ml-2">
-									<del>$123.00</del>
-								</h6>
-							</div>
-							<div
-								class="d-flex align-items-center justify-content-center mb-1">
-								<small class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small>(99)</small>
-							</div>
-						</div>
-					</div>
-					<div class="product-item bg-light">
-						<div class="product-img position-relative overflow-hidden">
-							<img class="img-fluid w-100" src="img/product-4.jpg" alt="">
-							<div class="product-action">
-								<a class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-shopping-cart"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="far fa-heart"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-sync-alt"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-search"></i></a>
-							</div>
-						</div>
-						<div class="text-center py-4">
-							<a class="h6 text-decoration-none text-truncate" href="">Product
-								Name Goes Here</a>
-							<div
-								class="d-flex align-items-center justify-content-center mt-2">
-								<h5>$123.00</h5>
-								<h6 class="text-muted ml-2">
-									<del>$123.00</del>
-								</h6>
-							</div>
-							<div
-								class="d-flex align-items-center justify-content-center mb-1">
-								<small class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small>(99)</small>
-							</div>
-						</div>
-					</div>
-					<div class="product-item bg-light">
-						<div class="product-img position-relative overflow-hidden">
-							<img class="img-fluid w-100" src="img/product-5.jpg" alt="">
-							<div class="product-action">
-								<a class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-shopping-cart"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="far fa-heart"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-sync-alt"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-search"></i></a>
-							</div>
-						</div>
-						<div class="text-center py-4">
-							<a class="h6 text-decoration-none text-truncate" href="">Product
-								Name Goes Here</a>
-							<div
-								class="d-flex align-items-center justify-content-center mt-2">
-								<h5>$123.00</h5>
-								<h6 class="text-muted ml-2">
-									<del>$123.00</del>
-								</h6>
-							</div>
-							<div
-								class="d-flex align-items-center justify-content-center mb-1">
-								<small class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small
-									class="fa fa-star text-primary mr-1"></small> <small>(99)</small>
-							</div>
-						</div>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
@@ -476,24 +346,21 @@
 <!-- JS Lib End -->
 
 <script>
-	$(document).ready(function(){
-		 
-		
-		
+	$(document).ready(function() {
+
 		let isSuccess = $("#themvaogiohang").data("success")
-		if(isSuccess){
-			
+		if (isSuccess) {
+
 			toastr.success('Thêm vào giỏ hàng thành công!')
+		} else if (isSuccess == false && isSuccess != '') {
+			toastr.error('Thêm vào giỏ hàng thất bại!')
 		}
-		else if(isSuccess==false && isSuccess != ''){
-			 toastr.error('Thêm vào giỏ hàng thất bại!')		
-		}
-		
+
 		$(".custom-control-input").click(function() {
 			let slcosan = $(this).data("cosan")
 			$("#spcosan").text(slcosan + " sản phẩm có sẵn")
 			$("#spcosan").removeAttr("hidden")
 		})
-		
+
 	})
 </script>

@@ -290,7 +290,7 @@
 								<div class="text-center py-4 text-pd"
 									style="overflow-wrap: break-word;">
 									<a class="h6 text-decoration-none text-truncate d-block"
-										style="word-wrap: break-word" href="">${sp.getTenSP() }</a>
+										style="word-wrap: break-word" href="sanpham/${sp.getMaSP() }">${sp.getTenSP() }</a>
 									<div
 										class="d-flex align-items-center justify-content-center mt-2">
 										<h5>
