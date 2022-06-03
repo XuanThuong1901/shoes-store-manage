@@ -44,6 +44,10 @@ public class DonHangService {
 		return donHangDAO.sua(donhang);
 	}
 	
+	public Boolean xoaDH(DonHang donhang) {
+		return donHangDAO.xoa(donhang);
+	}
+	
 	public DonHang getDHVuaTao() {
 		return donHangDAO.getDHVuaTao();
 	}

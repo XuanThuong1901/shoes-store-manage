@@ -48,7 +48,7 @@
 								<td class="align-middle"><img
 									src="resources/file/${i.chiTietSP.sanPham.hinhAnh }" alt=""
 									style="width: 50px;"> 
-									<a href="sanpham/${ i.chiTietSP.sanPham.maSP}"><span class="text-truncate">
+									<a href="sanpham/${ i.chiTietSP.sanPham.maSP}"><span class="text-truncate text-info">
 										${i.chiTietSP.sanPham.tenSP }</span></a>
 									</td>
 								<td class="align-middle">${i.chiTietSP.sizeSanPham.tenSize }</td>
@@ -184,7 +184,7 @@
 		</div>
 	</div>
 	<!-- Cart End -->
-	<p id="alertMessage" data-success=${isSuccess }></p>
+	<p id="alertMessage" data-message=${alertMessage }"" data-success=${isSuccess }></p>
 </main>
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary back-to-top"><i
@@ -224,18 +224,67 @@ function tinhTongTien(){
 			let isSuccess = $("#alertMessage").data("success")
 			if(isSuccess){
 				
-				toastr.success('Xóa khỏi giỏ hàng thành công!')
+				toastr.success($("#alertMessage").data("message"))
 			}
 			
 			tinhTongTien();
 			
 			
 			let data = {}
+			let dataInput = {}
+			$("input[name=soluong]").on('click', function() {
+				dataInput.mactsp = $(this).data("ctsp")
+				dataInput.soluong = $(this).val()
+			})
+			
+			$("input[name=soluong]").on('blur', function() {
+				
+				
+				if(!$(this).val()){
+					$(this).val(dataInput.val ? dataInput.val : '')
+				}else {
+					dataInput.mactsp = $(this).data("ctsp")
+					dataInput.soluong = $(this).val()
+					
+					console.log('dataInput', dataInput)
+					
+					$.ajax({
+								url: "giohang?capnhatsl",
+								type: "post",
+								data: dataInput,
+								success: function(result){
+									console.log('result', result);
+									if(result === 'true') {
+										let price =  parseFloat($("td.price[data-ctsp="+dataInput.mactsp+"]").data("priceone"))
+										console.log('price', price)
+										
+										let formatter = new Intl.NumberFormat('vi-VN', {
+											style: 'currency',
+									  		currency: 'VND',})
+										$("td.price[data-ctsp="+dataInput.mactsp+"]").text(formatter.format(price * dataInput.soluong))
+										$("td.price[data-ctsp="+dataInput.mactsp+"]").data("price", price * dataInput.soluong)
+										tinhTongTien();
+										
+									}else {
+										
+									}
+									
+								},
+								error: function(error){
+									console.log(error);
+								}
+							})
+					
+				}
+				
+			})
+			
 			$(".btn-plus").each(function () {
 				let btnPlus = $(this)
+				let mactsp = btnPlus.data("ctsp")
 				
 					btnPlus.on("click", function() {
-						let mactsp = btnPlus.data("ctsp")
+						
 						console.log($("input[data-ctsp="+mactsp+"]"))
 						 data.soluong = parseInt($("input[data-ctsp="+mactsp+"]").attr("value"))
 						 data.mactsp = $("input[data-ctsp="+mactsp+"]").data("ctsp")
@@ -256,7 +305,10 @@ function tinhTongTien(){
 									  		currency: 'VND',})
 										$("td.price[data-ctsp="+mactsp+"]").text(formatter.format(price * data.soluong))
 										$("td.price[data-ctsp="+mactsp+"]").data("price", price * data.soluong)
+										$("input[data-ctsp="+mactsp+"]").val(data.soluong)
 										tinhTongTien();
+										
+									}else {
 										
 									}
 									
@@ -272,9 +324,10 @@ function tinhTongTien(){
 			
 			$(".btn-minus").each(function () {
 				let btnMinus = $(this)
-				
+				let mactsp = btnMinus.data("ctsp")
+					
 					btnMinus.on("click", function() {
-						let mactsp = btnMinus.data("ctsp")
+					
 						console.log($("input[data-ctsp="+mactsp+"]"))
 						 data.soluong = parseInt($("input[data-ctsp="+mactsp+"]").attr("value"))
 						 data.mactsp = $("input[data-ctsp="+mactsp+"]").data("ctsp")
@@ -295,6 +348,7 @@ function tinhTongTien(){
 									  		currency: 'VND',})
 										$("td.price[data-ctsp="+mactsp+"]").text(formatter.format(price * data.soluong))
 										$("td.price[data-ctsp="+mactsp+"]").data("price", price * data.soluong)
+										$("input[data-ctsp="+mactsp+"]").val(data.soluong)
 										tinhTongTien();
 										
 									}

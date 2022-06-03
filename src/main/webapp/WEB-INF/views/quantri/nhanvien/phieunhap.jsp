@@ -207,7 +207,7 @@
 						<c:forEach var="size" items="${danhSachSize}" varStatus="status">
 							<input type="radio" name="size" alt="Checkbox"
 								value="${size.getMaSize() }">
-							<label for="vehicle1">"${size.getTenSize()}" </label>
+							<label for="vehicle1" class="mr-3">${size.getTenSize()} </label>
 						</c:forEach>
 						<p class="text-danger">${size }</p>
 					</div>

@@ -252,11 +252,11 @@
 										</div>
 									</div>
 									<div class="form-group row">
-										<label for="inputExperience" class="col-sm-2 col-form-label text-primary">Ngày
+										<label for="inputExperience" id="datePickerId" class="col-sm-2 col-form-label text-primary">Ngày
 											sinh</label>
 										<div class="col-sm-10">
 											<div class="form-group">
-												<form:input path="ngaySinh" type="date" class="form-control" />
+												<form:input path="ngaySinh" id="date1" type="date" class="form-control" />
 												<form:errors path="ngaySinh" cssClass="text-danger" />
 											</div>
 										</div>
@@ -481,7 +481,7 @@
 																	class="col-sm-2 col-form-label ">Ngày sinh</label>
 																<div class="col-sm-10">
 																	<form:input path="ngaySinh" type="date"
-																		value="${thongTinNV.getNgaySinh() }"
+																		value="${thongTinNV.getNgaySinh() }" id="datePickerId1"
 																		class="form-control" />
 																	<form:errors path="ngaySinh"
 																		cssClass="text-danger" />
@@ -702,8 +702,13 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
+<script>
+	date1.max = new Date().toISOString().split("T")[0];
+	datePickerId.max = new Date().toISOString().split("T")[0];
+	datePickerId1.max = new Date().toISOString().split("T")[0];
+</script>
 
 <!-- Footer -->
 <%@include file="/WEB-INF/views/quantri/include/footer.jsp"%>
 <!-- Footer end -->
+

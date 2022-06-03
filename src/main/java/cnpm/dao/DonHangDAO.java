@@ -133,4 +133,25 @@ public class DonHangDAO {
 		}
 		return isSuccess;
 	}
+	
+	public Boolean xoa(DonHang donhang) {
+		Boolean isSuccess = true;
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		
+		try {
+			session.delete(donhang);
+			t.commit();
+			
+		} catch (Exception e) {
+			System.out.println(e);
+			System.out.println(e.getCause());
+			t.rollback();
+			isSuccess = false;
+		}
+		finally {
+			session.close();
+		}
+		return isSuccess;
+	}
 }

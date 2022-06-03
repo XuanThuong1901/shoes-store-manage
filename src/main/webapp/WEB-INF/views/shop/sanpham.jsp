@@ -295,7 +295,7 @@
 										class="d-flex align-items-center justify-content-center mt-2">
 										<h5>
 											<fmt:setLocale value="vi_VN" />
-											<fmt:formatNumber maxFractionDigits="0" value="${sp.gia}"
+											<fmt:formatNumber maxFractionDigits="0" value="${sp.gia - sp.gia* (sp.giamGia/100)}"
 												type="currency" currencySymbol="đ" />
 										</h5>
 										<h6 class="text-muted ml-2">
@@ -304,7 +304,7 @@
 												<c:if test="${sp.giamGia > 0 }">
 													<fmt:setLocale value="vi_VN" />
 													<fmt:formatNumber maxFractionDigits="0"
-														value="${(sp.gia - sp.gia* (sp.giamGia/100))}"
+														value="${(sp.gia) }"
 														type="currency" currencySymbol="đ" />
 												</c:if>
 

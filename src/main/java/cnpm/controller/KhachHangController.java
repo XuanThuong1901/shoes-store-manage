@@ -3,7 +3,9 @@ package cnpm.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -48,7 +50,7 @@ import cnpm.service.UtilsService;
 public class KhachHangController {
 	@Autowired
 	KhachHangService khachHangService;
-	
+
 	@Autowired
 	TaiKhoanService taiKhoanService;
 
@@ -72,7 +74,7 @@ public class KhachHangController {
 
 	@Autowired
 	UtilsService utilService;
-	
+
 	@Autowired
 	SanPhamService sanPhamService;
 
@@ -100,7 +102,7 @@ public class KhachHangController {
 	public List<HinhThucThanhToan> getDSHinhThucThanhToan() {
 		return hinhThucThanhToanService.getDSHinhThucThanhToan();
 	}
-	
+
 	/*
 	 * @ModelAttribute("thongTinKH") public KhachHang getThongTin(HttpSession ss) {
 	 * TaiKhoan taiKhoan = (TaiKhoan) ss.getAttribute("user"); KhachHang kh =
@@ -134,119 +136,93 @@ public class KhachHangController {
 		return "shop/taikhoan";
 	}
 
-	/*@RequestMapping(value = "taikhoan", params = "luuthaydoi", method = RequestMethod.POST)
-	public String postLoginUser(ModelMap model, @ModelAttribute("thongTinKH") KhachHang khachhang,
-			@RequestParam("anhMoi") MultipartFile anh, BindingResult errors, HttpSession ss) {
-
-		if (khachhang.getHo().trim().isEmpty()) {
-			errors.rejectValue("ho", "thongTinKH", "Họ không được để trống");
-		}
-
-		if (khachhang.getTen().trim().isEmpty()) {
-			errors.rejectValue("ten", "thongTinKH", "Tên không được để trống");
-		}
-
-		if (khachhang.getPhai() != true && khachhang.getPhai() != false) {
-			errors.rejectValue("phai", "thongTinKH", "???");
-		}
-
-		if (khachhang.getNgaySinh() == null) {
-			errors.rejectValue("ngaySinh", "thongTinKH", "Ngày sinh không được để trống");
-		}
-
-		if (khachhang.getSdt().trim().isEmpty()) {
-			errors.rejectValue("sdt", "thongTinKH", "Số điện thoại không được để trống");
-		} else if (!khachhang.getSdt().trim().matches("^[0-9]*$")) {
-			errors.rejectValue("sdt", "thongTinKH", "Số điện thoại không hợp lệ");
-		}
-
-		if (errors.hasErrors()) {
-//			model.addAttribute("isOpenModalEditUser", true);
-			return "shop/taikhoan";
-		}
-		
-		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
-		
-		System.out.println(tk.getKhachHang().getMaKH());
-
-		KhachHang khachhangcu = khachHangService.getByMaKH(tk.getKhachHang().getMaKH());
-		if (khachhangcu != null) {
-			if (!khachhangcu.getHo().equals(khachhang.getHo()))
-				khachhangcu.setHo(khachhang.getHo());
-			if (!khachhangcu.getTen().equals(khachhang.getTen())) {
-				khachhangcu.setTen(khachhang.getTen());
-			}
-			if (!khachhangcu.getNgaySinh().equals(khachhang.getNgaySinh())) {
-				khachhangcu.setNgaySinh(khachhang.getNgaySinh());
-			}
-			if (!khachhangcu.getDiaChi().equals(khachhang.getDiaChi())) {
-				khachhangcu.setDiaChi(khachhang.getDiaChi());
-			}
-
-			if (!khachhangcu.getSdt().equals(khachhang.getSdt())) {
-				khachhangcu.setSdt(khachhang.getSdt());
-			}
-
-			if (khachhangcu.getPhai() != khachhang.getPhai()) {
-				khachhangcu.setPhai(khachhang.getPhai());
-			}
-
-			if (!anh.isEmpty()) {
-				String hinh = "";
-				hinh = utilService.luuFile(anh);
-				if (!hinh.isEmpty()) {
-					khachhangcu.setAnh(hinh);
-				}
-			}
-
-			if (khachHangService.suaKH(khachhangcu)) {
-				tk.setKhachHang(khachhangcu);
-				ss.setAttribute("user", tk);
-				model.addAttribute("thongTinKH", khachhangcu);
-				model.addAttribute("change", "Sửa nhân viên thành công");
-			}
-		}else {
-			model.addAttribute("change", "Sửa nhân viên thất bại");
-		}
-
-		return "shop/taikhoan";
-	}
-
-	@RequestMapping(value = "taikhoan", params = "doimatkhau", method = RequestMethod.POST)
-	public String postDoiMatKhau(ModelMap model, HttpSession ss, @RequestParam("mkcu") String mkcu,
-			@RequestParam("mkmoi") String mkmoi, @RequestParam("xacnhanmk") String xacnhanmk) {
-		
-		if (mkcu == "") {
-			model.addAttribute("mkcu", "Chưa nhập mật khẩu hiện tại");
-			return "shop/taikhoan";
-		}
-
-		if (mkmoi == "") {
-			model.addAttribute("mkmoi", "Chưa nhập mật khẩu mới");
-			return "shop/taikhoan";
-		}
-
-		if (xacnhanmk == "") {
-			model.addAttribute("xacnhanmk", "Chưa nhập mật khẩu xác nhận");
-			return "shop/taikhoan";
-		}
-
-		if (!mkmoi.equals(xacnhanmk)) {
-			model.addAttribute("xacnhanmk", "Mật khẩu và mật khẩu xác nhận khác nhau");
-			return "shop/taikhoan";
-		}
-
-		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
-
-		if (taiKhoanService.kiemTraDangNhap(tk.getEmail(), mkcu)) {
-			taiKhoanService.thayDoiMK(tk, mkmoi);
-			model.addAttribute("suamk", "Thay đổi thành công");
-		} else {
-			model.addAttribute("suamk", "Thay đổi thất bại");
-		}
-
-		return "shop/taikhoan";
-	}*/
+	/*
+	 * @RequestMapping(value = "taikhoan", params = "luuthaydoi", method =
+	 * RequestMethod.POST) public String postLoginUser(ModelMap
+	 * model, @ModelAttribute("thongTinKH") KhachHang khachhang,
+	 * 
+	 * @RequestParam("anhMoi") MultipartFile anh, BindingResult errors, HttpSession
+	 * ss) {
+	 * 
+	 * if (khachhang.getHo().trim().isEmpty()) { errors.rejectValue("ho",
+	 * "thongTinKH", "Họ không được để trống"); }
+	 * 
+	 * if (khachhang.getTen().trim().isEmpty()) { errors.rejectValue("ten",
+	 * "thongTinKH", "Tên không được để trống"); }
+	 * 
+	 * if (khachhang.getPhai() != true && khachhang.getPhai() != false) {
+	 * errors.rejectValue("phai", "thongTinKH", "???"); }
+	 * 
+	 * if (khachhang.getNgaySinh() == null) { errors.rejectValue("ngaySinh",
+	 * "thongTinKH", "Ngày sinh không được để trống"); }
+	 * 
+	 * if (khachhang.getSdt().trim().isEmpty()) { errors.rejectValue("sdt",
+	 * "thongTinKH", "Số điện thoại không được để trống"); } else if
+	 * (!khachhang.getSdt().trim().matches("^[0-9]*$")) { errors.rejectValue("sdt",
+	 * "thongTinKH", "Số điện thoại không hợp lệ"); }
+	 * 
+	 * if (errors.hasErrors()) { // model.addAttribute("isOpenModalEditUser", true);
+	 * return "shop/taikhoan"; }
+	 * 
+	 * TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
+	 * 
+	 * System.out.println(tk.getKhachHang().getMaKH());
+	 * 
+	 * KhachHang khachhangcu =
+	 * khachHangService.getByMaKH(tk.getKhachHang().getMaKH()); if (khachhangcu !=
+	 * null) { if (!khachhangcu.getHo().equals(khachhang.getHo()))
+	 * khachhangcu.setHo(khachhang.getHo()); if
+	 * (!khachhangcu.getTen().equals(khachhang.getTen())) {
+	 * khachhangcu.setTen(khachhang.getTen()); } if
+	 * (!khachhangcu.getNgaySinh().equals(khachhang.getNgaySinh())) {
+	 * khachhangcu.setNgaySinh(khachhang.getNgaySinh()); } if
+	 * (!khachhangcu.getDiaChi().equals(khachhang.getDiaChi())) {
+	 * khachhangcu.setDiaChi(khachhang.getDiaChi()); }
+	 * 
+	 * if (!khachhangcu.getSdt().equals(khachhang.getSdt())) {
+	 * khachhangcu.setSdt(khachhang.getSdt()); }
+	 * 
+	 * if (khachhangcu.getPhai() != khachhang.getPhai()) {
+	 * khachhangcu.setPhai(khachhang.getPhai()); }
+	 * 
+	 * if (!anh.isEmpty()) { String hinh = ""; hinh = utilService.luuFile(anh); if
+	 * (!hinh.isEmpty()) { khachhangcu.setAnh(hinh); } }
+	 * 
+	 * if (khachHangService.suaKH(khachhangcu)) { tk.setKhachHang(khachhangcu);
+	 * ss.setAttribute("user", tk); model.addAttribute("thongTinKH", khachhangcu);
+	 * model.addAttribute("change", "Sửa nhân viên thành công"); } }else {
+	 * model.addAttribute("change", "Sửa nhân viên thất bại"); }
+	 * 
+	 * return "shop/taikhoan"; }
+	 * 
+	 * @RequestMapping(value = "taikhoan", params = "doimatkhau", method =
+	 * RequestMethod.POST) public String postDoiMatKhau(ModelMap model, HttpSession
+	 * ss, @RequestParam("mkcu") String mkcu,
+	 * 
+	 * @RequestParam("mkmoi") String mkmoi, @RequestParam("xacnhanmk") String
+	 * xacnhanmk) {
+	 * 
+	 * if (mkcu == "") { model.addAttribute("mkcu", "Chưa nhập mật khẩu hiện tại");
+	 * return "shop/taikhoan"; }
+	 * 
+	 * if (mkmoi == "") { model.addAttribute("mkmoi", "Chưa nhập mật khẩu mới");
+	 * return "shop/taikhoan"; }
+	 * 
+	 * if (xacnhanmk == "") { model.addAttribute("xacnhanmk",
+	 * "Chưa nhập mật khẩu xác nhận"); return "shop/taikhoan"; }
+	 * 
+	 * if (!mkmoi.equals(xacnhanmk)) { model.addAttribute("xacnhanmk",
+	 * "Mật khẩu và mật khẩu xác nhận khác nhau"); return "shop/taikhoan"; }
+	 * 
+	 * TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
+	 * 
+	 * if (taiKhoanService.kiemTraDangNhap(tk.getEmail(), mkcu)) {
+	 * taiKhoanService.thayDoiMK(tk, mkmoi); model.addAttribute("suamk",
+	 * "Thay đổi thành công"); } else { model.addAttribute("suamk",
+	 * "Thay đổi thất bại"); }
+	 * 
+	 * return "shop/taikhoan"; }
+	 */
 
 	float tongtien = 0.0F;
 
@@ -264,7 +240,7 @@ public class KhachHangController {
 
 		DonHang donhang = donHangService.getByMaDH(maDH);
 		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
-		
+
 		if (donhang != null) {
 			donhang.getTrangThaiDH().setMaTTDH(5);
 			if (donHangService.suaDH(donhang)) {
@@ -274,7 +250,7 @@ public class KhachHangController {
 				 */
 				model.addAttribute("isSuccess", true);
 				model.addAttribute("alertMessage", "Hủy đơn hàng thành công");
-				
+
 				model.addAttribute("dsdonhang", donHangService.getDSDonHangCuaKH(tk.getKhachHang().getMaKH()));
 			} else {
 				model.addAttribute("isSuccess", false);
@@ -371,8 +347,8 @@ public class KhachHangController {
 		if (donhang.getSdtKH().trim().isEmpty()) {
 			errors.rejectValue("sdtKH", "donhang", "Số điện thoại người nhận không được bỏ trống");
 		}
-		
-		if(donhang.getHinhThucTT() == null) {
+
+		if (donhang.getHinhThucTT() == null) {
 			errors.rejectValue("hinhThucTT.maHTTT", "donhang", "Vui lòng chọn 1 hình thức thanh toán");
 		}
 
@@ -390,7 +366,26 @@ public class KhachHangController {
 		}
 
 		List<GioHang> dsgiohang = gioHangService.getGioHangCuaKH(tk.getKhachHang().getMaKH());
+		// check sl ton
+
+		ChiTietSanPham ctsp = new ChiTietSanPham();
+
 		if (dsgiohang != null) {
+			Boolean coTheThem = true;
+			//Map<Integer, Integer>  dskohople = new HashMap<Integer, Integer>();
+			// check sl ton trong chitiet sp
+			for (GioHang giohang : dsgiohang) {
+				
+				ctsp = chiTietSanPhamService.getByMaSCTSP(giohang.getChiTietSP().getMaChiTietSP());
+				if(ctsp.getSoLuong() < giohang.getSoLuong()) {          
+					coTheThem = false;
+					//break;
+					//dskohople
+				}
+			}
+			
+			
+
 			// them don hang
 			donhang.setKhachHang(tk.getKhachHang());
 			donhang.setThoiGian(new Date());
@@ -402,12 +397,15 @@ public class KhachHangController {
 			System.out.println("donhang id " + donhang.getMaDH());
 			ChiTietDonHang ctdonhang = new ChiTietDonHang();
 			ChiTietDonHangPK ctpk = new ChiTietDonHangPK();
+			
 			for (GioHang giohang : dsgiohang) {
 				ctpk.setMaDH(donhang.getMaDH());
 				ctpk.setMaCTSP(giohang.getChiTietSP().getMaChiTietSP());
 				ctdonhang.setChiTietDonHangPK(ctpk);
 				ctdonhang.setSoLuong(giohang.getSoLuong());
-				ctdonhang.setGia((float) ((giohang.getChiTietSP().getSanPham().getGia() - (giohang.getChiTietSP().getSanPham().getGia()*(giohang.getChiTietSP().getSanPham().getGiamGia()/100)))));
+				ctdonhang.setGia((float) ((giohang.getChiTietSP().getSanPham().getGia()
+						- (giohang.getChiTietSP().getSanPham().getGia()
+								* (giohang.getChiTietSP().getSanPham().getGiamGia() / 100)))));
 
 				if (chiTietDonHangService.themCTDH(ctdonhang)) {
 					// tru sl ton trong ctsp
@@ -417,9 +415,11 @@ public class KhachHangController {
 				} else {
 					return "shop/giohang";
 				}
+				 
+
 			}
 
-			if(donhang.getHinhThucTT().getMaHTTT() == 1) {
+			if (donhang.getHinhThucTT().getMaHTTT() == 1) {
 				utilService.guiEmail(tk.getEmail(), "", 2);
 			}
 			model.addAttribute("giohang", new ArrayList<GioHang>());
@@ -436,31 +436,30 @@ public class KhachHangController {
 
 		return "shop/giohang";
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="giohang", params="capnhatsl", method=RequestMethod.POST)
+	@RequestMapping(value = "giohang", params = "capnhatsl", method = RequestMethod.POST)
 	public String capNhatSL(ModelMap model, HttpSession ss, HttpServletRequest request) {
-		
+
 		if (request.getParameter("soluong") == null || request.getParameter("mactsp") == null) {
-			System.out.println( "soluong " + request.getParameter("soluong"));
-			System.out.println( "mactsp " + request.getParameter("mactsp"));
+			System.out.println("soluong " + request.getParameter("soluong"));
+			System.out.println("mactsp " + request.getParameter("mactsp"));
 			return null;
 		}
-		
-		System.out.println( "soluong " + request.getParameter("soluong"));
-		System.out.println( "mactsp " + request.getParameter("mactsp"));
-		
+
+		System.out.println("soluong " + request.getParameter("soluong"));
+		System.out.println("mactsp " + request.getParameter("mactsp"));
+
 		Integer mactsp = Integer.parseInt(request.getParameter("mactsp"));
 		Integer soluong = Integer.parseInt(request.getParameter("soluong"));
-		
+
 		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
 		GioHang giohang = gioHangService.getByPk(tk.getKhachHang().getMaKH(), mactsp);
 		giohang.setSoLuong(soluong);
-		if(gioHangService.sua(giohang)) {
+		if (gioHangService.sua(giohang)) {
 			return "true";
 		}
-		
-		
+
 		return "false";
 	}
 
@@ -544,14 +543,14 @@ public class KhachHangController {
 		ChiTietSanPham ctsp = chiTietSanPhamService.getByMaSPVaSize(maSP, size);
 
 		System.out.println("number " + size + " numer" + soLuong + " " + maSP + " " + ctsp);
-		
-		if(ctsp.getSoLuong() < soLuong) {
+
+		if (ctsp.getSoLuong() < soLuong) {
 			model.addAttribute("isSuccess", false);
 			model.addAttribute("alertMessage", "Thêm sản phẩm vào giỏ thất bại");
 			model.addAttribute("ctsanpham", sanPhamService.getByMaSP(maSP));
 			return "shop/chitietsanpham";
 		}
-		
+
 		GioHang giohang = gioHangService.getByPk(tk.getKhachHang().getMaKH(), ctsp.getMaChiTietSP());
 		if (giohang == null) {
 			GioHangPK pk = new GioHangPK(tk.getKhachHang().getMaKH(), ctsp.getMaChiTietSP());
@@ -635,7 +634,8 @@ public class KhachHangController {
 		}
 
 		TaiKhoan tk = (TaiKhoan) ss.getAttribute("user");
-		//KhachHang khachhangcu = khachHangService.getByMaKH(tk.getKhachHang().getMaKH());
+		// KhachHang khachhangcu =
+		// khachHangService.getByMaKH(tk.getKhachHang().getMaKH());
 		KhachHang khachhangcu = tk.getKhachHang();
 		if (!khachhangcu.getHo().equals(khachhang.getHo())) {
 			khachhangcu.setHo(khachhang.getHo());
