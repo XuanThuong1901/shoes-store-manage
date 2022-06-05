@@ -1,5 +1,6 @@
 package cnpm.controller;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -26,9 +27,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import cnpm.entity.DanhMucSanPham;
 import cnpm.entity.KhachHang;
 import cnpm.entity.NhanVien;
 import cnpm.entity.TaiKhoan;
+import cnpm.service.DanhMucSanPhamService;
 import cnpm.service.KhachHangService;
 import cnpm.service.NhanVienService;
 import cnpm.service.TaiKhoanService;
@@ -51,6 +54,15 @@ public class TaiKhoanController {
 
 	@Autowired
 	JavaMailSender mailSender;
+	
+	@Autowired
+	DanhMucSanPhamService danhMucSanPhamService;
+	
+	@ModelAttribute("danhSachDanhMucSanPham")
+	public List<DanhMucSanPham> dsDanhMucSanPham() {
+		List<DanhMucSanPham> list = danhMucSanPhamService.getDSDanhMuc();
+		return list;
+	}
 
 	@ModelAttribute("thongTinNV")
 	public NhanVien thongtinNv(ModelMap model) {
@@ -164,8 +176,7 @@ public class TaiKhoanController {
 
 		if (taikhoan.getEmail().trim().isEmpty()) {
 			errors.rejectValue("email", "taikhoan", "Email không được để trống");
-		}
-
+		}else
 		if (!taikhoan.getEmail().trim().matches(
 				"^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")) {
 			errors.rejectValue("email", "taikhoan", "Vui lòng nhập chính xác email của bạn!");
@@ -298,7 +309,7 @@ public class TaiKhoanController {
 			return "taikhoan/dangky";
 		}
 
-		TaiKhoan taiKhoan = taiKhoanService.setTK(email, matKhau);
+		TaiKhoan taiKhoan = taiKhoanService.setTK(email.trim(), matKhau);
 		taiKhoanService.themKH(taiKhoan);
 
 		khachHang.setMaKH(khachHangService.taoMaKHMoi());

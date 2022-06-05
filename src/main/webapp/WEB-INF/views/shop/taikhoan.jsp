@@ -46,7 +46,7 @@
 								aria-labelledby="pills-profile-tab">
 								<div class="container rounded bg-white mb-2">
 									<form:form action="taikhoan" method="post" modelAttribute="khachhang"
-										enctype="multipart/form-data">
+										enctype="multipart/form-data" id="form-suattcn">
 										<div class="row">
 											<div class="col-md-5 border-right">
 												<div class="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -65,31 +65,34 @@
 													<div class="row mt-2">
 														<div class="col-md-6">
 															<label class="labels">HỌ</label>
-															<form:input path="ho" class="form-control" placeholder="Họ"
+															<form:input path="ho" id="lastName" class="form-control" placeholder="Họ"
 																value="" />
 															<form:errors path="ho" cssClass="text-danger" />
+															<p class="text-danger" id="ho-error"></p>
 														</div>
 														<div class="col-md-6">
 															<label class="labels">TÊN</label>
-															<form:input path="ten" class="form-control"
+															<form:input path="ten" id="firstName" class="form-control"
 																placeholder="Tên" value="" />
 															<form:errors path="ten" cssClass="text-danger" />
+															<p class="text-danger" id="ten-error"></p>
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-md-12">
 															<div class="form-check form-check-inline">
-																<form:radiobutton path="phai" value="true" label="Nam"
+																<form:radiobutton data-phai="phai" path="phai" value="true" label="Nam"
 																	class="form-check-input"
 																	checked="${khachhang.getPhai() == true ? 'checked' : '' }" />
 
 															</div>
 															<div class="form-check form-check-inline">
-																<form:radiobutton path="phai" value="false" label="Nữ"
+																<form:radiobutton data-phai="phai" path="phai" value="false" label="Nữ"
 																	class="form-check-input"
 																	checked="${khachhang.getPhai() == false ? 'checked' : '' }" />
 																<form:errors path="phai" cssClass="text-danger" />
 															</div>
+															<p class="text-danger" id="phai-error"></p>
 														</div>
 														<div class="col-md-12">
 															<label class="labels">NGÀY SINH</label>
@@ -97,20 +100,23 @@
 																value="${khachhang.getNgaySinh() }" id="datePickerId"
 																class="form-control" />
 															<form:errors path="ngaySinh" cssClass="text-danger" />
+															<p class="text-danger" id="ngaysinh-error"></p>
 
 														</div>
 														<div class="col-md-12">
 															<label class="labels">SỐ ĐIỆN THOẠI</label>
 
-															<form:input path="sdt" class="form-control" placeholder=""
+															<form:input path="sdt" id="phone" class="form-control" placeholder=""
 																value="" />
 															<form:errors path="sdt" cssClass="text-danger" />
+															<p class="text-danger" id="sdt-error"></p>
 														</div>
 														<div class="col-md-12">
 															<label class="labels">ĐỊA CHỈ</label>
-															<form:input path="diaChi" class="form-control"
+															<form:input path="diaChi" class="form-control" id="address"
 																placeholder="" value="" />
 															<form:errors path="diaChi" cssClass="text-danger" />
+															<p class="text-danger" id="diachi-error"></p>
 														</div>
 
 													</div>
@@ -140,17 +146,17 @@
 												<div class="col-8">
 													<label class="labels">MẬT KHẨU</label>
 													<input type="password" name="matkhau" class="form-control" />
-													<p class="text-danger">${matkhau } </p>
+													<p class="text-danger" id="mk-error">${matkhau } </p>
 												</div>
 												<div class="col-8 mt-4">
 													<label class="labels">MẬT KHẨU MỚI</label>
 													<input type="password" name="matkhaumoi" class="form-control" />
-													<p class="text-danger">${matkhaumoi } </p>
+													<p class="text-danger" id="mkmoi-error">${matkhaumoi } </p>
 												</div>
 												<div class="col-8 mt-4">
 													<label class="labels">NHẬP LẠI MẬT KHẨU</label>
 													<input type="password" name="nlmatkhaumoi" class="form-control" />
-													<p class="text-danger">${nlmatkhaumoi } </p>
+													<p class="text-danger" id="remkmoi-error">${nlmatkhaumoi } </p>
 												</div>
 												<div class="col-8 mt-4">
 													<button name="doimatkhau" type="submit"
@@ -442,6 +448,7 @@
 <!-- JS Lib -->
 <%@include file="/WEB-INF/views/shop/include/jsLib.jsp"%>
 <!-- JS Lib End -->
+<script src="resources/user/js/account.js"></script>
 
 <script>
 	function getIdDeleteIntoForm(idInput) {
