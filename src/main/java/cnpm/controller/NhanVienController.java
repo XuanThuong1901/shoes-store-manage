@@ -977,7 +977,20 @@ public class NhanVienController {
 
 		return "quantri/nhanvien/phieunhap";
 	}
-
+	
+	@RequestMapping(value = "phieunhap", params = "huypn")
+	public String huyPn(ModelMap model) {
+		
+		if(thongTinChiTietPN != null) {
+			if(thongTinChiTietPN.size() > 0) {
+				thongTinChiTietPN.clear();
+				thongTinChiTietPN = new ArrayList<ThongTinChiTietPN>();
+			}
+		}
+		
+		return "redirect:/nhanvien/phieunhap";
+	}
+	
 	@RequestMapping(value = "phieunhap", params = "themCTPN", method = RequestMethod.POST)
 	public String themMoiThongTinCTPN(ModelMap model, HttpSession ss, @RequestParam("masp") Integer masp,
 			@RequestParam(name = "size", required = false) Integer size,

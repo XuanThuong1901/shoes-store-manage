@@ -134,11 +134,11 @@ public class TrangChuController {
 	 * 
 	 * return sanPhamService.getDSSanPham(); }
 	 */
-
-	@RequestMapping("")
-	public String reView404() {
-		return "redirect:/404";
-	}
+	
+	
+	/*
+	 * @RequestMapping("") public String reView404() { return "redirect:/404"; }
+	 */
 
 	@RequestMapping("404")
 	public String getView404() {

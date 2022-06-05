@@ -337,7 +337,7 @@
 					<div class="form-group d-flex justify-content-end">
 
 						<button type="submit" name="themPN" class="btn btn-primary">Lưu</button>
-						<a href="nhanvien/phieunhap" id="cancel-save-modal-phieunhap"
+						<a href="nhanvien/phieunhap?huypn" id="cancel-save-modal-phieunhap"
 							class="mx-2 btn btn-secondary">Hủy</a>
 					</div>
 

@@ -164,8 +164,7 @@ public class TaiKhoanController {
 
 		if (taikhoan.getEmail().trim().isEmpty()) {
 			errors.rejectValue("email", "taikhoan", "Email không được để trống");
-		}
-
+		}else
 		if (!taikhoan.getEmail().trim().matches(
 				"^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")) {
 			errors.rejectValue("email", "taikhoan", "Vui lòng nhập chính xác email của bạn!");

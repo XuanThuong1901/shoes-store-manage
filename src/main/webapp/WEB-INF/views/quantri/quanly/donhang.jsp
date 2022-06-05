@@ -148,9 +148,11 @@
 					<p>Khách hàng: ${thongTinDH.getKhachHang().getHo() }&nbsp;${thongTinDH.getKhachHang().getTen() }</p>
 					<p>Địa chỉ: ${thongTinDH.getDiaChi() }</p>
 					<hr>
-					<p class="float-right">Ngày xác nhận:</p>
+					<!-- <p class="float-right">Ngày xác nhận:</p> -->
 					<p>Ngày đặt hàng: ${thongTinDH.getThoiGian() }</p>
-					<p class="float-right">Nhân viên xác nhận:</p>
+					<p class="float-right">Nhân viên xác nhận: <c:if test="${thongTinDH.getNhanVien() != null}"> 
+						${thongTinDH.getNhanVien().getHo()}&nbsp;${thongTinDH.getNhanVien().getTen()}
+					</c:if> </p>
 					<p>
 						Mã nhân viên:
 						<c:choose>
@@ -169,7 +171,7 @@
 
 				<c:choose>
 					<c:when test="${chitietdonhang != null}">
-						<h4>${chitietdonhang.size() }sảnphẩm</h4>
+						<h4>${chitietdonhang.size() }&nbsp;sảnphẩm</h4>
 						<table class="table table-hover table-striped text-center">
 							<thead>
 								<tr>
