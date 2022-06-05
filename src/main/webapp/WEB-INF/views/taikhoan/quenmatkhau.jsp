@@ -13,7 +13,7 @@
 		<div class="row px-xl-5">
 			<div class="col-12">
 				<nav class="breadcrumb bg-light mb-30">
-					<a class="breadcrumb-item text-dark" href="#">Trang chủ</a> <span
+					<a class="breadcrumb-item text-dark" href="">Trang chủ</a> <span
 						class="breadcrumb-item active">Quên Mật Khẩu</span>
 				</nav>
 			</div>
@@ -45,21 +45,21 @@
 						role="tabpanel" aria-labelledby="pills-home-tab">
 
 
-						<form:form action="quenmatkhau" method="post" id="form-login"
+						<form:form action="quenmatkhau" method="post" id="form-forgetpw"
 							modelAttribute="quenmatkhau">
 							<div class="form-floating mb-3">
-								<form:input path="email" id="email-login" placeholder="EMAIL"
+								<form:input path="email" id="email-forgetpw" placeholder="EMAIL"
 									class="form-control border-top-0 border-left-0 border-right-0 border-size-2" />
 
 								<form:errors path="email" cssClass="text-danger" />
-								<p class="text-danger" id="error-email-login"></p>
+								<p class="text-danger" id="error-email-fogetpw"></p>
 							</div>
 
 							<p class="text-danger">${message }</p>
 							<div class="form-floating mb-3 float-right">
 								<span></span> <a href="dangnhap">Đăng nhập</a>
 							</div>
-							<button id="btn-login" class="w-100 btn btn-primary h5 mt-4"
+							<button id="btn-forgetpw" class="w-100 btn btn-primary h5 mt-4"
 								type="submit">XÁC NHẬN</button>
 						</form:form>
 
