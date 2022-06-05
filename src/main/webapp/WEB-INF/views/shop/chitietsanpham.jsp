@@ -10,9 +10,8 @@
 		<div class="row px-xl-5">
 			<div class="col-12">
 				<nav class="breadcrumb bg-light mb-30">
-					<a class="breadcrumb-item text-dark" href="#">Home</a> <a
-						class="breadcrumb-item text-dark" href="#">Shop</a> <span
-						class="breadcrumb-item active">Shop Detail</span>
+					<a class="breadcrumb-item text-dark" href="#">Home</a> <a class="breadcrumb-item text-dark"
+						href="#">Shop</a> <span class="breadcrumb-item active">Shop Detail</span>
 				</nav>
 			</div>
 		</div>
@@ -24,8 +23,7 @@
 	<div class="container-fluid pb-5">
 		<div class="row px-xl-5">
 
-			<form action="sanpham/${ctsanpham.getMaSP() }" method="post"
-				class="d-flex row">
+			<form action="sanpham/${ctsanpham.getMaSP() }" method="post" class="d-flex row">
 				<div class="col-sm-12 col-md-12 col-lg-5 mb-30">
 					<%-- <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner bg-light">
@@ -50,8 +48,7 @@
                     </a>
                 </div> --%>
 					<div class="product-item">
-						<img class="w-100 h-100"
-							src="resources/file/${ctsanpham.getHinhAnh() }" alt="Image">
+						<img class="w-100 h-100" src="resources/file/${ctsanpham.getHinhAnh() }" alt="Image">
 					</div>
 				</div>
 
@@ -72,15 +69,14 @@
 							<fmt:setLocale value="vi_VN" />
 							<fmt:formatNumber maxFractionDigits="0"
 								value="${ctsanpham.getGia() - ctsanpham.getGia() * (ctsanpham.giamGia/100)}"
-								type="currency" currencySymbol="vnđ" />
+								type="currency" currencySymbol="đ" />
 
 							<c:choose>
 								<c:when test="${ctsanpham.giamGia > 0 }">
 									<span class="font-italic" style="font-size: 16px;"><del>
 											<fmt:setLocale value="vi_VN" />
-											<fmt:formatNumber maxFractionDigits="0"
-												value="${ctsanpham.getGia()} " type="currency"
-												currencySymbol="đ" />
+											<fmt:formatNumber maxFractionDigits="0" value="${ctsanpham.getGia()} "
+												type="currency" currencySymbol="đ" />
 										</del></span>
 								</c:when>
 							</c:choose>
@@ -109,8 +105,8 @@
 
 
 						</div>
-						<c:choose>
-							<%-- <c:when test="${isSuccess }">
+						<%--<c:choose>
+							 <c:when test="${isSuccess }">
 								<div class="alert alert-success alert-dismissible fade show"
 									role="alert">
 									${message }
@@ -120,7 +116,7 @@
 									</button>
 								</div>
 							</c:when> --%>
-							<c:when test="${isSuccess == false }">
+						<%-- <c:when test="${isSuccess == false }">
 								<div class="alert alert-warning alert-dismissible fade show"
 									role="alert">
 									${alertMessage }
@@ -129,8 +125,8 @@
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
-							</c:when>
-						</c:choose>
+							</c:when> 
+						</c:choose>--%>
 
 						<div class="d-flex align-items-center mb-1 pt-2">
 							<div class="input-group quantity mr-3" style="width: 130px;">
@@ -140,9 +136,8 @@
 									</button>
 								</div>
 								<input type="text" name="soluong"
-									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-									class="form-control bg-secondary border-0 text-center"
-									value="1">
+									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
+									class="form-control bg-secondary border-0 text-center" value="1">
 
 								<div class="input-group-btn">
 									<button type="button" class="btn btn-primary btn-plus">
@@ -152,14 +147,15 @@
 
 							</div>
 
-							<button type="submit" id="themvaogiohang" name="themvaogiohang"
-								data-success="${isSuccess }" class="btn btn-primary px-3">
+							<button type="submit" id="themvaogiohang" name="themvaogiohang" data-success="${isSuccess }"
+								class="btn btn-primary px-3">
 								<i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng
 							</button>
 
 						</div>
 						<div>
-							<p class="font-italic" id="spcosan" hidden>sản phẩm có sẵn</p>
+							<p class="font-italic mb-0" id="spcosan" hidden>sản phẩm có sẵn</p>
+							<p class="font-italic text-danger" id="texterror"> </p>
 						</div>
 
 					</div>
@@ -170,8 +166,7 @@
 			<div class="col">
 				<div class="bg-light p-30">
 					<div class="nav nav-tabs mb-4">
-						<a class="nav-item nav-link text-dark active" data-toggle="tab"
-							href="#tab-pane-1">Mô tả</a>
+						<a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Mô tả</a>
 						<!--  <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Information</a>
                         <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a> -->
 					</div>
@@ -280,8 +275,7 @@
 
 	<!-- Products Start -->
 	<div class="container-fluid py-5">
-		<h2
-			class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
 			<span class="bg-secondary pr-3">Sản phẩm cùng loại</span>
 		</h2>
 		<div>
@@ -290,22 +284,19 @@
 
 					<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
 						<div class="product-item bg-light mb-4">
-							<div class="product-img position-relative overflow-hidden"
-								style="height: 320px;">
+							<div class="product-img position-relative overflow-hidden" style="height: 320px;">
 								<!-- <span class="badge bg-warning">NEW</span>  -->
-								<img class="img-fluid w-100"
-									src="resources/file/${sp.getHinhAnh() }" alt="">
+								<img class="img-fluid w-100" src="resources/file/${sp.getHinhAnh() }" alt="">
 
 							</div>
 							<div class="text-center py-4">
 								<a class="h6 text-decoration-none text-truncate"
 									href="sanpham/${sp.getMaSP() }">${sp.getTenSP() }</a>
-								<div
-									class="d-flex align-items-center justify-content-center mt-2">
+								<div class="d-flex align-items-center justify-content-center mt-2">
 									<h5>
 										<fmt:setLocale value="vi_VN" />
-										<fmt:formatNumber maxFractionDigits="0" value="${sp.gia}"
-											type="currency" currencySymbol="đ" />
+										<fmt:formatNumber maxFractionDigits="0" value="${sp.gia}" type="currency"
+											currencySymbol="đ" />
 									</h5>
 									<h6 class="text-muted ml-2">
 										<del>
@@ -313,8 +304,8 @@
 											<c:if test="${sp.giamGia > 0 }">
 												<fmt:setLocale value="vi_VN" />
 												<fmt:formatNumber maxFractionDigits="0"
-													value="${(sp.gia - sp.gia* (sp.giamGia/100))}"
-													type="currency" currencySymbol="đ" />
+													value="${(sp.gia - sp.gia* (sp.giamGia/100))}" type="currency"
+													currencySymbol="đ" />
 											</c:if>
 
 
@@ -333,8 +324,7 @@
 	<!-- Products End -->
 </main>
 <!-- Back to Top -->
-<a href="#" class="btn btn-primary back-to-top"><i
-	class="fa fa-angle-double-up"></i></a>
+<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 <!-- Footer -->
 <%@include file="/WEB-INF/views/shop/include/footer.jsp"%>
@@ -346,20 +336,67 @@
 <!-- JS Lib End -->
 
 <script>
-	$(document).ready(function() {
+	$(document).ready(function () {
 
 		let isSuccess = $("#themvaogiohang").data("success")
+		console.log(isSuccess)
 		if (isSuccess) {
 
 			toastr.success('Thêm vào giỏ hàng thành công!')
-		} else if (isSuccess == false && isSuccess != '') {
+		} else if (isSuccess == false && typeof isSuccess != 'string') {
 			toastr.error('Thêm vào giỏ hàng thất bại!')
 		}
 
-		$(".custom-control-input").click(function() {
+		$(".custom-control-input").click(function () {
 			let slcosan = $(this).data("cosan")
 			$("#spcosan").text(slcosan + " sản phẩm có sẵn")
 			$("#spcosan").removeAttr("hidden")
+			
+			let soluong = $("input[name=soluong]").val()
+			if(soluong > slcosan) {
+				$("input[name=soluong]").val(slcosan)
+			}
+		})
+		
+		let data = {}
+		let dataInput = {}
+		$("input[name=soluong]").on('click', function() {
+			dataInput.mactsp = $(this).data("ctsp")
+			dataInput.soluong = $(this).val()
+		})
+		
+		$("input[name=soluong]").on('blur', function() {
+			if(!$(this).val()){
+					$(this).val(dataInput.soluong ? dataInput.soluong : '')
+			}else if($(this).val() == 0){
+					$(this).val(1)
+					dataInput.mactsp = $(this).data("ctsp")
+					dataInput.soluong = $(this).val()
+			}else {
+				let inputRadio = $("input[name=size]:checked")
+				let soluong = $("input[name=soluong]").val()
+				let slcosan = $("input[name=size]:checked").data("cosan")
+				if(soluong > slcosan){
+					$("input[name=soluong]").val(slcosan)
+				}
+			}
+					
+		})
+
+		$("button[name=themvaogiohang]").on('click', function (e) {
+
+			e.preventDefault();
+			let inputRadio = $("input[name=size]:checked")
+			let soluong = $("input[name=soluong]").val()
+			console.log(inputRadio)
+			console.log(soluong)
+			if (!inputRadio || inputRadio.length == 0 || !soluong) {
+				$("#texterror").text("Vui lòng chọn size và số lượng phù hợp")
+			} else {
+				$("#texterror").text("")
+				//$(this).unbind('click')
+				//$(this)[0].click();
+			}
 		})
 
 	})
