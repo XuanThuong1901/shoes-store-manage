@@ -109,7 +109,7 @@
 													</c:otherwise>
 												</c:choose>
 											</td>
-											<td>${nv.getHo() }${nv.getTen() }</td>
+											<td>${nv.getHo() }&nbsp;${nv.getTen() }</td>
 											<td>${nv.getSdt() }</td>
 											<td>
 												<c:choose>
@@ -220,7 +220,7 @@
 									<div class="form-group row">
 										<label for="" class="col-sm-2 col-form-label text-primary">Email</label>
 										<div class="col-sm-10">
-											<form:input path="taiKhoan.email" class="form-control" id="inputName" />
+											<form:input path="taiKhoan.email" class="form-control" id="inputName"  />
 											<form:errors path="taiKhoan.email" cssClass="text-danger" />
 											<!--  <input type="email" class="form-control" id="inputName" placeholder=""> -->
 										</div>
@@ -426,11 +426,11 @@
 														<div class="card-body text-primary">
 
 															<div class="form-group row">
-																<label for=""
+																<!-- <label for=""
 																	class="col-sm-2 col-form-label text-primary">Email
-																</label>
+																</label> -->
 																<div class="col-sm-10">
-																	<form:input path="taiKhoan.email"
+																	<form:hidden path="taiKhoan.email"
 																		class="form-control" id="" />
 																	<form:errors path="taiKhoan.email"
 																		cssClass="text-danger" />

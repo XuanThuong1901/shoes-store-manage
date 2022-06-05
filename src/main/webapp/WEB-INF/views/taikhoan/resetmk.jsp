@@ -179,23 +179,23 @@
 				<h2 class="text-uppercase ">ĐỔI MẬT KHẨU</h2>
 				<div class="col-lg-12 form-resetmk mt-3">
 
-					<form action="resetmk" method="post">
+					<form action="resetmk" method="post" id="form-resetpw">
 						<div class="form-floating mb-3">
 							<input type="password" name="matkhaumoi"
 								class="form-control border-top-0 border-left-0 border-right-0 border-size-2"
 								id="password-login" placeholder="MẬT KHẨU MỚI" />
-							<p class="text-danger float-left">${matkhaumoi }</p>
+							<p class="text-danger float-left" id="matkhaumoi-error">${matkhaumoi }</p>
 						</div>
 
 						<div class="form-floating mb-3">
 							<input type="password" name="rematkhaumoi"
 								class="form-control border-top-0 border-left-0 border-right-0 border-size-2"
 								id="password-login" placeholder="XÁC NHẬN MẬT KHẨU" />
-							<p class="text-danger float-left">${rematkhaumoi }</p>
+							<p class="text-danger float-left" id="rematkhaumoi-error">${rematkhaumoi }</p>
 						</div>
 
 						<div class="form-floating mb-3">
-							<button id="btn-login" class="w-100 btn btn-primary h5 mt-4"
+							<button id="btn-resetpw" class="w-100 btn btn-primary h5 mt-4"
 								type="submit">LƯU</button>
 						</div>
 
@@ -225,5 +225,6 @@
 			 toastr.error($("#alertMessage").data("message"))		
 		}
 	</script>
+	<script src="resources/user/js/auth.js"></script>
 </body>
 </html>

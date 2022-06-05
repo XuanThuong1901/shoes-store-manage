@@ -207,7 +207,7 @@
 						<c:forEach var="size" items="${danhSachSize}" varStatus="status">
 							<input type="radio" name="size" alt="Checkbox"
 								value="${size.getMaSize() }">
-							<label for="vehicle1">"${size.getTenSize()}" </label>
+							<label for="vehicle1" class="mr-3">${size.getTenSize()} </label>
 						</c:forEach>
 						<p class="text-danger">${size }</p>
 					</div>
@@ -337,7 +337,7 @@
 					<div class="form-group d-flex justify-content-end">
 
 						<button type="submit" name="themPN" class="btn btn-primary">Lưu</button>
-						<a href="nhanvien/phieunhap" id="cancel-save-modal-phieunhap"
+						<a href="nhanvien/phieunhap?huypn" id="cancel-save-modal-phieunhap"
 							class="mx-2 btn btn-secondary">Hủy</a>
 					</div>
 

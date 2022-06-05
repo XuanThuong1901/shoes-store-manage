@@ -10,7 +10,7 @@
 		<div class="row px-xl-5">
 			<div class="col-12">
 				<nav class="breadcrumb bg-light mb-30">
-					<a class="breadcrumb-item text-dark" href="#">Trang chủ</a> <span
+					<a class="breadcrumb-item text-dark" href="">Trang chủ</a> <span
 						class="breadcrumb-item active">Giỏ hàng</span>
 				</nav>
 			</div>
@@ -47,10 +47,10 @@
 							<tr class="row-sp">
 								<td class="align-middle"><img
 									src="resources/file/${i.chiTietSP.sanPham.hinhAnh }" alt=""
-									style="width: 50px;"> 
-									<a href="sanpham/${ i.chiTietSP.sanPham.maSP}"><span class="text-truncate text-info">
-										${i.chiTietSP.sanPham.tenSP }</span></a>
-									</td>
+									style="width: 50px;"> <a
+									href="sanpham/${ i.chiTietSP.sanPham.maSP}"><span
+										class="text-truncate text-info">
+											${i.chiTietSP.sanPham.tenSP }</span></a></td>
 								<td class="align-middle">${i.chiTietSP.sizeSanPham.tenSize }</td>
 								<td class="align-middle"><fmt:setLocale value="vi_VN" /> <fmt:formatNumber
 										maxFractionDigits="0"
@@ -66,9 +66,13 @@
 											</button>
 										</div>
 										<input type="text" name="soluong"
-											data-ctsp="${i.chiTietSP.maChiTietSP }" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+											data-slconlai="${i.chiTietSP.soLuong }"
+											data-kodusl="${dskohople[i.chiTietSP.maChiTietSP] }"
+											data-ctsp="${i.chiTietSP.maChiTietSP }"
+											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
 											class="form-control form-control-sm bg-secondary border-0 text-center"
 											value="${i.soLuong }">
+
 										<div class="input-group-btn">
 											<button type="button" class="btn btn-sm btn-primary btn-plus"
 												id="btn-plus" data-ctsp="${i.chiTietSP.maChiTietSP }">
@@ -76,9 +80,13 @@
 											</button>
 										</div>
 									</div>
+
+									<p class="text-danger position-absolute text-kodusl"
+										data-ctsp="${i.chiTietSP.maChiTietSP }"></p>
 								</td>
-								<td class="align-middle price" data-ctsp="${ i.chiTietSP.maChiTietSP}"
-								data-priceone="${(i.chiTietSP.sanPham.gia - i.chiTietSP.sanPham.gia* (i.chiTietSP.sanPham.giamGia/100)) }"
+								<td class="align-middle price"
+									data-ctsp="${ i.chiTietSP.maChiTietSP}"
+									data-priceone="${(i.chiTietSP.sanPham.gia - i.chiTietSP.sanPham.gia* (i.chiTietSP.sanPham.giamGia/100)) }"
 									data-price="${(i.chiTietSP.sanPham.gia - i.chiTietSP.sanPham.gia* (i.chiTietSP.sanPham.giamGia/100)) * i.soLuong}"><fmt:setLocale
 										value="vi_VN" /> <fmt:formatNumber maxFractionDigits="0"
 										value="${(i.chiTietSP.sanPham.gia - i.chiTietSP.sanPham.gia* (i.chiTietSP.sanPham.giamGia/100)) * i.soLuong}"
@@ -97,34 +105,7 @@
 							</tr>
 						</c:forEach>
 
-						<!-- 
-						<tr>
-							<td class="align-middle"><img src="img/product-5.jpg" alt=""
-								style="width: 50px;"> Product Name</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle">
-								<div class="input-group quantity mx-auto" style="width: 100px;">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-minus">
-											<i class="fa fa-minus"></i>
-										</button>
-									</div>
-									<input type="text"
-										class="form-control form-control-sm bg-secondary border-0 text-center"
-										value="1">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-plus">
-											<i class="fa fa-plus"></i>
-										</button>
-									</div>
-								</div>
-							</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle"><button
-									class="btn btn-sm btn-danger">
-									<i class="fa fa-times"></i>
-								</button></td>
-						</tr> -->
+
 					</tbody>
 				</table>
 			</div>
@@ -167,6 +148,7 @@
 											Quay lại </a>
 
 										<button type="submit" name="thanhtoangiohang"
+											data-issuccess="${isSuccess }"
 											class="col-md-5 btn btn-block btn-primary font-weight-bold my-3 py-3">Thanh
 											toán</button>
 
@@ -184,7 +166,8 @@
 		</div>
 	</div>
 	<!-- Cart End -->
-	<p id="alertMessage" data-message=${alertMessage }"" data-success=${isSuccess }></p>
+	<p id="alertMessage" data-message=${alertMessage }
+		"" data-success=${isSuccess }></p>
 </main>
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary back-to-top"><i
@@ -220,6 +203,36 @@ function tinhTongTien(){
 	
 }
 
+function muaHangThatBai(){
+	console.log(typeof $("button[name=thanhtoangiohang]").data("issuccess"))
+	if(!$("button[name=thanhtoangiohang]").data("issuccess")){
+		let data = {}
+		$("input[name=soluong]").each(function()  {
+			data.kodusl = $(this).data("kodusl")
+			data.mactsp = $(this).data("ctsp")
+			if(data.mactsp && data.kodusl){
+				if(data.kodusl == 0){
+					$("p[data-ctsp="+data.mactsp+"]").text("Mặt hàng này hiện đã hết");
+				}else {
+					$("p[data-ctsp="+data.mactsp+"]").text("Mặt hàng này hiện chỉ còn " +data.kodusl+" sản phẩm");
+				}
+			}
+		})
+	}
+}
+
+function capnhattonggia1sp(dataInput){
+	let price =  parseFloat($("td.price[data-ctsp="+dataInput.mactsp+"]").data("priceone"))
+										console.log('price', price)
+										
+										let formatter = new Intl.NumberFormat('vi-VN', {
+											style: 'currency',
+									  		currency: 'VND',})
+										$("td.price[data-ctsp="+dataInput.mactsp+"]").text(formatter.format(price * dataInput.soluong))
+										$("td.price[data-ctsp="+dataInput.mactsp+"]").data("price", price * dataInput.soluong)
+										tinhTongTien();
+}
+
 		$(document).ready(function(){
 			let isSuccess = $("#alertMessage").data("success")
 			if(isSuccess){
@@ -228,6 +241,8 @@ function tinhTongTien(){
 			}
 			
 			tinhTongTien();
+			
+			muaHangThatBai();
 			
 			
 			let data = {}
@@ -241,10 +256,55 @@ function tinhTongTien(){
 				
 				
 				if(!$(this).val()){
-					$(this).val(dataInput.val ? dataInput.val : '')
-				}else {
+					$(this).val(dataInput.soluong ? dataInput.soluong : '')
+				}else if($(this).val() == 0){
+					$(this).val(1)
 					dataInput.mactsp = $(this).data("ctsp")
 					dataInput.soluong = $(this).val()
+					$.ajax({
+								url: "giohang?capnhatsl",
+								type: "post",
+								data: dataInput,
+								success: function(result){
+									console.log('result', result);
+									if(result === 'true') {
+										let price =  parseFloat($("td.price[data-ctsp="+dataInput.mactsp+"]").data("priceone"))
+										console.log('price', price)
+										
+										let formatter = new Intl.NumberFormat('vi-VN', {
+											style: 'currency',
+									  		currency: 'VND',})
+										$("td.price[data-ctsp="+dataInput.mactsp+"]").text(formatter.format(price * dataInput.soluong))
+										$("td.price[data-ctsp="+dataInput.mactsp+"]").data("price", price * dataInput.soluong)
+										tinhTongTien();
+										
+									}else {
+										
+									}
+									
+								},
+								error: function(error){
+									console.log(error);
+								}
+							})
+				}
+				else {
+					dataInput.mactsp = $(this).data("ctsp")
+					dataInput.soluong = $(this).val()
+					let slconlai = $(this).data("slconlai")
+					if(slconlai && dataInput.soluong){
+						if(dataInput.soluong > slconlai){
+							$(this).val(slconlai);
+							if(slconlai == 0){
+								$("p[data-ctsp="+dataInput.mactsp+"]").text("Mặt hàng này hiện đã hết");
+							}else {
+								$("p[data-ctsp="+dataInput.mactsp+"]").text("Mặt hàng này hiện chỉ còn " +slconlai+" sản phẩm");
+							}
+							dataInput.soluong = slconlai;
+						}else {
+							$("p[data-ctsp="+dataInput.mactsp+"]").text("")
+						}
+					}
 					
 					console.log('dataInput', dataInput)
 					
@@ -289,6 +349,21 @@ function tinhTongTien(){
 						 data.soluong = parseInt($("input[data-ctsp="+mactsp+"]").attr("value"))
 						 data.mactsp = $("input[data-ctsp="+mactsp+"]").data("ctsp")
 						console.log('soluong', data);
+						let slconlai = $("input[data-ctsp="+mactsp+"]").data("slconlai")
+						
+					if(slconlai && data.soluong){
+						if(data.soluong > slconlai){
+							$("input[data-ctsp="+mactsp+"]").val(slconlai);
+							if(slconlai == 0){
+								$("p[data-ctsp="+data.mactsp+"]").text("Mặt hàng này hiện đã hết");
+							}else {
+								$("p[data-ctsp="+data.mactsp+"]").text("Mặt hàng này hiện chỉ còn " +slconlai+" sản phẩm");
+							}
+							data.soluong = slconlai;
+						}else {
+							$("p[data-ctsp="+data.mactsp+"]").text("")
+						}
+					}
 						
 							$.ajax({
 								url: "giohang?capnhatsl",
@@ -332,6 +407,23 @@ function tinhTongTien(){
 						 data.soluong = parseInt($("input[data-ctsp="+mactsp+"]").attr("value"))
 						 data.mactsp = $("input[data-ctsp="+mactsp+"]").data("ctsp")
 						console.log('soluong', data);
+						let slconlai = $("input[data-ctsp="+mactsp+"]").data("slconlai")
+						
+					if(slconlai && data.soluong){
+						if(data.soluong > slconlai){
+							$("input[data-ctsp="+mactsp+"]").val(slconlai);
+							if(slconlai == 0){
+								$("p[data-ctsp="+data.mactsp+"]").text("Mặt hàng này hiện đã hết");
+							}else {
+								$("p[data-ctsp="+data.mactsp+"]").text("Mặt hàng này hiện chỉ còn " +slconlai+" sản phẩm");
+							}
+							data.soluong = slconlai;
+						}else {
+							$("p[data-ctsp="+data.mactsp+"]").text("")
+						}
+					}
+						
+						
 						
 							$.ajax({
 								url: "giohang?capnhatsl",

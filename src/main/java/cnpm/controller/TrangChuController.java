@@ -134,11 +134,11 @@ public class TrangChuController {
 	 * 
 	 * return sanPhamService.getDSSanPham(); }
 	 */
-
-	@RequestMapping("")
-	public String reView404() {
-		return "redirect:/404";
-	}
+	
+	
+	/*
+	 * @RequestMapping("") public String reView404() { return "redirect:/404"; }
+	 */
 
 	@RequestMapping("404")
 	public String getView404() {
@@ -151,8 +151,8 @@ public class TrangChuController {
 	}
 
 	@RequestMapping(value = { "/", "trangchu", "index" })
-	public String index(ModelMap model) {
-
+	public String index(ModelMap model, HttpServletRequest request) {
+		
 		return "shop/trangchu";
 	}
 
@@ -169,6 +169,8 @@ public class TrangChuController {
 		if (sanpham != null) {
 			model.addAttribute("ctsanpham", sanpham);
 				
+		}else {
+			return "redirect:/sanpham";
 		}
 
 		int maDM = sanpham.getDanhMuc().getMaDM();

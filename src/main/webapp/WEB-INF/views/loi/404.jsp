@@ -6,7 +6,7 @@
 <base href="${pageContext.servletContext.contextPath}/">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quyền truy cập</title>
+<title>404</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
