@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import cnpm.entity.ChiTietDonHang;
 import cnpm.entity.ChiTietDonHangPK;
 import cnpm.entity.ChiTietSanPham;
+import cnpm.entity.DanhMucSanPham;
 import cnpm.entity.DonHang;
 import cnpm.entity.GioHang;
 import cnpm.entity.GioHangPK;
@@ -36,6 +37,7 @@ import cnpm.entity.NhanVien;
 import cnpm.entity.TaiKhoan;
 import cnpm.service.ChiTietDonHangService;
 import cnpm.service.ChiTietSanPhamService;
+import cnpm.service.DanhMucSanPhamService;
 import cnpm.service.DonHangService;
 import cnpm.service.GioHangService;
 import cnpm.service.HinhThucThanhToanService;
@@ -77,6 +79,15 @@ public class KhachHangController {
 
 	@Autowired
 	SanPhamService sanPhamService;
+	
+	@Autowired
+	DanhMucSanPhamService danhMucSanPhamService;
+	
+	@ModelAttribute("danhSachDanhMucSanPham")
+	public List<DanhMucSanPham> dsDanhMucSanPham() {
+		List<DanhMucSanPham> list = danhMucSanPhamService.getDSDanhMuc();
+		return list;
+	}
 
 	@ModelAttribute("khachhang")
 	public KhachHang getKh(HttpSession ss) {
@@ -333,7 +344,7 @@ public class KhachHangController {
 	}
 
 	@RequestMapping(value = "thanhtoan", params = "muahang", method = RequestMethod.POST)
-	public String muaHang(ModelMap model, HttpSession ss, HttpServletRequest request,
+	public String muaHang(ModelMap model, HttpSession ss, HttpServletRequest request, RedirectAttributes redirectAttributes,
 			@ModelAttribute("donhang") DonHang donhang, BindingResult errors) {
 
 		if (donhang.getTenNguoiNhan().trim().isEmpty()) {
@@ -372,18 +383,23 @@ public class KhachHangController {
 
 		if (dsgiohang != null) {
 			Boolean coTheThem = true;
-			//Map<Integer, Integer>  dskohople = new HashMap<Integer, Integer>();
+			Map<Integer, Integer>  dskohople = new HashMap<Integer, Integer>();
 			// check sl ton trong chitiet sp
 			for (GioHang giohang : dsgiohang) {
 				
 				ctsp = chiTietSanPhamService.getByMaSCTSP(giohang.getChiTietSP().getMaChiTietSP());
 				if(ctsp.getSoLuong() < giohang.getSoLuong()) {          
 					coTheThem = false;
-					//break;
+					dskohople.put(ctsp.getMaChiTietSP(), ctsp.getSoLuong());
 					//dskohople
 				}
 			}
 			
+			if(!coTheThem) {
+				redirectAttributes.addFlashAttribute("isSuccess", false);
+				redirectAttributes.addFlashAttribute("dskohople", dskohople);
+				return "redirect:/giohang";
+			}
 			
 
 			// them don hang
@@ -409,7 +425,7 @@ public class KhachHangController {
 
 				if (chiTietDonHangService.themCTDH(ctdonhang)) {
 					// tru sl ton trong ctsp
-					chiTietSanPhamService.truSLTon(giohang.getChiTietSP().getMaChiTietSP(), giohang.getSoLuong());
+					//chiTietSanPhamService.truSLTon(giohang.getChiTietSP().getMaChiTietSP(), giohang.getSoLuong());
 					// xoa trong gio hang
 					gioHangService.xoa(giohang);
 				} else {
