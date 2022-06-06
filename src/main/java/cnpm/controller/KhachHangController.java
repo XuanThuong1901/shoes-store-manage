@@ -560,7 +560,7 @@ public class KhachHangController {
 
 		System.out.println("number " + size + " numer" + soLuong + " " + maSP + " " + ctsp);
 
-		if (ctsp.getSoLuong() < soLuong) {
+		if ( ctsp.getSoLuong() == 0||ctsp.getSoLuong() < soLuong) {
 			model.addAttribute("isSuccess", false);
 			model.addAttribute("alertMessage", "Thêm sản phẩm vào giỏ thất bại");
 			model.addAttribute("ctsanpham", sanPhamService.getByMaSP(maSP));

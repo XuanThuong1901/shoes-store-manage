@@ -95,7 +95,7 @@
 									<form action="giohang" method="post">
 										<input type="text" name="mactsp"
 											value="${i.chiTietSP.maChiTietSP }" hidden />
-										<button type="submit" name="xoasp"
+										<button type="submit" name="xoasp" data-ctsp="${i.chiTietSP.maChiTietSP}"
 											class="btn btn-sm btn-danger">
 											<i class="fa fa-times"></i>
 										</button>
@@ -183,6 +183,53 @@
 <!-- JS Lib End -->
 
 <script>
+function xoaKhoiGioHang() {
+	$("button[name=xoasp]").click(function (e) {
+		let btnxoa = $(this)
+		console.log(btn.find("tr.row-sp"))
+		e.preventDefault();
+		let data = {}
+		data.mactsp = $(this).data("ctsp")
+		
+		$.ajax({
+								url: "api/xoakhoigiohang",
+								type: "post",
+								data: data,
+								success: function(result){
+									console.log('result', result);
+									console.log('type', typeof result);
+									
+									if(result === 'candangnhap') {
+										window.location.href="dangnhap"
+										
+									}else if(result === 'xoafalse'){
+										toastr.error('Xóa khỏi giỏ hàng thất bại!')
+										
+									}else if(result === 'xoatrue'){
+										toastr.success('Xóa khỏi giỏ hàng thành công!')
+										if($("#giohang")){
+											let sl = $("#giohang").data("sl")
+											
+											if(sl){
+												sl = parseInt(sl)-1
+												$("#giohang").text(sl)
+												$("#giohang").data("sl", sl)
+											}
+										}
+										
+										btnxoa.find("tr.row-sp").remove()
+										
+										
+									}
+									
+								},
+								error: function(error){
+									console.log(error);
+								}
+							})
+	})
+}
+
 function tinhTongTien(){
 	let tongTien = 0;
 	$(".row-sp").each(function(){
@@ -243,6 +290,8 @@ function capnhattonggia1sp(dataInput){
 			tinhTongTien();
 			
 			muaHangThatBai();
+			
+			xoaKhoiGioHang();
 			
 			
 			let data = {}
