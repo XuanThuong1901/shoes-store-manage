@@ -183,6 +183,26 @@
 <!-- JS Lib End -->
 
 <script>
+function tinhTongTien(){
+	let tongTien = 0;
+	$(".row-sp").each(function(){
+		
+		 tongTien += (parseFloat($(this).find("td.price").data("price")))
+		
+	})
+	
+	let formatter = new Intl.NumberFormat('vi-VN', {
+		style: 'currency',
+  		currency: 'VND',})
+  	
+  	
+	  	$("#temp-price").text(formatter.format(tongTien))
+		$("#total-price").text(formatter.format(tongTien + 30000))
+		$("input[name=tongtien]").attr("value", tongTien)
+  	
+	
+}
+
 function xoaKhoiGioHang() {
 	$("button[name=xoasp]").each(function (){
 		$(this).click(function (e) {
@@ -219,6 +239,7 @@ function xoaKhoiGioHang() {
 										}
 										
 										btnxoa.closest('tr').remove()
+										tinhTongTien()
 										
 										
 									}
@@ -233,25 +254,7 @@ function xoaKhoiGioHang() {
 	})
 }
 
-function tinhTongTien(){
-	let tongTien = 0;
-	$(".row-sp").each(function(){
-		
-		 tongTien += (parseFloat($(this).find("td.price").data("price")))
-		
-	})
-	
-	let formatter = new Intl.NumberFormat('vi-VN', {
-		style: 'currency',
-  		currency: 'VND',})
-  	
-  	
-	  	$("#temp-price").text(formatter.format(tongTien))
-		$("#total-price").text(formatter.format(tongTien + 30000))
-		$("input[name=tongtien]").attr("value", tongTien)
-  	
-	
-}
+
 
 function muaHangThatBai(){
 	console.log(typeof $("button[name=thanhtoangiohang]").data("issuccess"))
