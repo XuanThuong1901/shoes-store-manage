@@ -508,7 +508,8 @@ public class TaiKhoanController {
 			Random generator = new Random();
 			int ramdom = generator.nextInt(99999999) + 100000;
 			String mkmoi = String.valueOf(ramdom);
-
+			
+			thongtinTk.setTrangThai(2);
 			taiKhoanService.thayDoiMK(thongtinTk, mkmoi);
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message);
