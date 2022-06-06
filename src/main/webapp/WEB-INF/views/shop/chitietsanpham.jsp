@@ -148,7 +148,7 @@
 							</div>
 
 							<button type="submit" id="themvaogiohang" name="themvaogiohang" data-success="${isSuccess }"
-								class="btn btn-primary px-3">
+								class="btn btn-primary px-3" data-sp="${ctsanpham.getMaSP() }">
 								<i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng
 							</button>
 
@@ -396,6 +396,52 @@
 				$("#texterror").text("")
 				//$(this).unbind('click')
 				//$(this)[0].click();
+				
+				// goi api
+				let data = {
+					size: inputRadio.val(),
+					soluong: soluong,
+					maSP: $(this).data("sp")
+				}
+				
+				$.ajax({
+								url: "api/themvaogiohang",
+								type: "post",
+								data: data,
+								success: function(result){
+									console.log('result', result);
+									console.log('type', typeof result);
+									
+									if(result === 'candangnhap') {
+										window.location.href="dangnhap"
+										
+									}else if(result === 'themfalse'){
+										toastr.error('Thêm vào giỏ hàng thất bại!')
+									}else if(result === 'capnhatfalse'){
+										toastr.error('Cập nhật vào giỏ hàng thất bại!')
+										
+									}else if(result === 'themtrue'){
+										toastr.success('Thêm vào giỏ hàng thành công!')
+										console.log($("#giohang"))
+										if($("#giohang")){
+											let sl = $("#giohang").data("sl")
+											
+											if(sl){
+												sl = parseInt(sl)+1
+												$("#giohang").text(sl)
+												$("#giohang").data("sl", sl)
+											}
+										}
+										
+									}else if(result === 'capnhattrue'){
+										toastr.success('Cập nhật vào giỏ hàng thành công!')
+									}
+									
+								},
+								error: function(error){
+									console.log(error);
+								}
+							})
 			}
 		})
 
