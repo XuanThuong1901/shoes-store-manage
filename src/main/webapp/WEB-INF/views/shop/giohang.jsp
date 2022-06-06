@@ -166,8 +166,8 @@
 		</div>
 	</div>
 	<!-- Cart End -->
-	<p id="alertMessage" data-message=${alertMessage }
-		"" data-success=${isSuccess }></p>
+	<p id="alertMessage" data-message="${alertMessage }"
+		 data-success=${isSuccess }></p>
 </main>
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary back-to-top"><i
@@ -184,14 +184,15 @@
 
 <script>
 function xoaKhoiGioHang() {
-	$("button[name=xoasp]").click(function (e) {
-		let btnxoa = $(this)
-		console.log(btn.find("tr.row-sp"))
-		e.preventDefault();
-		let data = {}
-		data.mactsp = $(this).data("ctsp")
-		
-		$.ajax({
+	$("button[name=xoasp]").each(function (){
+		$(this).click(function (e) {
+			let btnxoa = $(this)
+			
+			e.preventDefault();
+			let data = {}
+			data.mactsp = $(this).data("ctsp")
+			
+				$.ajax({
 								url: "api/xoakhoigiohang",
 								type: "post",
 								data: data,
@@ -217,7 +218,7 @@ function xoaKhoiGioHang() {
 											}
 										}
 										
-										btnxoa.find("tr.row-sp").remove()
+										btnxoa.closest('tr').remove()
 										
 										
 									}
@@ -227,6 +228,8 @@ function xoaKhoiGioHang() {
 									console.log(error);
 								}
 							})
+		
+		})	
 	})
 }
 
