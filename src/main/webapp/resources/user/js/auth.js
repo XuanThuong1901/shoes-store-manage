@@ -59,33 +59,33 @@ function checkResetpw() {
 		pw = $("input[name=matkhaumoi]").val();
 		repw = $("input[name=rematkhaumoi]").val();
 
-		if (pw && pw.length > 6) {
-			$("matkhaumoi-error").text("")
+		if (pw && pw.length >= 6) {
+			$("#matkhaumoi-error").text("")
 		}
 		else {
-			$("matkhaumoi-error").text("Mật khẩu không được để trống và phải tối thiểu 6 kí tự")
+			$("#matkhaumoi-error").text("Mật khẩu không được để trống và phải tối thiểu 6 kí tự")
 			check = false;
 		}
 
-		if (repw && repw.length > 6) {
-			$("rematkhaumoi-error").text("")
+		if (repw && repw.length >= 6) {
+			$("#rematkhaumoi-error").text("")
 		}
 		else {
-			$("rematkhaumoi-error").text("Xác nhận mật khẩu không được để trống và phải tối thiểu 6 kí tự")
+			$("#rematkhaumoi-error").text("Xác nhận mật khẩu không được để trống và phải tối thiểu 6 kí tự")
 			check = false;
 		}
 
 		if (check) {
 			if (pw != repw) {
-				$("rematkhaumoi-error").text("Xác nhận mật khẩu không được trùng")
+				$("#rematkhaumoi-error").text("Xác nhận mật khẩu không trùng")
 				check = false;
 			} else {
-				$("rematkhaumoi-error").text("")
+				$("#rematkhaumoi-error").text("")
 			}
 		}
 
 		if (check) {
-			$("form-resetpw").submit();
+			$("#form-resetpw").submit();
 		}
 	})
 }

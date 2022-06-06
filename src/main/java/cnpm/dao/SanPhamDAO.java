@@ -31,7 +31,7 @@ public class SanPhamDAO {
 	
 	public List<SanPham> getSanPhamTheoTen(String tensp){
 		Session session = factory.getCurrentSession();
-		String hql = "from SanPham where gia > 0 and tenSP like :tensp";
+		String hql = "from SanPham where gia > 0.0 and tenSP like :tensp";
 		Query query = session.createQuery(hql);
 		query.setParameter("tensp", "%"+tensp+"%");
 		List<SanPham> list = query.list();
@@ -41,7 +41,7 @@ public class SanPhamDAO {
 	
 	public List<SanPham> getRandomDSSanPham(){
 		Session session = factory.getCurrentSession();
-		String hql = "from SanPham where gia > 0 order by newid()";
+		String hql = "from SanPham where gia > 0.0 order by newid()";
 		Query query = session.createQuery(hql);
 		List<SanPham> list = query.list();
 		
@@ -50,7 +50,7 @@ public class SanPhamDAO {
 	
 	public List<SanPham> getDSSanPhamTheoDM(Integer maDanhMuc){
 		Session session = factory.getCurrentSession();
-		String hql = "from SanPham where gia > 0 and maDanhMuc = :maDanhMuc";
+		String hql = "from SanPham where gia > 0.0 and maDanhMuc = :maDanhMuc";
 		Query query = session.createQuery(hql);
 		
 		query.setParameter("maDanhMuc", maDanhMuc);
@@ -61,7 +61,7 @@ public class SanPhamDAO {
 	
 	public List<SanPham> getDSSanPhamTheoPhai(Boolean phai){
 		Session session = factory.getCurrentSession();
-		String hql = "from SanPham where gia > 0 and phai = :phai";
+		String hql = "from SanPham where gia > 0.0 and phai = :phai";
 		Query query = session.createQuery(hql);
 		
 		query.setParameter("phai", phai);
@@ -76,7 +76,7 @@ public class SanPhamDAO {
 	
 	public List<SanPham> getDSSanPham(){
 		Session session = factory.getCurrentSession();
-		String hql = "from SanPham gia > 0";
+		String hql = "from SanPham";
 		Query query = session.createQuery(hql);
 		List<SanPham> list = query.list();
 		
