@@ -430,6 +430,9 @@
 												sl = parseInt(sl)+1
 												$("#giohang").text(sl)
 												$("#giohang").data("sl", sl)
+											}else {
+												$("#giohang").text(1)
+												$("#giohang").data("sl", 1)
 											}
 										}
 										
