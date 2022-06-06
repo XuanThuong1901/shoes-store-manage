@@ -425,7 +425,7 @@ public class KhachHangController {
 
 				if (chiTietDonHangService.themCTDH(ctdonhang)) {
 					// tru sl ton trong ctsp
-					//chiTietSanPhamService.truSLTon(giohang.getChiTietSP().getMaChiTietSP(), giohang.getSoLuong());
+					chiTietSanPhamService.truSLTon(giohang.getChiTietSP().getMaChiTietSP(), giohang.getSoLuong());
 					// xoa trong gio hang
 					gioHangService.xoa(giohang);
 				} else {

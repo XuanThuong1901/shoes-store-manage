@@ -195,6 +195,9 @@ function tinhTongTien(){
 		style: 'currency',
   		currency: 'VND',})
   	
+  		if(tongTien == 0){
+  			location.reload();
+  		}
   	
 	  	$("#temp-price").text(formatter.format(tongTien))
 		$("#total-price").text(formatter.format(tongTien + 30000))

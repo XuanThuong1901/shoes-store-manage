@@ -51,6 +51,5 @@ begin
 	end
 
 	close cursorctsp
-	deallocate curstorctsp
 	
 end
