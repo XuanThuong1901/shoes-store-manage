@@ -12,6 +12,10 @@
 ## Features
 	- Updating...
 	
+## Resources
+	- Template frontend: https://htmlcodex.com/demo/?item=1479
+	- Template admin: https://adminlte.io/themes/v3/
+	
 ## Authors
 	- Nguyen Trung Duc
 	- Vo Thi Thanh Ngan
